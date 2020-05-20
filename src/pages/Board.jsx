@@ -5,9 +5,14 @@ import { PhaseList } from '../cmps/PhaseList';
 class _Board extends Component {
     render() {
         return (
-            <div>
+            <main>
+                <section className="board-nav">
 
-            </div>
+                </section>
+                <section className="board-content flex">
+
+                </section>
+            </main>
         )
     }
 }
