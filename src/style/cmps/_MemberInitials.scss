@@ -15,4 +15,7 @@
     background-color: #dfe1e6;
     text-size-adjust: 100%;
     cursor: pointer;
+    &:hover {
+        background-color: #c1c7d0;
+    }
 }

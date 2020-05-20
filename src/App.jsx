@@ -18,7 +18,7 @@ export function App() {
         <Link to="/">Logout</Link> |
         <Link to="/board/:id">board</Link> |
         </nav>
-        <CardDetails />
+        {/* <CardDetails /> */}
 
         <Switch>
           <Route path="/" component={Home} exact />

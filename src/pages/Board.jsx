@@ -1,40 +1,33 @@
 import React, { Component } from 'react';
+import { loadBoard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { PhaseList } from '../cmps/PhaseList';
-import { boardService } from '../services/boardService';
 import { SearchOutlined, LabelOutlined, ListOutlined } from '@material-ui/icons';
-
 import { MemberInitials } from '../cmps/MemberInitials.jsx';
-
 
 class _Board extends Component {
 
     state = {
-        showMenu: false,
-        board: null
+        isMenuShown: false
     }
 
     componentDidMount() {
-        this.getBoard();
+        this.getBoardById();
 
     }
-    getBoard = () => {
 
-        //temporaly state!!!!!!!
-        this.setState({ board: boardService.getBoards()[0] })
-
-
+    getBoardById = () => {
+        const id = this.props.match.params.id;
+        this.props.loadBoard(id);
     }
+
     toggleMenu = () => {
         this.setState(prevState => ({ showMenu: !prevState.showMenu }));
-
-
-
     }
-    render() {
-        const { board } = this.state;
-        const menuClass = !this.state.showMenu ? 'board-menu display-none' : 'board-menu'
 
+    render() {
+        const { board } = this.props;
+        const menuClass = !this.state.isMenuShown ? 'board-menu display-none' : 'board-menu'
 
         return (
             (!board) ? 'loading' : <main style={{ "background-color": board.bgColor }} className="board">
@@ -75,93 +68,28 @@ class _Board extends Component {
                                     <ListOutlined className="board-menu-icon" />
                                     <span className="board-menu-text">Activity</span>
                                 </div>
-
                             </div>
-
                         </div>
-
 
                     </div>
                 </section>
                 <section className="board-content flex">
-                    <PhaseList phases={[examplePhase]} />
+                    <PhaseList phases={board.phaseLists} />
                 </section>
             </main>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
-
-})
+const mapStateToProps = (state) => {
+    return {
+        board: state.trelloApp.board
+    }
+}
 
 const mapDispatchToProps = {
-
+    loadBoard
 }
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board)
 
-const examplePhase = {
-    id: 'dsbnjinijfndb',
-    name: 'ideas',
-    desc: 'stam ideas',
-    cards:
-        [
-            {
-                id: 'vfdbfb fds bnfsda njbas',   // our id                         
-                bgColor: '#ddd',
-                title: 'create-react-app ready to start',
-                desc: 'using cli create new project',
-                dueDate: 159221158158,
-                createdAt: 159221158158, //optional
-                labels:
-                    [
-                        {
-                            id: 'dvsdvdsv',
-                            color: '#fff',
-                            txt: 'important'
-                        },
-                        {
-                            id: 'gdfgfsd',
-                            color: '#aaa',
-                            txt: 'good'
-                        }
-                    ],
-                checkList:
-                    [
-                        {
-                            id: 'bakdsa',
-                            txt: 'do your homework',
-                            isDone: true
-
-                        },
-                        {
-                            id: 'bakdsjk',
-                            txt: 'do your homework',
-                            isDone: false
-                        }
-                    ],
-                assignedTo:
-                    [
-                        {
-                            _id: 'ffdgdfsgbsfdbsfd',
-                            fullName: 'Aviad Guest',
-                            img: 'http://cloudinary.com/aviad',
-                        },
-                        {
-                            _id: 'ffdgdfsgbsfdbsfd',
-                            fullName: 'or Guest',
-                            img: 'http://cloudinary.com/or',
-                        }
-                    ],
-                attachments:
-                    [
-                        {
-                            _id: '????vdfvdf',
-                            name: 'project-1.pdf',
-                            url: 'http://cloudinary.com/vhfdbhvhbfd'
-                        }
-                    ]
-            }
-        ]
-}
