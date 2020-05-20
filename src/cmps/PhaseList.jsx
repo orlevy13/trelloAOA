@@ -6,21 +6,35 @@ export class PhaseList extends Component {//Getting phases from props?
         isInputShown: false,
         newListName: ''
     }
-    componentDidMount() {
-        console.log('phaselist mounted')
-    }
-
 
     toggleInputShown = () => {
+        if (!this.state.isInputShown) this.addEventListeners();
+        else this.removeEventListeners();
         this.setState(prevState => ({ isInputShown: !prevState.isInputShown }))
     }
 
-    hideInput = () => {
-        this.setState({ isInputShown: false })
+    hideInput = (ev) => {
+        if ((ev.code === 'Escape' ||
+            //To allow closing the input through Escape/click on something else
+            ev.target !== document.querySelector('input[name=newListName]')
+            && ev.target !== document.querySelector('.submit-btn'))) {
+            this.setState({ isInputShown: false });
+            this.removeEventListeners();
+        }
     }
 
     handleChange = ({ target }) => {
         this.setState({ newListName: target.value })
+    }
+
+    addEventListeners = () => {
+        window.addEventListener('keydown', this.hideInput);
+        window.addEventListener('mousedown', this.hideInput);
+    }
+
+    removeEventListeners = () => {
+        window.removeEventListener('keydown', this.hideInput);
+        window.removeEventListener('mousedown', this.hideInput);
     }
 
     onAddPhase = (ev) => {

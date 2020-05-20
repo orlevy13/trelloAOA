@@ -18,6 +18,8 @@
         form {
             input {
                 @include trelloInput;
+                padding: 4px 8px;
+                height: rem(28px);
             }
         }
     }
