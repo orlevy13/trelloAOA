@@ -1,0 +1,42 @@
+.board {
+    height: 95vh;
+}
+.board-nav {
+    padding: 8px 4px 4px 8px;
+    transition: padding .1s ease-in;
+    position: relative;
+}
+
+.board-title {
+    margin: 0px 4px 4px 0px;
+    line-height: 32px;
+    font-size: rem(18px);
+    color: #fff;
+    font-weight: 700;
+    font-family: Roboto;
+    max-width: calc(100%-24px);
+}
+.board-nav-divider {
+    float: left;
+    border-left: 1px solid hsla(0,0%,100%,.24);
+    margin: 8px 8px 12px 4px;
+    height: 16px;
+}
+
+.board-members {
+    float: left;
+    margin-left: 4px;
+    padding: 2px;
+    height: 32px;
+}
+.nav-invite-btn {
+    color: #fff;
+    height: 32px;
+    font-size: rem(14px);
+    border-radius: 3px;
+    float: left;
+    margin: 0 5px;
+    padding: 6px 9px;
+    background-color: hsla(0,0%,100%,.24)
+
+}

@@ -7,7 +7,7 @@ const gBoards =
             desc: 'for guest only, only guest users',
             type: 'guest',
             imgUrl: 'cloudinary',
-            bgColor: '#fff',
+            bgColor: '#00AECC',
             phaseLists:
                 [
                     {
@@ -91,7 +91,7 @@ const gBoards =
                     },
                     {
                         _id: 'ffdgdfsgbsfdbsfd',
-                        fullName: 'or Guest',
+                        fullName: 'Or Guest',
                         email: 'or@gmail.com',
                         img: 'http://cloudinary.com/or',
                     }
