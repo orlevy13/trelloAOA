@@ -1,9 +1,10 @@
 // Setup
-@import 'basics/typography';
-@import 'basics/functions';
-@import 'basics//variables';
-@import 'basics/helpers';
-@import 'basics/base';
-
+@import "basics/typography";
+@import "basics/functions";
+@import "basics//variables";
+@import "basics/helpers";
+@import "basics/base";
 
 // Components
+
+@import "cmps/cardDetailsHeader.scss";

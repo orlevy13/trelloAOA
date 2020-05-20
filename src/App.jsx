@@ -6,6 +6,7 @@ import { Board } from './pages/Board';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
+import { CardDetails } from './cmps/CardDetails';
 
 export function App() {
   return (
@@ -16,6 +17,8 @@ export function App() {
           <Link to="/login">Login</Link> |
         <Link to="/">Logout</Link> |
         </nav>
+        <CardDetails />
+
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/board/:id" component={Board} exact />

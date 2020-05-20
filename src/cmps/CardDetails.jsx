@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import CardDetailsHeader from './CardDetailsHeader'
+import CardDetailsDesc from './CardDetailsDesc';
+
 
 export class CardDetails extends Component {
     render() {
         return (
-            <div>
+            <section className="card-details-container">
+                < CardDetailsHeader />
 
-            </div>
+                <br />
+                < CardDetailsDesc />
+            </section>
         )
     }
 }
