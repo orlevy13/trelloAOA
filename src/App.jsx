@@ -15,6 +15,7 @@ export function App() {
           <h3>Logo</h3>
           <Link to="/login">Login</Link> |
         <Link to="/">Logout</Link> |
+        <Link to="/board/:id">board</Link> |
         </nav>
         <Switch>
           <Route path="/" component={Home} exact />

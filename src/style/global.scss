@@ -2,6 +2,7 @@
 @import 'basics/typography';
 @import 'basics/functions';
 @import 'basics//variables';
+@import 'basics/mixins';
 @import 'basics/helpers';
 @import 'basics/base';
 
@@ -9,6 +10,11 @@
 
 
 // Components
+<<<<<<< HEAD
 
 @import 'pages/Board.scss';
 @import 'components/MemberInitials.scss'
+=======
+@import 'cmps/PhaseList';
+@import 'cmps/PhasePreview';
+>>>>>>> e4cd4e0a0d03fdaad621b76b2a4841434c84a1e5
