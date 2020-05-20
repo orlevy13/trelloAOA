@@ -1,0 +1,11 @@
+@mixin trelloInput {
+    background-color: #fff;
+    border: none;
+    box-shadow: inset 0 0 0 2px #0079bf;
+    border-radius: 3px;
+    display: block;
+    margin: 0 0 4px 0;
+    transition: margin 85ms ease-in, background 85ms ease-in;
+    width: 100%;
+    padding: 8px 12px;
+}

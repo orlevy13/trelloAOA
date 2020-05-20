@@ -1,6 +1,10 @@
 // colors
-$lightbgc:#eee;
+$lightBgc:#eee;
+$boardBtn:hsla(0, 0%, 100%, .24);
+$boardBtnHov:hsla(0, 0%, 100%, .32);
+$trelloGrey:#ebecf0;
 
 // box shadow
 $smaller-black-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.705);
 $small-black-shadow:0px 0px 2px 0px rgba(0, 0, 0, 0.705);
+$boardMenuItemHoverColor: rgba(9,30,66,.08);

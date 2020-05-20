@@ -1,10 +1,17 @@
 // Setup
+
 @import "basics/typography";
 @import "basics/functions";
 @import "basics//variables";
+@import "basics/mixins";
 @import "basics/helpers";
 @import "basics/base";
 
 // Components
 
-@import "cmps/cardDetailsHeader.scss";
+@import "cmps/cardDetailsHeader";
+@import "pages/Board";
+@import "components/MemberInitials";
+@import "cmps/PhaseList";
+@import "cmps/PhasePreview";
+@import "cmps/MemberInitials";

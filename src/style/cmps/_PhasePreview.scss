@@ -1,0 +1,26 @@
+.phase {
+    background-color: $trelloGrey;
+    color: #172b4d;
+    border-radius: 3px;
+    max-height: 100%;
+    white-space: normal;
+    width: 272px;
+    margin: 0 4px;
+    padding: 0 8px;
+
+    .phase-header {
+        padding: 4px;
+
+        .phase-title {
+            cursor: pointer;
+        }
+
+        form {
+            input {
+                @include trelloInput;
+                padding: 4px 8px;
+                height: rem(28px);
+            }
+        }
+    }
+}
