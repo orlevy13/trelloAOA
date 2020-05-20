@@ -1,40 +1,33 @@
 import React, { Component } from 'react';
+import { loadBoard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { PhaseList } from '../cmps/PhaseList';
-import { boardService } from '../services/boardService';
 import { SearchOutlined, LabelOutlined, ListOutlined } from '@material-ui/icons';
-
 import { MemberInitials } from '../cmps/MemberInitials.jsx';
-
 
 class _Board extends Component {
 
     state = {
-        showMenu: false,
-        board: null
+        isMenuShown: false
     }
 
     componentDidMount() {
-        this.getBoard();
+        this.getBoardById();
 
     }
-    getBoard = () => {
 
-        //temporaly state!!!!!!!
-        this.setState({ board: boardService.getBoards()[0] })
-
-
+    getBoardById = () => {
+        const id = this.props.match.params.id;
+        this.props.loadBoard(id);
     }
+
     toggleMenu = () => {
         this.setState(prevState => ({ showMenu: !prevState.showMenu }));
-
-
-
     }
-    render() {
-        const { board } = this.state;
-        const menuClass = !this.state.showMenu ? 'board-menu display-none' : 'board-menu'
 
+    render() {
+        const { board } = this.props;
+        const menuClass = !this.state.isMenuShown ? 'board-menu display-none' : 'board-menu'
 
         return (
             (!board) ? 'loading' : <main style={{ "background-color": board.bgColor }} className="board">
@@ -75,11 +68,8 @@ class _Board extends Component {
                                     <ListOutlined className="board-menu-icon" />
                                     <span className="board-menu-text">Activity</span>
                                 </div>
-
                             </div>
-
                         </div>
-
 
                     </div>
                 </section>
@@ -91,12 +81,14 @@ class _Board extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-
-})
+const mapStateToProps = (state) => {
+    return {
+        board: state.trelloApp.board
+    }
+}
 
 const mapDispatchToProps = {
-
+    loadBoard
 }
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board)

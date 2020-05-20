@@ -5,45 +5,45 @@
     padding: 8px 4px 4px 8px;
     transition: padding 0.1s ease-in;
     position: relative;
-}
 
-.board-title {
-    margin: 0px 4px 4px 0px;
-    line-height: 32px;
-    font-size: rem(18px);
-    color: #fff;
-    font-weight: 700;
-    font-family: Roboto;
-    max-width: calc(100%-24px);
-}
-.board-nav-divider {
-    float: left;
-    border-left: 1px solid hsla(0, 0%, 100%, 0.24);
-    margin: 8px 8px 12px 4px;
-    height: 16px;
-}
+    .board-title {
+        margin: 0px 4px 4px 0px;
+        line-height: 32px;
+        font-size: rem(18px);
+        color: #fff;
+        font-weight: 700;
+        font-family: Roboto;
+        max-width: calc(100%-24px);
+    }
+    .board-nav-divider {
+        float: left;
+        border-left: 1px solid hsla(0, 0%, 100%, 0.24);
+        margin: 8px 8px 12px 4px;
+        height: 16px;
+    }
+    .board-members {
+        float: left;
+        margin-left: 4px;
+        padding: 2px;
+        height: 32px;
+    }
+    .nav-btn {
+        color: #fff;
+        height: 32px;
+        font-size: rem(14px);
+        border-radius: 3px;
+        float: left;
+        margin: 0 5px;
+        padding: 6px 9px;
+        background-color: $boardBtn;
+        cursor: pointer;
 
-.board-members {
-    float: left;
-    margin-left: 4px;
-    padding: 2px;
-    height: 32px;
-}
-.nav-btn {
-    color: #fff;
-    height: 32px;
-    font-size: rem(14px);
-    border-radius: 3px;
-    float: left;
-    margin: 0 5px;
-    padding: 6px 9px;
-    background-color: $boardBtn;
-    cursor: pointer;
-
-    &:hover {
-        background-color: $boardBtnHov;
+        &:hover {
+            background-color: $boardBtnHov;
+        }
     }
 }
+
 .board-menu {
     transition-property: transform, width;
     transition-duration: 0.1s;
@@ -59,48 +59,49 @@
     color: #172b4d;
     z-index: 999;
     padding: 10px;
-}
-.board-menu-header {
-    margin: 14px 0;
-    text-align: center;
-    flex-grow: 1;
-}
-.btn-close-board-menu {
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
-}
-.menu-header-title {
-    width: 100%;
-    font-size: rem(16px);
-}
-.board-menu-header-divider {
-    background-color: rgba(9, 30, 66, 0.13);
-    height: 1px;
-    margin: 3px 0;
-    width: 100%;
-}
-.board-menu-content {
-    padding: 12px 0;
-    & .board-menu-item {
-        width: 313px;
-        height: 32px;
-        border-radius: 3px;
-        cursor: pointer;
-        &:hover {
-            background-color: $boardMenuItemHoverColor;
-        }
-    }
-    & .board-menu-icon {
-        width: 20px;
-        height: 20px;
-        border-radius: 3px;
-        margin: 0 15px;
-    }
 
-    & .board-menu-text {
-        font-size: rem(14px);
-        color: #172b4d;
-        font-weight: 600;
+    .board-menu-header {
+        margin: 14px 0;
+        text-align: center;
+        flex-grow: 1;
+    }
+    .btn-close-board-menu {
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+    }
+    .menu-header-title {
+        width: 100%;
+        font-size: rem(16px);
+    }
+    .board-menu-header-divider {
+        background-color: rgba(9, 30, 66, 0.13);
+        height: 1px;
+        margin: 3px 0;
+        width: 100%;
+    }
+    .board-menu-content {
+        padding: 12px 0;
+        .board-menu-item {
+            width: 313px;
+            height: 32px;
+            border-radius: 3px;
+            cursor: pointer;
+            &:hover {
+                background-color: $boardMenuItemHoverColor;
+            }
+        }
+        .board-menu-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin: 0 15px;
+        }
+
+        .board-menu-text {
+            font-size: rem(14px);
+            color: #172b4d;
+            font-weight: 600;
+        }
     }
 }
