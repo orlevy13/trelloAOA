@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Draggable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { MoreHoriz, Close } from '@material-ui/icons';
+import { CardList } from './CardList'
 import { AddCard } from './AddCard';
+import { CardPreview } from './CardPreview';
 
 export class PhasePreview extends Component {
     state = {
@@ -69,7 +71,7 @@ export class PhasePreview extends Component {
     }
 
     render() {
-        const { name, id } = this.props.phase;
+        const { name, id, cards } = this.props.phase;
         const { newPhaseName, isInputShown, isMenuShown, isSortShown } = this.state;
         return (
             <Draggable draggableId={id} index={this.props.index}>
@@ -111,6 +113,17 @@ export class PhasePreview extends Component {
                                 </div>
                             </div>}
                         </div>
+                        <Droppable droppableId={id}>
+                            {(provided) => (
+                                <CardList>
+                                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                                        {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
+                                        {provided.placeholder}
+                                    </div>
+
+                                </CardList>
+                            )}
+                        </Droppable>
                         <AddCard phaseId={this.props.phase.id} />
                     </article>
                 )}

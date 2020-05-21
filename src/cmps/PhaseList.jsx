@@ -61,8 +61,8 @@ export class _PhaseList extends Component {
             this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
         });
     }
-    onDragEnd = async result => {
-        const { destination, source, draggableId, type } = result;//draggableId not used
+    onDragEnd = result => {
+        const { destination, source, draggableId, type } = result;
         if (!destination) {
             console.log('not destination: ', destination);
             return;
@@ -71,9 +71,9 @@ export class _PhaseList extends Component {
         if (type === 'PhasePreview') {
             const boardCopy = boardService.getBoardCopy(this.props.board);
             const newPhasesOrder = boardCopy.phaseLists;
-            let toMove = newPhasesOrder.splice(source.index, 1);//To index?
-            newPhasesOrder.splice(destination.index, 0, toMove[0]);
-            await this.props.saveBoard(boardCopy);//why is this async?
+            const movingPhase = newPhasesOrder.splice(source.index, 1)[0];
+            newPhasesOrder.splice(destination.index, 0, movingPhase);
+            this.props.saveBoard(boardCopy);
         }
     }
 
