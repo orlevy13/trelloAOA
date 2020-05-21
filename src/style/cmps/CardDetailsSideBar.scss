@@ -1,0 +1,39 @@
+.card-details-sidebar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    grid-area: side-bar;
+
+    .card-details-sidebar-btn {
+        background-color: rgba(9, 30, 66, 0.04);
+        box-shadow: none;
+        border: none;
+        border-radius: 3px;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 32px;
+        margin-top: 8px;
+        min-width: 150px;
+        overflow: hidden;
+        padding: 6px 12px;
+        position: relative;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        -webkit-user-select: none;
+        user-select: none;
+        white-space: nowrap;
+        transition-property: background-color, border-color, box-shadow;
+        transition-duration: 85ms;
+        transition-timing-function: ease;
+        display: flexl;
+    }
+
+    .card-details-sidebar-btn {
+        display: flex;
+    }
+
+    .card-details-sidebar-btn span {
+        margin-right: 10px;
+    }
+}
