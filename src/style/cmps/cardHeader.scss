@@ -1,0 +1,48 @@
+.card-header-container {
+    // margin: 8px 16px 8px 0;
+    margin-top: 20px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+}
+
+.main-col {
+    grid-area: main;
+    margin-bottom: 150px;
+}
+
+.card-title-input {
+    border: none;
+    background-color: $cardGrey;
+    white-space: normal;
+    width: 700px;
+    margin-left: 15px;
+    font-size: 24px;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    height: 40px;
+
+    resize: none;
+}
+.card-title-input:focus {
+    background-color: white;
+}
+
+.card-title {
+    background-color: $cardGrey;
+    width: 700px;
+    height: 40px;
+    margin-left: 15px;
+    top: 0;
+    left: 0;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.card-link {
+    margin-top: 8px;
+    margin-left: 38px;
+    z-index: 3;
+}

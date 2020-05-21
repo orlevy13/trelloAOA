@@ -6,7 +6,7 @@ import { Board } from './pages/Board';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
-import { CardDetails } from './cmps/CardDetails';
+import { Card } from './cmps/Card';
 
 export function App() {
   return (
@@ -18,6 +18,7 @@ export function App() {
         <Link to="/">Logout</Link> |
         <Link to="/board/:id">board</Link> |
         <Link to="/board/abcd">default board</Link> |
+        <Link to="/card">default card</Link> |
         </nav>
 
 
@@ -27,7 +28,7 @@ export function App() {
           <Route path="/board/:id" component={Board} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/signup" component={Signup} exact />
-          <Route path="/card-details" component={CardDetails} exact />
+          <Route path="/card" component={Card} exact />
 
         </Switch>
       </Router>

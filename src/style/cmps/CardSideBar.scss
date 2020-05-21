@@ -1,10 +1,9 @@
-.card-details-sidebar {
+.card-sidebar {
     display: flex;
     align-items: center;
     flex-direction: column;
-    grid-area: side-bar;
 
-    .card-details-sidebar-btn {
+    .card-sidebar-btn {
         background-color: rgba(9, 30, 66, 0.04);
         box-shadow: none;
         border: none;
@@ -29,11 +28,11 @@
         display: flexl;
     }
 
-    .card-details-sidebar-btn {
+    .card-sidebar-btn {
         display: flex;
     }
 
-    .card-details-sidebar-btn span {
+    .card-sidebar-btn span {
         margin-right: 10px;
     }
 }

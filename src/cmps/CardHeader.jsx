@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 // import PropTypes from 'prop-types'
 
-export default class CardDetailsHeader extends Component {
+export default class CardHeader extends Component {
     state = {
         txt: '',
+        onPhase: '',
         isTitleShown: true
     }
 
@@ -12,6 +13,9 @@ export default class CardDetailsHeader extends Component {
     //     prop: PropTypes
     // }
 
+    componentDidMount() {
+        this.setState({ txt: this.props.card.title, onPhase: this.props.card.onPhase })
+    }
 
     openInput = () => {
         console.log('open input');
@@ -27,20 +31,20 @@ export default class CardDetailsHeader extends Component {
 
 
     render() {
-        const { txt, isTitleShown } = this.state
+        const { txt, isTitleShown, onPhase } = this.state
         console.log('car details render', isTitleShown);
 
         if (this.state)
             return (
                 <div>
 
-                    <div className="card-details-header-container">
+                    <div className="card-header-container">
                         <NoteOutlinedIcon />
-                        {isTitleShown && <span><h2 className="card-details-title" onClick={this.openInput} >{txt}</h2></span>}
-                        {(!isTitleShown) && <span><textarea className="card-details-title-input" autoFocus onBlur={this.openInput} placeholder="Title..."
+                        {isTitleShown && <span><h2 className="card-title" onClick={this.openInput} >{txt}</h2></span>}
+                        {(!isTitleShown) && <span><textarea className="card-title-input" autoFocus onBlur={this.openInput} placeholder="Title..."
                             onChange={this.handleChange} value={txt} ></textarea></span>}
                     </div>
-                    <p className="details-card-link">in list <a href="#">ideas</a></p>
+                    <p className="card-link">in list <a href="#">{onPhase}</a></p>
                 </div>
             )
         else return 'loading'

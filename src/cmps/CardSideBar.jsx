@@ -21,13 +21,13 @@ export default class CardDetailsSideBar extends Component {
     render() {
         return (
             <section>
-                <div className="card-details-sidebar">
-                    <button className="card-details-sidebar-btn"><span ><PermIdentityIcon /></span> Member</button>
-                    <button className="card-details-sidebar-btn"><span ><LabelIcon /></span>Labels</button>
-                    <button className="card-details-sidebar-btn"><span ><PlaylistAddCheckIcon /></span>Checklist</button>
-                    <button className="card-details-sidebar-btn"><span ><ScheduleIcon /></span>Due Date</button>
-                    <button className="card-details-sidebar-btn"><span ><AttachmentIcon /></span>Attachment</button>
-                    <button className="card-details-sidebar-btn"><span ><CropOriginalIcon /></span>Cover</button>
+                <div className="card-sidebar">
+                    <button className="card-sidebar-btn"><span ><PermIdentityIcon /></span> Member</button>
+                    <button className="card-sidebar-btn"><span ><LabelIcon /></span>Labels</button>
+                    <button className="card-sidebar-btn"><span ><PlaylistAddCheckIcon /></span>Checklist</button>
+                    <button className="card-sidebar-btn"><span ><ScheduleIcon /></span>Due Date</button>
+                    <button className="card-sidebar-btn"><span ><AttachmentIcon /></span>Attachment</button>
+                    <button className="card-sidebar-btn"><span ><CropOriginalIcon /></span>Cover</button>
 
                 </div>
             </section>

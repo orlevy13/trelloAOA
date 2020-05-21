@@ -6,12 +6,13 @@
 @import "basics/mixins";
 @import "basics/helpers";
 @import "basics/base";
+@import "basics/layout";
 
 // Components
 
-@import "cmps/cardDetailsHeader";
+@import "cmps/cardHeader";
 @import "cmps/cardDesc";
-@import "cmps/CardDetailsSideBar";
+@import "cmps/CardSideBar";
 @import "pages/Board";
 @import "cmps/MemberInitials";
 @import "cmps/PhaseList";

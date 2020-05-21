@@ -1,0 +1,21 @@
+//**************************************** card details *************************************************
+.card-container {
+    border: 1px solid #eeeeee;
+    background-color: $cardGrey;
+    width: 800px;
+    margin: 48px auto 80px auto;
+    color: $trelloFontColor;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-areas:
+        "header header header header header header"
+        "main main main main main side-bar";
+}
+
+.card-header {
+    grid-area: header;
+}
+
+.card-sidebar {
+    grid-area: side-bar;
+}
