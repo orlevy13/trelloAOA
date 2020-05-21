@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { CardPreview } from './CardPreview';
 
-export function CardList() {
-    return (
-        <div>
+export class CardList extends React.Component {
 
-        </div>
-    )
+    render() {
+
+        return (
+
+            <div>
+                {this.props.children}
+            </div>
+
+
+
+        )
+    }
+
 }

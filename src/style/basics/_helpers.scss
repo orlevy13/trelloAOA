@@ -61,6 +61,10 @@
         flex-wrap: wrap;
     }
 
+    &.align-end {
+        align-items: flex-end;
+    }
+
 
     .grow {
         flex-grow: 1;

@@ -1,5 +1,6 @@
 .phase-list {
     .add-list-btn {
+        align-self: flex-start;
         background-color: $boardBtn;
         color: #fff;
         transition: background-color 0.2s;
@@ -7,6 +8,8 @@
         border-radius: 5px;
         padding: 5px 10px;
         line-height: 20px;
+        min-width: 272px;
+        min-height: 40px;
 
         &:hover {
             background-color: $boardBtnHov;
@@ -16,7 +19,8 @@
     .add-list-form {
         background-color: $trelloGrey;
         padding: 4px;
-        width: 272px;
+        min-width: 272px;
+        max-width: 272px;
         border-radius: 3px;
 
         input {
@@ -28,8 +32,7 @@
             background-color: #5aac44;
             color: #fff;
             font-size: 1rem;
-            border: none;
-            border-radius: 3px;
+            @include transRoundBorder;
             margin-right: 4px;
             transition: background-color 0.2s;
 

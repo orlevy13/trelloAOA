@@ -30,7 +30,7 @@ class _Board extends Component {
         const menuClass = !this.state.isMenuShown ? 'board-menu display-none' : 'board-menu'
 
         return (
-            (!board) ? 'loading' : <main style={{ "background-color": board.bgColor }} className="board">
+            (!board) ? 'loading' : <main style={{ "backgroundColor": board.bgColor }} className="board">
                 <section className="board-nav flex space-between">
                     <div className="flex">
                         <div className="board-title" href="#">
@@ -38,7 +38,7 @@ class _Board extends Component {
                         </div>
                         <span className="board-nav-divider"></span>
                         <div className="board-members">
-                            {board.members.map((member) => <MemberInitials member={member} />)}
+                            {board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
                         <span className="nav-btn">Invite</span>
                     </div>
@@ -52,7 +52,7 @@ class _Board extends Component {
                             <span className="board-menu-header-divider"></span>
                             <div className="board-menu-content">
                                 <div className="board-menu-item flex align-center">
-                                    <div className="board-menu-icon" style={{ "background-color": board.bgColor }}></div>
+                                    <div className="board-menu-icon" style={{ "backgroundColor": board.bgColor }}></div>
                                     <span className="board-menu-text">Change Background</span>
                                 </div>
                                 <div className="board-menu-item flex align-center">
@@ -73,8 +73,8 @@ class _Board extends Component {
 
                     </div>
                 </section>
-                <section className="board-content flex">
-                    <PhaseList phases={board.phaseLists} />
+                <section className="board-content">
+                    <PhaseList />
                 </section>
             </main>
         )

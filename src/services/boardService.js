@@ -11,15 +11,127 @@ const gBoards =
             phaseLists:
                 [
                     {
-                        id: 'dsbnjinijfndb',
+                        id: 'abcd',
                         name: 'ideas',
                         desc: 'stam ideas',
                         cards:
                             [
                                 {
-                                    id: 'vfdbfb fds bnfsda njbas',   // our id                         
+                                    id: '1234',   // our id                         
                                     bgColor: '#ddd',
                                     title: 'create-react-app ready to start',
+                                    desc: 'using cli create new project',
+                                    dueDate: 159221158158,
+                                    createdAt: 159221158158, //optional
+                                    labels:
+                                        [
+                                            {
+                                                id: 'dvsdvdsv',
+                                                color: '#fff',
+                                                txt: 'important'
+                                            },
+                                            {
+                                                id: 'gdfgfsd',
+                                                color: '#aaa',
+                                                txt: 'good'
+                                            }
+                                        ],
+                                    checkList:
+                                        [
+                                            {
+                                                id: 'bakdsa',
+                                                txt: 'do your homework',
+                                                isDone: true
+
+                                            },
+                                            {
+                                                id: 'bakdsjk',
+                                                txt: 'do your homework',
+                                                isDone: false
+                                            }
+                                        ],
+                                    assignedTo:
+                                        [
+                                            {
+                                                _id: 'ffdgdfsgbsfdbsfd',
+                                                fullName: 'Aviad Guest',
+                                                img: 'http://cloudinary.com/aviad',
+                                            },
+                                            {
+                                                _id: 'ffdgdfsgbsfdbsfd',
+                                                fullName: 'or Guest',
+                                                img: 'http://cloudinary.com/or',
+                                            }
+                                        ],
+                                    attachments:
+                                        [
+                                            {
+                                                _id: '????vdfvdf',
+                                                name: 'project-1.pdf',
+                                                url: 'http://cloudinary.com/vhfdbhvhbfd'
+                                            }
+                                        ]
+                                },
+                                {
+                                    id: 'card 2',   // our id                         
+                                    bgColor: '#ddd',
+                                    title: 'card 2',
+                                    desc: 'using cli create new project',
+                                    dueDate: 159221158158,
+                                    createdAt: 159221158158, //optional
+                                    labels:
+                                        [
+                                            {
+                                                id: 'dvsdvdsv',
+                                                color: '#fff',
+                                                txt: 'important'
+                                            },
+                                            {
+                                                id: 'gdfgfsd',
+                                                color: '#aaa',
+                                                txt: 'good'
+                                            }
+                                        ],
+                                    checkList:
+                                        [
+                                            {
+                                                id: 'bakdsa',
+                                                txt: 'do your homework',
+                                                isDone: true
+
+                                            },
+                                            {
+                                                id: 'bakdsjk',
+                                                txt: 'do your homework',
+                                                isDone: false
+                                            }
+                                        ],
+                                    assignedTo:
+                                        [
+                                            {
+                                                _id: 'ffdgdfsgbsfdbsfd',
+                                                fullName: 'Aviad Guest',
+                                                img: 'http://cloudinary.com/aviad',
+                                            },
+                                            {
+                                                _id: 'ffdgdfsgbsfdbsfd',
+                                                fullName: 'or Guest',
+                                                img: 'http://cloudinary.com/or',
+                                            }
+                                        ],
+                                    attachments:
+                                        [
+                                            {
+                                                _id: '????vdfvdf',
+                                                name: 'project-1.pdf',
+                                                url: 'http://cloudinary.com/vhfdbhvhbfd'
+                                            }
+                                        ]
+                                },
+                                {
+                                    id: 'card 3',   // our id                         
+                                    bgColor: '#ddd',
+                                    title: 'card 3',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
                                     createdAt: 159221158158, //optional
@@ -75,13 +187,13 @@ const gBoards =
                             ]
                     },
                     {
-                        id: 'dsbnjinijddddfndb',
+                        id: 'efgh',
                         name: 'todo',
                         desc: 'stam ideas',
                         cards:
                             [
                                 {
-                                    id: 'vfdbfb fds bnfsda njbas',   // our id                         
+                                    id: '5678',   // our id                         
                                     bgColor: '#ddd',
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
@@ -139,13 +251,13 @@ const gBoards =
                             ]
                     },
                     {
-                        id: 'dsbnjidddasnidddddjfndb',
+                        id: 'jklmn',
                         name: 'doing',
                         desc: 'stam ideas',
                         cards:
                             [
                                 {
-                                    id: 'vfdbfb fds bnfsda njbas',   // our id                         
+                                    id: '91011',   // our id                         
                                     bgColor: '#ddd',
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
@@ -218,7 +330,7 @@ const gBoards =
                         img: 'http://cloudinary.com/alon',
                     },
                     {
-                        _id: 'ffdgdfsgbsfdbsfd',
+                        _id: 'ffdgdfsgbsgdssdfdbsfd',
                         fullName: 'Or Guest',
                         email: 'or@gmail.com',
                         img: 'http://cloudinary.com/or',
@@ -251,10 +363,50 @@ function getById(boardId) {
     return Promise.resolve(gBoards.find(board => board._id === boardId));
 
 }
+function save(board) {
+    if (board._id) {
+        const idx = gBoards.findIndex(currBoard => currBoard._id === board._id);
+        gBoards[idx] = board;
+        return Promise.resolve(board);
+    } else {
+        console.error('Implement new board creation!!')
+    }
+}
+
+function getBoardCopy(board) {
+    return JSON.parse(JSON.stringify(board));
+}
+
+function getNewCard(partialCard) {
+    return {
+        ...partialCard,//this currently has only title
+        id: makeId(),
+        bgColor: '',
+        desc: '',
+        dueDate: null,
+        createdAt: Date.now(),
+        labels: [],
+        checkList: [],
+        assignedTo: [],
+        attachments: []
+    }
+}
 
 export const boardService = {
     getBoards,
-    getById
+    getById,
+    save,
+    makeId,
+    getBoardCopy,
+    getNewCard
 }
 
 
+function makeId(length = 5) {
+    var txt = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return txt;
+}
