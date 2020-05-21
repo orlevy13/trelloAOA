@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PhasePreview } from './PhasePreview';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 export class PhaseList extends Component {//Getting phases from props?
     state = {
@@ -42,24 +43,56 @@ export class PhaseList extends Component {//Getting phases from props?
         console.log('adding phase:', this.state.newListName)
         this.setState({ newListName: '' });
     }
+    onDragEnd = result => {
+        const { destination, source, draggableId, type } = result;
+        if (!destination) {
+            console.log('not destination: ', destination);
+            return;
+        }
+
+        if (type === 'PhasePreview') {
+            //temporarly
+            // const newPhasesOrder = JSON.parse(JSON.stringify(this.props.phases));
+            // newPhasesOrder.splice(source.index, 1);
+            // newPhasesOrder.splice(destination.index, 0, draggableId);
+            // const boardCopy = JSON.parse(JSON.stringify(this.props.boaard));
+
+
+        }
+
+
+
+
+    }
+
 
     render() {
         const { toggleInputShown, onAddPhase, handleChange, hideInput } = this;
         const { isInputShown, newListName } = this.state;
         const { phases } = this.props;
         return (
-            <section className="phase-list flex">
-                {phases.map(phase => <PhasePreview key={phase.id}
-                    phase={phase} />)}
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
+                    {provided => (
 
-                {!isInputShown && <button className="add-list-btn" onClick={toggleInputShown}>
-                    + Add new list</button>}
-                {isInputShown && <form className="add-list-form" onSubmit={onAddPhase}>
-                    <input type="text" autoFocus name="newListName" onChange={handleChange}
-                        autoComplete="off" placeholder="Enter list title.." value={newListName} />
-                    <button className="submit-btn" type="submit">Add List</button>
-                    <button className="cancel-btn" onClick={hideInput}>X</button> </form>}
-            </section>
+
+                        <section className="phase-list flex" {...provided.droppableProps} ref={provided.innerRef}  >
+
+                            {phases.map((phase, index) => <PhasePreview key={phase.id} index={index}
+                                phase={phase} />)}
+
+                            {!isInputShown && <button className="add-list-btn" onClick={toggleInputShown}>
+                                + Add new list</button>}
+                            {isInputShown && <form className="add-list-form" onSubmit={onAddPhase}>
+                                <input type="text" autoFocus name="newListName" onChange={handleChange}
+                                    autoComplete="off" placeholder="Enter list title.." value={newListName} />
+                                <button className="submit-btn" type="submit">Add List</button>
+                                <button className="cancel-btn" onClick={hideInput}>X</button> </form>}
+                            {provided.placeholder}
+                        </section>
+                    )}
+                </Droppable>
+            </DragDropContext>
         )
     }
 }

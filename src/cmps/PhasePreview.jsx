@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 
 export class PhasePreview extends Component {
     state = {
@@ -76,43 +77,47 @@ export class PhasePreview extends Component {
     }
 
     render() {
-        const { name } = this.props.phase;
+        const { name, id } = this.props.phase;
         const { newPhaseName, isInputShown, isMenuShown, isSortShown } = this.state;
         return (
-            <article className="phase">
-                <div className="phase-header flex space-between">
-                    {!isInputShown && <h5 className="phase-title"
-                        onClick={this.toggleInputShown}>{name}</h5>}
-                    {isInputShown && <form className="flex grow" onSubmit={this.handleSubmit}>
-                        <input className="phase-name-input grow" type="text" name="newPhaseName"
-                            value={newPhaseName} autoFocus autoComplete="off"
-                            onChange={this.handleChange} />
-                    </form>}
-                    <button onClick={this.toggleMenuShown}>•••</button>
-                    {isMenuShown && <div className="phase-menu flex column">
-                        <div className="menu-header flex align-center">
-                            <h5 className="grow">List Actions</h5>
-                            <button onClick={this.toggleMenuShown}>X</button>
-                        </div>
-                        <div className="menu-btns flex column">
-                            <button onClick={this.showAddCard} >Add A Card</button>
-                            <button onClick={this.toggleIsSortShown}>Sort By..</button>
-                            {isSortShown && <div className="sort-options flex column">
-                                <button onClick={() => {
-                                    this.sortListBy('name')
-                                }}>Name</button>
-                                <button onClick={() => {
-                                    this.sortListBy('firstCreated')
-                                }}>First Created</button>
-                                <button onClick={() => {
-                                    this.sortListBy('lastCreated')
-                                }}>Last Created</button>
+            <Draggable draggableId={id} index={this.props.index}>
+                {(provided) => (
+                    <article className="phase" {...provided.draggableProps} ref={provided.innerRef}>
+                        <div {...provided.dragHandleProps} className="phase-header flex space-between">
+                            {!isInputShown && <h5 className="phase-title"
+                                onClick={this.toggleInputShown}>{name}</h5>}
+                            {isInputShown && <form className="flex grow" onSubmit={this.handleSubmit}>
+                                <input className="phase-name-input grow" type="text" name="newPhaseName"
+                                    value={newPhaseName} autoFocus autoComplete="off"
+                                    onChange={this.handleChange} />
+                            </form>}
+                            <button onClick={this.toggleMenuShown}>•••</button>
+                            {isMenuShown && <div className="phase-menu flex column">
+                                <div className="menu-header flex align-center">
+                                    <h5 className="grow">List Actions</h5>
+                                    <button onClick={this.toggleMenuShown}>X</button>
+                                </div>
+                                <div className="menu-btns flex column">
+                                    <button onClick={this.showAddCard} >Add A Card</button>
+                                    <button onClick={this.toggleIsSortShown}>Sort By..</button>
+                                    {isSortShown && <div className="sort-options flex column">
+                                        <button onClick={() => {
+                                            this.sortListBy('name')
+                                        }}>Name</button>
+                                        <button onClick={() => {
+                                            this.sortListBy('firstCreated')
+                                        }}>First Created</button>
+                                        <button onClick={() => {
+                                            this.sortListBy('lastCreated')
+                                        }}>Last Created</button>
+                                    </div>}
+                                    <button onClick={this.onDeletePhase}>Delete List</button>
+                                </div>
                             </div>}
-                            <button onClick={this.onDeletePhase}>Delete List</button>
                         </div>
-                    </div>}
-                </div>
-            </article>
+                    </article>
+                )}
+            </Draggable>
         );
     }
 }

@@ -11,7 +11,7 @@ const gBoards =
             phaseLists:
                 [
                     {
-                        id: 'dsbnjinijfndb',
+                        id: 'abcd',
                         name: 'ideas',
                         desc: 'stam ideas',
                         cards:
@@ -75,7 +75,7 @@ const gBoards =
                             ]
                     },
                     {
-                        id: 'dsbnjinijddddfndb',
+                        id: 'efgh',
                         name: 'todo',
                         desc: 'stam ideas',
                         cards:
@@ -139,7 +139,7 @@ const gBoards =
                             ]
                     },
                     {
-                        id: 'dsbnjidddasnidddddjfndb',
+                        id: 'jklmn',
                         name: 'doing',
                         desc: 'stam ideas',
                         cards:
@@ -218,7 +218,7 @@ const gBoards =
                         img: 'http://cloudinary.com/alon',
                     },
                     {
-                        _id: 'ffdgdfsgbsfdbsfd',
+                        _id: 'ffdgdfsgbsgdssdfdbsfd',
                         fullName: 'Or Guest',
                         email: 'or@gmail.com',
                         img: 'http://cloudinary.com/or',
