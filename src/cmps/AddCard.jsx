@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Add } from '@material-ui/icons';
+import { Add, Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { saveBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
@@ -8,54 +8,45 @@ export class _AddCard extends Component {
     state = {
         isInputShown: false,
         card: {
-            name: ''
+            title: ''
         }
     }
 
     toggleInputShown = () => {
         this.setState(prevState => ({ isInputShown: !prevState.isInputShown }), () => {
             if (this.state.isInputShown) {
-                this.submitBtn.addEventListener("keypress", this.submitOnEnter);
-            } else this.submitBtn.removeEventListener("keypress", this.submitOnEnter);
+                this.cardNameInput.addEventListener("keypress", this.submitOnEnter);
+            }
         })
     }
 
     handleChange = ({ target }) => {
         this.setState(prevState => ({
             ...prevState,
-            card: { name: target.value }
+            card: { title: target.value }
         }))
     }
 
-    hideInput = (ev) => {
-        // console.log('ev.target', ev.target, 'ev.type', ev.type, ev,
-        //     ev.currentTarget)
-
-        // if (ev.type === 'blur') {
-        //     console.log('hiding input')
-        //     this.setState({ isInputShown: false });
-        // }
-        this.setState({ isInputShown: false });
-    }
-
     onAddCard = (ev) => {
-        console.log('submitting');
         ev.preventDefault();
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        console.log('got boardCopy:', boardCopy);
+        const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phaseId);
+        const newCard = boardService.getNewCard(this.state.card);
+        boardCopy.phaseLists[phaseIdx].cards.push(newCard);
+        this.setState({ card: { title: '' } });
     }
 
     submitOnEnter(ev) {
-        console.log('submitting on enter') //FIX THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-        if (ev.which === 13) {
+        // this allows Shift+Enter = new line, Enter = submit form
+        if (ev.which === 13 && !ev.shiftKey) {
             ev.target.form.dispatchEvent(new Event("submit", { cancelable: true }));
-            // ev.preventDefault(); // Prevents the addition of a new line in the text field (not needed in a lot of cases)
+            ev.preventDefault();
         }
     }
 
 
     render() {
-        const { toggleInputShown, handleChange, onAddCard, hideInput, state } = this;
+        const { toggleInputShown, handleChange, onAddCard, state } = this;
         const { isInputShown } = state;
 
         return (
@@ -63,14 +54,17 @@ export class _AddCard extends Component {
 
                 {!isInputShown && <button onClick={toggleInputShown}
                     className="add-card-btn flex align-center">
-                    <Add fontSize="small" />Add a card</button>}
+                    <Add className="add-icon" fontSize="large" />Add a card</button>}
+
                 {isInputShown && <form onSubmit={onAddCard}>
                     <textarea className="card-name-input" required autoFocus type="text"
-                        name="name" autoComplete="off" onChange={handleChange}
-                        value={state.card.name}
+                        name="title" autoComplete="off" onChange={handleChange}
+                        ref={el => this.cardNameInput = el} value={state.card.title}
                         placeholder="Enter a title for this card.." />
-                    <button ref={el => this.submitBtn = el} type="submit">Add Card</button>
-                    <button onClick={hideInput}>X</button>
+                    <div className="flex align-end">
+                        <button className="submit-btn" type="submit">Add Card</button>
+                        <button className="close-btn" onClick={toggleInputShown}><Close /></button>
+                    </div>
                 </form>}
             </div>
         )

@@ -112,7 +112,7 @@ export class PhasePreview extends Component {
                                 </div>
                             </div>}
                         </div>
-                        <AddCard />
+                        <AddCard phaseId={this.props.phase.id} />
                     </article>
                 )}
             </Draggable>

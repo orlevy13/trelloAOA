@@ -265,12 +265,28 @@ function getBoardCopy(board) {
     return JSON.parse(JSON.stringify(board));
 }
 
+function getNewCard(partialCard) {
+    return {
+        ...partialCard,//this currently has only title
+        id: makeId(),
+        bgColor: '',
+        desc: '',
+        dueDate: null,
+        createdAt: Date.now(),
+        labels: [],
+        checkList: [],
+        assignedTo: [],
+        attachments: []
+    }
+}
+
 export const boardService = {
     getBoards,
     getById,
     save,
     makeId,
     getBoardCopy,
+    getNewCard
 }
 
 
