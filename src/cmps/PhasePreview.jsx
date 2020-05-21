@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MoreHoriz, Close } from '@material-ui/icons';
+import { AddCard } from './AddCard';
 
 export class PhasePreview extends Component {
     state = {
@@ -71,10 +72,10 @@ export class PhasePreview extends Component {
         const { name } = this.props.phase;
         const { newPhaseName, isInputShown, isMenuShown, isSortShown } = this.state;
         return (
-            <article className="phase">
+            <article className="phase flex column">
                 <div className="phase-header flex space-between">
 
-                    {!isInputShown && <h5 className="phase-title"
+                    {!isInputShown && <h5 className="phase-title grow"
                         onClick={this.toggleInputShown}>{name}</h5>}
                     {isInputShown && <form className="flex grow" onSubmit={this.handleSubmit}>
                         <input className="phase-name-input grow" type="text" name="newPhaseName"
@@ -108,8 +109,8 @@ export class PhasePreview extends Component {
                         </div>
                     </div>}
                 </div>
+                <AddCard />
             </article>
         );
     }
 }
-

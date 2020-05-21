@@ -261,11 +261,16 @@ function save(board) {
     }
 }
 
+function getBoardCopy(board) {
+    return JSON.parse(JSON.stringify(board));
+}
+
 export const boardService = {
     getBoards,
     getById,
     save,
-    makeId
+    makeId,
+    getBoardCopy,
 }
 
 

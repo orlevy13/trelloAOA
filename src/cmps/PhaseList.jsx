@@ -11,6 +11,10 @@ export class _PhaseList extends Component {
         newListName: ''
     }
 
+    componentWillUnmount() {
+        this.removeEventListeners();
+    }
+
     toggleInputShown = () => {
         if (!this.state.isInputShown) this.addEventListeners();
         else this.removeEventListeners();
@@ -41,20 +45,19 @@ export class _PhaseList extends Component {
         window.removeEventListener('mousedown', this.hideInput);
     }
 
-    onAddPhase = (ev) => {
+    onAddPhase = async (ev) => {
         ev.preventDefault();
-        const board = this.props.board;
+        const boardCopy = boardService.getBoardCopy(this.props.board);
         const newPhase = {
             id: boardService.makeId(),
             name: this.state.newListName,
             desc: '',
             cards: []
         }
-        board.phaseLists.push(newPhase);
-        this.props.saveBoard(board);
+        boardCopy.phaseLists.push(newPhase);
+        await this.props.saveBoard(boardCopy);
         this.setState({ newListName: '' }, () => {
-            console.log(this.listForm)
-            this.listForm.scrollIntoView({ behavior: 'smooth' });
+            this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
         });
     }
 
@@ -82,7 +85,6 @@ export class _PhaseList extends Component {
                         <Close className="cancel-btn pointer" onClick={hideInput} />
                     </div>
                 </form>}
-                
             </section>
         )
     }
@@ -95,7 +97,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard
+    saveBoard,
 }
 
 export const PhaseList = connect(mapStateToProps, mapDispatchToProps)(_PhaseList)
