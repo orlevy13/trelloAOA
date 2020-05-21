@@ -6,6 +6,8 @@
         border: none;
         border-radius: 5px;
         padding: 5px 10px;
+        line-height: 20px;
+        min-width: max-content;
 
         &:hover {
             background-color: $boardBtnHov;
@@ -15,7 +17,8 @@
     .add-list-form {
         background-color: $trelloGrey;
         padding: 4px;
-        width: 272px;
+        min-width: 272px;
+        max-width: 272px;
         border-radius: 3px;
 
         input {

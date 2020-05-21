@@ -251,10 +251,34 @@ function getById(boardId) {
     return Promise.resolve(gBoards.find(board => board._id === boardId));
 
 }
+function save(board) {
+    if (board._id) {
+        const idx = gBoards.findIndex(currBoard => currBoard._id === board._id);
+        gBoards[idx] = board;
+        return Promise.resolve(board);
+    } else {
+        console.error('Implement new board creation!!')
+    }
+}
+
+function getBoardCopy(board) {
+    return JSON.parse(JSON.stringify(board));
+}
 
 export const boardService = {
     getBoards,
-    getById
+    getById,
+    save,
+    makeId,
+    getBoardCopy,
 }
 
 
+function makeId(length = 5) {
+    var txt = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return txt;
+}

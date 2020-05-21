@@ -73,8 +73,8 @@ class _Board extends Component {
 
                     </div>
                 </section>
-                <section className="board-content flex">
-                    <PhaseList phases={board.phaseLists} />
+                <section className="board-content">
+                    <PhaseList />
                 </section>
             </main>
         )
@@ -92,4 +92,3 @@ const mapDispatchToProps = {
 }
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board)
-

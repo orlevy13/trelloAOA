@@ -1,6 +1,12 @@
 .board {
-    height: 95vh;
+    height: 93vh;
+
+    .board-content {
+        overflow-x: scroll;
+        height: 93%;
+    }
 }
+
 .board-nav {
     padding: 8px 4px 4px 8px;
     transition: padding 0.1s ease-in;
@@ -15,18 +21,21 @@
         font-family: Roboto;
         max-width: calc(100%-24px);
     }
+
     .board-nav-divider {
         float: left;
         border-left: 1px solid hsla(0, 0%, 100%, 0.24);
         margin: 8px 8px 12px 4px;
         height: 16px;
     }
+
     .board-members {
         float: left;
         margin-left: 4px;
         padding: 2px;
         height: 32px;
     }
+
     .nav-btn {
         color: #fff;
         height: 32px;
@@ -65,32 +74,39 @@
         text-align: center;
         flex-grow: 1;
     }
+
     .btn-close-board-menu {
         cursor: pointer;
         width: 32px;
         height: 32px;
     }
+
     .menu-header-title {
         width: 100%;
         font-size: rem(16px);
     }
+
     .board-menu-header-divider {
         background-color: rgba(9, 30, 66, 0.13);
         height: 1px;
         margin: 3px 0;
         width: 100%;
     }
+
     .board-menu-content {
         padding: 12px 0;
+
         .board-menu-item {
             width: 313px;
             height: 32px;
             border-radius: 3px;
             cursor: pointer;
+
             &:hover {
                 background-color: $boardMenuItemHoverColor;
             }
         }
+
         .board-menu-icon {
             width: 20px;
             height: 20px;

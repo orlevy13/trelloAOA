@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { MoreHoriz, Close } from '@material-ui/icons';
+import { AddCard } from './AddCard';
 
 export class PhasePreview extends Component {
     state = {
@@ -14,32 +16,20 @@ export class PhasePreview extends Component {
     }
     componentWillUnmount() {
         window.removeEventListener('keydown', this.hideInput);
-        window.removeEventListener('mousedown', this.hideInput);
     }
 
 
     toggleInputShown = () => {
-        if (!this.state.isInputShown) this.addEventListeners();
-        else this.removeEventListeners();
+        if (!this.state.isInputShown) window.addEventListener('keydown', this.hideInput);
+        else window.removeEventListener('keydown', this.hideInput);
         this.setState(prevState => ({ isInputShown: !prevState.isInputShown }))
     }
 
     hideInput = (ev) => {
-        if (ev.code === 'Escape' ||
-            ev.target !== document.querySelector('.phase-name-input')) {
+        if (ev.code === 'Escape' || ev.type === 'onblur') {
             this.setState({ isInputShown: false });
-            this.removeEventListeners();
+            window.removeEventListener('keydown', this.hideInput);
         }
-    }
-
-    addEventListeners = () => {
-        window.addEventListener('keydown', this.hideInput);
-        window.addEventListener('mousedown', this.hideInput);
-    }
-
-    removeEventListeners = () => {
-        window.removeEventListener('keydown', this.hideInput);
-        window.removeEventListener('mousedown', this.hideInput);
     }
 
     handleChange = ({ target }) => {
@@ -53,7 +43,10 @@ export class PhasePreview extends Component {
     }
 
     toggleMenuShown = () => {
-        this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
+        if (this.state.isSortShown) {
+            //making sure menu returns to default "state"
+            this.setState({ isMenuShown: false, isSortShown: false });
+        } else this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
     }
 
     showAddCard = () => {
@@ -82,20 +75,23 @@ export class PhasePreview extends Component {
         return (
             <Draggable draggableId={id} index={this.props.index}>
                 {(provided) => (
-                    <article className="phase" {...provided.draggableProps} ref={provided.innerRef}>
+                    <article className="phase flex column" {...provided.draggableProps} ref={provided.innerRef}>
                         <div {...provided.dragHandleProps} className="phase-header flex space-between">
-                            {!isInputShown && <h5 className="phase-title"
+
+                            {!isInputShown && <h5 className="phase-title grow"
                                 onClick={this.toggleInputShown}>{name}</h5>}
                             {isInputShown && <form className="flex grow" onSubmit={this.handleSubmit}>
                                 <input className="phase-name-input grow" type="text" name="newPhaseName"
                                     value={newPhaseName} autoFocus autoComplete="off"
-                                    onChange={this.handleChange} />
+                                    onBlur={this.toggleInputShown} onChange={this.handleChange} />
                             </form>}
-                            <button onClick={this.toggleMenuShown}>•••</button>
+
+                            <MoreHoriz className="pointer" onClick={this.toggleMenuShown} />
                             {isMenuShown && <div className="phase-menu flex column">
                                 <div className="menu-header flex align-center">
+
                                     <h5 className="grow">List Actions</h5>
-                                    <button onClick={this.toggleMenuShown}>X</button>
+                                    <Close className="pointer" onClick={this.toggleMenuShown} />
                                 </div>
                                 <div className="menu-btns flex column">
                                     <button onClick={this.showAddCard} >Add A Card</button>
@@ -112,13 +108,14 @@ export class PhasePreview extends Component {
                                         }}>Last Created</button>
                                     </div>}
                                     <button onClick={this.onDeletePhase}>Delete List</button>
+
                                 </div>
                             </div>}
                         </div>
+                        <AddCard />
                     </article>
                 )}
             </Draggable>
         );
     }
 }
-

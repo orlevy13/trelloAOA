@@ -17,14 +17,18 @@ export function App() {
           <Link to="/login">Login</Link> |
         <Link to="/">Logout</Link> |
         <Link to="/board/:id">board</Link> |
+        <Link to="/board/abcd">default board</Link> |
         </nav>
-        {/* <CardDetails /> */}
+
 
         <Switch>
+
           <Route path="/" component={Home} exact />
           <Route path="/board/:id" component={Board} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/signup" component={Signup} exact />
+          <Route path="/card-details" component={CardDetails} exact />
+
         </Switch>
       </Router>
     </React.Fragment>

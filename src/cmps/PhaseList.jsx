@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { PhasePreview } from './PhasePreview';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { Add, Close } from '@material-ui/icons';
+import { connect } from 'react-redux';
+import { saveBoard } from '../store/actions/boardActions';
+import { boardService } from '../services/boardService';
 
-export class PhaseList extends Component {//Getting phases from props?
+export class _PhaseList extends Component {
     state = {
         isInputShown: false,
         newListName: ''
+    }
+
+    componentWillUnmount() {
+        this.removeEventListeners();
     }
 
     toggleInputShown = () => {
@@ -15,10 +23,10 @@ export class PhaseList extends Component {//Getting phases from props?
     }
 
     hideInput = (ev) => {
-        if ((ev.code === 'Escape' ||
-            //To allow closing the input through Escape/click on something else
-            ev.target !== document.querySelector('input[name=newListName]')
-            && ev.target !== document.querySelector('.submit-btn'))) {
+        //To allow closing the input through Escape/click on something else
+        // Cannot use 'onBlur', in order to allow adding lists in a row(Try at trello)
+        if ((ev.code === 'Escape' || ev.target !== this.listNameInput)
+            && ev.target !== this.submitBtn) {
             this.setState({ isInputShown: false });
             this.removeEventListeners();
         }
@@ -38,10 +46,20 @@ export class PhaseList extends Component {//Getting phases from props?
         window.removeEventListener('mousedown', this.hideInput);
     }
 
-    onAddPhase = (ev) => {
+    onAddPhase = async (ev) => {
         ev.preventDefault();
-        console.log('adding phase:', this.state.newListName)
-        this.setState({ newListName: '' });
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const newPhase = {
+            id: boardService.makeId(),
+            name: this.state.newListName,
+            desc: '',
+            cards: []
+        }
+        boardCopy.phaseLists.push(newPhase);
+        await this.props.saveBoard(boardCopy);
+        this.setState({ newListName: '' }, () => {
+            this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
+        });
     }
     onDragEnd = result => {
         const { destination, source, draggableId, type } = result;
@@ -69,25 +87,31 @@ export class PhaseList extends Component {//Getting phases from props?
     render() {
         const { toggleInputShown, onAddPhase, handleChange, hideInput } = this;
         const { isInputShown, newListName } = this.state;
-        const { phases } = this.props;
+        const { phaseLists } = this.props.board;
+
         return (
+
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
                     {provided => (
-
-
-                        <section className="phase-list flex" {...provided.droppableProps} ref={provided.innerRef}  >
-
-                            {phases.map((phase, index) => <PhasePreview key={phase.id} index={index}
+                        <section className="phase-list flex"  {...provided.droppableProps} ref={provided.innerRef} >
+                            {phaseLists.length && phaseLists.map(phase => <PhasePreview key={phase.id}
                                 phase={phase} />)}
 
-                            {!isInputShown && <button className="add-list-btn" onClick={toggleInputShown}>
-                                + Add new list</button>}
-                            {isInputShown && <form className="add-list-form" onSubmit={onAddPhase}>
-                                <input type="text" autoFocus name="newListName" onChange={handleChange}
-                                    autoComplete="off" placeholder="Enter list title.." value={newListName} />
-                                <button className="submit-btn" type="submit">Add List</button>
-                                <button className="cancel-btn" onClick={hideInput}>X</button> </form>}
+                            {!isInputShown && <button className="add-list-btn flex"
+                                onClick={toggleInputShown}> <Add fontSize="small" />Add new list</button>}
+
+                            {isInputShown && <form ref={el => this.listForm = el} className="add-list-form"
+                                onSubmit={onAddPhase}>
+                                <input ref={el => this.listNameInput = el} type="text" autoFocus
+                                    name="newListName" onChange={handleChange} required autoComplete="off"
+                                    placeholder="Enter list title.." value={newListName} />
+                                <div className="flex align-center">
+                                    <button ref={el => this.submitBtn = el} className="submit-btn"
+                                        type="submit">Add List</button>
+                                    <Close className="cancel-btn pointer" onClick={hideInput} />
+                                </div>
+                            </form>}
                             {provided.placeholder}
                         </section>
                     )}
@@ -96,3 +120,15 @@ export class PhaseList extends Component {//Getting phases from props?
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        board: state.trelloApp.board
+    }
+}
+
+const mapDispatchToProps = {
+    saveBoard,
+}
+
+export const PhaseList = connect(mapStateToProps, mapDispatchToProps)(_PhaseList)

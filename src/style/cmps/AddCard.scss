@@ -1,0 +1,39 @@
+.add-card {
+    font-size: rem(14px);
+    line-height: rem(20px);
+
+    .add-card-btn {
+        color: #5e6c84;
+        width: 100%;
+        border: none;
+        background-color: inherit;
+        padding: 8px 0px;
+        border-radius: 3px;
+        font-weight: 200;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, 0.08);
+            color: rgb(23, 43, 77);
+        }
+    }
+
+    form {
+        .card-name-input {
+            @include trelloInput;
+            resize: none;
+            min-height: 80px;
+            max-height: 150px;
+            overflow-y: scroll;
+            color: rgb(23, 43, 77);
+            box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

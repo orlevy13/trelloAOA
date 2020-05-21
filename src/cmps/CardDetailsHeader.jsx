@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 // import PropTypes from 'prop-types'
 
 export default class CardDetailsHeader extends Component {
@@ -10,11 +11,10 @@ export default class CardDetailsHeader extends Component {
     // static propTypes = {
     //     prop: PropTypes
     // }
-    componentDidMount() {
-        this.setState({ isTitleShown: true })
-    }
+
 
     openInput = () => {
+        console.log('open input');
         this.setState(prevState => ({ isTitleShown: !prevState.isTitleShown }))
     }
 
@@ -28,16 +28,20 @@ export default class CardDetailsHeader extends Component {
 
     render() {
         const { txt, isTitleShown } = this.state
+        console.log('car details render', isTitleShown);
 
-        if (txt === '')
+        if (this.state)
             return (
-                <section className="card-details-header-container">
-                    <div>
-                        {{ isTitleShown } && <h2 className="card-details-title" onClick={this.openInput} >{txt}</h2>};
-                        {(!{ isTitleShown }) && <textarea className="card-details-title-input " placeholder="Title..." onChange={this.handleChange} value={txt} ></textarea>}
+                <div>
+
+                    <div className="card-details-header-container">
+                        <NoteOutlinedIcon />
+                        {isTitleShown && <span><h2 className="card-details-title" onClick={this.openInput} >{txt}</h2></span>}
+                        {(!isTitleShown) && <span><textarea className="card-details-title-input" autoFocus onBlur={this.openInput} placeholder="Title..."
+                            onChange={this.handleChange} value={txt} ></textarea></span>}
                     </div>
                     <p className="details-card-link">in list <a href="#">ideas</a></p>
-                </section>
+                </div>
             )
         else return 'loading'
     }
