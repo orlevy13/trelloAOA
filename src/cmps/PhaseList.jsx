@@ -62,6 +62,7 @@ export class _PhaseList extends Component {
         });
     }
     onDragEnd = async result => {
+        console.log('testttttttttttttttttt');
         const { destination, source, draggableId, type } = result;
         if (!destination) {
             console.log('not destination: ', destination);
