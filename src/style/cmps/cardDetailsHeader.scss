@@ -1,38 +1,59 @@
 .card-details-container {
     border: 1px solid #eeeeee;
-    background-color: rgb(244, 245, 247);
-    max-width: 512px;
+    background-color: $trelloGrey;
+    width: 800px;
     margin: 48px auto 80px auto;
-    min-height: 700px;
+    grid-gap: 5px;
+    color: $trelloFontColor;
+    display: grid;
+
+    grid-template-areas:
+        "header header header header header header"
+        "main main main main main side-bar";
+}
+
+.card-details-header {
+    grid-area: header;
 }
 
 .card-details-header-container {
-    margin: 8px 16px 8px 32px;
-    padding: 8px 0 0 8px;
-    width: 400px;
+    // margin: 8px 16px 8px 0;
+
+    margin-top: 20px;
+    width: 700px;
+    height: 50px;
+    display: flex;
+
+    align-items: center;
+}
+
+.main-col {
+    grid-area: main;
+    margin-bottom: 150px;
 }
 
 .card-details-title-input {
     border: none;
-    background-color: rgb(244, 245, 247);
+    background-color: $trelloGrey;
     white-space: normal;
+    margin-left: 15px;
     font-size: 24px;
     overflow: hidden;
     top: 0;
     left: 0;
     height: 40px;
-    width: 400px;
+    width: 700px;
     resize: none;
 }
 .card-details-title-input:focus {
     background-color: white;
-    color: #aaa;
 }
 
 .card-details-title {
-    background-color: rgb(244, 245, 247);
-    width: 400px;
-    color: #aaa;
+    background-color: $trelloGrey;
+    width: 700px;
+    height: 40px;
+    margin-left: 15px;
     top: 0;
     left: 0;
     white-space: normal;
@@ -40,26 +61,7 @@
 }
 
 .details-card-link {
-    margin-top: 40px;
+    margin-top: 8px;
+    margin-left: 38px;
     z-index: 3;
-}
-
-.card-details-desc-container {
-    margin: 8px 16px 8px 32px;
-    padding: 8px 0 0 8px;
-    width: 300px;
-}
-
-.card-details-desc-input {
-    width: 300px;
-    background-color: rgb(234, 236, 240);
-    min-height: 40px;
-    border: none;
-    resize: none;
-    border-radius: 3px;
-}
-
-.card-details-desc-input:focus {
-    background-color: white;
-    height: 100px;
 }

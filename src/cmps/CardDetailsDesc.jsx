@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
+import DescriptionIcon from '@material-ui/icons/Description';
 
 export default class CardDetailsDesc extends Component {
     state = {
@@ -19,13 +20,14 @@ export default class CardDetailsDesc extends Component {
 
     render() {
         return (
-            <section className="card-details-desc-container">
-                <h3>Description</h3>
-                <textarea className="card-details-desc-input" placeholder="Add a more detailed description..." onChange={this.handleChange} value={this.state.txt}></textarea>
-
-
-
-
+            <section>
+                <div className="desc-header-container">
+                    <DescriptionIcon /><span className="desc-header">Description</span>
+                </div>
+                <div className="card-details-desc-container">
+                    <textarea className="card-details-desc-input" placeholder="Add a more detailed description..."
+                        onChange={this.handleChange} value={this.state.txt}></textarea>
+                </div>
             </section>
         )
     }

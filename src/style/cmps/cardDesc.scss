@@ -1,0 +1,46 @@
+.card-details-desc-container {
+    margin: 8px 16px 8px 32px;
+    padding: 8px 0 0 8px;
+    width: 500px;
+}
+
+.card-details-desc-input {
+    @include trelloInput;
+    width: 500px;
+    background-color: $trelloGrey;
+    box-shadow: none;
+    border: none;
+    resize: none;
+    overflow: hidden;
+    padding-left: 0;
+    // border-radius: 3px;
+}
+
+.card-details-desc-input::-webkit-input-placeholder {
+    background-color: darken($color: $trelloGrey, $amount: 7);
+    height: 70px;
+}
+
+.card-details-desc-input:focus::-webkit-input-placeholder {
+    background-color: white;
+}
+
+.card-details-desc-input:focus {
+    background-color: white;
+    height: 100px;
+}
+
+.desc-header-container {
+    display: flex;
+    align-items: center;
+}
+
+.desc-header {
+    margin-left: 15px;
+    padding-bottom: 8px;
+}
+
+.MuiSvgIcon-root {
+    padding-left: 10px;
+    padding-bottom: 8px;
+}
