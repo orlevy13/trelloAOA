@@ -92,4 +92,3 @@ const mapDispatchToProps = {
 }
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board)
-

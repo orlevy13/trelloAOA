@@ -17,6 +17,7 @@ export function App() {
           <Link to="/login">Login</Link> |
         <Link to="/">Logout</Link> |
         <Link to="/board/:id">board</Link> |
+        <Link to="/board/abcd">default board</Link> |
         </nav>
 
 
