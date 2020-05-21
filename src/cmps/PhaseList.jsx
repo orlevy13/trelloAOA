@@ -61,7 +61,7 @@ export class _PhaseList extends Component {
             this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
         });
     }
-    onDragEnd = result => {
+    onDragEnd = async result => {
         const { destination, source, draggableId, type } = result;
         if (!destination) {
             console.log('not destination: ', destination);
@@ -69,18 +69,12 @@ export class _PhaseList extends Component {
         }
 
         if (type === 'PhasePreview') {
-            //temporarly
-            // const newPhasesOrder = JSON.parse(JSON.stringify(this.props.phases));
-            // newPhasesOrder.splice(source.index, 1);
-            // newPhasesOrder.splice(destination.index, 0, draggableId);
-            // const boardCopy = JSON.parse(JSON.stringify(this.props.boaard));
-
-
+            const boardCopy = boardService.getBoardCopy(this.props.board);
+            const newPhasesOrder = boardCopy.phaseLists;
+            let toMove = newPhasesOrder.splice(source.index, 1);
+            newPhasesOrder.splice(destination.index, 0, toMove[0]);
+            await this.props.saveBoard(boardCopy);
         }
-
-
-
-
     }
 
 
@@ -95,7 +89,7 @@ export class _PhaseList extends Component {
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
                     {provided => (
                         <section className="phase-list flex"  {...provided.droppableProps} ref={provided.innerRef} >
-                            {phaseLists.length && phaseLists.map(phase => <PhasePreview key={phase.id}
+                            {phaseLists.length && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
 
                             {!isInputShown && <button className="add-list-btn flex"
