@@ -62,18 +62,37 @@ export class _PhaseList extends Component {
         });
     }
     onDragEnd = result => {
-        const { destination, source, draggableId, type } = result;
+
+
+        const { destination, source, type } = result;
         if (!destination) {
-            console.log('not destination: ', destination);
             return;
         }
+        if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
+        const boardCopy = boardService.getBoardCopy(this.props.board);
         if (type === 'PhasePreview') {
-            const boardCopy = boardService.getBoardCopy(this.props.board);
+
             const newPhasesOrder = boardCopy.phaseLists;
             const movingPhase = newPhasesOrder.splice(source.index, 1)[0];
             newPhasesOrder.splice(destination.index, 0, movingPhase);
             this.props.saveBoard(boardCopy);
+        } else {
+            const { phaseLists } = boardCopy;
+            const srcPhase = phaseLists.find(phase => phase.id === source.droppableId);
+            const dstPhase = phaseLists.find(phase => phase.id === destination.droppableId);
+
+            if (srcPhase.id === dstPhase.id) {
+                const movingCard = srcPhase.cards.splice(source.index, 1)[0];
+                srcPhase.cards.splice(destination.index, 0, movingCard);
+                this.props.saveBoard(boardCopy);
+            } else {
+                const srcCards = srcPhase.cards;
+                const movingCard = srcCards.splice(source.index, 1)[0];
+                const dstCards = dstPhase.cards;
+                dstCards.splice(destination.draggableId, 0, movingCard);
+                this.props.saveBoard(boardCopy);
+            }
         }
     }
 
