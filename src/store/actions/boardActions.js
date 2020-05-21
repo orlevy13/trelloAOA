@@ -2,10 +2,6 @@ import { boardService } from '../../services/boardService'
 export const LOAD_BOARD = 'LOAD_BOARD';
 export const SAVE_BOARD = 'SAVE_BOARD';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 51014f79e906e9ad2752d2d241655d716fdb74e1
 export function loadBoard(id) {
     return async dispatch => {
         const board = await boardService.getById(id);
