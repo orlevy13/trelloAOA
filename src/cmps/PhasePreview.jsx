@@ -18,7 +18,6 @@ export class PhasePreview extends Component {
         window.removeEventListener('keydown', this.hideInput);
     }
 
-
     toggleInputShown = () => {
         if (!this.state.isInputShown) window.addEventListener('keydown', this.hideInput);
         else window.removeEventListener('keydown', this.hideInput);

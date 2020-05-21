@@ -62,7 +62,7 @@ export class _PhaseList extends Component {
         });
     }
     onDragEnd = async result => {
-        const { destination, source, draggableId, type } = result;
+        const { destination, source, draggableId, type } = result;//draggableId not used
         if (!destination) {
             console.log('not destination: ', destination);
             return;
@@ -71,9 +71,9 @@ export class _PhaseList extends Component {
         if (type === 'PhasePreview') {
             const boardCopy = boardService.getBoardCopy(this.props.board);
             const newPhasesOrder = boardCopy.phaseLists;
-            let toMove = newPhasesOrder.splice(source.index, 1);
+            let toMove = newPhasesOrder.splice(source.index, 1);//To index?
             newPhasesOrder.splice(destination.index, 0, toMove[0]);
-            await this.props.saveBoard(boardCopy);
+            await this.props.saveBoard(boardCopy);//why is this async?
         }
     }
 
