@@ -90,7 +90,7 @@ export class _PhaseList extends Component {
                 const srcCards = srcPhase.cards;
                 const movingCard = srcCards.splice(source.index, 1)[0];
                 const dstCards = dstPhase.cards;
-                dstCards.splice(destination.draggableId, 0, movingCard);
+                dstCards.splice(destination.index, 0, movingCard);
                 this.props.saveBoard(boardCopy);
             }
         }
