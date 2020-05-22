@@ -108,7 +108,7 @@ export class _PhaseList extends Component {
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
                     {provided => (
                         <section className="phase-list flex"  {...provided.droppableProps} ref={provided.innerRef} >
-                            {phaseLists.length && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
+                            {phaseLists && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
 
                             {!isInputShown && <button className="add-list-btn flex"

@@ -4,13 +4,17 @@ import { MoreHoriz, Close } from '@material-ui/icons';
 import { CardList } from './CardList'
 import { AddCard } from './AddCard';
 import { CardPreview } from './CardPreview';
+import { connect } from 'react-redux';
+import { saveBoard } from '../store/actions/boardActions';
+import { boardService } from '../services/boardService';
 
-export class PhasePreview extends Component {
+export class _PhasePreview extends Component {
     state = {
         isInputShown: false,
         isMenuShown: false,
         isSortShown: false,
-        newPhaseName: ''
+        newPhaseName: '',
+        isAddCardShown: false
     }
 
     componentDidMount() {
@@ -51,8 +55,13 @@ export class PhasePreview extends Component {
     }
 
     showAddCard = () => {
+        this.setState({ isAddCardShown: true });
         console.log('showing add card field')
         this.toggleMenuShown();
+    }
+
+    toggleAddCardShown = () => {
+        this.setState(prevState => ({ isAddCardShown: !prevState.isAddCardShown }));
     }
 
     toggleIsSortShown = () => {
@@ -66,13 +75,15 @@ export class PhasePreview extends Component {
     }
 
     onDeletePhase = () => {
-        console.log('Deleting list');
         this.toggleMenuShown();
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        boardCopy.phaseLists = boardCopy.phaseLists.filter(phase => phase.id !== this.props.phase.id);
+        this.props.saveBoard(boardCopy);
     }
 
     render() {
         const { name, id, cards } = this.props.phase;
-        const { newPhaseName, isInputShown, isMenuShown, isSortShown } = this.state;
+        const { newPhaseName, isInputShown, isMenuShown, isSortShown, isAddCardShown } = this.state;
         return (
             <Draggable draggableId={id} index={this.props.index}>
                 {(provided) => (
@@ -124,10 +135,24 @@ export class PhasePreview extends Component {
                                 </CardList>
                             )}
                         </Droppable>
-                        <AddCard phaseId={this.props.phase.id} />
+                        <AddCard isAddCardShown={isAddCardShown}
+                            toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
                     </article>
                 )}
             </Draggable>
         );
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        board: state.trelloApp.board
+    }
+}
+
+const mapDispatchToProps = {
+    saveBoard,
+}
+
+export const PhasePreview = connect(mapStateToProps, mapDispatchToProps)(_PhasePreview)
