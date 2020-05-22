@@ -1,13 +1,45 @@
 .card-preview {
+    font-family: roboto-light;
+    color: #172b4d;
     background-color: #fff;
-    // border-radius: 3px;
     @include transRoundBorder;
     margin: 0 0 8px 0;
     padding: 5px 5px 0 5px;
     box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
     cursor: pointer !important;
 
+    .card-img {
+        img {
+            width: 100%;
+        }
+    }
+
     p {
         padding-bottom: 4px;
+    }
+
+    .card-badges {
+        padding: 0 0 4px 0;
+
+        .card-due {
+            @include transRoundBorder;
+            font-family: roboto-normal;
+            font-size: rem(12px);
+            padding: 1px 4px 1px 1px;
+            margin-right: 8px;
+            align-self: flex-start;
+
+            .due-icon {
+                margin-right: 4px;
+                font-size: 2px;
+            }
+        }
+
+        .attach-badge {
+            .attach-icon {
+                font-size: 14px;
+                transform: rotate(-45deg);
+            }
+        }
     }
 }

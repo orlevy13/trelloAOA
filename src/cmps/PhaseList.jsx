@@ -116,7 +116,7 @@ export class _PhaseList extends Component {
 
                             {isInputShown && <form ref={el => this.listForm = el} className="add-list-form"
                                 onSubmit={onAddPhase}>
-                                <input ref={el => this.listNameInput = el} type="text" autoFocus
+                                <input ref={el => this.listNameInput = el} type="text" autoFocus spellCheck="false"
                                     name="newListName" onChange={handleChange} required autoComplete="off"
                                     placeholder="Enter list title.." value={newListName} />
                                 <div className="flex align-center">

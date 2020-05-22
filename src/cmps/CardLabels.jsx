@@ -18,7 +18,8 @@ export class _CardLabels extends Component {
         return (
             <div className="labels-container flex wrap">
 
-                {labels.map(label => <span className="label" style={{ backgroundColor: label.color }}
+                {labels.map(label => <span title={label.txt} className="label"
+                    style={{ backgroundColor: label.color }}
                     onClick={toggleIsLabelTxtShown} key={label.id}>
                     {isLabelTxtShown && <span>{label.txt}</span>}
                 </span>)}

@@ -94,7 +94,7 @@ export class _PhasePreview extends Component {
                                 onClick={this.toggleInputShown}>{name}</h5>}
                             {isInputShown && <form className="flex grow" onSubmit={this.handleSubmit}>
                                 <input className="phase-name-input grow" type="text" name="newPhaseName"
-                                    value={newPhaseName} autoFocus autoComplete="off"
+                                    value={newPhaseName} autoFocus autoComplete="off" spellCheck="false"
                                     onBlur={this.toggleInputShown} onChange={this.handleChange} />
                             </form>}
 

@@ -20,9 +20,10 @@ const gBoards =
                                 {
                                     id: '1234',   // our id                         
                                     bgColor: '#ddd',
+                                    imgUrl: 'https://res.cloudinary.com/marmelada/image/upload/v1590152526/xomsz3yqwwyqeuktpexk.jpg',
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
-                                    dueDate: 159221158158,
+                                    dueDate: 1590237504000,
                                     createdAt: 159221158158, //optional
                                     labels:
                                         [
@@ -106,16 +107,13 @@ const gBoards =
                                         ],
                                     attachments:
                                         [
-                                            {
-                                                _id: '????vdfvdf',
-                                                name: 'project-1.pdf',
-                                                url: 'http://cloudinary.com/vhfdbhvhbfd'
-                                            }
+                                           
                                         ]
                                 },
                                 {
                                     id: 'card 2',   // our id                         
                                     bgColor: '#ddd',
+                                    imgUrl: '',
                                     title: 'card 2',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
@@ -177,6 +175,7 @@ const gBoards =
                                 {
                                     id: 'card 3',   // our id                         
                                     bgColor: '#ddd',
+                                    imgUrl: '',
                                     title: 'card 3',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
@@ -249,7 +248,7 @@ const gBoards =
                                     imgUrl: '',
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
-                                    dueDate: 159221158158,
+                                    dueDate: 159225851158158,
                                     createdAt: 159221158158, //optional
                                     labels:
                                         [
@@ -316,10 +315,10 @@ const gBoards =
                                 {
                                     id: '91011',   // our id                         
                                     bgColor: '#ddd',
-                                    imgUrl: '',
-                                    title: 'create-react-app ready to start',
+                                    imgUrl: 'https://res.cloudinary.com/marmelada/image/upload/v1590152902/prnouct4tx5w3wjy6xqw.jpg',
+                                    title: 'Save the empire',
                                     desc: 'using cli create new project',
-                                    dueDate: 159221158158,
+                                    dueDate: 1382086394000,
                                     createdAt: 159221158158, //optional
                                     labels:
                                         [

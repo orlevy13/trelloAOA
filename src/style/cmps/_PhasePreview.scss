@@ -14,7 +14,11 @@
         padding: 4px;
         margin: 0 4px;
 
+
         .phase-title {
+            font-family: roboto-light;
+            font-size: rem(14px);
+            font-weight: bold;
             cursor: pointer;
             padding: 0 4px;
         }
@@ -39,9 +43,5 @@
             margin: 0;
             //last card margin
         }
-    }
-
-    .add-card-btn {
-        margin: 0 4px;
     }
 }
