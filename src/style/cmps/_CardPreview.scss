@@ -1,7 +1,13 @@
 .card-preview {
-    background-color: #f4f5f7;
-    width: 90%;
-    height: 100px;
-    margin-bottom: 5px;
-    border-radius: 3px;
+    background-color: #fff;
+    // border-radius: 3px;
+    @include transRoundBorder;
+    margin: 0 0 8px 0;
+    padding: 5px 5px 0 5px;
+    box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
+    cursor: pointer !important;
+
+    p {
+        padding-bottom: 4px;
+    }
 }

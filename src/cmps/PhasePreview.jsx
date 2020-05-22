@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { MoreHoriz, Close } from '@material-ui/icons';
-import { CardList } from './CardList'
 import { AddCard } from './AddCard';
+import { CardList } from './CardList';
 import { CardPreview } from './CardPreview';
 import { connect } from 'react-redux';
 import { saveBoard } from '../store/actions/boardActions';
@@ -127,11 +127,10 @@ export class _PhasePreview extends Component {
                         <Droppable droppableId={id}>
                             {(provided) => (
                                 <CardList>
-                                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                                    <div className="cards-list" ref={provided.innerRef} {...provided.droppableProps}>
                                         {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
                                         {provided.placeholder}
                                     </div>
-
                                 </CardList>
                             )}
                         </Droppable>

@@ -8,6 +8,7 @@ const gBoards =
             type: 'guest',
             imgUrl: 'cloudinary',
             bgColor: '#00AECC',
+            isLabelTxtShown: false,
             phaseLists:
                 [
                     {
@@ -26,14 +27,54 @@ const gBoards =
                                     labels:
                                         [
                                             {
-                                                id: 'dvsdvdsv',
-                                                color: '#fff',
+                                                id: 'dvsdZwd213vdsv',
+                                                color: '#61bd4f',
                                                 txt: 'important'
                                             },
                                             {
+                                                id: 'dvdsv',
+                                                color: '#f2d600',
+                                                txt: 'experienced only'
+                                            },
+                                            {
+                                                id: 'dvsd567vdsv',
+                                                color: '#ff9f1a',
+                                                txt: 'fun to do'
+                                            },
+                                            {
+                                                id: 'dv345dsv',
+                                                color: '#eb5a46',
+                                                txt: 'this is just a very very very long label'
+                                            },
+                                            {
+                                                id: 'dv345dssav',
+                                                color: '#0079bf',
+                                                txt: 'klein blue'
+                                            },
+                                            {
+                                                id: 'dss281av',
+                                                color: '#00c2e0',
+                                                txt: 'clear blue sky'
+                                            },
+                                            {
+                                                id: 'dss2818av',
+                                                color: '#ff78cb',
+                                                txt: 'pinky'
+                                            },
+                                            {
+                                                id: 'fl18av',
+                                                color: '#344563',
+                                                txt: 'darkish'
+                                            },
+                                            {
+                                                id: 'fl18aolv',
+                                                color: '#b3bac5',
+                                                txt: 'grayish'
+                                            },
+                                            {
                                                 id: 'gdfgfsd',
-                                                color: '#aaa',
-                                                txt: 'good'
+                                                color: '#c377e0',
+                                                txt: 'doesn\'t matter'
                                             }
                                         ],
                                     checkList:
@@ -82,14 +123,19 @@ const gBoards =
                                     labels:
                                         [
                                             {
-                                                id: 'dvsdvdsv',
-                                                color: '#fff',
-                                                txt: 'important'
+                                                id: 'fl18av',
+                                                color: '#344563',
+                                                txt: 'darkish'
+                                            },
+                                            {
+                                                id: 'fl18aolv',
+                                                color: '#b3bac5',
+                                                txt: 'grayish'
                                             },
                                             {
                                                 id: 'gdfgfsd',
-                                                color: '#aaa',
-                                                txt: 'good'
+                                                color: '#c377e0',
+                                                txt: 'doesn\'t matter'
                                             }
                                         ],
                                     checkList:
@@ -138,15 +184,20 @@ const gBoards =
                                     labels:
                                         [
                                             {
-                                                id: 'dvsdvdsv',
-                                                color: '#fff',
+                                                id: 'dvsdZwd213vdsv',
+                                                color: '#61bd4f',
                                                 txt: 'important'
                                             },
                                             {
-                                                id: 'gdfgfsd',
-                                                color: '#aaa',
-                                                txt: 'good'
-                                            }
+                                                id: 'dvdsv',
+                                                color: '#f2d600',
+                                                txt: 'experienced only'
+                                            },
+                                            {
+                                                id: 'dvsd567vdsv',
+                                                color: '#ff9f1a',
+                                                txt: 'fun to do'
+                                            },
                                         ],
                                     checkList:
                                         [
@@ -195,6 +246,7 @@ const gBoards =
                                 {
                                     id: '5678',   // our id                         
                                     bgColor: '#ddd',
+                                    imgUrl: '',
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
@@ -202,15 +254,20 @@ const gBoards =
                                     labels:
                                         [
                                             {
-                                                id: 'dvsdvdsv',
-                                                color: '#fff',
-                                                txt: 'important'
+                                                id: 'dv345dssav',
+                                                color: '#0079bf',
+                                                txt: 'klein blue'
                                             },
                                             {
-                                                id: 'gdfgfsd',
-                                                color: '#aaa',
-                                                txt: 'good'
-                                            }
+                                                id: 'dss281av',
+                                                color: '#00c2e0',
+                                                txt: 'clear blue sky'
+                                            },
+                                            {
+                                                id: 'dss2818av',
+                                                color: '#ff78cb',
+                                                txt: 'pinky'
+                                            },
                                         ],
                                     checkList:
                                         [
@@ -259,6 +316,7 @@ const gBoards =
                                 {
                                     id: '91011',   // our id                         
                                     bgColor: '#ddd',
+                                    imgUrl: '',
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
@@ -266,15 +324,20 @@ const gBoards =
                                     labels:
                                         [
                                             {
-                                                id: 'dvsdvdsv',
-                                                color: '#fff',
-                                                txt: 'important'
+                                                id: 'dv345dssav',
+                                                color: '#0079bf',
+                                                txt: 'klein blue'
                                             },
                                             {
-                                                id: 'gdfgfsd',
-                                                color: '#aaa',
-                                                txt: 'good'
-                                            }
+                                                id: 'dss281av',
+                                                color: '#00c2e0',
+                                                txt: 'clear blue sky'
+                                            },
+                                            {
+                                                id: 'dss2818av',
+                                                color: '#ff78cb',
+                                                txt: 'pinky'
+                                            },
                                         ],
                                     checkList:
                                         [
