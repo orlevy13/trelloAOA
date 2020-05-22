@@ -1,9 +1,31 @@
 @font-face {
     font-family: open-sans;
-    src: url('../fonts/open-sans.ttf');
+    src: url("../fonts/open-sans.ttf");
 }
 
 @font-face {
     font-family: ubuntu;
-    src: url('../fonts/ubuntu.ttf');
+    src: url("../fonts/ubuntu.ttf");
+}
+@font-face {
+    font-family: roboto-normal;
+    src: url("../fonts/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: roboto-black;
+    src: url("../fonts/Roboto/Roboto-Black.ttf");
+}
+@font-face {
+    font-family: roboto-bold;
+    src: url("../fonts/Roboto/Roboto-Bold.ttf");
+}
+
+@font-face {
+    font-family: roboto-thin;
+    src: url("../fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+    font-family: roboto-light;
+    src: url("../fonts/Roboto/Roboto-Light.ttf");
 }

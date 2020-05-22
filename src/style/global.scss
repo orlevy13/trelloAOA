@@ -8,12 +8,17 @@
 @import "basics/base";
 @import "basics/layout";
 
-// Components
+// Pages
 
+@import "pages/Home";
+@import "pages/Board";
+
+//Components
+
+@import "cmps/MainNav";
 @import "cmps/cardHeader";
 @import "cmps/cardDesc";
 @import "cmps/CardSideBar";
-@import "pages/Board";
 @import "cmps/MemberInitials";
 @import "cmps/PhaseList";
 @import "cmps/PhasePreview";
