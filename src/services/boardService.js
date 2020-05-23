@@ -398,7 +398,8 @@ export const boardService = {
     save,
     makeId,
     getBoardCopy,
-    getNewCard
+    getNewCard,
+
 }
 
 
@@ -410,3 +411,6 @@ function makeId(length = 5) {
     }
     return txt;
 }
+
+
+

@@ -10,13 +10,13 @@
 
 // Components
 
-@import "cmps/cardHeader";
-@import "cmps/cardDesc";
-@import "cmps/CardSideBar";
 @import "pages/Board";
 @import "cmps/MemberInitials";
 @import "cmps/PhaseList";
 @import "cmps/PhasePreview";
-@import "cmps/MemberInitials";
 @import "cmps/AddCard";
 @import "cmps/CardPreview";
+@import "cmps/cardHeader";
+@import "cmps/cardDesc";
+@import "cmps/CardSideBar";
+@import "cmps/CardCheckList.scss";

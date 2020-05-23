@@ -1,3 +1,18 @@
 .card-check-list {
     grid-area: main;
 }
+
+.progress-bar-container {
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 300px;
+    border-radius: 8px;
+    color: #000;
+    background-color: #ccc;
+}
+
+.progress-bar {
+    color: #fff;
+    background-color: #2196f3;
+    border-radius: 8px;
+}

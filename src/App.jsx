@@ -18,7 +18,7 @@ export function App() {
         <Link to="/">Logout</Link> |
         <Link to="/board/:id">board</Link> |
         <Link to="/board/abcd">default board</Link> |
-        <Link to="/card">default card</Link> |
+        <Link to="/board/abcd/card/1234">default card</Link> |
         </nav>
 
 
@@ -28,7 +28,7 @@ export function App() {
           <Route path="/board/:id" component={Board} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/signup" component={Signup} exact />
-          <Route path="/card" component={Card} exact />
+          <Route path="/board/:boardId/card/:cardId" component={Card} exact />
 
         </Switch>
       </Router>
