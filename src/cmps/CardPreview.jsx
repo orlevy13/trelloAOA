@@ -1,7 +1,7 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CardLabels } from './CardLabels';
-import { AttachmentOutlined } from '@material-ui/icons';
+import { AttachmentOutlined, CheckBoxOutlined } from '@material-ui/icons';
 import { DueBadge } from './DueBadge';
 
 export class CardPreview extends React.Component {
@@ -9,6 +9,7 @@ export class CardPreview extends React.Component {
     render() {
 
         const { title, bgColor, imgUrl, dueDate, labels, checkList, assignedTo, attachments } = this.props.card;
+        const checklistDoneCount = checkList.filter(item => item.isDone).length;
 
         return (
             <Draggable draggableId={this.props.card.id} index={this.props.index}>
@@ -30,6 +31,12 @@ export class CardPreview extends React.Component {
                                     <AttachmentOutlined className="attach-icon" />
                                     <span>{attachments.length}</span>
                                 </div>}
+
+                            {checkList.length > 0 && <div className="checklist-badge flex align-center">
+                                <span className="checklist-icon"><CheckBoxOutlined fontSize="small" />
+                                </span>
+                                <span>{checklistDoneCount}/{checkList.length}</span>
+                            </div>}
                         </div>
 
                     </section>

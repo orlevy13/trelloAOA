@@ -20,11 +20,10 @@
 
     .card-badges {
         padding: 0 0 4px 0;
-
+        font-size: rem(12px);
+        font-family: roboto-normal;
         .card-due {
             @include transRoundBorder;
-            font-family: roboto-normal;
-            font-size: rem(12px);
             padding: 1px 4px 1px 1px;
             margin-right: 8px;
             align-self: flex-start;
@@ -36,9 +35,17 @@
         }
 
         .attach-badge {
+            margin-right: 8px;
             .attach-icon {
                 font-size: 14px;
                 transform: rotate(-45deg);
+                margin-right: 4px;
+            }
+        }
+        .checklist-badge {
+            .checklist-icon {
+                font-size: 12px;
+                margin-right: 4px;
             }
         }
     }
