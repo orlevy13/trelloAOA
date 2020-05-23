@@ -11,7 +11,9 @@ export class CardPreview extends React.Component {
 
         const { title, bgColor, imgUrl, dueDate, labels, checkList, assignedTo, attachments } = this.props.card;
         const checklistDoneCount = checkList.filter(item => item.isDone).length;
-
+        // #61bd4f
+        const checklistBgc = checklistDoneCount === checkList.length ? '#61bd4f' : '';
+        const checklistColor = checklistBgc ? '#fff' : '';
         return (
             <Draggable draggableId={this.props.card.id} index={this.props.index}>
                 {(provided) => (
@@ -32,11 +34,13 @@ export class CardPreview extends React.Component {
                                     <span>{attachments.length}</span>
                                 </div>}
 
-                            {checkList.length > 0 && <div className="checklist-badge flex align-center">
-                                <span className="checklist-icon"><CheckBoxOutlined fontSize="small" />
-                                </span>
-                                <span>{checklistDoneCount}/{checkList.length}</span>
-                            </div>}
+                            {checkList.length > 0 &&
+                                <div style={{ backgroundColor: checklistBgc, color: checklistColor }}
+                                    className="checklist-badge flex align-center">
+                                    <span><CheckBoxOutlined className="checklist-icon" />
+                                    </span>
+                                    <span>{checklistDoneCount}/{checkList.length}</span>
+                                </div>}
                         </div>
                         <div className="members-badge">
                             {assignedTo.length > 0 &&

@@ -13,7 +13,7 @@ const gBoards =
                 [
                     {
                         id: 'abcd',
-                        name: 'ideas',
+                        name: 'Ideas',
                         desc: 'stam ideas',
                         cards:
                             [
@@ -24,7 +24,7 @@ const gBoards =
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
                                     dueDate: 1590237504000,
-                                    createdAt: 1590231969025, //optional
+                                    createdAt: 1590231969025,
                                     labels:
                                         [
                                             {
@@ -117,7 +117,7 @@ const gBoards =
                                     title: 'Stam Card',
                                     desc: 'using cli create new project',
                                     dueDate: 1590237504000,
-                                    createdAt: 1590231969794, //optional
+                                    createdAt: 1590231969794,
                                     labels:
                                         [
                                             {
@@ -210,7 +210,7 @@ const gBoards =
                                     title: 'card 2',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
-                                    createdAt: 1590231970416, //optional
+                                    createdAt: 1590231970416,
                                     labels:
                                         [
                                             {
@@ -277,7 +277,7 @@ const gBoards =
                                     title: 'card 3',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
-                                    createdAt: 1590231971025, //optional
+                                    createdAt: 1590231971025,
                                     labels:
                                         [
                                             {
@@ -336,18 +336,18 @@ const gBoards =
                     },
                     {
                         id: 'efgh',
-                        name: 'todo',
+                        name: 'Todo',
                         desc: 'stam ideas',
                         cards:
                             [
                                 {
-                                    id: '5678',   // our id                         
+                                    id: '567s8',   // our id                         
                                     bgColor: '#ddd',
-                                    imgUrl: '',
-                                    title: 'create-react-app ready to start',
-                                    desc: 'using cli create new project',
-                                    dueDate: 159225851158158,
-                                    createdAt: 1590231971641, //optional
+                                    imgUrl: 'https://res.cloudinary.com/marmelada/image/upload/v1590255534/driliielnvzknhcprzj7.png',
+                                    title: 'Provide a placeholder when starting to drag a list, to prevent elements in the DOM to take its place before it\'s been moved',
+                                    desc: '',
+                                    dueDate: 1590342309000,
+                                    createdAt: 1590231971641,
                                     labels:
                                         [
                                             {
@@ -392,12 +392,12 @@ const gBoards =
                                                 url: 'http://cloudinary.com/vhfdbhvhbfd'
                                             }
                                         ]
-                                }
+                                },
                             ]
                     },
                     {
                         id: 'jklmn',
-                        name: 'doing',
+                        name: 'Doing',
                         desc: 'stam ideas',
                         cards:
                             [
@@ -408,7 +408,7 @@ const gBoards =
                                     title: 'Save the empire',
                                     desc: 'using cli create new project',
                                     dueDate: 1382086394000,
-                                    createdAt: 1590231972413, //optional
+                                    createdAt: 1590231972413,
                                     labels:
                                         [
                                             {
@@ -448,6 +448,114 @@ const gBoards =
                                                 fullName: 'Alon Yaari',
                                                 img: 'http://cloudinary.com/asdsad',
                                             }
+                                        ],
+                                    attachments:
+                                        [
+                                            {
+                                                _id: '????vdfvdf',
+                                                name: 'project-1.pdf',
+                                                url: 'http://cloudinary.com/vhfdbhvhbfd'
+                                            }
+                                        ]
+                                }
+                            ]
+                    },
+                    {
+                        id: 'jkasdlmn',
+                        name: 'Done',
+                        desc: 'Done tasks',
+                        cards:
+                            [
+                                {
+                                    id: '9108211',   // our id                         
+                                    bgColor: '#ddd',
+                                    imgUrl: 'https://res.cloudinary.com/marmelada/image/upload/v1590254827/ymfrot6zdwnes4de2arn.jpg',
+                                    title: 'Add drag n drop',
+                                    desc: 'using cli create new project',
+                                    dueDate: 1590324917876,
+                                    createdAt: 1590231672413,
+                                    labels:
+                                        [
+                                            {
+                                                id: '345gs',
+                                                color: '#0079bf',
+                                                txt: 'klein blue'
+                                            },
+                                            {
+                                                id: 'dss28fh561av',
+                                                color: '#00c2e0',
+                                                txt: 'clear blue sky'
+                                            },
+                                            {
+                                                id: 'asd4gv',
+                                                color: '#ff78cb',
+                                                txt: 'pinky'
+                                            },
+                                        ],
+                                    checkList:
+                                        [
+
+                                        ],
+                                    assignedTo:
+                                        [
+                                            {
+                                                _id: 'hgj5rasde',
+                                                fullName: 'Alon Yaari',
+                                                img: 'http://cloudinary.com/asdsad',
+                                            }
+                                        ],
+                                    attachments:
+                                        [
+                                            {
+                                                _id: '????vdfvdf',
+                                                name: 'project-1.pdf',
+                                                url: 'http://cloudinary.com/vhfdbhvhbfd'
+                                            }
+                                        ]
+                                },
+                                {
+                                    id: '5678',
+                                    bgColor: '#ddd',
+                                    imgUrl: '',
+                                    title: 'create-react-app ready to start',
+                                    desc: 'using cli create new project',
+                                    dueDate: 159225851158158,
+                                    createdAt: 1590231971641,
+                                    labels:
+                                        [
+                                            {
+                                                id: 'dv345dssav',
+                                                color: '#0079bf',
+                                                txt: 'klein blue'
+                                            },
+                                            {
+                                                id: 'dss281av',
+                                                color: '#00c2e0',
+                                                txt: 'clear blue sky'
+                                            },
+                                            {
+                                                id: 'dss2818av',
+                                                color: '#ff78cb',
+                                                txt: 'pinky'
+                                            },
+                                        ],
+                                    checkList:
+                                        [
+                                            {
+                                                id: 'bakdsa',
+                                                txt: 'do your homework',
+                                                isDone: true
+
+                                            },
+                                            {
+                                                id: 'bakdsjk',
+                                                txt: 'do your homework',
+                                                isDone: true
+                                            }
+                                        ],
+                                    assignedTo:
+                                        [
+
                                         ],
                                     attachments:
                                         [
@@ -576,6 +684,3 @@ function makeId(length = 5) {
     }
     return txt;
 }
-
-
-
