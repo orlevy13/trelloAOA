@@ -10,8 +10,9 @@
 
 // Pages
 
-@import "pages/Home";
 @import "pages/Board";
+@import "cmps/MemberInitials";
+@import "pages/Home";
 
 //Components
 
@@ -21,7 +22,7 @@
 @import "cmps/CardSideBar";
 @import "cmps/PhaseList";
 @import "cmps/PhasePreview";
-@import "cmps/MemberInitials";
 @import "cmps/AddCard";
 @import "cmps/CardPreview";
+@import "cmps/CardCheckList.scss";
 @import "cmps/Labels";

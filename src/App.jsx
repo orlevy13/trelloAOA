@@ -14,13 +14,11 @@ export function App() {
       <Router history={history}>
         <MainNav />
         <Switch>
-
           <Route path="/" component={Home} exact />
           <Route path="/board/:id" component={Board} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/signup" component={Signup} exact />
-          <Route path="/card" component={Card} exact />
-
+          <Route path="/board/:boardId/card/:cardId" component={Card} exact />
         </Switch>
       </Router>
     </React.Fragment>
