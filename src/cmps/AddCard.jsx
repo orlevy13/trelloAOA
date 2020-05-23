@@ -23,15 +23,15 @@ export class _AddCard extends Component {
 
     onAddCard = (ev) => {
         ev.preventDefault();
-        if(!this.state.card.title) return;
-        
+        if (!this.state.card.title) return;
+
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phaseId);
         const newCard = boardService.getNewCard(this.state.card);
-        console.log('got newCard in onAddCard:', newCard);
         boardCopy.phaseLists[phaseIdx].cards.push(newCard);
         this.props.saveBoard(boardCopy);
         this.setState({ card: { title: '' } });
+        this.props.bottomCard.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
     submitOnEnter(ev) {

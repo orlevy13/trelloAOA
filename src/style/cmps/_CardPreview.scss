@@ -50,11 +50,15 @@
         }
 
         .checklist-badge {
+            @include transRoundBorder;
             margin-right: 8px;
+            padding: 1px 4px 1px 1px;
 
             .checklist-icon {
-                font-size: 12px;
+                font-size: 14px;
                 margin-right: 4px;
+                position: relative;
+                top: 1px;
             }
         }
 

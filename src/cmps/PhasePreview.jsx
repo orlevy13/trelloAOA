@@ -21,14 +21,6 @@ export class _PhasePreview extends Component {
         this.setState({ newPhaseName: this.props.phase.name })
     }
 
-    componentDidUpdate(prevProps) {
-        console.log('phasePreview did update!');
-        if (prevProps.phase.cards.length < this.props.phase.cards.length) {
-            this.bottomCard.scrollIntoView({ behavior: 'smooth', block: 'end' })
-        }
-    }
-
-
     componentWillUnmount() {
         window.removeEventListener('keydown', this.hideInput);
     }
@@ -153,7 +145,7 @@ export class _PhasePreview extends Component {
                                 </CardList>
                             )}
                         </Droppable>
-                        <AddCard isAddCardShown={isAddCardShown}
+                        <AddCard isAddCardShown={isAddCardShown} bottomCard={this.bottomCard}
                             toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
                     </article>
                 )}
