@@ -39,12 +39,11 @@ class _Card extends Component {
         for (let i = 0; i < boardClone.phaseLists.length; i++) {
             const phase = boardClone.phaseLists[i];
             phase.cards.forEach(currCard => {
-                if (currCard.id === cardId) card = currCard;
+                if (currCard.id === cardId) card = JSON.parse(JSON.stringify(currCard));;
             });
         }
         console.log(card);
         return card;
-
     }
 
 

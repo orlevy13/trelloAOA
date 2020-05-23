@@ -18,10 +18,6 @@ class _CardCheckList extends Component {
     // }
     componentDidMount() {
 
-        // path = "details/:boardId/:cardId"
-        // const { boardId, cardId } = this.props.match.params;
-
-        console.log('sett store board', this.props);
         this.setState({ checkList: this.props.card.checkList, onAdd: false },
             () => this.setState({ progress: this.progressBarUpdate() }))
     }
@@ -30,7 +26,6 @@ class _CardCheckList extends Component {
     progressBarUpdate = () => {
 
         const doneTodos = this.props.card.checkList.reduce((acc, currVal) => {
-            console.log('progress bar update, checklist:', this.props.card.checkList, this.props.card.checkList.length);
             if (currVal.isDone) {
                 acc++
                 console.log('reduce func acc', acc, 'curr val is', currVal.isDone);
@@ -41,20 +36,15 @@ class _CardCheckList extends Component {
     }
 
 
-    // openInput = () => {
-    //     console.log('open input');
-    //     this.setState(prevState => ({ isShown: !prevState.isShown }))
-    // }
 
     handleChange = ({ target }, idx = -1) => {
-        console.log('check list handle change-value', target, idx, 'state todotext', this.state.todoText);
+
         const field = target.name;
         const value = (field === 'isDone') ? target.done : target.value
-        console.log('before clone', this.props.board);
 
+        let clone = this.props.card.checkList.slice(); //creates the clone of the stat
+        console.log('check list at handle change', clone);
 
-        let clone = this.props.card.checkList.slice(); //creates the clone of the state
-        console.log('handle change. clone:', clone, 'field:', field, 'value:', value);
         if (field === 'isDone')
             clone[idx].isDone = value;
         else {
@@ -62,17 +52,17 @@ class _CardCheckList extends Component {
                 this.setState({ todoText: value })
             else clone[idx].txt = value;
         }
+        console.log('check list before save', clone);
+
         this.handleSaveBoard(clone);
     }
 
     addTodo = () => {
-        console.log('handle add hi');
+
         if (!this.state.todoText) {
-            console.log('handle add failed');
             return
         }
         else {
-            console.log('handle add');
 
             let newTodo = { txt: this.state.todoText, isDone: false }
             let clone = this.props.card.checkList.slice();
@@ -82,18 +72,29 @@ class _CardCheckList extends Component {
         }
     }
 
+    getPhaseByCardId = (id) => {
+        const curPhase = this.props.board.phaseLists.filter(phase => phase.cards.find(card => card.id === id));
+        return curPhase;
 
+    }
 
     handleSaveBoard = (checklist) => {
+        console.log('check list on handle save', checklist);
+
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id
-        console.log('handle save board card id:', cardId, 'board clone phaselists', boardClone.phaseLists);
+        let currPhase = this.getPhaseByCardId(cardId)
 
-        let checklistClone = boardClone.phaseLists.forEach(phase =>
-            phase.cards.filter(card => card.id = cardId))
 
-        console.log('save board checlist', checklistClone);
-        boardClone.checkList = checklistClone;
+
+        currPhase[0].cards.forEach(card => {
+            if (card.id === this.props.card.id) {
+                console.log('BEFORE: checklist ', checklist, 'card ', card);
+                card.checkList = checklist;
+                console.log('AFTER: checklist', checklist, 'card ', card);
+            }
+        })
+        console.log('save board. board:', this.props.board);
         this.props.saveBoard(boardClone)
     }
 
@@ -112,12 +113,11 @@ class _CardCheckList extends Component {
         this.handleSaveBoard(clone)
     }
 
+
+
     render() {
         const { todoText, onAdd, isTitleShown } = this.state
-
-
         if (this.state.progress) {
-            console.log('props checklist', this.props.checkList);
 
             return (
                 <div className="card-check-list">

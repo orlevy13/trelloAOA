@@ -11,8 +11,7 @@ export default function MainNav() {
             <Link to="/board/:id">board</Link> |
             <Link to="/board/abcd">default board</Link> |
             <Link to="/board/abcd/card/1234">default card</Link> |
-
         </nav >
-
     )
 }
+
