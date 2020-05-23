@@ -122,7 +122,7 @@ class _CardCheckList extends Component {
 
 
         return (
-            this.state.progress &&
+            this.state.checkList &&
             <div className="card-check-list">
                 <div className="check-list-header-container">
 
