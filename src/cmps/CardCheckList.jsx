@@ -17,7 +17,6 @@ class _CardCheckList extends Component {
     }
 
     progressBarUpdate = () => {
-        debugger;
         const doneTodos = this.state.checkList.reduce((acc, currVal) => {
             if (currVal.isDone) {
                 acc++
@@ -120,30 +119,31 @@ class _CardCheckList extends Component {
     render() {
         const { todoText, onAdd } = this.state;
         console.log('in render on add', onAdd);
-        if (this.state.progress) {
 
-            return (
-                <div className="card-check-list">
-                    <div className="check-list-header-container">
 
-                        <div className="progress-bar-container">
-                            <div className="progress-bar" style={{ width: `${this.state.progress}%` }} >{this.state.progress}</div>
-                        </div>
-                        {this.state.checkList.map((todo, idx) => <div key={idx} >
-                            <input type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} checked={todo.isDone} />
-                            <input type="text" name="txt" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} value={todo.txt} />
-                            <button onClick={() => this.onDelete(idx)}>X</button>
-                        </div>)}
+        return (
+            this.state.progress &&
+            <div className="card-check-list">
+                <div className="check-list-header-container">
 
-                        {!onAdd && <button onClick={this.toggleAdd}>Add Todo</button>}
-                        {onAdd && <input type="text" onChange={this.handleChange}
-                            autoFocus onBlur={this.toggleAdd} value={todoText} />}
-
+                    <div className="progress-bar-container">
+                        <div className="progress-bar" style={{ width: `${this.state.progress}%` }} >{this.state.progress}</div>
                     </div>
+                    {this.state.checkList.map((todo, idx) => <div key={idx} >
+                        <input type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} checked={todo.isDone} />
+                        <input type="text" name="txt" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} value={todo.txt} />
+                        <button onClick={() => this.onDelete(idx)}>X</button>
+                    </div>)}
+
+                    {!onAdd && <button onClick={this.toggleAdd}>Add Todo</button>}
+                    {onAdd && <input type="text" onChange={this.handleChange}
+                        autoFocus onBlur={this.toggleAdd} value={todoText} />}
+
                 </div>
-            )
-        }
-        else return 'loading'
+            </div>
+        )
+
+
     }
 }
 

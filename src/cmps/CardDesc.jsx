@@ -17,7 +17,7 @@ export default class CardDesc extends Component {
 
     render() {
 
-        if (this.state.txt)
+        if (this.state.txt) {
             return (
                 <section>
                     <div className="desc-header-container">
@@ -29,6 +29,6 @@ export default class CardDesc extends Component {
                     </div>
                 </section>
             )
-        else return 'loading'
+        } else return ''
     }
 }

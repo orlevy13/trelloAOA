@@ -11,7 +11,7 @@ class _Card extends Component {
         card: null
     }
 
-    componentDidMount() {  
+    componentDidMount() {
         this.props.loadBoard(this.props.match.params.boardId)
             .then(() => {
                 const card = this.getCardById()
@@ -62,7 +62,7 @@ class _Card extends Component {
                 </section>
 
             )
-        } else return ('loading')
+        } else return 'loading';
     }
 }
 
