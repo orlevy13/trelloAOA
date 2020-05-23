@@ -111,12 +111,12 @@ export class _PhaseList extends Component {
                             {phaseLists && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
 
-                            {!isInputShown && <button className="add-list-btn flex"
+                            {!isInputShown && <button className="add-list-btn flex align-center"
                                 onClick={toggleInputShown}> <Add fontSize="small" />Add new list</button>}
 
                             {isInputShown && <form ref={el => this.listForm = el} className="add-list-form"
                                 onSubmit={onAddPhase}>
-                                <input ref={el => this.listNameInput = el} type="text" autoFocus
+                                <input ref={el => this.listNameInput = el} type="text" autoFocus spellCheck="false"
                                     name="newListName" onChange={handleChange} required autoComplete="off"
                                     placeholder="Enter list title.." value={newListName} />
                                 <div className="flex align-center">

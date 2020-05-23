@@ -1,0 +1,20 @@
+.labels-container {
+    .label {
+        @include transRoundBorder;
+        font-size: rem(12px);
+        font-weight: 700;
+        margin: 3px;
+        min-width: 40px;
+        max-width: 100%;
+        padding: 0 2px;
+        text-align: center;
+        overflow: hidden;
+        min-height: 8px;
+
+        span {
+            font-family: roboto-bold;
+            padding: 1px 3px;
+            color: #fff;
+        }
+    }
+}
