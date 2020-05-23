@@ -6,11 +6,11 @@ export default function MainNav() {
     return (
         <nav>
             <nav className="left-nav flex align-center">
-                <Link to="/">
-                    <div className="test">
-                        <HomeOutlined className="home-icon" />
-                    </div>
-                </Link>
+                {/* <Link to="/"> </Link> */}
+                <div className="test">
+                    <HomeOutlined className="home-icon" />
+                </div>
+
                 {/* <Link to="/boards/abcd">
                     <div className="flex align-center">
                         <DashboardOutlined className="home-icon" />

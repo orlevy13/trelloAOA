@@ -4,18 +4,19 @@
     .test {
         width: 32px;
         height: 32px;
-    }
-    .home-icon {
         background-color: $boardBtn;
-        color: white;
-        width: 24px;
-        height: 24px;
-        border-radius: 3px;
-        margin: 0 8px;
         cursor: pointer;
-
+        border-radius: 3px;
         &:hover {
             background-color: $boardBtnHov;
         }
+    }
+    .home-icon {
+        color: white;
+        width: 24px;
+        height: 24px;
+        
+        margin: 0 8px;
+        
     }
 }
