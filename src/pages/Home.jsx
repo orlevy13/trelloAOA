@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BoardList } from '../cmps/BoardList';
+import { Link } from 'react-router-dom';
+
+
 
 class _Home extends Component {
     render() {
         return (
-            <div>
+            <main className="home-container">
+                <div className="text-area flex column align-start">
+                    <h1>Don't Waste Papers</h1>
+                    <h3><span>Flowz</span> the project managment software that keep teams going and Collaborate</h3>
 
-            </div>
+                    <Link to="/board/abcd"> <span className="btn-home">Get Started</span></Link>
+                </div>
+
+
+            </main >
         )
     }
 }

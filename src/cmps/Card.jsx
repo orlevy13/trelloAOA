@@ -34,9 +34,7 @@ class _Card extends Component {
             return
         console.log('card id:', cardId);
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
-
         console.log('board in get card by id', boardClone);
-
         var card;
         for (let i = 0; i < boardClone.phaseLists.length; i++) {
             const phase = boardClone.phaseLists[i];
@@ -44,11 +42,9 @@ class _Card extends Component {
                 if (currCard.id === cardId) card = currCard;
             });
         }
-
         console.log(card);
-
-
         return card;
+
     }
 
 

@@ -1,13 +1,13 @@
 .add-card {
     font-size: rem(14px);
     line-height: rem(20px);
+    margin: 8px 8px 0;
 
     .add-card-btn {
         @include transRoundBorder;
         color: #5e6c84;
         width: 100%;
         background-color: inherit;
-        margin-top: 8px;
         font-weight: 200;
 
         &:hover {

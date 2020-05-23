@@ -1,0 +1,38 @@
+.home-container {
+    height: 95vh;
+    @include background("../img/dont-waste-paper.jpg");
+    background-size: cover;
+    .text-area {
+        padding: 100px;
+        h1 {
+            font-size: rem(50px);
+            line-height: 60px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        h3 {
+            font-size: rem(20px);
+            line-height: 32px;
+            font-weight: 300;
+            font-family: roboto-light;
+            width: 400px;
+            margin-bottom: 25px;
+        }
+        .btn-home {
+            background-color: #ff0476;
+            width: 147px;
+            height: 50px;
+            font-size: rem(16px);
+            padding: 16px 32px;
+            font-weight: 400;
+            display: inline-block;
+            border-radius: 100px;
+            color: white;
+            outline: none;
+            transition-delay: 0s;
+            transition-duration: 0.2s;
+            transition-property: background-color;
+            transition-timing-function: ease;
+        }
+    }
+}

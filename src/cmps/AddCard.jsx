@@ -6,33 +6,31 @@ import { boardService } from '../services/boardService';
 
 export class _AddCard extends Component {
     state = {
-        isInputShown: false,
         card: {
             title: ''
         }
     }
 
-    toggleInputShown = () => {
-        this.setState(prevState => ({ isInputShown: !prevState.isInputShown }), () => {
-            if (this.state.isInputShown) {
-                this.cardNameInput.addEventListener("keypress", this.submitOnEnter);
-            }
-        })
+    componentDidUpdate() {
+        if (this.props.isAddCardShown) {
+            this.cardNameInput.addEventListener("keypress", this.submitOnEnter);
+        }
     }
 
     handleChange = ({ target }) => {
-        this.setState(prevState => ({
-            ...prevState,
-            card: { title: target.value }
-        }))
+        this.setState({ card: { title: target.value } })
     }
 
     onAddCard = (ev) => {
         ev.preventDefault();
+        if(!this.state.card.title) return;
+        
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phaseId);
         const newCard = boardService.getNewCard(this.state.card);
+        console.log('got newCard in onAddCard:', newCard);
         boardCopy.phaseLists[phaseIdx].cards.push(newCard);
+        this.props.saveBoard(boardCopy);
         this.setState({ card: { title: '' } });
     }
 
@@ -46,24 +44,24 @@ export class _AddCard extends Component {
 
 
     render() {
-        const { toggleInputShown, handleChange, onAddCard, state } = this;
-        const { isInputShown } = state;
+        const { handleChange, onAddCard, state } = this;
+        const { toggleAddCardShown, isAddCardShown } = this.props;
 
         return (
-            <div className="add-card">
+            <div className="add-card grow">
 
-                {!isInputShown && <button onClick={toggleInputShown}
+                {!isAddCardShown && <button onClick={toggleAddCardShown}
                     className="add-card-btn flex align-center">
                     <Add className="add-icon" fontSize="large" />Add a card</button>}
 
-                {isInputShown && <form onSubmit={onAddCard}>
+                {isAddCardShown && <form onSubmit={onAddCard}>
                     <textarea className="card-name-input" required autoFocus type="text"
-                        name="title" autoComplete="off" onChange={handleChange}
+                        name="title" autoComplete="off" onChange={handleChange} spellCheck="false"
                         ref={el => this.cardNameInput = el} value={state.card.title}
                         placeholder="Enter a title for this card.." />
                     <div className="flex align-end">
                         <button className="submit-btn" type="submit">Add Card</button>
-                        <button className="close-btn" onClick={toggleInputShown}><Close /></button>
+                        <button className="close-btn" onClick={toggleAddCardShown}><Close /></button>
                     </div>
                 </form>}
             </div>

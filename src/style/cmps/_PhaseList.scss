@@ -1,4 +1,6 @@
 .phase-list {
+    position: relative;
+
     .add-list-btn {
         align-self: flex-start;
         background-color: $boardBtn;
@@ -7,6 +9,7 @@
         border: none;
         border-radius: 5px;
         padding: 5px 10px;
+        margin: 0 4px;
         line-height: 20px;
         min-width: 272px;
         min-height: 40px;
@@ -17,6 +20,7 @@
     }
 
     .add-list-form {
+        align-self: flex-start;
         background-color: $trelloGrey;
         padding: 4px;
         min-width: 272px;
@@ -49,6 +53,7 @@
     }
 
     .phase-menu {
+        z-index: 1;
         position: absolute;
         width: 280px;
         background-color: #fff;

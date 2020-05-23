@@ -49,32 +49,42 @@ export class _PhaseList extends Component {
     onAddPhase = async (ev) => {
         ev.preventDefault();
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const newPhase = {
-            id: boardService.makeId(),
-            name: this.state.newListName,
-            desc: '',
-            cards: []
-        }
+        const newPhase = boardService.getNewPhase(this.state.newListName);
         boardCopy.phaseLists.push(newPhase);
         await this.props.saveBoard(boardCopy);
         this.setState({ newListName: '' }, () => {
             this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
         });
     }
+    
     onDragEnd = result => {
-        const { destination, source, draggableId, type } = result;
-        if (!destination) {
-            console.log('not destination: ', destination);
-            return;
-        }
 
+        const { destination, source, type } = result;
+        if (!destination) return;
+        if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+        const boardCopy = boardService.getBoardCopy(this.props.board);
         if (type === 'PhasePreview') {
-            const boardCopy = boardService.getBoardCopy(this.props.board);
+
             const newPhasesOrder = boardCopy.phaseLists;
             const movingPhase = newPhasesOrder.splice(source.index, 1)[0];
             newPhasesOrder.splice(destination.index, 0, movingPhase);
-            this.props.saveBoard(boardCopy);
+        } else {
+            const { phaseLists } = boardCopy;
+            const srcPhase = phaseLists.find(phase => phase.id === source.droppableId);
+            const dstPhase = phaseLists.find(phase => phase.id === destination.droppableId);
+
+            if (srcPhase.id === dstPhase.id) {
+                const movingCard = srcPhase.cards.splice(source.index, 1)[0];
+                srcPhase.cards.splice(destination.index, 0, movingCard);
+            } else {
+                const srcCards = srcPhase.cards;
+                const movingCard = srcCards.splice(source.index, 1)[0];
+                const dstCards = dstPhase.cards;
+                dstCards.splice(destination.index, 0, movingCard);
+            }
         }
+        this.props.saveBoard(boardCopy);
     }
 
 
@@ -89,15 +99,15 @@ export class _PhaseList extends Component {
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
                     {provided => (
                         <section className="phase-list flex"  {...provided.droppableProps} ref={provided.innerRef} >
-                            {phaseLists.length && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
+                            {phaseLists && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
 
-                            {!isInputShown && <button className="add-list-btn flex"
+                            {!isInputShown && <button className="add-list-btn flex align-center"
                                 onClick={toggleInputShown}> <Add fontSize="small" />Add new list</button>}
 
                             {isInputShown && <form ref={el => this.listForm = el} className="add-list-form"
                                 onSubmit={onAddPhase}>
-                                <input ref={el => this.listNameInput = el} type="text" autoFocus
+                                <input ref={el => this.listNameInput = el} type="text" autoFocus spellCheck="false"
                                     name="newListName" onChange={handleChange} required autoComplete="off"
                                     placeholder="Enter list title.." value={newListName} />
                                 <div className="flex align-center">

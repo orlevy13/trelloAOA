@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { MoreHoriz, Close } from '@material-ui/icons';
-import { CardList } from './CardList'
 import { AddCard } from './AddCard';
+import { CardList } from './CardList';
 import { CardPreview } from './CardPreview';
+import { connect } from 'react-redux';
+import { saveBoard } from '../store/actions/boardActions';
+import { boardService } from '../services/boardService';
 
-export class PhasePreview extends Component {
+export class _PhasePreview extends Component {
     state = {
         isInputShown: false,
         isMenuShown: false,
         isSortShown: false,
-        newPhaseName: ''
+        newPhaseName: '',
+        isAddCardShown: false
     }
 
     componentDidMount() {
         this.setState({ newPhaseName: this.props.phase.name })
     }
+
+    componentDidUpdate(prevProps) {
+        console.log('phasePreview did update!');
+        if (prevProps.phase.cards.length < this.props.phase.cards.length) {
+            this.bottomCard.scrollIntoView({ behavior: 'smooth', block: 'end' })
+        }
+    }
+
+
     componentWillUnmount() {
         window.removeEventListener('keydown', this.hideInput);
     }
@@ -39,7 +52,11 @@ export class PhasePreview extends Component {
 
     handleSubmit = (ev) => {
         ev.preventDefault();
-        console.log('Changing phase name:', this.state.newPhaseName)
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const { id } = this.props.phase;
+        const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === id);
+        boardCopy.phaseLists[phaseIdx].name = this.state.newPhaseName;
+        this.props.saveBoard(boardCopy);
         this.toggleInputShown();
     }
 
@@ -51,8 +68,12 @@ export class PhasePreview extends Component {
     }
 
     showAddCard = () => {
-        console.log('showing add card field')
+        this.setState({ isAddCardShown: true });
         this.toggleMenuShown();
+    }
+
+    toggleAddCardShown = () => {
+        this.setState(prevState => ({ isAddCardShown: !prevState.isAddCardShown }));
     }
 
     toggleIsSortShown = () => {
@@ -60,19 +81,27 @@ export class PhasePreview extends Component {
     }
 
     sortListBy = (sortBy) => {
-        console.log('implement sort list by:', sortBy);
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const { id } = this.props.phase;
+        const phase = boardCopy.phaseLists.find(phase => phase.id === id);
+        const sortedPhase = boardService.getSortedPhase(sortBy, phase);
+        boardCopy.phaseLists = boardCopy.phaseLists.filter(phase => phase.id ===
+            sortedPhase.id ? sortedPhase : phase);
+        this.props.saveBoard(boardCopy);
         this.toggleIsSortShown();//to close the menu
         this.toggleMenuShown();
     }
 
     onDeletePhase = () => {
-        console.log('Deleting list');
         this.toggleMenuShown();
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        boardCopy.phaseLists = boardCopy.phaseLists.filter(phase => phase.id !== this.props.phase.id);
+        this.props.saveBoard(boardCopy);
     }
 
     render() {
         const { name, id, cards } = this.props.phase;
-        const { newPhaseName, isInputShown, isMenuShown, isSortShown } = this.state;
+        const { newPhaseName, isInputShown, isMenuShown, isSortShown, isAddCardShown } = this.state;
         return (
             <Draggable draggableId={id} index={this.props.index}>
                 {(provided) => (
@@ -83,7 +112,7 @@ export class PhasePreview extends Component {
                                 onClick={this.toggleInputShown}>{name}</h5>}
                             {isInputShown && <form className="flex grow" onSubmit={this.handleSubmit}>
                                 <input className="phase-name-input grow" type="text" name="newPhaseName"
-                                    value={newPhaseName} autoFocus autoComplete="off"
+                                    value={newPhaseName} autoFocus autoComplete="off" spellCheck="false"
                                     onBlur={this.toggleInputShown} onChange={this.handleChange} />
                             </form>}
 
@@ -99,8 +128,8 @@ export class PhasePreview extends Component {
                                     <button onClick={this.toggleIsSortShown}>Sort By..</button>
                                     {isSortShown && <div className="sort-options flex column">
                                         <button onClick={() => {
-                                            this.sortListBy('name')
-                                        }}>Name</button>
+                                            this.sortListBy('title')
+                                        }}>Title</button>
                                         <button onClick={() => {
                                             this.sortListBy('firstCreated')
                                         }}>First Created</button>
@@ -116,18 +145,32 @@ export class PhasePreview extends Component {
                         <Droppable droppableId={id}>
                             {(provided) => (
                                 <CardList>
-                                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                                    <div className="cards-list" ref={provided.innerRef} {...provided.droppableProps}>
                                         {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
                                         {provided.placeholder}
+                                        <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
                                     </div>
-
                                 </CardList>
                             )}
                         </Droppable>
-                        <AddCard phaseId={this.props.phase.id} />
+                        <AddCard isAddCardShown={isAddCardShown}
+                            toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
                     </article>
                 )}
             </Draggable>
         );
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        board: state.trelloApp.board
+    }
+}
+
+const mapDispatchToProps = {
+    saveBoard,
+}
+
+export const PhasePreview = connect(mapStateToProps, mapDispatchToProps)(_PhasePreview)

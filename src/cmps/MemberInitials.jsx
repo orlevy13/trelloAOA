@@ -1,9 +1,9 @@
 import React from 'react';
+
 export function MemberInitials(props) {
 
-
-    let firstLastName = props.member.fullName.split(' ');
-    const initials = `${firstLastName[0].charAt(0)}${(firstLastName[1]) ? firstLastName[1].charAt(0) : ''} `
+    const firstLastName = props.member.fullName.toUpperCase().split(' ');
+    const initials = firstLastName.map(str => str.charAt(0)).join('');
 
     return (
         <div className="member-avatar">
@@ -11,5 +11,4 @@ export function MemberInitials(props) {
         </div>
 
     )
-
 }

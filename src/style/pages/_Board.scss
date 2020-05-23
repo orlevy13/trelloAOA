@@ -1,9 +1,10 @@
 .board {
-    height: 93vh;
+    height: 95vh;
 
     .board-content {
         overflow-x: scroll;
         height: 93%;
+        padding-left: 4px;
     }
 }
 
@@ -17,8 +18,7 @@
         line-height: 32px;
         font-size: rem(18px);
         color: #fff;
-        font-weight: 700;
-        font-family: Roboto;
+        font-family: roboto-bold;
         max-width: calc(100%-24px);
     }
 
@@ -108,10 +108,9 @@
         }
 
         .board-menu-icon {
-            width: 20px;
-            height: 20px;
+            width: 32px;
+            height: 32px;
             border-radius: 3px;
-            margin: 0 15px;
         }
 
         .board-menu-text {
