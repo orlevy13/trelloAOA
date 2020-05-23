@@ -7,7 +7,6 @@ const isLogin = true;
 export function MainNav() {
     return (
         <header className="main-header flex space-between">
-            <Link to="/board/abcd/card/1234">Default Card</Link>
             <nav className="flex align-center">
                 <Link to="/">
                     <div className="btn-main-nav">
