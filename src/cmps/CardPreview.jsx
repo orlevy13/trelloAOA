@@ -3,6 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { CardLabels } from './CardLabels';
 import { AttachmentOutlined, CheckBoxOutlined } from '@material-ui/icons';
 import { DueBadge } from './DueBadge';
+import { MemberInitials } from './MemberInitials';
 
 export class CardPreview extends React.Component {
 
@@ -17,13 +18,12 @@ export class CardPreview extends React.Component {
                     <section style={{ backgroundColor: bgColor }} className="card-preview flex column"
                         {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
 
-                        {imgUrl && <div className="card-img"><img src={imgUrl} /></div>}
+                        {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
                         {labels && <CardLabels labels={labels} />}
 
                         <p>{title}</p>
 
-                        <div className="card-badges flex">
-
+                        <div className="card-badges flex wrap">
                             {dueDate && <DueBadge dueDate={dueDate} />}
 
                             {attachments.length > 0 &&
@@ -38,11 +38,13 @@ export class CardPreview extends React.Component {
                                 <span>{checklistDoneCount}/{checkList.length}</span>
                             </div>}
                         </div>
-
+                        <div className="members-badge">
+                            {assignedTo.length > 0 &&
+                                assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
+                        </div>
                     </section>
                 )}
             </Draggable>
         )
     }
-
 }

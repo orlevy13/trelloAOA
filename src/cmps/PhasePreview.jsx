@@ -20,6 +20,15 @@ export class _PhasePreview extends Component {
     componentDidMount() {
         this.setState({ newPhaseName: this.props.phase.name })
     }
+
+    componentDidUpdate(prevProps) {
+        console.log('phasePreview did update!');
+        if (prevProps.phase.cards.length < this.props.phase.cards.length) {
+            this.bottomCard.scrollIntoView({ behavior: 'smooth', block: 'end' })
+        }
+    }
+
+
     componentWillUnmount() {
         window.removeEventListener('keydown', this.hideInput);
     }
@@ -43,7 +52,11 @@ export class _PhasePreview extends Component {
 
     handleSubmit = (ev) => {
         ev.preventDefault();
-        console.log('Changing phase name:', this.state.newPhaseName)
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const { id } = this.props.phase;
+        const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === id);
+        boardCopy.phaseLists[phaseIdx].name = this.state.newPhaseName;
+        this.props.saveBoard(boardCopy);
         this.toggleInputShown();
     }
 
@@ -56,7 +69,6 @@ export class _PhasePreview extends Component {
 
     showAddCard = () => {
         this.setState({ isAddCardShown: true });
-        console.log('showing add card field')
         this.toggleMenuShown();
     }
 
@@ -69,7 +81,13 @@ export class _PhasePreview extends Component {
     }
 
     sortListBy = (sortBy) => {
-        console.log('implement sort list by:', sortBy);
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const { id } = this.props.phase;
+        const phase = boardCopy.phaseLists.find(phase => phase.id === id);
+        const sortedPhase = boardService.getSortedPhase(sortBy, phase);
+        boardCopy.phaseLists = boardCopy.phaseLists.filter(phase => phase.id ===
+            sortedPhase.id ? sortedPhase : phase);
+        this.props.saveBoard(boardCopy);
         this.toggleIsSortShown();//to close the menu
         this.toggleMenuShown();
     }
@@ -110,8 +128,8 @@ export class _PhasePreview extends Component {
                                     <button onClick={this.toggleIsSortShown}>Sort By..</button>
                                     {isSortShown && <div className="sort-options flex column">
                                         <button onClick={() => {
-                                            this.sortListBy('name')
-                                        }}>Name</button>
+                                            this.sortListBy('title')
+                                        }}>Title</button>
                                         <button onClick={() => {
                                             this.sortListBy('firstCreated')
                                         }}>First Created</button>
@@ -130,6 +148,7 @@ export class _PhasePreview extends Component {
                                     <div className="cards-list" ref={provided.innerRef} {...provided.droppableProps}>
                                         {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
                                         {provided.placeholder}
+                                        <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
                                     </div>
                                 </CardList>
                             )}

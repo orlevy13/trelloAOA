@@ -4,7 +4,7 @@ const gBoards =
         {
             _id: 'abcd',
             name: 'guest board',
-            desc: 'for guest only, only guest users',
+            desc: 'fOr Levy only, only guest users',
             type: 'guest',
             imgUrl: 'cloudinary',
             bgColor: '#00AECC',
@@ -24,7 +24,7 @@ const gBoards =
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
                                     dueDate: 1590237504000,
-                                    createdAt: 159221158158, //optional
+                                    createdAt: 1590231969025, //optional
                                     labels:
                                         [
                                             {
@@ -95,19 +95,112 @@ const gBoards =
                                     assignedTo:
                                         [
                                             {
-                                                _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'Aviad Guest',
+                                                _id: 'ffbsfdbsfd',
+                                                fullName: 'Aviad Haim Jan',
                                                 img: 'http://cloudinary.com/aviad',
                                             },
                                             {
                                                 _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'or Guest',
+                                                fullName: 'Or Levy',
                                                 img: 'http://cloudinary.com/or',
                                             }
                                         ],
                                     attachments:
                                         [
-                                           
+
+                                        ]
+                                },
+                                {
+                                    id: '12ss34',   // our id                         
+                                    bgColor: '#ddd',
+                                    imgUrl: 'https://res.cloudinary.com/marmelada/image/upload/v1590152526/xomsz3yqwwyqeuktpexk.jpg',
+                                    title: 'Stam Card',
+                                    desc: 'using cli create new project',
+                                    dueDate: 1590237504000,
+                                    createdAt: 1590231969794, //optional
+                                    labels:
+                                        [
+                                            {
+                                                id: 'dvsdZwd213vdsv',
+                                                color: '#61bd4f',
+                                                txt: 'important'
+                                            },
+                                            {
+                                                id: 'dvdsv',
+                                                color: '#f2d600',
+                                                txt: 'experienced only'
+                                            },
+                                            {
+                                                id: 'dvsd567vdsv',
+                                                color: '#ff9f1a',
+                                                txt: 'fun to do'
+                                            },
+                                            {
+                                                id: 'dv345dsv',
+                                                color: '#eb5a46',
+                                                txt: 'this is just a very very very long label'
+                                            },
+                                            {
+                                                id: 'dv345dssav',
+                                                color: '#0079bf',
+                                                txt: 'klein blue'
+                                            },
+                                            {
+                                                id: 'dss281av',
+                                                color: '#00c2e0',
+                                                txt: 'clear blue sky'
+                                            },
+                                            {
+                                                id: 'dss2818av',
+                                                color: '#ff78cb',
+                                                txt: 'pinky'
+                                            },
+                                            {
+                                                id: 'fl18av',
+                                                color: '#344563',
+                                                txt: 'darkish'
+                                            },
+                                            {
+                                                id: 'fl18aolv',
+                                                color: '#b3bac5',
+                                                txt: 'grayish'
+                                            },
+                                            {
+                                                id: 'gdfgfsd',
+                                                color: '#c377e0',
+                                                txt: 'doesn\'t matter'
+                                            }
+                                        ],
+                                    checkList:
+                                        [
+                                            {
+                                                id: 'bakdsa',
+                                                txt: 'do your homework',
+                                                isDone: true
+
+                                            },
+                                            {
+                                                id: 'bakdsjk',
+                                                txt: 'do your homework',
+                                                isDone: false
+                                            }
+                                        ],
+                                    assignedTo:
+                                        [
+                                            {
+                                                _id: 'ffbsfdbsfd',
+                                                fullName: 'Aviad Haim Jan',
+                                                img: 'http://cloudinary.com/aviad',
+                                            },
+                                            {
+                                                _id: 'ffdgdfsgbsfdbsfd',
+                                                fullName: 'Or Levy',
+                                                img: 'http://cloudinary.com/or',
+                                            }
+                                        ],
+                                    attachments:
+                                        [
+
                                         ]
                                 },
                                 {
@@ -117,7 +210,7 @@ const gBoards =
                                     title: 'card 2',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
-                                    createdAt: 159221158158, //optional
+                                    createdAt: 1590231970416, //optional
                                     labels:
                                         [
                                             {
@@ -154,13 +247,18 @@ const gBoards =
                                         [
                                             {
                                                 _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'Aviad Guest',
+                                                fullName: 'Aviad Haim Jan',
                                                 img: 'http://cloudinary.com/aviad',
                                             },
                                             {
-                                                _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'or Guest',
+                                                _id: '1fg1as5d',
+                                                fullName: 'Or Levy',
                                                 img: 'http://cloudinary.com/or',
+                                            },
+                                            {
+                                                _id: 'hgj5r662de',
+                                                fullName: 'Alon Yaari',
+                                                img: 'http://cloudinary.com/asdsad',
                                             }
                                         ],
                                     attachments:
@@ -179,7 +277,7 @@ const gBoards =
                                     title: 'card 3',
                                     desc: 'using cli create new project',
                                     dueDate: 159221158158,
-                                    createdAt: 159221158158, //optional
+                                    createdAt: 1590231971025, //optional
                                     labels:
                                         [
                                             {
@@ -215,13 +313,13 @@ const gBoards =
                                     assignedTo:
                                         [
                                             {
-                                                _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'Aviad Guest',
+                                                _id: 'njjoam',
+                                                fullName: 'Aviad Haim Jan',
                                                 img: 'http://cloudinary.com/aviad',
                                             },
                                             {
-                                                _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'or Guest',
+                                                _id: 'monjfs',
+                                                fullName: 'Or Levy',
                                                 img: 'http://cloudinary.com/or',
                                             }
                                         ],
@@ -249,7 +347,7 @@ const gBoards =
                                     title: 'create-react-app ready to start',
                                     desc: 'using cli create new project',
                                     dueDate: 159225851158158,
-                                    createdAt: 159221158158, //optional
+                                    createdAt: 1590231971641, //optional
                                     labels:
                                         [
                                             {
@@ -284,16 +382,7 @@ const gBoards =
                                         ],
                                     assignedTo:
                                         [
-                                            {
-                                                _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'Aviad Guest',
-                                                img: 'http://cloudinary.com/aviad',
-                                            },
-                                            {
-                                                _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'or Guest',
-                                                img: 'http://cloudinary.com/or',
-                                            }
+
                                         ],
                                     attachments:
                                         [
@@ -319,7 +408,7 @@ const gBoards =
                                     title: 'Save the empire',
                                     desc: 'using cli create new project',
                                     dueDate: 1382086394000,
-                                    createdAt: 159221158158, //optional
+                                    createdAt: 1590231972413, //optional
                                     labels:
                                         [
                                             {
@@ -340,19 +429,24 @@ const gBoards =
                                         ],
                                     checkList:
                                         [
-                                            
+
                                         ],
                                     assignedTo:
                                         [
                                             {
-                                                _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'Aviad Guest',
+                                                _id: 'fdsnjihjf',
+                                                fullName: 'Aviad Haim Jan',
                                                 img: 'http://cloudinary.com/aviad',
                                             },
                                             {
-                                                _id: 'ffdgdfsgbsfdbsfd',
-                                                fullName: 'or Guest',
+                                                _id: 'hgj5re',
+                                                fullName: 'Or Levy',
                                                 img: 'http://cloudinary.com/or',
+                                            },
+                                            {
+                                                _id: 'hgj5rasde',
+                                                fullName: 'Alon Yaari',
+                                                img: 'http://cloudinary.com/asdsad',
                                             }
                                         ],
                                     attachments:
@@ -371,19 +465,19 @@ const gBoards =
                 [
                     {
                         _id: 'ffdgdfsgbsfdbsfd',
-                        fullName: 'Aviad Guest',
+                        fullName: 'Aviad Haim Jan',
                         email: 'aviad@gmail.com',
                         img: 'http://cloudinary.com/aviad'
                     },
                     {
                         _id: 'fgfdsgfdgfsd',
-                        fullName: 'Alon Guest',
+                        fullName: 'Alon Yaari',
                         email: 'alon@gmail.com',
                         img: 'http://cloudinary.com/alon',
                     },
                     {
                         _id: 'ffdgdfsgbsgdssdfdbsfd',
-                        fullName: 'Or Guest',
+                        fullName: 'Or Levy',
                         email: 'or@gmail.com',
                         img: 'http://cloudinary.com/or',
                     }
@@ -395,7 +489,7 @@ const gBoards =
                         operation: 'Added',
                         user: {
                             _id: 'ffdgdfsgbsfdbsfd',
-                            fullName: 'Aviad Guest',
+                            fullName: 'Aviad Haim Jan',
                             img: 'http://cloudinary.com/aviad',
                         },
                         card: {
@@ -431,7 +525,7 @@ function getBoardCopy(board) {
 
 function getNewCard(partialCard) {
     return {
-        ...partialCard,//this currently has only title
+        ...partialCard,//this currently has only a title
         id: makeId(),
         bgColor: '',
         desc: '',
@@ -444,13 +538,33 @@ function getNewCard(partialCard) {
     }
 }
 
+function getNewPhase(name) {
+    return {
+        id: makeId(),
+        name,
+        desc: '',
+        cards: []
+    }
+}
+
+function getSortedPhase(sortBy, phase) {
+    if (sortBy === 'title') {
+        return phase.cards.sort((card1, card2) => card1.title.localeCompare(card2.title))
+    } else if (sortBy === 'firstCreated') {
+        return phase.cards.sort((card1, card2) => card1.createdAt - card2.createdAt);
+    } else return phase.cards.sort((card1, card2) => card2.createdAt - card1.createdAt);
+
+}
+
 export const boardService = {
     getBoards,
     getById,
     save,
     makeId,
     getBoardCopy,
-    getNewCard
+    getNewCard,
+    getNewPhase,
+    getSortedPhase
 }
 
 

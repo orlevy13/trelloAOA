@@ -16,9 +16,8 @@
 
 
         .phase-title {
-            font-family: roboto-light;
+            font-family: open-sans, roboto-normal;
             font-size: rem(14px);
-            font-weight: bold;
             cursor: pointer;
             padding: 0 4px;
         }
@@ -36,12 +35,27 @@
 
     .cards-list {
         min-height: 10px;
+        max-height: 425px;
+        overflow-y: auto;
         padding: 0 4px;
         margin: 0 4px;
+
+        &::-webkit-scrollbar {
+            background-color: #d6d7e0;
+            width: 8px;
+            border-radius: 25px;
+
+            &-thumb {
+                background-color: #bfc4ce;
+                border-radius: 25px;
+            }
+        }
 
         section:last-child {
             margin: 0;
             //last card margin
         }
     }
+
+
 }

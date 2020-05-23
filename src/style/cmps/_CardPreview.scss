@@ -8,6 +8,10 @@
     box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
     cursor: pointer !important;
 
+    &:hover {
+        background-color: #f4f5f7;
+    }
+
     .card-img {
         img {
             width: 100%;
@@ -15,13 +19,14 @@
     }
 
     p {
-        padding-bottom: 4px;
+        padding-bottom: 10px;
     }
 
     .card-badges {
-        padding: 0 0 4px 0;
+        color: #5e6c84;
         font-size: rem(12px);
         font-family: roboto-normal;
+
         .card-due {
             @include transRoundBorder;
             padding: 1px 4px 1px 1px;
@@ -36,17 +41,35 @@
 
         .attach-badge {
             margin-right: 8px;
+
             .attach-icon {
                 font-size: 14px;
                 transform: rotate(-45deg);
                 margin-right: 4px;
             }
         }
+
         .checklist-badge {
+            margin-right: 8px;
+
             .checklist-icon {
                 font-size: 12px;
                 margin-right: 4px;
             }
+        }
+
+    }
+
+    .members-badge {
+        font-family: roboto-normal;
+        max-width: 100%;
+        overflow: hidden;
+        margin-bottom: 6px;
+        align-self: flex-end;
+        width: max-content;
+
+        div {
+            margin-right: 5px;
         }
     }
 }
