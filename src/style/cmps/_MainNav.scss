@@ -1,22 +1,76 @@
-.left-nav {
-    min-height: 40px;
+.main-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     background-color: #026aa7;
-    .test {
-        width: 32px;
-        height: 32px;
+    min-height: 5vh;
+    .logo {
+        .btn-icon {
+            color: white;
+            width: 20px;
+            height: 20px;
+        }
+        .logo-text {
+            margin-left: 2px;
+            color: white;
+            font-size: rem(20px);
+            font-family: berkshireswash-regular;
+        }
+    }
+    .btn-icon {
+        color: white;
+        width: 20px;
+        height: 20px;
+    }
+    .search-input {
         background-color: $boardBtn;
-        cursor: pointer;
         border-radius: 3px;
+        height: 32px;
+        margin-left: 5px;
+        width: 180px;
+        padding-right: 54px;
+        border: none;
+        padding-left: 5px;
+
         &:hover {
             background-color: $boardBtnHov;
         }
+        &:focus {
+            background-color: white;
+            width: 300px;
+        }
     }
-    .home-icon {
+
+    .search-icon {
         color: white;
-        width: 24px;
-        height: 24px;
-        
-        margin: 0 8px;
-        
+        width: 20px;
+        height: 20px;
+        margin-left: -25px;
+    }
+
+    .btn-main-nav {
+        height: 32px;
+        padding: 4px;
+        background-color: $boardBtn;
+        cursor: pointer;
+        border-radius: 3px;
+        text-align: center;
+        margin-left: 5px;
+        &:hover {
+            background-color: $boardBtnHov;
+        }
+
+        .btn-text {
+            font-size: rem(16px);
+            color: white;
+            font-weight: 700;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+    }
+    .right-nav {
+        padding-right: 4px;
+        .loged-in {
+            margin-left: 4px;
+        }
     }
 }
