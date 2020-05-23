@@ -6,7 +6,7 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
 import { Card } from './cmps/Card';
-import MainNav from './cmps/MainNav';
+import { MainNav } from './cmps/MainNav';
 
 export function App() {
   return (

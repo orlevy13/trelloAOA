@@ -3,18 +3,9 @@ import { Link } from 'react-router-dom';
 import { HomeOutlined, DashboardOutlined, SearchOutlined, AccountTreeOutlined, Add } from '@material-ui/icons';
 import { MemberInitials } from './MemberInitials';
 const isLogin = true;
-export default function MainNav() {
+
+export function MainNav() {
     return (
-<<<<<<< HEAD
-        <nav>
-            <h3>Logo</h3>
-            <Link to="/login">Login</Link> |
-            <Link to="/">Logout</Link> |
-            <Link to="/board/:id">board</Link> |
-            <Link to="/board/abcd">default board</Link> |
-            <Link to="/board/abcd/card/1234">default card</Link> |
-        </nav >
-=======
         <header className="main-header flex space-between">
             <nav className="flex align-center">
                 <Link to="/">
@@ -52,7 +43,6 @@ export default function MainNav() {
 
 
         </header>
->>>>>>> 4407338d9064a020e69895ed81a39e3d71f481e6
     )
 }
 
