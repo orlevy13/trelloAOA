@@ -1,17 +1,26 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CardLabels } from './CardLabels';
-import { AttachmentOutlined, CheckBoxOutlined } from '@material-ui/icons';
+import { AttachmentOutlined, CheckBoxOutlined, CreateOutlined } from '@material-ui/icons';
 import { DueBadge } from './DueBadge';
 import { MemberInitials } from './MemberInitials';
+import { CardMenu } from './CardMenu';
 
 export class CardPreview extends React.Component {
 
-    render() {
+    state = {
+        isMenuShown: false
+    }
 
+    toggleIsMenuShown = () => {
+        this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
+    }
+
+    render() {
+        const { toggleIsMenuShown, state } = this;
+        const { isMenuShown } = state;
         const { title, bgColor, imgUrl, dueDate, labels, checkList, assignedTo, attachments } = this.props.card;
         const checklistDoneCount = checkList.filter(item => item.isDone).length;
-        // #61bd4f
         const checklistBgc = checklistDoneCount === checkList.length ? '#61bd4f' : '';
         const checklistColor = checklistBgc ? '#fff' : '';
         return (
@@ -19,6 +28,12 @@ export class CardPreview extends React.Component {
                 {(provided) => (
                     <section style={{ backgroundColor: bgColor }} className="card-preview flex column"
                         {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+
+                        <button onClick={toggleIsMenuShown} className="show-menu-btn">
+                            <CreateOutlined className="show-menu-icon" />
+                        </button>
+
+                        {isMenuShown && <CardMenu toggleIsMenuShown={toggleIsMenuShown} />}
 
                         {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
                         {labels && <CardLabels labels={labels} />}
