@@ -1,0 +1,38 @@
+.edit-labels {
+    position: absolute;
+    z-index: 1;
+    color: #5e6c84;
+    background-color: #fff;
+    @include transRoundBorder;
+    width: 250px; //remove this
+    height: 500px; //remove this
+
+    &-header {
+        border-bottom: 0.2px solid #5e6c843f;
+        font-family: roboto-light;
+        font-size: 14px;
+
+        p {
+            text-align: center;
+        }
+
+        button {
+            align-self: flex-end;
+            @include transRoundBorder;
+            background-color: inherit;
+            padding: 10px;
+
+            &:hover svg {
+                color: #172b4d;
+            }
+
+            svg {
+                position: relative;
+                top: 2px;
+                font-size: 16px;
+                color: #5e6c84;
+                height: 100%;
+            }
+        }
+    }
+}

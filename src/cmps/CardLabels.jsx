@@ -12,10 +12,21 @@ export class _CardLabels extends Component {
         this.props.saveBoard(boardCopy);
     }
 
+    getUpdatedLabels = () => {
+        const { labels } = this.props;
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const updatedLabels = labels.filter(label => {
+            //get the correct labels from board
+            const foundLabel = boardCopy.labels.find(boardLabel => boardLabel.id === label.id);
+            if (foundLabel) return foundLabel;
+        })
+        return updatedLabels;
+    }
+
     render() {
         const { toggleIsLabelTxtShown } = this;
         const { isLabelTxtShown } = this.props.board;
-        const { labels } = this.props;
+        const labels = this.getUpdatedLabels();
         const labelClassName = isLabelTxtShown ? 'shown' : '';
         return (
             <div className="labels-container flex wrap">

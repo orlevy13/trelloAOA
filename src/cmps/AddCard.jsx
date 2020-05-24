@@ -49,8 +49,7 @@ export class _AddCard extends Component {
         const { toggleAddCardShown, isAddCardShown } = this.props;
 
         return (
-            <div className="add-card grow">
-
+            <div className="add-card">
                 {isAddCardShown && <form onSubmit={onAddCard}>
                     <textarea className="card-name-input" required autoFocus type="text"
                         name="title" autoComplete="off" onChange={handleChange} spellCheck="false"

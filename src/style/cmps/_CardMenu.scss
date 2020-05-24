@@ -45,7 +45,7 @@
     }
 
     .card-menu {
-        button {
+        >button {
             @include transRoundBorder;
             font-family: roboto-normal;
             font-size: 14px;

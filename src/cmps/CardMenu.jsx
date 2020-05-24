@@ -6,21 +6,25 @@ import {
     DeleteForeverOutlined, AccessTime, ArrowForwardOutlined,
     PersonOutlineOutlined, LabelOutlined
 } from '@material-ui/icons';
+import { LabelsEdit } from './LabelsEdit';
 
 export class _CardMenu extends Component {
 
     state = {
-        title: '',
-        dueDate: 0,
-        labels: [],
-        assignedTo: []
+        card: {
+            title: '',
+            dueDate: 0,
+            labels: [],
+            assignedTo: []
+        },
+        isLabelEditShown: false
     }
 
     componentDidMount() {
         window.addEventListener('keydown', this.hideMenu);
         this.titleInput.addEventListener("keypress", this.submitOnEnter);
         const { title, dueDate, labels, assignedTo } = this.props.card;
-        this.setState({ title, dueDate, labels, assignedTo });
+        this.setState({ card: { title, dueDate, labels, assignedTo } });
     }
 
     componentWillUnmount() {
@@ -29,7 +33,7 @@ export class _CardMenu extends Component {
     }
 
     handleChange = ({ target }) => {
-        this.setState({ title: target.value })
+        this.setState({ card: { title: target.value } });
     }
 
     submitOnEnter(ev) {
@@ -59,7 +63,7 @@ export class _CardMenu extends Component {
     }
 
     onChangeTitle = () => {
-        if (!this.state.title.trim()) return;
+        if (!this.state.card.title.trim()) return;
         const { id } = this.props.card;//getting the id and boardCopy
         const boardCopy = boardService.getBoardCopy(this.props.board);
 
@@ -70,7 +74,7 @@ export class _CardMenu extends Component {
         boardCopy.phaseLists[phaseIdx].cards.filter(card => {
             if (card.id !== id) return card;
             else {
-                card.title = this.state.title;
+                card.title = this.state.card.title;
                 return card;
             }
         });
@@ -78,15 +82,20 @@ export class _CardMenu extends Component {
         this.props.toggleIsMenuShown();//Closing the menu
     }
 
+    toggleIsLabelEditShown = () => {
+        this.setState(prevState => ({ isLabelEditShown: !prevState.isLabelEditShown }))
+    }
+
     render() {
-        const { onDelete, handleChange, onChangeTitle } = this;
+        const { onDelete, handleChange, onChangeTitle, toggleIsLabelEditShown } = this;
         const { clientX, clientY } = this.props;
-        const { title } = this.state;
+        const { isLabelEditShown, card } = this.state;
+        const { title } = card;
         return (
             <section>
                 <div onMouseDown={this.props.toggleIsMenuShown} className="screen"></div>
                 <section style={{ top: clientY - 105, left: clientX - 220 }}
-                    onClick={(ev) => ev.preventDefault()} className="menu-container flex">
+                    className="menu-container flex">
 
                     <form onSubmit={onChangeTitle} className="edit-card-form flex column">
                         <textarea onChange={handleChange} name="title" value={title} cols="30" rows="5"
@@ -95,8 +104,10 @@ export class _CardMenu extends Component {
                     </form>
 
                     <div className="card-menu flex column">
-                        <button className="flex align-center">
+                        <button onClick={toggleIsLabelEditShown} className="flex align-center">
                             <LabelOutlined className="icon" />Edit Labels</button>
+                        {isLabelEditShown &&
+                            <LabelsEdit toggleIsLabelEditShown={toggleIsLabelEditShown} />}
                         <button className="flex align-center">
                             <PersonOutlineOutlined className="icon" />Change Members</button>
                         <button className="flex align-center">

@@ -1,5 +1,6 @@
 .board {
     height: 95vh;
+    user-select: none;
 
     .board-content {
         overflow-x: auto;
