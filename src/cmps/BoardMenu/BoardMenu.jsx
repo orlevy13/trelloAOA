@@ -8,6 +8,8 @@ export class BoardMenu extends Component {
 
         const menuClass = !this.props.isMenuShown ? 'board-menu display-none' : 'board-menu'
         const board = this.props.board;
+        const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
+            { "backgroundImage": `url("${board.imgUrl}")`, "background-size": "cover" }
         return (
             <div className={menuClass}>
                 <div className="flex column">
@@ -18,7 +20,7 @@ export class BoardMenu extends Component {
                     <span className="board-menu-header-divider"></span>
                     <div className="board-menu-content">
                         <div className="board-menu-item flex align-center" onClick={() => this.props.onToggleMenu('backgroundMenu')}>
-                            <div className="board-menu-icon" style={{ "backgroundColor": board.bgColor }}></div>
+                            <div className="board-menu-icon" style={boardBg}></div>
                             <span className="board-menu-text">Change Background</span>
                         </div>
                         <div className="board-menu-item flex align-center">

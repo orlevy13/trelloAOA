@@ -1,11 +1,13 @@
+import fetch from 'node-fetch';
 import Unsplash from 'unsplash-js';
-const unsplash = new Unsplash({ accessKey: "{8ZH8zzN8CDDrZJWGYhpPmzEreLvOZ6WRPVTgnEH_6Ac}" });
+global.fetch = fetch;
+const unsplash = new Unsplash({ accessKey: "8ZH8zzN8CDDrZJWGYhpPmzEreLvOZ6WRPVTgnEH_6Ac" });
 
 
-function getListPhotos(perPage = 10) {
-    unsplash.photos.listPhotos(2, 15, "latest")
-        .then(toJson => toJson)
-        .then(json => json);
+function getListPhotos(perPage = 14) {
+
+    return unsplash.photos.listPhotos(1, perPage, "popular")
+        .then(res => res.json());
 }
 
 export const unsplashService = {
