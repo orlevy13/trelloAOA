@@ -17,7 +17,7 @@ export class BackgroundMenu extends Component {
                     <span className="board-menu-header-divider"></span>
                     <div className="board-menu-content">
                         <div className="flex space-between">
-                            <div className="bg-btn flex column align-center" >
+                            <div className="bg-btn flex column align-center" onClick={() => this.props.onToggleMenu("photoMenu")}>
                                 <img className="bg-btn-img" src={require("../../style/img/collage.jpg")} alt="" />
                                 <span>Photos</span>
                             </div>
