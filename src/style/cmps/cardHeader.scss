@@ -7,22 +7,18 @@
     align-items: center;
 }
 
-.main-col {
-    grid-area: main;
-    margin-bottom: 150px;
-}
-
 .card-title-input {
     border: none;
     background-color: $cardGrey;
+    min-height: 50px;
     white-space: normal;
     width: 700px;
     margin-left: 15px;
     font-size: 24px;
+    align-items: stretch;
     overflow: hidden;
     top: 0;
     left: 0;
-    height: 40px;
 
     resize: none;
 }
@@ -33,10 +29,8 @@
 .card-title {
     background-color: $cardGrey;
     width: 700px;
-    height: 40px;
+    min-height: 50px;
     margin-left: 15px;
-    top: 0;
-    left: 0;
     white-space: normal;
     word-wrap: break-word;
 }

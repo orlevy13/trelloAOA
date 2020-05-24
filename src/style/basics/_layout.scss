@@ -2,11 +2,13 @@
 .card-container {
     border: 1px solid #eeeeee;
     background-color: $cardGrey;
+    // opacity: 100%;
     width: 800px;
     margin: 48px auto 80px auto;
     color: $trelloFontColor;
     display: grid;
     grid-gap: 5px;
+    grid-template-rows: auto auto;
     grid-template-areas:
         "header header header header header header"
         "main main main main main side-bar";
@@ -14,8 +16,14 @@
 
 .card-header {
     grid-area: header;
+    display: inline-block;
 }
 
 .card-sidebar {
     grid-area: side-bar;
+}
+
+.main-col {
+    grid-area: main;
+    margin-bottom: 150px;
 }
