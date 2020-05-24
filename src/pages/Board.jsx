@@ -22,7 +22,7 @@ class _Board extends Component {
     }
 
     toggleMenu = () => {
-        this.setState(prevState => ({ showMenu: !prevState.showMenu }));
+        this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
     }
 
     render() {

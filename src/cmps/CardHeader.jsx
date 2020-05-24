@@ -18,12 +18,10 @@ export default class CardHeader extends Component {
     }
 
     openInput = () => {
-        console.log('open input');
         this.setState(prevState => ({ isTitleShown: !prevState.isTitleShown }))
     }
 
     handleChange = ({ target }) => {
-        const field = target.name
         var value = target.value
         this.setState({ txt: value })
     }
@@ -31,8 +29,7 @@ export default class CardHeader extends Component {
 
 
     render() {
-        const { txt, isTitleShown, onPhase } = this.state
-        console.log('car details render', isTitleShown);
+        const { txt, isTitleShown, onPhase } = this.state;
 
         if (this.state)
             return (
@@ -44,7 +41,7 @@ export default class CardHeader extends Component {
                         {(!isTitleShown) && <span><textarea className="card-title-input" autoFocus onBlur={this.openInput} placeholder="Title..."
                             onChange={this.handleChange} value={txt} ></textarea></span>}
                     </div>
-                    <p className="card-link">in list <a href="#">{onPhase}</a></p>
+                    <p className="card-link">in list <a href="#" >{onPhase}</a></p>
                 </div>
             )
         else return 'loading'

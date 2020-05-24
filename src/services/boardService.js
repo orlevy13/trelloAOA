@@ -81,13 +81,12 @@ const gBoards =
                                     checkList:
                                         [
                                             {
-                                                id: 'bakdsa',
+                                               
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {
-                                                id: 'bakdsjk',
+                                            {                                               
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -173,14 +172,12 @@ const gBoards =
                                         ],
                                     checkList:
                                         [
-                                            {
-                                                id: 'bakdsa',
+                                            {                                               
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {
-                                                id: 'bakdsjk',
+                                            {                                               
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -231,14 +228,12 @@ const gBoards =
                                         ],
                                     checkList:
                                         [
-                                            {
-                                                id: 'bakdsa',
+                                            {                                                
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {
-                                                id: 'bakdsjk',
+                                            {                                                
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -298,14 +293,12 @@ const gBoards =
                                         ],
                                     checkList:
                                         [
-                                            {
-                                                id: 'bakdsa',
+                                            {                                               
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {
-                                                id: 'bakdsjk',
+                                            {                                                
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -368,14 +361,12 @@ const gBoards =
                                         ],
                                     checkList:
                                         [
-                                            {
-                                                id: 'bakdsa',
+                                            {                                               
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {
-                                                id: 'bakdsjk',
+                                            {                                                
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -541,14 +532,12 @@ const gBoards =
                                         ],
                                     checkList:
                                         [
-                                            {
-                                                id: 'bakdsa',
+                                            {                                               
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {
-                                                id: 'bakdsjk',
+                                            {                                               
                                                 txt: 'do your homework',
                                                 isDone: true
                                             }

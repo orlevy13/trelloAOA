@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
 import DescriptionIcon from '@material-ui/icons/Description';
 
 export default class CardDesc extends Component {
@@ -7,29 +6,18 @@ export default class CardDesc extends Component {
         txt: ''
     }
 
-
     componentDidMount() {
-
-
         this.setState({ txt: this.props.card.desc })
     }
 
-
-
-    // static propTypes = {
-    //     prop: PropTypes
-    // }
     handleChange = ({ target }) => {
-        const field = target.name
         var value = target.value
         this.setState({ txt: value })
     }
 
-
-
     render() {
 
-        if (this.state.txt)
+        if (this.state.txt) {
             return (
                 <section>
                     <div className="desc-header-container">
@@ -41,6 +29,6 @@ export default class CardDesc extends Component {
                     </div>
                 </section>
             )
-        else return 'loading'
+        } else return ''
     }
 }
