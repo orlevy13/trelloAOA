@@ -18,7 +18,7 @@ export class CardMenu extends Component {
         return (
             <section>
                 <div onMouseDown={this.props.toggleIsMenuShown} className="screen"></div>
-                <section className="menu-container">
+                <section onClick={(ev) => ev.preventDefault()} className="menu-container">
                     <form>
                         <textarea name="title" cols="30" rows="5" spellCheck="false"
                             autoComplete="off" autoFocus />

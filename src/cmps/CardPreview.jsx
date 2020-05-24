@@ -15,7 +15,8 @@ class _CardPreview extends React.Component {
         isMenuShown: false
     }
 
-    toggleIsMenuShown = () => {
+    toggleIsMenuShown = (ev) => {
+        if (ev) ev.preventDefault();
         this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
     }
 
