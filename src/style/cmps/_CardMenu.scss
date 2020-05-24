@@ -1,0 +1,16 @@
+.screen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, .6);
+    bottom: 0;
+    right: 0;
+}
+
+.menu-container {
+    position: absolute;
+    color: #fff;
+    z-index: 1;
+    //TEXT AREA RESIZE NONE!
+}

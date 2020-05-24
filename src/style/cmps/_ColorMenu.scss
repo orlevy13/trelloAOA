@@ -1,0 +1,10 @@
+.btn-color {
+    border-radius: 8px;
+    height: 96px;
+    width: 49%;
+    margin-bottom: 8px;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.7;
+    }
+}

@@ -7,9 +7,38 @@
     padding: 5px 5px 0 5px;
     box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
     cursor: pointer !important;
+    position: relative;
 
     &:hover {
         background-color: #f4f5f7;
+
+        .show-menu-btn {
+            opacity: 0.8;
+        }
+    }
+
+    .show-menu-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background-color: transparent;
+        @include transRoundBorder;
+        color: #5e6c84;
+        padding: 3px 6px;
+        opacity: 0;
+        background-color: #f4f5f7;
+
+        &:hover {
+            background-color: #ebecf0;
+            color: #172b4d;
+            opacity: 1;
+        }
+
+        .show-menu-icon {
+            font-size: 15px;
+            position: relative;
+            top: 2px;
+        }
     }
 
     .card-img {

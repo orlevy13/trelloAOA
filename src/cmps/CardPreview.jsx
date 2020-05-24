@@ -1,24 +1,30 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CardLabels } from './CardLabels';
+import { AttachmentOutlined, CheckBoxOutlined, CreateOutlined } from '@material-ui/icons';
 import { loadBoard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
-import { AttachmentOutlined, CheckBoxOutlined } from '@material-ui/icons';
 import { DueBadge } from './DueBadge';
 import { Link } from 'react-router-dom';
 import { MemberInitials } from './MemberInitials';
+import { CardMenu } from './CardMenu';
 
 class _CardPreview extends React.Component {
 
+    state = {
+        isMenuShown: false
+    }
 
+    toggleIsMenuShown = (ev) => {
+        if (ev) ev.preventDefault();
+        this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
+    }
 
     render() {
-
-
-
+        const { toggleIsMenuShown, state } = this;
+        const { isMenuShown } = state;
         const { title, bgColor, imgUrl, dueDate, labels, checkList, assignedTo, attachments } = this.props.card;
         const checklistDoneCount = checkList.filter(item => item.isDone).length;
-        // #61bd4f
         const checklistBgc = checklistDoneCount === checkList.length ? '#61bd4f' : '';
         const checklistColor = checklistBgc ? '#fff' : '';
         return (
@@ -27,6 +33,12 @@ class _CardPreview extends React.Component {
                     <Link to={`/board/${this.props.board._id}/card/${this.props.card.id}`}>
                         <section style={{ backgroundColor: bgColor }} className="card-preview flex column"
                             {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+
+                            <button onClick={toggleIsMenuShown} className="show-menu-btn">
+                                <CreateOutlined className="show-menu-icon" />
+                            </button>
+
+                            {isMenuShown && <CardMenu toggleIsMenuShown={toggleIsMenuShown} />}
 
                             {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
                             {labels && <CardLabels labels={labels} />}
