@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Add, Close } from '@material-ui/icons';
+import { Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { saveBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
@@ -14,6 +14,7 @@ export class _AddCard extends Component {
     componentDidUpdate() {
         if (this.props.isAddCardShown) {
             this.cardNameInput.addEventListener("keypress", this.submitOnEnter);
+            this.props.bottomCard.scrollIntoView({ behavior: 'smooth' });
         }
     }
 
@@ -21,17 +22,17 @@ export class _AddCard extends Component {
         this.setState({ card: { title: target.value } })
     }
 
-    onAddCard = (ev) => {
+    onAddCard = async (ev) => {
         ev.preventDefault();
-        if (!this.state.card.title) return;
+        if (!this.state.card.title.trim()) return;
 
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phaseId);
         const newCard = boardService.getNewCard(this.state.card);
         boardCopy.phaseLists[phaseIdx].cards.push(newCard);
-        this.props.saveBoard(boardCopy);
+        await this.props.saveBoard(boardCopy);//async await is for the scroll
         this.setState({ card: { title: '' } });
-        this.props.bottomCard.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        this.props.bottomCard.scrollIntoView({ behavior: 'smooth' });
     }
 
     submitOnEnter(ev) {
@@ -50,16 +51,12 @@ export class _AddCard extends Component {
         return (
             <div className="add-card grow">
 
-                {!isAddCardShown && <button onClick={toggleAddCardShown}
-                    className="add-card-btn flex align-center">
-                    <Add className="add-icon" fontSize="large" />Add a card</button>}
-
                 {isAddCardShown && <form onSubmit={onAddCard}>
                     <textarea className="card-name-input" required autoFocus type="text"
                         name="title" autoComplete="off" onChange={handleChange} spellCheck="false"
                         ref={el => this.cardNameInput = el} value={state.card.title}
                         placeholder="Enter a title for this card.." />
-                    <div className="flex align-end">
+                    <div className="form-btns flex align-end">
                         <button className="submit-btn" type="submit">Add Card</button>
                         <button className="close-btn" onClick={toggleAddCardShown}><Close /></button>
                     </div>

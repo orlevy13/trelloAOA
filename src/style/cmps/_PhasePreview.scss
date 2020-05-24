@@ -88,8 +88,9 @@
 
     .cards-list {
         min-height: 10px;
-        max-height: 425px;
+        max-height: 520px;
         overflow-y: auto;
+        overflow-x: hidden;
         padding: 0 4px;
         margin: 0 4px;
 
@@ -103,12 +104,24 @@
                 border-radius: 25px;
             }
         }
-
-        section:last-child {
-            margin: 0;
-            //last card margin
-        }
     }
 
+    .add-card-btn {
+        font-size: rem(14px);
+        line-height: rem(20px);
+        margin: 8px 8px 0;
+        @include transRoundBorder;
+        color: #5e6c84;
+        background-color: inherit;
+        font-weight: 200;
 
+        &:hover {
+            background-color: rgba(9, 30, 66, 0.08);
+            color: rgb(23, 43, 77);
+        }
+
+        .add-icon {
+            padding: 4px 0 5px 0;
+        }
+    }
 }

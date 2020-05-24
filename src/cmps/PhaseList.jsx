@@ -48,6 +48,7 @@ export class _PhaseList extends Component {
 
     onAddPhase = async (ev) => {
         ev.preventDefault();
+        if (!this.state.newListName.trim()) return;
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const newPhase = boardService.getNewPhase(this.state.newListName);
         boardCopy.phaseLists.push(newPhase);
@@ -56,7 +57,7 @@ export class _PhaseList extends Component {
             this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
         });
     }
-    
+
     onDragEnd = result => {
 
         const { destination, source, type } = result;

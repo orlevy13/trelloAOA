@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { MoreHoriz, Close } from '@material-ui/icons';
+import { MoreHoriz, Close, Add } from '@material-ui/icons';
 import { AddCard } from './AddCard';
 import { CardList } from './CardList';
 import { CardPreview } from './CardPreview';
@@ -44,6 +44,7 @@ export class _PhasePreview extends Component {
 
     handleSubmit = (ev) => {
         ev.preventDefault();
+        if (!this.state.newPhaseName.trim()) return;
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const { id } = this.props.phase;
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === id);
@@ -141,12 +142,15 @@ export class _PhasePreview extends Component {
                                         {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
                                         {provided.placeholder}
                                         <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
+                                        <AddCard isAddCardShown={isAddCardShown} bottomCard={this.bottomCard}
+                                            toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
                                     </div>
                                 </CardList>
                             )}
                         </Droppable>
-                        <AddCard isAddCardShown={isAddCardShown} bottomCard={this.bottomCard}
-                            toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
+                        {!isAddCardShown && <button onClick={this.toggleAddCardShown}
+                            className="add-card-btn flex align-center">
+                            <Add className="add-icon" fontSize="large" />Add a card</button>}
                     </article>
                 )}
             </Draggable>

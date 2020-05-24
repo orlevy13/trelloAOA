@@ -12,64 +12,76 @@ import { CardMenu } from './CardMenu';
 class _CardPreview extends React.Component {
 
     state = {
-        isMenuShown: false
+        isMenuShown: false,
+        clientX: '',
+        clientY: '',
     }
 
     toggleIsMenuShown = (ev) => {
-        if (ev) ev.preventDefault();
-        this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
+        if (ev) {
+            ev.persist();
+            const { clientX, clientY } = ev;
+            this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown, clientX, clientY }));
+        } else {
+            this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
+        }
     }
 
     render() {
         const { toggleIsMenuShown, state } = this;
-        const { isMenuShown } = state;
+        const { isMenuShown, clientX, clientY } = state;
         const { title, bgColor, imgUrl, dueDate, labels, checkList, assignedTo, attachments } = this.props.card;
         const checklistDoneCount = checkList.filter(item => item.isDone).length;
         const checklistBgc = checklistDoneCount === checkList.length ? '#61bd4f' : '';
         const checklistColor = checklistBgc ? '#fff' : '';
         return (
-            <Draggable draggableId={this.props.card.id} index={this.props.index}>
-                {(provided) => (
-                    <Link to={`/board/${this.props.board._id}/card/${this.props.card.id}`}>
-                        <section style={{ backgroundColor: bgColor }} className="card-preview flex column"
-                            {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+            <React.Fragment>
 
-                            <button onClick={toggleIsMenuShown} className="show-menu-btn">
-                                <CreateOutlined className="show-menu-icon" />
-                            </button>
+                {isMenuShown && <CardMenu card={this.props.card} clientY={clientY} clientX={clientX}
+                    toggleIsMenuShown={toggleIsMenuShown} />}
 
-                            {isMenuShown && <CardMenu toggleIsMenuShown={toggleIsMenuShown} />}
+                <Draggable draggableId={this.props.card.id} index={this.props.index}>
+                    {(provided) => (
+                        <Link to={`/board/${this.props.board._id}/card/${this.props.card.id}`}>
+                            <section style={{ backgroundColor: bgColor }} className="card-preview flex column"
+                                {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
 
-                            {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
-                            {labels && <CardLabels labels={labels} />}
+                                <button onClick={(ev) => ev.preventDefault()} onMouseUp={toggleIsMenuShown}
+                                    className="show-menu-btn">
+                                    <CreateOutlined className="show-menu-icon" />
+                                </button>
 
-                            <p>{title}</p>
+                                {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
+                                {labels && <CardLabels labels={labels} />}
 
-                            <div className="card-badges flex wrap">
-                                {dueDate && <DueBadge dueDate={dueDate} />}
+                                <p>{title}</p>
 
-                                {attachments.length > 0 &&
-                                    <div className="attach-badge flex align-center">
-                                        <AttachmentOutlined className="attach-icon" />
-                                        <span>{attachments.length}</span>
-                                    </div>}
+                                <div className="card-badges flex wrap">
+                                    {dueDate && <DueBadge dueDate={dueDate} />}
 
-                                {checkList.length > 0 &&
-                                    <div style={{ backgroundColor: checklistBgc, color: checklistColor }}
-                                        className="checklist-badge flex align-center">
-                                        <span><CheckBoxOutlined className="checklist-icon" />
-                                        </span>
-                                        <span>{checklistDoneCount}/{checkList.length}</span>
-                                    </div>}
-                            </div>
-                            <div className="members-badge">
-                                {assignedTo.length > 0 &&
-                                    assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
-                            </div>
-                        </section>
-                    </Link>
-                )}
-            </Draggable>
+                                    {attachments.length > 0 &&
+                                        <div className="attach-badge flex align-center">
+                                            <AttachmentOutlined className="attach-icon" />
+                                            <span>{attachments.length}</span>
+                                        </div>}
+
+                                    {checkList.length > 0 &&
+                                        <div style={{ backgroundColor: checklistBgc, color: checklistColor }}
+                                            className="checklist-badge flex align-center">
+                                            <span><CheckBoxOutlined className="checklist-icon" />
+                                            </span>
+                                            <span>{checklistDoneCount}/{checkList.length}</span>
+                                        </div>}
+                                </div>
+                                <div className="members-badge">
+                                    {assignedTo.length > 0 &&
+                                        assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
+                                </div>
+                            </section>
+                        </Link>
+                    )}
+                </Draggable>
+            </React.Fragment>
         )
     }
 }
