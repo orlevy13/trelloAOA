@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 // import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+import { loadBoard, saveBoard } from '../store/actions/boardActions';
 
-export default class CardHeader extends Component {
+class _CardHeader extends Component {
     state = {
         txt: '',
         onPhase: '',
-        isTitleShown: true
+        isTitleOnEdit: false
     }
 
     // static propTypes = {
@@ -17,8 +19,35 @@ export default class CardHeader extends Component {
         this.setState({ txt: this.props.card.title, onPhase: this.props.card.onPhase })
     }
 
-    openInput = () => {
-        this.setState(prevState => ({ isTitleShown: !prevState.isTitleShown }))
+    toggleInput = () => {
+
+        this.setState(prevState => ({ isTitleOnEdit: !prevState.isTitleOnEdit }))
+    }
+
+
+    handleSaveBoard = () => {
+        console.log('state', this.state);
+
+        if (this.state.isTitleOnEdit) {
+            console.log('handle save');
+            let boardClone = JSON.parse(JSON.stringify(this.props.board));
+            const cardId = this.props.card.id;
+            let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId));
+
+            currPhase[0].cards.forEach(card => {
+                if (card.id === this.props.card.id) {
+                    card.title = this.state.txt;
+                }
+            })
+            this.props.saveBoard(boardClone)
+                .then(() => {
+
+                    console.log('board after save', this.props.board);
+                    this.toggleInput();
+                })
+
+        }
+
     }
 
     handleChange = ({ target }) => {
@@ -26,10 +55,8 @@ export default class CardHeader extends Component {
         this.setState({ txt: value })
     }
 
-
-
     render() {
-        const { txt, isTitleShown, onPhase } = this.state;
+        const { txt, isTitleOnEdit, onPhase } = this.state;
 
         if (this.state)
             return (
@@ -37,8 +64,8 @@ export default class CardHeader extends Component {
 
                     <div className="card-header-container">
                         <NoteOutlinedIcon />
-                        {isTitleShown && <span><h2 className="card-title" onClick={this.openInput} >{txt}</h2></span>}
-                        {(!isTitleShown) && <span><textarea className="card-title-input" autoFocus onBlur={this.openInput} placeholder="Title..."
+                        {!isTitleOnEdit && <span><h2 className="card-title" onClick={this.toggleInput} >{txt}</h2></span>}
+                        {(isTitleOnEdit) && <span><textarea className="card-title-input" autoFocus onBlur={this.handleSaveBoard} placeholder="Title..."
                             onChange={this.handleChange} value={txt} ></textarea></span>}
                     </div>
                     <p className="card-link">in list <a href="#" >{onPhase}</a></p>
@@ -47,3 +74,23 @@ export default class CardHeader extends Component {
         else return 'loading'
     }
 }
+
+
+
+
+
+const mapStateToProps = (state) => {
+    return {
+        board: state.trelloApp.board
+    }
+}
+
+const mapDispatchToProps = {
+    loadBoard,
+    saveBoard
+}
+
+
+export const CardHeader = connect(mapStateToProps, mapDispatchToProps)(_CardHeader)
+
+

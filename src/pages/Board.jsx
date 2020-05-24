@@ -2,14 +2,29 @@ import React, { Component } from 'react';
 import { loadBoard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { PhaseList } from '../cmps/PhaseList';
-import { SearchOutlined, LabelOutlined, ListOutlined } from '@material-ui/icons';
-import { MemberInitials } from '../cmps/MemberInitials.jsx';
+import { MemberInitials } from '../cmps/MemberInitials';
+import { BoardMenu } from '../cmps/BoardMenu/BoardMenu';
+import { ColorMenu } from '../cmps/BoardMenu/ColorMenu';
+import { PhotoMenu } from '../cmps/BoardMenu/PhotoMenu';
+import { MenuOutlined } from '@material-ui/icons';
+import { BackgroundMenu } from '../cmps/BoardMenu/BackgroundMenu';
+
 
 class _Board extends Component {
 
     state = {
-        isMenuShown: false
+        boardMenus: {
+            currentOpend: null,
+            menusState: {
+                mainMenu: false,
+                backgroundMenu: false,
+                colorMenu: false,
+                photoMenu: false
+            }
+        }
     }
+
+
 
     componentDidMount() {
         this.getBoardById();
@@ -21,13 +36,30 @@ class _Board extends Component {
         this.props.loadBoard(id);
     }
 
-    toggleMenu = () => {
-        this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
+    toggleMenu = (menuName) => {
+
+        const { boardMenus } = this.state;
+        const clonedMenus = JSON.parse(JSON.stringify(boardMenus));
+
+        //close open menu if their is
+        if (!menuName) { //menuName===null mean no menu should be open
+            clonedMenus.menusState[clonedMenus.currentOpend] = false;
+            clonedMenus.currentOpend = null;
+        } else {
+            if (clonedMenus.currentOpend != null)
+                clonedMenus.menusState[clonedMenus.currentOpend] = !clonedMenus.menusState[clonedMenus.currentOpend];
+            //open menu new menu
+            clonedMenus.menusState[menuName] = !clonedMenus.menusState[menuName];
+            //set currentOpend 
+            clonedMenus.currentOpend = menuName;
+            console.log('menu state: ', clonedMenus);
+        }
+        this.setState({ boardMenus: clonedMenus });
     }
 
     render() {
         const { board } = this.props;
-        const menuClass = !this.state.isMenuShown ? 'board-menu display-none' : 'board-menu'
+        const { mainMenu, backgroundMenu, colorMenu, photoMenu } = this.state.boardMenus.menusState;
 
         return (
             (!board) ? 'loading' : <main style={{ "backgroundColor": board.bgColor }} className="board">
@@ -42,36 +74,13 @@ class _Board extends Component {
                         </div>
                         <span className="nav-btn">Invite</span>
                     </div>
-                    <span className="nav-btn" onClick={this.toggleMenu} >...Show Menu</span>
-                    <div className={menuClass}>
-                        <div className="flex column">
-                            <div className="board-menu-header flex justify-center">
-                                <h3 className="menu-header-title">Menu</h3>
-                                <span onClick={this.toggleMenu} className="btn-close-board-menu">X</span>
-                            </div>
-                            <span className="board-menu-header-divider"></span>
-                            <div className="board-menu-content">
-                                <div className="board-menu-item flex align-center">
-                                    <div className="board-menu-icon" style={{ "backgroundColor": board.bgColor }}></div>
-                                    <span className="board-menu-text">Change Background</span>
-                                </div>
-                                <div className="board-menu-item flex align-center">
-                                    <SearchOutlined className="board-menu-icon" />
-                                    <span className="board-menu-text">Search Cards</span>
-                                </div>
-                                <div className="board-menu-item flex align-center">
-                                    <LabelOutlined className="board-menu-icon" />
-                                    <span className="board-menu-text">Stickers</span>
-                                </div>
-                                <span className="board-menu-header-divider"></span>
-                                <div className="board-menu-item flex align-center">
-                                    <ListOutlined className="board-menu-icon" />
-                                    <span className="board-menu-text">Activity</span>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div className="nav-btn">
+                        <MenuOutlined onClick={() => this.toggleMenu("mainMenu")} />
                     </div>
+                    <BoardMenu isMenuShown={mainMenu} board={board} onToggleMenu={this.toggleMenu} />
+                    <BackgroundMenu isMenuShown={backgroundMenu} board={board} onToggleMenu={this.toggleMenu} />
+                    <ColorMenu isMenuShown={colorMenu} board={board} onToggleMenu={this.toggleMenu} />
+                    <PhotoMenu isMenuShown={photoMenu} board={board} onToggleMenu={this.toggleMenu} />
                 </section>
                 <section className="board-content">
                     <PhaseList />
