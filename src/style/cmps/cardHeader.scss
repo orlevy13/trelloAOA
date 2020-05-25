@@ -10,13 +10,13 @@
     border: none;
     background-color: $cardGrey;
 
-    width: 700px;
+    width: 500px;
     margin-left: 15px;
     font-size: 24px;
     max-height: content;
     overflow: hidden;
 
-    min-height: 50px;
+    min-height: 25px;
     max-height: 300px;
     top: 0;
     left: 0;
@@ -30,8 +30,8 @@
 
 .card-title {
     background-color: $cardGrey;
-    width: 700px;
-    min-height: 50px;
+    width: 500px;
+    min-height: 25px;
     margin-left: 15px;
     white-space: normal;
     word-wrap: break-word;

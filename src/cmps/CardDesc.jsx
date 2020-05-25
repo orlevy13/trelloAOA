@@ -20,8 +20,6 @@ class _CardDesc extends Component {
 
 
     handleSaveBoard = () => {
-
-
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
         let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId));
@@ -43,7 +41,7 @@ class _CardDesc extends Component {
         return (
             <section>
                 <div className="desc-header-container">
-                    <DescriptionIcon /><span className="desc-header">Description</span>
+                    <DescriptionIcon className="card-desc-icon" /><span className="desc-header">Description</span>
                 </div>
                 <div className="card-desc-container">
                     <textarea className="card-desc-input" ref={el => this.elTextarea = el}

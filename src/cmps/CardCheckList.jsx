@@ -114,6 +114,11 @@ class _CardCheckList extends Component {
             }
         }
         this.setState({ checkList: cloneChkList });
+
+    }
+
+    autoGrow = (el) => {
+        el.style.height = (el.scrollHeight) + "px";
     }
 
 
@@ -124,18 +129,27 @@ class _CardCheckList extends Component {
         return (
             <div className="card-check-list">
                 <div className="check-list-header-container">
-                    <div className="progress-bar-container">
-                        <div className="progress-bar" style={{ width: `${this.state.progress}%` }} >{this.state.progress}</div>
-                    </div>
+                    <section className="progress-bar-section">
+                        {this.state.progress}%
+                        <div className="progress-bar-container">
+                            <div className="progress-bar"
+                                style={{ width: `${this.state.progress}%` }}>&nbsp; </div>
+                        </div>
+                    </section>
                     {this.state.checkList.map((todo, idx) =>
-                        <div key={idx} >
-                            <input type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} checked={todo.isDone} />
-                            <input type="text" name="txt" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} value={todo.txt} />
-                            <button onClick={() => this.onDelete(idx)}>X</button>
+                        <div className="checklist-input-container" key={idx} >
+
+                            <input className="checklist-checkbox" type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)}
+                                onBlur={this.handleSaveBoard} checked={todo.isDone} />
+                            <textarea className="checklist-input" type="text" name="txt" onChange={(e) => this.handleChange(e, idx)}
+                                ref={el => this.elTextarea = el} onFocus={(ev) => { this.autoGrow(ev.target) }} onBlur={this.handleSaveBoard}
+                                value={todo.txt} /><button className="checklist-item-delete-btn" onClick={() => this.onDelete(idx)}>X</button>
+
                         </div>)}
-                    {!onAdd && <button onClick={this.toggleAdd}>Add Todo</button>}
-                    {onAdd && <input type="text" onChange={this.handleChange}
-                        autoFocus onBlur={this.toggleAdd} value={todoText} />}
+                    {!onAdd && <button className="check-list-btn" onClick={this.toggleAdd}>Add Todo</button>}
+                    {onAdd && <textarea className="checklist-input" type="text" name="txt" onChange={this.handleChange}
+                        ref={el => this.elTextarea = el} autoFocus onFocus={(ev) => { this.autoGrow(ev.target) }} onBlur={this.toggleAdd}
+                        value={todoText} />}
                 </div>
             </div>
         )
