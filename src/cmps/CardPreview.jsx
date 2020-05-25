@@ -5,7 +5,6 @@ import { AttachmentOutlined, CheckBoxOutlined, CreateOutlined } from '@material-
 import { loadBoard, setCard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { DueBadge } from './DueBadge';
-import { Link } from 'react-router-dom';
 import { MemberInitials } from './MemberInitials';
 import { CardMenu } from './CardMenu';
 
@@ -16,9 +15,16 @@ class _CardPreview extends React.Component {
         clientX: '',
         clientY: '',
     }
+    // componentDidUpdate(prevProps, prevState) {
+    //     console.log('cardPreview did update')
+    //     if(JSON.stringify(prevProps.card)!==JSON.stringify(this.props.card)) {
+    //         console.log('ITS DIFFERENT! Here\'s the labels:', this.props.card.labels);
+    //     }
+    // }
 
     toggleIsMenuShown = (ev) => {
         if (ev) {
+            ev.stopPropagation();
             ev.persist();
             const { clientX, clientY } = ev;
             this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown, clientX, clientY }));
@@ -42,13 +48,11 @@ class _CardPreview extends React.Component {
 
                 <Draggable draggableId={this.props.card.id} index={this.props.index}>
                     {(provided) => (
-                        // <Link to={`/board/${this.props.board._id}/card/${this.props.card.id}`}>
-                        // <button onClick={() => { this.props.setCard(this.props.card) }}>
                         <section onClick={() => { this.props.setCard(this.props.card) }}
                             style={{ backgroundColor: bgColor }} className="card-preview flex column"
                             {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
 
-                            <button onClick={(ev) => ev.preventDefault()} onMouseUp={toggleIsMenuShown}
+                            <button onClick={toggleIsMenuShown}
                                 className="show-menu-btn">
                                 <CreateOutlined className="show-menu-icon" />
                             </button>
@@ -80,8 +84,6 @@ class _CardPreview extends React.Component {
                                     assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
                             </div>
                         </section>
-                        // </button>
-                        // </Link>
                     )}
                 </Draggable>
             </React.Fragment>

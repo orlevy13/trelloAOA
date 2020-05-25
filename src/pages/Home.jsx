@@ -12,7 +12,7 @@ class _Home extends Component {
                     <h1>Don't Waste Papers</h1>
                     <h3><span>Flowz</span> the project managment software that keep teams going and Collaborate</h3>
 
-                    <Link to="/board/abcd"> <span className="btn-home">Get Started</span></Link>
+                    <Link to="/board/5ecbc8edcb39d7f5494f8d40"> <span className="btn-home">Get Started</span></Link>
                 </div>
 
 

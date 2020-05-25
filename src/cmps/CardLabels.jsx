@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 
 export class _CardLabels extends Component {
 
     toggleIsLabelTxtShown = (ev) => {
-        ev.preventDefault();
+        ev.stopPropagation();
         const boardCopy = boardService.getBoardCopy(this.props.board);
         boardCopy.isLabelTxtShown = !boardCopy.isLabelTxtShown;
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
     }
 
     getUpdatedLabels = () => {
@@ -19,6 +19,7 @@ export class _CardLabels extends Component {
             //get the correct labels from board
             const foundLabel = boardCopy.labels.find(boardLabel => boardLabel.id === label.id);
             if (foundLabel) return foundLabel;
+            return null;
         })
         return updatedLabels;
     }
@@ -49,7 +50,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard,
+    updateBoard,
 }
 
 export const CardLabels = connect(mapStateToProps, mapDispatchToProps)(_CardLabels)

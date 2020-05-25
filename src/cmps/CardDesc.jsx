@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DescriptionIcon from '@material-ui/icons/Description';
 import { connect } from 'react-redux';
-import { loadBoard, saveBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 
 class _CardDesc extends Component {
     state = {
@@ -62,7 +62,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { history } from '../history'
 import { connect } from 'react-redux';
 import { loadBoard, setCard } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
@@ -78,7 +77,7 @@ class _Card extends Component {
                                 <button onClick={this.toggleIsLabelEditShown} className="card-sidebar-btn">
                                     <span ><Label /></span>Labels</button>
                                 {isLabelEditShown &&
-                                    <LabelsEdit toggleIsLabelEditShown={this.toggleIsLabelEditShown} />}
+                                    <LabelsEdit card={card} toggleIsLabelEditShown={this.toggleIsLabelEditShown} />}
 
                                 {(card.checkList.length < 1) && <button className="card-sidebar-btn"
                                     onClick={this.addCheckList}><span ><PlaylistAddCheck /></span>Checklist</button>}

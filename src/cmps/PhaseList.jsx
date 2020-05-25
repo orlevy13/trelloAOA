@@ -3,13 +3,24 @@ import { PhasePreview } from './PhasePreview';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { Add, Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 
 export class _PhaseList extends Component {
     state = {
+        board: null,
         isInputShown: false,
         newListName: ''
+    }
+
+    componentDidMount() {
+        this.setState({ board: this.props.board })
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
+            this.setState({ board: this.props.board })
+        }
     }
 
     componentWillUnmount() {
@@ -33,7 +44,7 @@ export class _PhaseList extends Component {
     }
 
     handleChange = ({ target }) => {
-        this.setState({ newListName: target.value })
+        this.setState(prevState => ({ ...prevState, newListName: target.value }));
     }
 
     addEventListeners = () => {
@@ -52,13 +63,15 @@ export class _PhaseList extends Component {
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const newPhase = boardService.getNewPhase(this.state.newListName);
         boardCopy.phaseLists.push(newPhase);
-        await this.props.saveBoard(boardCopy);
+        await this.props.updateBoard(boardCopy);
         this.setState({ newListName: '' }, () => {
             this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
         });
     }
 
     onDragEnd = result => {
+
+        console.log('in drag drop end')
 
         const { destination, source, type } = result;
         if (!destination) return;
@@ -85,15 +98,20 @@ export class _PhaseList extends Component {
                 dstCards.splice(destination.index, 0, movingCard);
             }
         }
-        this.props.saveBoard(boardCopy);
+
+        this.props.updateBoard(boardCopy);
+
+
     }
 
 
     render() {
+        if (!this.state.board) return 'loading..'
         const { toggleInputShown, onAddPhase, handleChange, hideInput } = this;
         const { isInputShown, newListName } = this.state;
-        const { phaseLists } = this.props.board;
+        const { phaseLists } = this.state.board;
 
+        // const { phaseLists } = this.props.board;
         return (
 
             <DragDropContext onDragEnd={this.onDragEnd}>
@@ -133,7 +151,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard,
+    updateBoard,
 }
 
 export const PhaseList = connect(mapStateToProps, mapDispatchToProps)(_PhaseList)

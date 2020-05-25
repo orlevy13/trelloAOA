@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
-import { Link } from 'react-router-dom';
 import { history } from '../history'
-// import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { loadBoard, saveBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 
 class _CardHeader extends Component {
     state = {
@@ -12,12 +10,6 @@ class _CardHeader extends Component {
         onPhase: '',
         isTitleOnEdit: false
     }
-
-
-
-    // static propTypes = {
-    //     prop: PropTypes
-    // }
 
     componentDidMount() {
         const cardId = this.props.card.id;
@@ -46,7 +38,7 @@ class _CardHeader extends Component {
                     card.title = this.state.txt;
                 }
             })
-            this.props.saveBoard(boardClone)
+            this.props.updateBoard(boardClone)
                 .then(() => {
 
                     this.toggleInput();
@@ -71,7 +63,6 @@ class _CardHeader extends Component {
 
 
     autoGrow = (el) => {
-        // el.style.height = "5px";
         el.style.height = (el.scrollHeight) + "px";
     }
 
@@ -112,7 +103,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 

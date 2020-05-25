@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 import {
     DeleteForeverOutlined, AccessTime, ArrowForwardOutlined,
@@ -58,7 +58,7 @@ export class _CardMenu extends Component {
         boardCopy.phaseLists[phaseIdx].cards =
             boardCopy.phaseLists[phaseIdx].cards.filter(card => card.id !== id);
         //filtering out the deleted card
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
         this.props.toggleIsMenuShown();//Closing the menu
     }
 
@@ -78,7 +78,7 @@ export class _CardMenu extends Component {
                 return card;
             }
         });
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
         this.props.toggleIsMenuShown();//Closing the menu
     }
 
@@ -107,7 +107,7 @@ export class _CardMenu extends Component {
                         <button onClick={toggleIsLabelEditShown} className="flex align-center">
                             <LabelOutlined className="icon" />Edit Labels</button>
                         {isLabelEditShown &&
-                            <LabelsEdit toggleIsLabelEditShown={toggleIsLabelEditShown} />}
+                            <LabelsEdit card={this.props.card} toggleIsLabelEditShown={toggleIsLabelEditShown} />}
                         <button className="flex align-center">
                             <PersonOutlineOutlined className="icon" />Change Members</button>
                         <button className="flex align-center">
@@ -130,7 +130,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard
+    updateBoard
 }
 
 export const CardMenu = connect(mapStateToProps, mapDispatchToProps)(_CardMenu)

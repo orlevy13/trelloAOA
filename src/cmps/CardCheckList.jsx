@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { loadBoard, saveBoard } from '../store/actions/boardActions';
-import {
-    PlaylistAddCheck,
-} from '@material-ui/icons';
-
+import { PlaylistAddCheck } from '@material-ui/icons';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 
 class _CardCheckList extends Component {
     state = {
@@ -66,7 +63,7 @@ class _CardCheckList extends Component {
         return curPhase;
     }
 
-    handleSaveBoard = () => {
+    handleupdateBoard = () => {
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
         let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId))[0];
@@ -110,7 +107,7 @@ class _CardCheckList extends Component {
         if (field === 'isDone') {
             cloneChkList[idx].isDone = value;
             this.setState({ checkList: cloneChkList }, () => {
-                this.handleSaveBoard();
+                this.handleupdateBoard();
             });
         }
 
@@ -193,7 +190,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 export const CardCheckList = connect(mapStateToProps, mapDispatchToProps)(_CardCheckList)

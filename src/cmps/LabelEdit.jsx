@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { CreateOutlined } from '@material-ui/icons';
+import { CreateOutlined, Check } from '@material-ui/icons';
 
 export class LabelEdit extends Component {
 
     render() {
-        const { label, toggleEditMode, isEditMode } = this.props;
+        const { label, toggleEditMode } = this.props;
+        const isLabelOnCard = this.props.card.labels.some(lbl => lbl.id === label.id);
         return (
-            <div>
-                {!isEditMode && <div style={{ backgroundColor: label.color }}>
-                    {label.txt}
-                    <button onClick={() => { toggleEditMode(label) }}>
-                        <CreateOutlined /></button>
-                </div>
-                }
-            </div>
+            <div className="label-edit flex align-center">
+                <span onClick={() => { this.props.toggleLabelOnCard(label) }}
+                    className="grow flex align-center" style={{ backgroundColor: label.color }}>
+                    {label.txt}{isLabelOnCard && <Check className="icon" />}
+                </span>
+                <button onClick={() => { toggleEditMode(label) }}>
+                    <CreateOutlined className="icon" /></button>
+            </div >
         );
     }
 }
