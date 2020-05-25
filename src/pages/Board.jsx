@@ -8,6 +8,7 @@ import { ColorMenu } from '../cmps/BoardMenu/ColorMenu';
 import { PhotoMenu } from '../cmps/BoardMenu/PhotoMenu';
 import { MenuOutlined } from '@material-ui/icons';
 import { BackgroundMenu } from '../cmps/BoardMenu/BackgroundMenu';
+import { Card } from '../cmps/Card';
 
 
 class _Board extends Component {
@@ -24,12 +25,10 @@ class _Board extends Component {
         }
     }
 
-
-
     componentDidMount() {
         this.getBoardById();
-
     }
+
 
     getBoardById = () => {
         const id = this.props.match.params.id;
@@ -64,7 +63,7 @@ class _Board extends Component {
         if (!board) return '';
         const { mainMenu, backgroundMenu, colorMenu, photoMenu } = this.state.boardMenus.menusState;
         const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
-            { "backgroundImage": `url("${board.imgUrl}")`, "background-size": "cover" }
+            { "backgroundImage": `url("${board.imgUrl}")`, "backgroundSize": "cover" }
 
         return (
             (!board) ? 'loading' : <main style={boardBg} className="board">
@@ -90,6 +89,7 @@ class _Board extends Component {
                 <section className="board-content">
                     <PhaseList />
                 </section>
+                {this.props.card && <Card cardId={this.props.card.id} />}
             </main>
         )
     }
@@ -97,7 +97,8 @@ class _Board extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        card: state.trelloApp.card
     }
 }
 
