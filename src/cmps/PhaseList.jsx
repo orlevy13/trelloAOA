@@ -3,7 +3,7 @@ import { PhasePreview } from './PhasePreview';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { Add, Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 
 export class _PhaseList extends Component {
@@ -18,11 +18,8 @@ export class _PhaseList extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('didupdate');
         if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
-            console.log('didupdate and changed!');
             this.setState({ board: this.props.board })
-            console.log('this.props.board.labels', this.props.board.labels)
         }
     }
 
@@ -66,13 +63,15 @@ export class _PhaseList extends Component {
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const newPhase = boardService.getNewPhase(this.state.newListName);
         boardCopy.phaseLists.push(newPhase);
-        await this.props.saveBoard(boardCopy);
+        await this.props.updateBoard(boardCopy);
         this.setState({ newListName: '' }, () => {
             this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
         });
     }
 
     onDragEnd = result => {
+
+        console.log('in drag drop end')
 
         const { destination, source, type } = result;
         if (!destination) return;
@@ -99,7 +98,10 @@ export class _PhaseList extends Component {
                 dstCards.splice(destination.index, 0, movingCard);
             }
         }
-        this.props.saveBoard(boardCopy);
+
+        this.props.updateBoard(boardCopy);
+
+
     }
 
 
@@ -109,6 +111,7 @@ export class _PhaseList extends Component {
         const { isInputShown, newListName } = this.state;
         const { phaseLists } = this.state.board;
 
+        // const { phaseLists } = this.props.board;
         return (
 
             <DragDropContext onDragEnd={this.onDragEnd}>
@@ -148,7 +151,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard,
+    updateBoard,
 }
 
 export const PhaseList = connect(mapStateToProps, mapDispatchToProps)(_PhaseList)

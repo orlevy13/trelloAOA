@@ -31,6 +31,7 @@ class _Board extends Component {
 
 
     getBoardById = () => {
+
         const id = this.props.match.params.id;
         this.props.loadBoard(id);
     }
@@ -61,6 +62,8 @@ class _Board extends Component {
 
         const { board } = this.props;
         if (!board) return '';
+
+        console.log('board members: ', board);
         const { mainMenu, backgroundMenu, colorMenu, photoMenu } = this.state.boardMenus.menusState;
         const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
             { "backgroundImage": `url("${board.imgUrl}")`, "backgroundSize": "cover" }
@@ -74,7 +77,7 @@ class _Board extends Component {
                         </div>
                         <span className="board-nav-divider"></span>
                         <div className="board-members">
-                            {board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
+                            {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
                         <span className="nav-btn">Invite</span>
                     </div>

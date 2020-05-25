@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { CloseOutlined } from '@material-ui/icons/';
-import { loadBoard, saveBoard } from '../../store/actions/boardActions'
+import { loadBoard, updateBoard } from '../../store/actions/boardActions'
 import { boardService } from '../../services/boardService'
 import { connect } from 'react-redux';
 import { ArrowBackIosOutlined } from '@material-ui/icons';
@@ -13,7 +13,7 @@ export class _ColorMenu extends Component {
         const clonedBoard = boardService.getBoardCopy(this.props.board);
         clonedBoard.bgColor = color;
         clonedBoard.imgUrl = null;
-        this.props.saveBoard(clonedBoard);
+        this.props.updateBoard(clonedBoard);
 
 
     }
@@ -86,7 +86,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 export const ColorMenu = connect(mapStateToProps, mapDispatchToProps)(_ColorMenu)

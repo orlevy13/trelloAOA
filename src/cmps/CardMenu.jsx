@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 import {
     DeleteForeverOutlined, AccessTime, ArrowForwardOutlined,
@@ -58,7 +58,7 @@ export class _CardMenu extends Component {
         boardCopy.phaseLists[phaseIdx].cards =
             boardCopy.phaseLists[phaseIdx].cards.filter(card => card.id !== id);
         //filtering out the deleted card
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
         this.props.toggleIsMenuShown();//Closing the menu
     }
 
@@ -78,7 +78,7 @@ export class _CardMenu extends Component {
                 return card;
             }
         });
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
         this.props.toggleIsMenuShown();//Closing the menu
     }
 
@@ -130,7 +130,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard
+    updateBoard
 }
 
 export const CardMenu = connect(mapStateToProps, mapDispatchToProps)(_CardMenu)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import { history } from '../history'
 import { connect } from 'react-redux';
-import { loadBoard, saveBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 
 class _CardHeader extends Component {
     state = {
@@ -38,7 +38,7 @@ class _CardHeader extends Component {
                     card.title = this.state.txt;
                 }
             })
-            this.props.saveBoard(boardClone)
+            this.props.updateBoard(boardClone)
                 .then(() => {
 
                     this.toggleInput();
@@ -95,7 +95,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 

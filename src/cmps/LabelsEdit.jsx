@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { Clear } from '@material-ui/icons';
 import { boardService } from '../services/boardService';
 import { LabelEdit } from './LabelEdit';
@@ -33,7 +33,7 @@ class _LabelsEdit extends Component {
             if (label.id === editedLabel.id) return editedLabel;
             return label;
         })
-        await this.props.saveBoard(boardCopy);// The await might be neccessary when working with DB
+        await this.props.updateBoard(boardCopy);// The await might be neccessary when working with DB
         this.toggleEditMode();
     }
 
@@ -56,7 +56,7 @@ class _LabelsEdit extends Component {
         }
         boardCopy.phaseLists[phaseIdx].cards[cardIdx] = card;
 
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
     }
 
     render() {
@@ -98,7 +98,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard
+    updateBoard
 }
 
 export const LabelsEdit = connect(mapStateToProps, mapDispatchToProps)(_LabelsEdit)
