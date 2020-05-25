@@ -19,6 +19,7 @@ export class _CardLabels extends Component {
             //get the correct labels from board
             const foundLabel = boardCopy.labels.find(boardLabel => boardLabel.id === label.id);
             if (foundLabel) return foundLabel;
+            return null;
         })
         return updatedLabels;
     }

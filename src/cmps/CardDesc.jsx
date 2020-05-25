@@ -15,14 +15,13 @@ class _CardDesc extends Component {
     handleChange = ({ target }) => {
         var value = target.value
         this.setState({ txt: value })
+        this.autoGrow(this.elTextarea)
     }
 
 
-    handleupdateBoard = () => {
-        console.log('state', this.state);
+    handleSaveBoard = () => {
 
 
-        console.log('handle save');
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
         let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId));
@@ -32,30 +31,31 @@ class _CardDesc extends Component {
                 card.desc = this.state.txt;
             }
         })
-        this.props.updateBoard(boardClone)
-            .then(() => console.log('board after save', this.props.board))
-
-
-
+        this.props.saveBoard(boardClone);
     }
+
+    autoGrow = (el) => {
+        el.style.height = (el.scrollHeight) + "px";
+    }
+
 
     render() {
-
-        if (this.state.txt) {
-            return (
-                <section>
-                    <div className="desc-header-container">
-                        <DescriptionIcon /><span className="desc-header">Description</span>
-                    </div>
-                    <div className="card-desc-container">
-                        <textarea className="card-desc-input" placeholder="Add a more detailed description..."
-                            onChange={this.handleChange} onBlur={this.handleupdateBoard} value={this.state.txt}></textarea>
-                    </div>
-                </section>
-            )
-        } else return ''
+        return (
+            <section>
+                <div className="desc-header-container">
+                    <DescriptionIcon /><span className="desc-header">Description</span>
+                </div>
+                <div className="card-desc-container">
+                    <textarea className="card-desc-input" ref={el => this.elTextarea = el}
+                        placeholder="Add a more detailed description..." onChange={this.handleChange}
+                        onFocus={(ev) => { this.autoGrow(ev.target) }} autoCorrect="false"
+                        onBlur={this.handleSaveBoard} value={this.state.txt}></textarea>
+                </div>
+            </section>
+        )
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board

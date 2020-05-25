@@ -15,7 +15,7 @@ export function queryBoard(filter) {
 }
 
 export function loadBoard(id) {
-    debugger;
+    ;
     return async dispatch => {
         const board = await boardService.getById(id);
         dispatch({ type: LOAD_BOARD, board });

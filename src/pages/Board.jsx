@@ -32,6 +32,7 @@ class _Board extends Component {
     }
 
     getBoardById = () => {
+       
         const id = this.props.match.params.id;
         this.props.loadBoard(id);
     }
@@ -62,6 +63,7 @@ class _Board extends Component {
 
         const { board } = this.props;
         if (!board) return '';
+        console.log('board members: ', board.members);
         const { mainMenu, backgroundMenu, colorMenu, photoMenu } = this.state.boardMenus.menusState;
         const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
             { "backgroundImage": `url("${board.imgUrl}")`, "background-size": "cover" }

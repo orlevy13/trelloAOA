@@ -1,7 +1,6 @@
 .card-header-container {
     // margin: 8px 16px 8px 0;
     margin-top: 20px;
-    height: 50px;
 
     display: flex;
     align-items: center;
@@ -10,16 +9,19 @@
 .card-title-input {
     border: none;
     background-color: $cardGrey;
-    min-height: 50px;
-    white-space: normal;
+
     width: 700px;
     margin-left: 15px;
     font-size: 24px;
-    align-items: stretch;
+    max-height: content;
     overflow: hidden;
+
+    min-height: 50px;
+    max-height: 300px;
     top: 0;
     left: 0;
-
+    white-space: normal;
+    word-wrap: break-word;
     resize: none;
 }
 .card-title-input:focus {

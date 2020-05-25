@@ -13,7 +13,7 @@ export function MainNav() {
                         <HomeOutlined className="btn-icon" />
                     </div>
                 </Link>
-                <Link to="/board/5ecb8734cb39d7f549832c88">
+                <Link to="/board/5ecbc8edcb39d7f5494f8d40">
                     <div className="btn-main-nav flex align-center">
                         <DashboardOutlined className="btn-icon" />
                         <span className="btn-text">Boards</span>
