@@ -1,4 +1,4 @@
-import {httpService} from './httpService'
+import { httpService } from './httpService'
 const CLOUD_NAME = 'dcubdqpfg'
 
 async function doUploadiMG(elForm) {
@@ -31,13 +31,13 @@ async function getById(id) {
 }
 
 async function add(addboard) {
+
     const board = await httpService.post(`board`, addboard);
     return board;
 }
 
 async function update(updateboard) {
-
-    const board = await httpService.put(`board/${updateboard}`, updateboard);
+    const board = await httpService.put('board', updateboard);
     return board;
 }
 

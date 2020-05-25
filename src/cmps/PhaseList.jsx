@@ -60,6 +60,8 @@ export class _PhaseList extends Component {
 
     onDragEnd = result => {
 
+        console.log('in drag drop end')
+
         const { destination, source, type } = result;
         if (!destination) return;
         if (destination.droppableId === source.droppableId && destination.index === source.index) return;
@@ -85,7 +87,10 @@ export class _PhaseList extends Component {
                 dstCards.splice(destination.index, 0, movingCard);
             }
         }
+
         this.props.updateBoard(boardCopy);
+
+
     }
 
 
@@ -93,7 +98,6 @@ export class _PhaseList extends Component {
         const { toggleInputShown, onAddPhase, handleChange, hideInput } = this;
         const { isInputShown, newListName } = this.state;
         const { phaseLists } = this.props.board;
-
         return (
 
             <DragDropContext onDragEnd={this.onDragEnd}>

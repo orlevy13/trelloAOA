@@ -9,7 +9,7 @@ export class BoardMenu extends Component {
         const menuClass = !this.props.isMenuShown ? 'board-menu display-none' : 'board-menu'
         const board = this.props.board;
         const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
-            { "backgroundImage": `url("${board.imgUrl}")`, "background-size": "cover" }
+            { "backgroundImage": `url("${board.imgUrl}")`, "backgroundSize": "cover" }
         return (
             <div className={menuClass}>
                 <div className="flex column">

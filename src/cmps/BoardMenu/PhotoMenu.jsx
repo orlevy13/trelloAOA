@@ -18,7 +18,6 @@ export class _PhotoMenu extends Component {
             unsplashService.getListPhotos()
                 .then(json => {
                     const imgs = json.map(img => {
-                        console.log(img)
                         return {
                             thumbUrl: img.urls.thumb,
                             regularUrl: img.urls.regular,
@@ -28,7 +27,6 @@ export class _PhotoMenu extends Component {
                         }
                     })
                     this.setState({ imgs }, () => {
-                        console.log(this.state.imgs)
                     });
                 })
         }
@@ -37,7 +35,6 @@ export class _PhotoMenu extends Component {
 
     changeBoardImg = (img) => {
 
-        console.log(img)
         if (!img) return;
         const clonedBoard = boardService.getBoardCopy(this.props.board);
         clonedBoard.imgUrl = img;
@@ -49,7 +46,6 @@ export class _PhotoMenu extends Component {
 
         const menuClass = !this.props.isMenuShown ? 'board-menu display-none' : 'board-menu';
         const { imgs } = this.state;
-        console.log('images:', imgs);
         return (
             <div className={menuClass}>
                 <div className="flex column">
