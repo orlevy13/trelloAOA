@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 
 export default function CardCheckListItems(props) {
 
-    console.log('props at card check list items', props);
 
     var readOnlyClass = (props.readOnly) ? 'divReadOnly' : '';
     var divClassName = `to-do-item flex space-between ${readOnlyClass}`;

@@ -4,8 +4,12 @@
     background-color: $cardGrey;
     // opacity: 100%;
     width: 800px;
-    margin: 48px auto 80px auto;
+    position: absolute;
+    margin: 0 auto;
+    // margin: 48px auto 80px auto;
+
     color: $trelloFontColor;
+    z-index: 2;
     display: grid;
     grid-gap: 5px;
     grid-template-rows: auto auto;

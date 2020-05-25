@@ -2,42 +2,44 @@
     margin: 8px 16px 8px 32px;
     padding: 8px 0 0 8px;
     width: 500px;
-}
+    min-height: 40px;
 
-.card-desc-input {
-    @include trelloInput;
-    width: 500px;
-    background-color: $cardGrey;
-    box-shadow: none;
-    border: none;
-    resize: none;
-    overflow: hidden;
-    padding-left: 0;
-    // border-radius: 3px;
-}
+    .card-desc-input {
+        @include trelloInput;
+        width: 500px;
+        background-color: $cardGrey;
+        box-shadow: none;
+        border: none;
+        resize: none;
+        overflow: hidden;
+        padding-left: 0;
 
-.card-desc-input::-webkit-input-placeholder {
-    background-color: darken($color: $cardGrey, $amount: 7);
-    height: 70px;
-}
+        // border-radius: 3px;
+    }
 
-.card-desc-input:focus::-webkit-input-placeholder {
-    background-color: white;
-}
+    .card-desc-input::-webkit-input-placeholder {
+        background-color: darken($color: $cardGrey, $amount: 7);
+        min-height: 40px;
+    }
 
-.card-desc-input:focus {
-    background-color: white;
-    height: 100px;
-}
+    .card-desc-input:focus::-webkit-input-placeholder {
+        background-color: white;
+    }
 
-.desc-header-container {
-    display: flex;
-    align-items: center;
-}
+    .card-desc-input:focus {
+        background-color: white;
+        min-height: 40px;
+    }
 
-.desc-header {
-    margin-left: 15px;
-    padding-bottom: 8px;
+    .desc-header-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .desc-header {
+        margin-left: 15px;
+        padding-bottom: 8px;
+    }
 }
 
 // .MuiSvgIcon-root {

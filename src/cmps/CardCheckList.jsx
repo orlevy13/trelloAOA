@@ -11,9 +11,26 @@ class _CardCheckList extends Component {
     }
 
     componentDidMount() {
-        console.log('hi')
         this.setState({ checkList: this.props.card.checkList, onAdd: false },
             () => this.progressBarUpdate());
+    }
+
+    getCardById = (cardId = null) => {
+        if (!this.props.board)
+            return;
+        let boardClone = JSON.parse(JSON.stringify(this.props.board));
+
+        var card;
+        for (let i = 0; i < boardClone.phaseLists.length; i++) {
+            const phase = boardClone.phaseLists[i];
+            phase.cards.forEach(currCard => {
+                if (currCard.id === cardId) {
+                    card = currCard;
+                }
+            });
+        }
+        return card;
+
     }
 
     progressBarUpdate = () => {
@@ -27,20 +44,14 @@ class _CardCheckList extends Component {
     }
 
     addTodo = () => {
+        if (!this.state.todoText) return
 
-        if (!this.state.todoText) {
-            return
-        }
-        else {
-
-            let newTodo = { txt: this.state.todoText, isDone: false }
-            let clone = this.state.checkList.slice();
-            clone.push(newTodo);
-            this.setState({ checkList: clone, todoText: '' }, () => {
-                this.handleSaveBoard();
-
-            });
-        }
+        let newTodo = { txt: this.state.todoText, isDone: false }
+        let clone = this.state.checkList.slice();
+        clone.push(newTodo);
+        this.setState({ checkList: clone, todoText: '' }, () => {
+            this.handleSaveBoard();
+        });
     }
 
     getPhaseByCardId = (id) => {
@@ -51,24 +62,21 @@ class _CardCheckList extends Component {
     handleSaveBoard = () => {
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
-        let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId));
+        let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId))[0];
 
-        currPhase[0].cards.forEach(card => {
+        const updatedCards = currPhase.cards.map(card => {
             if (card.id === this.props.card.id) {
                 card.checkList = this.state.checkList;
             }
+            return card;
         })
+        const phaseIndex = boardClone.phaseLists.findIndex(phase => phase.id === currPhase.id)
+        currPhase.cards = updatedCards;
+        boardClone.phaseLists[phaseIndex] = currPhase;
         this.props.saveBoard(boardClone)
             .then(() => {
-                this.props.loadBoard(boardClone._id)
-                    .then(() => {
-                        this.progressBarUpdate();
-                        console.log(boardClone);
-                    });
-
+                this.progressBarUpdate();
             })
-
-
     }
 
 
@@ -80,28 +88,22 @@ class _CardCheckList extends Component {
 
 
     onDelete = (idx) => {
-
         let clone = this.state.checkList.slice();
         clone.splice(idx, 1);
         this.setState({ checkList: clone }, () => {
             this.handleSaveBoard();
-            console.log('after delete item from checklist');
         })
     }
 
     handleChange = ({ target }, idx = -1) => {
         const field = target.name;
         const value = (field === 'isDone') ? target.checked : target.value
-
         let cloneChkList = this.state.checkList.slice();
-
         if (field === 'isDone') {
-
             cloneChkList[idx].isDone = value;
             this.setState({ checkList: cloneChkList }, () => {
                 this.handleSaveBoard();
             });
-
         }
 
         else {
@@ -118,35 +120,27 @@ class _CardCheckList extends Component {
 
     render() {
         const { todoText, onAdd } = this.state;
-        console.log('in render on add', onAdd);
-
-
+        if (!this.state.checkList || !this.state.checkList.length) return 'Loading'
         return (
-            this.state.checkList &&
             <div className="card-check-list">
                 <div className="check-list-header-container">
-
                     <div className="progress-bar-container">
                         <div className="progress-bar" style={{ width: `${this.state.progress}%` }} >{this.state.progress}</div>
                     </div>
-                    {this.state.checkList.map((todo, idx) => <div key={idx} >
-                        <input type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} checked={todo.isDone} />
-                        <input type="text" name="txt" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} value={todo.txt} />
-                        <button onClick={() => this.onDelete(idx)}>X</button>
-                    </div>)}
-
+                    {this.state.checkList.map((todo, idx) =>
+                        <div key={idx} >
+                            <input type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} checked={todo.isDone} />
+                            <input type="text" name="txt" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} value={todo.txt} />
+                            <button onClick={() => this.onDelete(idx)}>X</button>
+                        </div>)}
                     {!onAdd && <button onClick={this.toggleAdd}>Add Todo</button>}
                     {onAdd && <input type="text" onChange={this.handleChange}
                         autoFocus onBlur={this.toggleAdd} value={todoText} />}
-
                 </div>
             </div>
         )
-
-
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {
@@ -154,15 +148,14 @@ const mapStateToProps = (state) => {
     }
 }
 
+
 const mapDispatchToProps = {
     loadBoard,
     saveBoard
 }
-
 
 export const CardCheckList = connect(mapStateToProps, mapDispatchToProps)(_CardCheckList)
 
 
 
 
-// *******************************************************************************
