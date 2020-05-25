@@ -52,17 +52,22 @@ class _Board extends Component {
             clonedMenus.menusState[menuName] = !clonedMenus.menusState[menuName];
             //set currentOpend 
             clonedMenus.currentOpend = menuName;
-            console.log('menu state: ', clonedMenus);
+
+
         }
         this.setState({ boardMenus: clonedMenus });
     }
 
     render() {
+
         const { board } = this.props;
+        if (!board) return '';
         const { mainMenu, backgroundMenu, colorMenu, photoMenu } = this.state.boardMenus.menusState;
+        const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
+            { "backgroundImage": `url("${board.imgUrl}")`, "background-size": "cover" }
 
         return (
-            (!board) ? 'loading' : <main style={{ "backgroundColor": board.bgColor }} className="board">
+            (!board) ? 'loading' : <main style={boardBg} className="board">
                 <section className="board-nav flex space-between">
                     <div className="flex">
                         <div className="board-title" href="#">

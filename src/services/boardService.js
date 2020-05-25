@@ -3,12 +3,63 @@ const gBoards =
     [
         {
             _id: 'abcd',
-            name: 'guest board',
-            desc: 'fOr Levy only, only guest users',
-            type: 'guest',
+            name: 'Dev board',
+            desc: 'Or Levy only, only guest users',
             imgUrl: 'cloudinary',
             bgColor: '#00AECC',
             isLabelTxtShown: false,
+            labels: [
+                {
+                    id: 'dvsdZwd213vdsv',
+                    color: '#61bd4f',
+                    txt: 'Can start now'
+                },
+                {
+                    id: 'dvdsv',
+                    color: '#f2d600',
+                    txt: 'experienced only'
+                },
+                {
+                    id: 'dvsd567vdsv',
+                    color: '#ff9f1a',
+                    txt: 'fun to do'
+                },
+                {
+                    id: 'dv345dsv',
+                    color: '#eb5a46',
+                    txt: 'this is just a very very very long label'
+                },
+                {
+                    id: 'dv345dssav',
+                    color: '#0079bf',
+                    txt: 'klein blue'
+                },
+                {
+                    id: 'dss281av',
+                    color: '#00c2e0',
+                    txt: 'clear blue sky'
+                },
+                {
+                    id: 'dss2818av',
+                    color: '#ff78cb',
+                    txt: 'pinky'
+                },
+                {
+                    id: 'fl18av',
+                    color: '#344563',
+                    txt: 'darkish'
+                },
+                {
+                    id: 'fl18aolv',
+                    color: '#b3bac5',
+                    txt: 'grayish'
+                },
+                {
+                    id: 'gdfgfsd',
+                    color: '#c377e0',
+                    txt: 'doesn\'t matter'
+                }
+            ],
             phaseLists:
                 [
                     {
@@ -81,12 +132,12 @@ const gBoards =
                                     checkList:
                                         [
                                             {
-                                               
+
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {                                               
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -120,11 +171,6 @@ const gBoards =
                                     labels:
                                         [
                                             {
-                                                id: 'dvsdZwd213vdsv',
-                                                color: '#61bd4f',
-                                                txt: 'important'
-                                            },
-                                            {
                                                 id: 'dvdsv',
                                                 color: '#f2d600',
                                                 txt: 'experienced only'
@@ -134,50 +180,15 @@ const gBoards =
                                                 color: '#ff9f1a',
                                                 txt: 'fun to do'
                                             },
-                                            {
-                                                id: 'dv345dsv',
-                                                color: '#eb5a46',
-                                                txt: 'this is just a very very very long label'
-                                            },
-                                            {
-                                                id: 'dv345dssav',
-                                                color: '#0079bf',
-                                                txt: 'klein blue'
-                                            },
-                                            {
-                                                id: 'dss281av',
-                                                color: '#00c2e0',
-                                                txt: 'clear blue sky'
-                                            },
-                                            {
-                                                id: 'dss2818av',
-                                                color: '#ff78cb',
-                                                txt: 'pinky'
-                                            },
-                                            {
-                                                id: 'fl18av',
-                                                color: '#344563',
-                                                txt: 'darkish'
-                                            },
-                                            {
-                                                id: 'fl18aolv',
-                                                color: '#b3bac5',
-                                                txt: 'grayish'
-                                            },
-                                            {
-                                                id: 'gdfgfsd',
-                                                color: '#c377e0',
-                                                txt: 'doesn\'t matter'
-                                            }
                                         ],
                                     checkList:
                                         [
-                                            {                                               
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {                                               
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -211,29 +222,34 @@ const gBoards =
                                     labels:
                                         [
                                             {
-                                                id: 'fl18av',
-                                                color: '#344563',
-                                                txt: 'darkish'
+                                                id: 'dvdsv',
+                                                color: '#f2d600',
+                                                txt: 'experienced only'
                                             },
                                             {
-                                                id: 'fl18aolv',
-                                                color: '#b3bac5',
-                                                txt: 'grayish'
+                                                id: 'dvsd567vdsv',
+                                                color: '#ff9f1a',
+                                                txt: 'fun to do'
                                             },
                                             {
-                                                id: 'gdfgfsd',
-                                                color: '#c377e0',
-                                                txt: 'doesn\'t matter'
+                                                id: 'dv345dsv',
+                                                color: '#eb5a46',
+                                                txt: 'this is just a very very very long label'
+                                            },
+                                            {
+                                                id: 'dv345dssav',
+                                                color: '#0079bf',
+                                                txt: 'klein blue'
                                             }
                                         ],
                                     checkList:
                                         [
-                                            {                                                
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {                                                
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -278,7 +294,7 @@ const gBoards =
                                             {
                                                 id: 'dvsdZwd213vdsv',
                                                 color: '#61bd4f',
-                                                txt: 'important'
+                                                txt: 'Can start'
                                             },
                                             {
                                                 id: 'dvdsv',
@@ -290,15 +306,20 @@ const gBoards =
                                                 color: '#ff9f1a',
                                                 txt: 'fun to do'
                                             },
+                                            {
+                                                id: 'dv345dsv',
+                                                color: '#eb5a46',
+                                                txt: 'this is just a very very very long label'
+                                            },
                                         ],
                                     checkList:
                                         [
-                                            {                                               
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {                                                
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -358,15 +379,20 @@ const gBoards =
                                                 color: '#ff78cb',
                                                 txt: 'pinky'
                                             },
+                                            {
+                                                id: 'fl18av',
+                                                color: '#344563',
+                                                txt: 'darkish'
+                                            },
                                         ],
                                     checkList:
                                         [
-                                            {                                               
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {                                                
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: false
                                             }
@@ -416,6 +442,11 @@ const gBoards =
                                                 id: 'dss2818av',
                                                 color: '#ff78cb',
                                                 txt: 'pinky'
+                                            },
+                                            {
+                                                id: 'fl18av',
+                                                color: '#344563',
+                                                txt: 'darkish'
                                             },
                                         ],
                                     checkList:
@@ -468,19 +499,24 @@ const gBoards =
                                     labels:
                                         [
                                             {
-                                                id: '345gs',
+                                                id: 'dv345dssav',
                                                 color: '#0079bf',
                                                 txt: 'klein blue'
                                             },
                                             {
-                                                id: 'dss28fh561av',
+                                                id: 'dss281av',
                                                 color: '#00c2e0',
                                                 txt: 'clear blue sky'
                                             },
                                             {
-                                                id: 'asd4gv',
+                                                id: 'dss2818av',
                                                 color: '#ff78cb',
                                                 txt: 'pinky'
+                                            },
+                                            {
+                                                id: 'fl18av',
+                                                color: '#344563',
+                                                txt: 'darkish'
                                             },
                                         ],
                                     checkList:
@@ -532,12 +568,12 @@ const gBoards =
                                         ],
                                     checkList:
                                         [
-                                            {                                               
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: true
 
                                             },
-                                            {                                               
+                                            {
                                                 txt: 'do your homework',
                                                 isDone: true
                                             }

@@ -24,12 +24,14 @@ export function MainNav() {
                     <SearchOutlined className="search-icon" />
                 </div>
             </nav>
-            <div className="nav-center flex align-center justify-center">
-                <div className="logo flex align-center">
-                    <AccountTreeOutlined className="btn-icon" />
-                    <span className="logo-text">Flowz</span>
+            <Link to="/">
+                <div className="nav-center flex align-center justify-center">
+                    <div className="logo flex align-center">
+                        <AccountTreeOutlined className="btn-icon" />
+                        <span className="logo-text">Flowz</span>
+                    </div>
                 </div>
-            </div>
+            </Link>
             <nav className="right-nav flex flex-end align-center">
                 <div className="btn-main-nav">
                     <Add className="btn-icon" />
@@ -42,7 +44,7 @@ export function MainNav() {
                 }
 
             </nav>
-        </header>
+        </header >
     )
 }
 
