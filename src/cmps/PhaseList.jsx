@@ -8,8 +8,22 @@ import { boardService } from '../services/boardService';
 
 export class _PhaseList extends Component {
     state = {
+        board: null,
         isInputShown: false,
         newListName: ''
+    }
+
+    componentDidMount() {
+        this.setState({ board: this.props.board })
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('didupdate');
+        if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
+            console.log('didupdate and changed!');
+            this.setState({ board: this.props.board })
+            console.log('this.props.board.labels', this.props.board.labels)
+        }
     }
 
     componentWillUnmount() {
@@ -33,7 +47,7 @@ export class _PhaseList extends Component {
     }
 
     handleChange = ({ target }) => {
-        this.setState({ newListName: target.value })
+        this.setState(prevState => ({ ...prevState, newListName: target.value }));
     }
 
     addEventListeners = () => {
@@ -90,9 +104,10 @@ export class _PhaseList extends Component {
 
 
     render() {
+        if (!this.state.board) return 'loading..'
         const { toggleInputShown, onAddPhase, handleChange, hideInput } = this;
         const { isInputShown, newListName } = this.state;
-        const { phaseLists } = this.props.board;
+        const { phaseLists } = this.state.board;
 
         return (
 

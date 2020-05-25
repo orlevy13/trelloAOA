@@ -6,7 +6,7 @@ import { boardService } from '../services/boardService';
 export class _CardLabels extends Component {
 
     toggleIsLabelTxtShown = (ev) => {
-        ev.preventDefault();
+        ev.stopPropagation();
         const boardCopy = boardService.getBoardCopy(this.props.board);
         boardCopy.isLabelTxtShown = !boardCopy.isLabelTxtShown;
         this.props.saveBoard(boardCopy);

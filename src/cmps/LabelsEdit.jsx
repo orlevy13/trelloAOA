@@ -1,41 +1,67 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { saveBoard } from '../store/actions/boardActions';
-import { Clear, CreateOutlined } from '@material-ui/icons';
+import { Clear } from '@material-ui/icons';
 import { boardService } from '../services/boardService';
 import { LabelEdit } from './LabelEdit';
 
 class _LabelsEdit extends Component {
 
     state = {
-        isEditMode: false,
         editLabel: null
     }
 
     toggleEditMode = (editLabel) => {
-        if (editLabel) this.setState({ isEditMode: true, editLabel });
-        else this.setState({ isEditMode: false, editLabel: null });
+        this.setState({ editLabel });
     }
 
     handleChange = ({ target }) => {
-        this.setState({ editLabel: { txt: target.value } });
+        this.setState(prevState => ({
+            editLabel: {
+                ...prevState.editLabel,
+                txt: target.value
+            }
+        }));
     }
 
-    saveLabel = async (ev, editedLabel) => {
+    saveLabel = async (ev) => {
         ev.preventDefault();
+        const editedLabel = this.state.editLabel;
         const boardCopy = boardService.getBoardCopy(this.props.board);
 
-        boardCopy.labels = boardCopy.labels.filter(label => {
+        boardCopy.labels = boardCopy.labels.map(label => {
             if (label.id === editedLabel.id) return editedLabel;
-            return label
+            return label;
         })
         await this.props.saveBoard(boardCopy);// The await might be neccessary when working with DB
         this.toggleEditMode();
     }
 
+    toggleLabelOnCard = (label) => {
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const cardId = this.props.card.id;
+
+        // Getting the access to the card labels inside the board
+        const phaseIdx = boardCopy.phaseLists.findIndex(phase =>
+            phase.cards.some(card => card.id === cardId)
+        )
+        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+        const card = boardCopy.phaseLists[phaseIdx].cards[cardIdx];
+
+        //Checking if the card has the label or not and flip it
+        if (card.labels.some(lbl => lbl.id === label.id)) {
+            card.labels = card.labels.filter(lbl => lbl.id !== label.id);
+        } else {
+            card.labels.push(label);
+        }
+        boardCopy.phaseLists[phaseIdx].cards[cardIdx] = card;
+
+        this.props.saveBoard(boardCopy);
+    }
+
     render() {
-        const { toggleEditMode, saveLabel } = this;
-        const { isEditMode, editLabel } = this.state;
+        const { toggleEditMode, saveLabel, toggleLabelOnCard } = this;
+        const { editLabel } = this.state;
         const { labels } = this.props.board;
         return (
             <section className="edit-labels">
@@ -44,14 +70,19 @@ class _LabelsEdit extends Component {
                     <button onClick={this.props.toggleIsLabelEditShown}><Clear /></button>
                 </div>
                 <div className="labels-gallery">
-                    {labels.map(label => <LabelEdit saveLabel={saveLabel} isEditMode={isEditMode}
-                        label={label} toggleEditMode={toggleEditMode} />)}
+                    {!editLabel && labels.map(label => <LabelEdit toggleLabelOnCard={toggleLabelOnCard}
+                        card={this.props.card} saveLabel={saveLabel} key={label.id} label={label}
+                        toggleEditMode={toggleEditMode} />)}
 
-                    {isEditMode && <form>
-                        <input type="text" name="txt" value={editLabel.txt} autoFocus
-                            spellCheck="false" onChange={this.handleChange} />
-                        <button type="button" onClick={() => { toggleEditMode(null) }}><CreateOutlined /></button>
-                    </form>}
+                    {editLabel && <div>
+                        <form onSubmit={saveLabel}>
+                            <input type="text" name="txt" value={editLabel.txt} autoFocus
+                                autoComplete="off" spellCheck="false" onChange={this.handleChange} />
+                            <button className="save-btn">Save</button>
+                        </form>
+                        <button className="cancel-btn" onClick={() => { toggleEditMode(null) }}>
+                            Cancel</button>
+                    </div>}
 
                 </div>
 
@@ -62,7 +93,7 @@ class _LabelsEdit extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
     }
 }
 

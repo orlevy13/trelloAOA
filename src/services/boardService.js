@@ -421,8 +421,8 @@ const gBoards =
                                 {
                                     id: '91011',   // our id                         
                                     bgColor: '#ddd',
-                                    imgUrl: 'https://res.cloudinary.com/marmelada/image/upload/v1590152902/prnouct4tx5w3wjy6xqw.jpg',
-                                    title: 'Save the empire',
+                                    imgUrl: 'https://res.cloudinary.com/marmelada/image/upload/v1590414894/wcpc1lodqqiytvwxlg9z.jpg',
+                                    title: 'Fix the header color',
                                     desc: 'using cli create new project',
                                     dueDate: 1382086394000,
                                     createdAt: 1590231972413,

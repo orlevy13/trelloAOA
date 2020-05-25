@@ -107,7 +107,7 @@ export class _CardMenu extends Component {
                         <button onClick={toggleIsLabelEditShown} className="flex align-center">
                             <LabelOutlined className="icon" />Edit Labels</button>
                         {isLabelEditShown &&
-                            <LabelsEdit toggleIsLabelEditShown={toggleIsLabelEditShown} />}
+                            <LabelsEdit card={this.props.card} toggleIsLabelEditShown={toggleIsLabelEditShown} />}
                         <button className="flex align-center">
                             <PersonOutlineOutlined className="icon" />Change Members</button>
                         <button className="flex align-center">
