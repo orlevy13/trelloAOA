@@ -77,8 +77,6 @@ class _Card extends Component {
         const { card } = this.state
         return (
             <section >
-                {/* <Link to="/board/abcd">
-                        <div className="card-modal" ></div></Link> */}
                 <button onMouseDown={() => { history.push('/board/abcd') }}>
                     <div className="card-modal" ></div></button>
                 <div className="card-container" >
