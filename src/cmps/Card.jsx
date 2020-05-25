@@ -5,10 +5,14 @@ import { loadBoard, setCard } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
 import { CardCheckList } from './CardCheckList';
+// import MaterialUIPickers from './CardDueDate'
+// import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import {
     PermIdentity, Label, PlaylistAddCheck,
     Schedule, Attachment, CropOriginal
 } from '@material-ui/icons';
+
+
 import { LabelsEdit } from './LabelsEdit';
 
 class _Card extends Component {
@@ -66,6 +70,7 @@ class _Card extends Component {
                         < CardDesc card={card} />
                         {(card.checkList.length > 0) && < CardCheckList card={card} />}
                     </div>
+                    {/* <MaterialUIPickers /> */}
                     <div className="card-side-bar">
                         <section>
                             <div className="card-sidebar">

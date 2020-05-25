@@ -1,35 +1,27 @@
 .card-check-list {
     grid-area: main;
+}
+.check-list-header-container {
     margin-left: 36px;
 }
 
+// progress bar
 .progress-bar-section {
+    font-size: 12px;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    margin-left: 8px;
 }
 .progress-bar-container {
-    font-size: 15px;
+    font-size: 8px;
     margin-left: 5px;
-    line-height: 1;
+    line-height: 0.7;
     width: 300px;
 
     border-radius: 8px;
     color: #000;
     background-color: #ccc;
-}
-
-.check-list-btn {
-    background-color: rgba(9, 30, 66, 0.04);
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    border-radius: 3px;
-    border: none;
-    display: inline-block;
-    line-height: 20px;
-    margin-top: 7px;
-    margin-bottom: 8px;
-    padding: 6px 12px;
 }
 
 .progress-bar {
@@ -38,9 +30,21 @@
     border-radius: 8px;
 }
 
+// checklist input
+
+.checklist-title-container {
+    display: flex;
+    align-items: center;
+}
+
 .checklist-input-container {
     display: flex;
     align-items: center;
+    width: 350px;
+}
+
+.checklist-input-container > .checklist-input:hover {
+    background-color: rgb(222, 224, 228);
 }
 
 .checklist-checkbox {
@@ -48,13 +52,16 @@
     padding: 0;
 }
 
-.checklist-input {
+.checklist-input,
+.checklist-title {
     @include trelloInput;
     width: 300px;
     height: 25px;
     margin: 0;
+
     margin-top: 2px;
-    margin-left: 5px;
+    margin-left: 16px;
+    margin-bottom: 8px;
     font-size: 14px;
     font-weight: 400;
     background-color: $cardGrey;
@@ -63,7 +70,22 @@
     resize: none;
     overflow: hidden;
     padding-left: 0;
+    padding-bottom: 5px;
 }
+.checklist-input {
+    padding: 0;
+    margin-bottom: 0;
+}
+.checklist-title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.checklist-icon {
+    margin-left: 8px;
+}
+
 .checklist-input:focus {
     background-color: rgb(234, 236, 240);
 }
@@ -75,4 +97,31 @@
     border: none;
     display: inline-block;
     margin-left: 5px;
+}
+
+.check-list-btn,
+.save-checklist-item-btn {
+    background-color: rgb(234, 236, 240);
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    border: none;
+    display: inline-block;
+    line-height: 20px;
+    margin-top: 7px;
+    margin-bottom: 8px;
+    padding: 6px 12px;
+}
+
+.check-list-btn:hover {
+    background-color: rgb(222, 224, 228);
+}
+
+.save-checklist-item-btn {
+    color: white;
+    background-color: #5aac44;
+}
+
+.save-checklist-item-btn:hover {
+    background-color: #84bd74;
 }

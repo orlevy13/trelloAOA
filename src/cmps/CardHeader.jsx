@@ -60,6 +60,14 @@ class _CardHeader extends Component {
         this.autoGrow(this.elTextarea)
     }
 
+    handleKeyPress(e) {
+        if (e.keyCode === 13) {
+            e.target.blur();
+            //Write you validation logic here
+        }
+    }
+
+
 
 
     autoGrow = (el) => {
@@ -77,10 +85,10 @@ class _CardHeader extends Component {
 
             return (<div>
                 <div className="card-header-container">
-                    <NoteOutlinedIcon />
+                    <NoteOutlinedIcon className="checklist-header-icon" />
                     {!isTitleOnEdit && <span><h2 className="card-title" onClick={this.toggleInput} >{txt}</h2></span>}
-                    {(isTitleOnEdit) && <span><textarea ref={el => this.elTextarea = el}
-                        onFocus={(ev) => { this.autoGrow(ev.target) }} className="card-title-input"
+                    {(isTitleOnEdit) && <span><textarea ref={el => this.elTextarea = el} spellCheck="false"
+                        onFocus={(ev) => { this.autoGrow(ev.target) }} onKeyDown={(e) => this.handleKeyPress(e)} className="card-title-input"
                         autoFocus onBlur={this.handleSaveBoard} placeholder="Title..." autoCorrect="false"
                         onChange={this.handleChange} value={txt} ></textarea></span>}
                 </div>

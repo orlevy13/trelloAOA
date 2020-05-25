@@ -1,17 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { loadBoard, saveBoard } from '../store/actions/boardActions';
+import {
+    PlaylistAddCheck,
+} from '@material-ui/icons';
+
 
 class _CardCheckList extends Component {
     state = {
         checkList: null,
         todoText: '',
         onAdd: false,
-        progress: null
+        progress: null,
+        checklistTitle: ''
     }
 
     componentDidMount() {
-        this.setState({ checkList: this.props.card.checkList, onAdd: false },
+        let checklistTitle;
+        (this.props.card.checklistTitle ? checklistTitle = this.props.card.checklistTitle : checklistTitle = '')
+        this.setState({ checkList: this.props.card.checkList, onAdd: false, checklistTitle },
             () => this.progressBarUpdate());
     }
 
@@ -67,6 +74,7 @@ class _CardCheckList extends Component {
         const updatedCards = currPhase.cards.map(card => {
             if (card.id === this.props.card.id) {
                 card.checkList = this.state.checkList;
+                card.checklistTitle = this.state.checklistTitle;
             }
             return card;
         })
@@ -108,8 +116,10 @@ class _CardCheckList extends Component {
 
         else {
             if (idx === -1)
-                this.setState({ todoText: value })
+                (this.state.onAdd ? this.setState({ todoText: value }) : this.setState({ checklistTitle: value }))
+
             else {
+
                 cloneChkList[idx].txt = value;
             }
         }
@@ -120,36 +130,54 @@ class _CardCheckList extends Component {
     autoGrow = (el) => {
         el.style.height = (el.scrollHeight) + "px";
     }
+    handleFocus = (event) => event.target.select();
+
+    handleKeyPress(e) {
+        if (e.keyCode === 13) {
+            e.target.blur();
+            //Write you validation logic here
+        }
+    }
 
 
 
     render() {
-        const { todoText, onAdd } = this.state;
+        const { todoText, onAdd, checklistTitle } = this.state;
         if (!this.state.checkList || !this.state.checkList.length) return null;
         return (
             <div className="card-check-list">
-                <div className="check-list-header-container">
-                    <section className="progress-bar-section">
-                        {this.state.progress}%
+                <div className="checklist-title-container">
+                    <PlaylistAddCheck className="checklist-icon" />
+                    <textarea className="checklist-title" type="text" name="txt" placeholder="Checklist name..." onChange={(e) => this.handleChange(e)}
+                        ref={el => this.elTextarea = el} onKeyDown={(e) => this.handleKeyPress(e)} spellCheck="false"
+                        onFocus={(ev) => { this.autoGrow(ev.target); this.handleFocus(ev) }} onBlur={this.handleSaveBoard}
+                        value={checklistTitle} /></div>
+                <section className="progress-bar-section">
+                    {this.state.progress}%
                         <div className="progress-bar-container">
-                            <div className="progress-bar"
-                                style={{ width: `${this.state.progress}%` }}>&nbsp; </div>
-                        </div>
-                    </section>
+                        <div className="progress-bar"
+                            style={{ width: `${this.state.progress}%` }}>&nbsp; </div>
+                    </div>
+                </section>
+                <div className="check-list-header-container">
+
                     {this.state.checkList.map((todo, idx) =>
                         <div className="checklist-input-container" key={idx} >
-
+                            {/* <ChecklistItem /> */}
                             <input className="checklist-checkbox" type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)}
                                 onBlur={this.handleSaveBoard} checked={todo.isDone} />
                             <textarea className="checklist-input" type="text" name="txt" onChange={(e) => this.handleChange(e, idx)}
-                                ref={el => this.elTextarea = el} onFocus={(ev) => { this.autoGrow(ev.target) }} onBlur={this.handleSaveBoard}
+                                ref={el => this.elTextarea = el} onKeyDown={(e) => this.handleKeyPress(e)} spellCheck="false"
+                                onFocus={(ev) => { this.autoGrow(ev.target); this.handleFocus(ev) }} onBlur={this.handleSaveBoard}
                                 value={todo.txt} /><button className="checklist-item-delete-btn" onClick={() => this.onDelete(idx)}>X</button>
 
                         </div>)}
                     {!onAdd && <button className="check-list-btn" onClick={this.toggleAdd}>Add Todo</button>}
-                    {onAdd && <textarea className="checklist-input" type="text" name="txt" onChange={this.handleChange}
-                        ref={el => this.elTextarea = el} autoFocus onFocus={(ev) => { this.autoGrow(ev.target) }} onBlur={this.toggleAdd}
-                        value={todoText} />}
+                    {onAdd && <div><textarea className="checklist-input" spellCheck="false" type="text" name="txt"
+                        onChange={this.handleChange} ref={el => this.elTextarea = el} autoFocus
+                        onFocus={(ev) => { this.autoGrow(ev.target) }} onBlur={this.toggleAdd} onKeyDown={(e) => this.handleKeyPress(e)}
+                        value={todoText} />
+                        <button className="save-checklist-item-btn">Save</button></div>}
                 </div>
             </div>
         )

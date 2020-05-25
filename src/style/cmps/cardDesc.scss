@@ -1,9 +1,9 @@
 .card-desc-container {
-    margin: 0 16px 8px 32px;
+    margin: 0 16px 25px 32px;
     padding: 0 0 0 8px;
-
+    color: rgb(155, 164, 179);
     font-weight: 600;
-    min-height: 25px;
+    min-height: 16px;
     display: flex;
     align-items: baseline;
 
@@ -12,7 +12,7 @@
         border-radius: 8px;
         font-size: 14px;
         font-weight: 400;
-        background-color: $cardGrey;
+        background-color: rgb(234, 236, 240);
         box-shadow: none;
         border: none;
         resize: none;
@@ -24,8 +24,7 @@
     }
 
     .card-desc-input::-webkit-input-placeholder {
-        background-color: darken($color: $cardGrey, $amount: 7);
-        min-height: 25px;
+        min-height: 20px;
         padding-left: 5px;
     }
 
@@ -36,7 +35,7 @@
 
     .card-desc-input:focus {
         background-color: white;
-        min-height: 25px;
+        min-height: 20px;
     }
 }
 
@@ -52,4 +51,5 @@
 .card-desc-icon {
     display: flex;
     padding-bottom: 0;
+    margin-left: 8px;
 }

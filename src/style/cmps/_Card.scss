@@ -15,7 +15,7 @@
     flex-direction: column;
 
     .card-sidebar-btn {
-        background-color: rgba(9, 30, 66, 0.04);
+        background-color: rgb(234, 236, 240);
         box-shadow: none;
         @include transRoundBorder;
         box-sizing: border-box;
@@ -35,7 +35,7 @@
         transition-property: background-color, border-color, box-shadow;
         transition-duration: 85ms;
         transition-timing-function: ease;
-        display: flexl;
+        display: flex;
     }
 
     .card-sidebar-btn {
