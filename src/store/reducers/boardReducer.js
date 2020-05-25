@@ -2,7 +2,8 @@ import { LOAD_BOARD, SAVE_BOARD } from '../actions/boardActions';
 
 const initialState = {
     boards: null,
-    board: null
+    board: null,
+    card: null
 }
 
 export function boardReducer(state = initialState, action) {
@@ -16,6 +17,11 @@ export function boardReducer(state = initialState, action) {
             return {
                 ...state,//TODO:At this point, update the boards array also
                 board: action.board
+            }
+        case 'SET_CARD':
+            return {
+                ...state,
+                card: action.card
             }
         default:
             return state;

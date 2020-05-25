@@ -1,40 +1,39 @@
 import React, { Component } from 'react';
 import { history } from '../history'
 import { connect } from 'react-redux';
-import { loadBoard } from '../store/actions/boardActions';
+import { loadBoard, setCard } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
 import { CardCheckList } from './CardCheckList';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import LabelIcon from '@material-ui/icons/Label';
-import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import AttachmentIcon from '@material-ui/icons/Attachment';
-import CropOriginalIcon from '@material-ui/icons/CropOriginal';
+import {
+    PermIdentity, Label, PlaylistAddCheck,
+    Schedule, Attachment, CropOriginal
+} from '@material-ui/icons';
+import { LabelsEdit } from './LabelsEdit';
 
 class _Card extends Component {
     state = {
-        card: null
+        card: null,
+        isLabelEditShown: false
     }
 
     componentDidMount() {
-
-        this.props.loadBoard(this.props.match.params.boardId)
-            .then(() => {
-                const card = this.getCardById()
-                this.setState({ card })
-            })
+        var card;
+        this.props.board.phaseLists.forEach(phase => {
+            const res = phase.cards.find(card => card.id === this.props.cardId);
+            if (res) card = res;
+        });
+        this.setState({ card });
     }
 
-    componentDidUpdate(prevProps, prevState) {
-
+    componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
-
-            this.props.loadBoard(this.props.match.params.boardId)
-                .then(() => {
-                    const card = this.getCardById()
-                    this.setState({ card })
-                })
+            var card;
+            this.props.board.phaseLists.forEach(phase => {
+                const res = phase.cards.find(card => card.id === this.props.cardId);
+                if (res) card = res;
+            });
+            this.setState({ card });
         }
     }
 
@@ -46,41 +45,20 @@ class _Card extends Component {
         }
     }
 
-
-    getCardById = (cardId = null) => {
-        if (!cardId)
-            cardId = this.props.match.params.cardId;
-        if (!this.props.board)
-            return;
-        let boardClone = JSON.parse(JSON.stringify(this.props.board));
-
-        var card;
-        for (let i = 0; i < boardClone.phaseLists.length; i++) {
-            const phase = boardClone.phaseLists[i];
-            phase.cards.forEach(currCard => {
-                if (currCard.id === cardId) {
-                    card = currCard;
-                }
-            });
-        }
-        return card;
-
-    }
-
-
-    hanleCardClick = (e) => {
-        e.stopPropagation()
+    toggleIsLabelEditShown = () => {
+        this.setState(prevState => ({ isLabelEditShown: !prevState.isLabelEditShown }))
     }
 
     render() {
-        if (!this.props.board || !this.state.card) return 'Loading'
-        const { card } = this.state
-        return (
-            <section >
-                <button onMouseDown={() => { history.push('/board/abcd') }}>
-                    <div className="card-modal" ></div></button>
-                <div className="card-container" >
+        if (!this.props.board || !this.state.card) return 'Loading';
+        const { card, isLabelEditShown } = this.state;
 
+        return (
+            <section style={{ width: 0 }}>
+                <button onMouseDown={() => { this.props.setCard(null) }}>
+                    <div className="card-modal" ></div></button>
+
+                <div className="card-container" >
                     <div className="card-header">
                         < CardHeader card={card} />
                     </div>
@@ -91,13 +69,17 @@ class _Card extends Component {
                     <div className="card-side-bar">
                         <section>
                             <div className="card-sidebar">
-                                <button className="card-sidebar-btn"><span ><PermIdentityIcon /></span> Member</button>
-                                <button className="card-sidebar-btn"><span ><LabelIcon /></span>Labels</button>
-                                {(this.state.card.checkList.length < 1) && <button className="card-sidebar-btn"
-                                    onClick={this.addCheckList}><span ><PlaylistAddCheckIcon /></span>Checklist</button>}
-                                <button className="card-sidebar-btn"><span ><ScheduleIcon /></span>Due Date</button>
-                                <button className="card-sidebar-btn"><span ><AttachmentIcon /></span>Attachment</button>
-                                <button className="card-sidebar-btn"><span ><CropOriginalIcon /></span>Cover</button>
+                                <button className="card-sidebar-btn"><span ><PermIdentity /></span> Member</button>
+                                <button onClick={this.toggleIsLabelEditShown} className="card-sidebar-btn">
+                                    <span ><Label /></span>Labels</button>
+                                {isLabelEditShown &&
+                                    <LabelsEdit toggleIsLabelEditShown={this.toggleIsLabelEditShown} />}
+
+                                {(card.checkList.length < 1) && <button className="card-sidebar-btn"
+                                    onClick={this.addCheckList}><span ><PlaylistAddCheck /></span>Checklist</button>}
+                                <button className="card-sidebar-btn"><span ><Schedule /></span>Due Date</button>
+                                <button className="card-sidebar-btn"><span ><Attachment /></span>Attachment</button>
+                                <button className="card-sidebar-btn"><span ><CropOriginal /></span>Cover</button>
                             </div>
                         </section>
                     </div>
@@ -111,12 +93,14 @@ class _Card extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        card: state.trelloApp.card
     }
 }
 
 const mapDispatchToProps = {
-    loadBoard
+    loadBoard,
+    setCard
 }
 
 export const Card = connect(mapStateToProps, mapDispatchToProps)(_Card)

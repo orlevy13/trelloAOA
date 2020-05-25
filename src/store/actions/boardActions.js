@@ -16,3 +16,9 @@ export function saveBoard(board) {
         dispatch({ type: SAVE_BOARD, board })
     }
 }
+
+export function setCard(card) {
+    return dispatch => {
+        dispatch({ type: 'SET_CARD', card});
+    }
+}

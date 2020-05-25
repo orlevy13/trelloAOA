@@ -120,7 +120,7 @@ class _CardCheckList extends Component {
 
     render() {
         const { todoText, onAdd } = this.state;
-        if (!this.state.checkList || !this.state.checkList.length) return 'Loading'
+        if (!this.state.checkList || !this.state.checkList.length) return null;
         return (
             <div className="card-check-list">
                 <div className="check-list-header-container">

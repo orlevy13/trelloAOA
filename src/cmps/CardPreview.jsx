@@ -2,7 +2,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CardLabels } from './CardLabels';
 import { AttachmentOutlined, CheckBoxOutlined, CreateOutlined } from '@material-ui/icons';
-import { loadBoard } from '../store/actions/boardActions';
+import { loadBoard, setCard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { DueBadge } from './DueBadge';
 import { Link } from 'react-router-dom';
@@ -42,43 +42,46 @@ class _CardPreview extends React.Component {
 
                 <Draggable draggableId={this.props.card.id} index={this.props.index}>
                     {(provided) => (
-                        <Link to={`/board/${this.props.board._id}/card/${this.props.card.id}`}>
-                            <section style={{ backgroundColor: bgColor }} className="card-preview flex column"
-                                {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                        // <Link to={`/board/${this.props.board._id}/card/${this.props.card.id}`}>
+                        // <button onClick={() => { this.props.setCard(this.props.card) }}>
+                        <section onClick={() => { this.props.setCard(this.props.card) }}
+                            style={{ backgroundColor: bgColor }} className="card-preview flex column"
+                            {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
 
-                                <button onClick={(ev) => ev.preventDefault()} onMouseUp={toggleIsMenuShown}
-                                    className="show-menu-btn">
-                                    <CreateOutlined className="show-menu-icon" />
-                                </button>
+                            <button onClick={(ev) => ev.preventDefault()} onMouseUp={toggleIsMenuShown}
+                                className="show-menu-btn">
+                                <CreateOutlined className="show-menu-icon" />
+                            </button>
 
-                                {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
-                                {labels && <CardLabels labels={labels} />}
+                            {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
+                            {labels && <CardLabels labels={labels} />}
 
-                                <p>{title}</p>
+                            <p>{title}</p>
 
-                                <div className="card-badges flex wrap">
-                                    {dueDate && <DueBadge dueDate={dueDate} />}
+                            <div className="card-badges flex wrap">
+                                {dueDate && <DueBadge dueDate={dueDate} />}
 
-                                    {attachments.length > 0 &&
-                                        <div className="attach-badge flex align-center">
-                                            <AttachmentOutlined className="attach-icon" />
-                                            <span>{attachments.length}</span>
-                                        </div>}
+                                {attachments.length > 0 &&
+                                    <div className="attach-badge flex align-center">
+                                        <AttachmentOutlined className="attach-icon" />
+                                        <span>{attachments.length}</span>
+                                    </div>}
 
-                                    {checkList.length > 0 &&
-                                        <div style={{ backgroundColor: checklistBgc, color: checklistColor }}
-                                            className="checklist-badge flex align-center">
-                                            <span><CheckBoxOutlined className="checklist-icon" />
-                                            </span>
-                                            <span>{checklistDoneCount}/{checkList.length}</span>
-                                        </div>}
-                                </div>
-                                <div className="members-badge">
-                                    {assignedTo.length > 0 &&
-                                        assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
-                                </div>
-                            </section>
-                        </Link>
+                                {checkList.length > 0 &&
+                                    <div style={{ backgroundColor: checklistBgc, color: checklistColor }}
+                                        className="checklist-badge flex align-center">
+                                        <span><CheckBoxOutlined className="checklist-icon" />
+                                        </span>
+                                        <span>{checklistDoneCount}/{checkList.length}</span>
+                                    </div>}
+                            </div>
+                            <div className="members-badge">
+                                {assignedTo.length > 0 &&
+                                    assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
+                            </div>
+                        </section>
+                        // </button>
+                        // </Link>
                     )}
                 </Draggable>
             </React.Fragment>
@@ -92,7 +95,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    loadBoard
+    loadBoard,
+    setCard
 }
 
 export const CardPreview = connect(mapStateToProps, mapDispatchToProps)(_CardPreview)
