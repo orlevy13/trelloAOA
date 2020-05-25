@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { Clear } from '@material-ui/icons';
 
 class _LabelsEdit extends Component {
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard
+    updateBoard
 }
 
 export const LabelsEdit = connect(mapStateToProps, mapDispatchToProps)(_LabelsEdit)

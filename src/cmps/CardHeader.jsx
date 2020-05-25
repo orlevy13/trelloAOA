@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 // import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { loadBoard, saveBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 
 class _CardHeader extends Component {
     state = {
@@ -25,7 +25,7 @@ class _CardHeader extends Component {
     }
 
 
-    handleSaveBoard = () => {
+    handleupdateBoard = () => {
         console.log('state', this.state);
 
         if (this.state.isTitleOnEdit) {
@@ -39,7 +39,7 @@ class _CardHeader extends Component {
                     card.title = this.state.txt;
                 }
             })
-            this.props.saveBoard(boardClone)
+            this.props.updateBoard(boardClone)
                 .then(() => {
 
                     console.log('board after save', this.props.board);
@@ -65,7 +65,7 @@ class _CardHeader extends Component {
                     <div className="card-header-container">
                         <NoteOutlinedIcon />
                         {!isTitleOnEdit && <span><h2 className="card-title" onClick={this.toggleInput} >{txt}</h2></span>}
-                        {(isTitleOnEdit) && <span><textarea className="card-title-input" autoFocus onBlur={this.handleSaveBoard} placeholder="Title..."
+                        {(isTitleOnEdit) && <span><textarea className="card-title-input" autoFocus onBlur={this.handleupdateBoard} placeholder="Title..."
                             onChange={this.handleChange} value={txt} ></textarea></span>}
                     </div>
                     <p className="card-link">in list <a href="#" >{onPhase}</a></p>
@@ -87,7 +87,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 

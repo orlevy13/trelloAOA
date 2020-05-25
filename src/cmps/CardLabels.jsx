@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 
 export class _CardLabels extends Component {
@@ -9,7 +9,7 @@ export class _CardLabels extends Component {
         ev.preventDefault();
         const boardCopy = boardService.getBoardCopy(this.props.board);
         boardCopy.isLabelTxtShown = !boardCopy.isLabelTxtShown;
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
     }
 
     getUpdatedLabels = () => {
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard,
+    updateBoard,
 }
 
 export const CardLabels = connect(mapStateToProps, mapDispatchToProps)(_CardLabels)

@@ -5,7 +5,7 @@ import { AddCard } from './AddCard';
 import { CardList } from './CardList';
 import { CardPreview } from './CardPreview';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 
 export class _PhasePreview extends Component {
@@ -49,7 +49,7 @@ export class _PhasePreview extends Component {
         const { id } = this.props.phase;
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === id);
         boardCopy.phaseLists[phaseIdx].name = this.state.newPhaseName;
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
         this.toggleInputShown();
     }
 
@@ -80,7 +80,7 @@ export class _PhasePreview extends Component {
         const sortedPhase = boardService.getSortedPhase(sortBy, phase);
         boardCopy.phaseLists = boardCopy.phaseLists.filter(phase => phase.id ===
             sortedPhase.id ? sortedPhase : phase);
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
         this.toggleIsSortShown();//to close the menu
         this.toggleMenuShown();
     }
@@ -89,7 +89,7 @@ export class _PhasePreview extends Component {
         this.toggleMenuShown();
         const boardCopy = boardService.getBoardCopy(this.props.board);
         boardCopy.phaseLists = boardCopy.phaseLists.filter(phase => phase.id !== this.props.phase.id);
-        this.props.saveBoard(boardCopy);
+        this.props.updateBoard(boardCopy);
     }
 
     render() {
@@ -166,7 +166,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard,
+    updateBoard,
 }
 
 export const PhasePreview = connect(mapStateToProps, mapDispatchToProps)(_PhasePreview)

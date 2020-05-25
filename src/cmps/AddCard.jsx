@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import { saveBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 
 export class _AddCard extends Component {
@@ -30,7 +30,7 @@ export class _AddCard extends Component {
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phaseId);
         const newCard = boardService.getNewCard(this.state.card);
         boardCopy.phaseLists[phaseIdx].cards.push(newCard);
-        await this.props.saveBoard(boardCopy);//async await is for the scroll
+        await this.props.updateBoard(boardCopy);//async await is for the scroll
         this.setState({ card: { title: '' } });
         this.props.bottomCard.scrollIntoView({ behavior: 'smooth' });
     }
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    saveBoard,
+    updateBoard,
 }
 
 export const AddCard = connect(mapStateToProps, mapDispatchToProps)(_AddCard)

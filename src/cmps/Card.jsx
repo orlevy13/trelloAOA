@@ -54,7 +54,7 @@ class _Card extends Component {
             const { card } = this.state
             return (
                 <section>
-                    <Link to="/board/abcd">
+                    <Link to="/board/5ecb8734cb39d7f549832c88">
                         <div className="card-modal" >
                             <div className="card-container" onClick={this.hanleCardClick}>
 

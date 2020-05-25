@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import DescriptionIcon from '@material-ui/icons/Description';
 import { connect } from 'react-redux';
-import { loadBoard, saveBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 
 class _CardDesc extends Component {
     state = {
@@ -18,7 +18,7 @@ class _CardDesc extends Component {
     }
 
 
-    handleSaveBoard = () => {
+    handleupdateBoard = () => {
         console.log('state', this.state);
 
 
@@ -32,7 +32,7 @@ class _CardDesc extends Component {
                 card.desc = this.state.txt;
             }
         })
-        this.props.saveBoard(boardClone)
+        this.props.updateBoard(boardClone)
             .then(() => console.log('board after save', this.props.board))
 
 
@@ -49,7 +49,7 @@ class _CardDesc extends Component {
                     </div>
                     <div className="card-desc-container">
                         <textarea className="card-desc-input" placeholder="Add a more detailed description..."
-                            onChange={this.handleChange} onBlur={this.handleSaveBoard} value={this.state.txt}></textarea>
+                            onChange={this.handleChange} onBlur={this.handleupdateBoard} value={this.state.txt}></textarea>
                     </div>
                 </section>
             )
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 

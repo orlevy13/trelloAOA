@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { CloseOutlined } from '@material-ui/icons/';
-import { loadBoard, saveBoard } from '../../store/actions/boardActions'
+import { loadBoard, updateBoard } from '../../store/actions/boardActions'
 import { boardService } from '../../services/boardService';
 import { unsplashService } from '../../services/unsplashService'
 import { connect } from 'react-redux';
@@ -42,7 +42,7 @@ export class _PhotoMenu extends Component {
         const clonedBoard = boardService.getBoardCopy(this.props.board);
         clonedBoard.imgUrl = img;
         clonedBoard.bgColor = null;
-        this.props.saveBoard(clonedBoard);
+        this.props.updateBoard(clonedBoard);
     }
 
     render() {
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 export const PhotoMenu = connect(mapStateToProps, mapDispatchToProps)(_PhotoMenu)

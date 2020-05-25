@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { loadBoard, saveBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 
 class _CardCheckList extends Component {
     state = {
@@ -37,7 +37,7 @@ class _CardCheckList extends Component {
             let clone = this.state.checkList.slice();
             clone.push(newTodo);
             this.setState({ checkList: clone, todoText: '' }, () => {
-                this.handleSaveBoard();
+                this.handleupdateBoard();
 
             });
         }
@@ -48,7 +48,7 @@ class _CardCheckList extends Component {
         return curPhase;
     }
 
-    handleSaveBoard = () => {
+    handleupdateBoard = () => {
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
         let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId));
@@ -58,7 +58,7 @@ class _CardCheckList extends Component {
                 card.checkList = this.state.checkList;
             }
         })
-        this.props.saveBoard(boardClone)
+        this.props.updateBoard(boardClone)
             .then(() => {
                 this.props.loadBoard(boardClone._id)
                     .then(() => {
@@ -84,7 +84,7 @@ class _CardCheckList extends Component {
         let clone = this.state.checkList.slice();
         clone.splice(idx, 1);
         this.setState({ checkList: clone }, () => {
-            this.handleSaveBoard();
+            this.handleupdateBoard();
             console.log('after delete item from checklist');
         })
     }
@@ -99,7 +99,7 @@ class _CardCheckList extends Component {
 
             cloneChkList[idx].isDone = value;
             this.setState({ checkList: cloneChkList }, () => {
-                this.handleSaveBoard();
+                this.handleupdateBoard();
             });
 
         }
@@ -130,8 +130,8 @@ class _CardCheckList extends Component {
                         <div className="progress-bar" style={{ width: `${this.state.progress}%` }} >{this.state.progress}</div>
                     </div>
                     {this.state.checkList.map((todo, idx) => <div key={idx} >
-                        <input type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} checked={todo.isDone} />
-                        <input type="text" name="txt" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} value={todo.txt} />
+                        <input type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleupdateBoard} checked={todo.isDone} />
+                        <input type="text" name="txt" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleupdateBoard} value={todo.txt} />
                         <button onClick={() => this.onDelete(idx)}>X</button>
                     </div>)}
 
@@ -156,7 +156,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    saveBoard
+    updateBoard
 }
 
 
