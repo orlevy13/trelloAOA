@@ -15,13 +15,10 @@ class _CardDesc extends Component {
     handleChange = ({ target }) => {
         var value = target.value
         this.setState({ txt: value })
-        this.autoGrow(this.elTextarea)
     }
 
 
     handleSaveBoard = () => {
-
-
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
         let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId));
@@ -34,11 +31,6 @@ class _CardDesc extends Component {
         this.props.updateBoard(boardClone);
     }
 
-    autoGrow = (el) => {
-        el.style.height = (el.scrollHeight) + "px";
-    }
-
-
     render() {
         return (
             <section>
@@ -46,9 +38,9 @@ class _CardDesc extends Component {
                     <DescriptionIcon className="icon" />
                     <span className="desc-header">Description</span>
                 </div>
-                <textarea className="card-desc-input" ref={el => this.elTextarea = el}
+                <textarea className="card-desc-input"
                     placeholder="Add a more detailed description..." onChange={this.handleChange}
-                    onFocus={(ev) => { this.autoGrow(ev.target) }} spellCheck="false"
+                    spellCheck="false"
                     onBlur={this.handleSaveBoard} value={this.state.txt}></textarea>
             </section>
         )

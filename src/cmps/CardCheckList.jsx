@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { PlaylistAddCheck } from '@material-ui/icons';
 import { loadBoard, updateBoard } from '../store/actions/boardActions';
 import { Clear } from '@material-ui/icons';
 
@@ -8,11 +9,14 @@ class _CardCheckList extends Component {
         checkList: null,
         todoText: '',
         onAdd: false,
-        progress: null
+        progress: null,
+        checklistTitle: ''
     }
 
     componentDidMount() {
-        this.setState({ checkList: this.props.card.checkList, onAdd: false },
+        let checklistTitle;
+        (this.props.card.checklistTitle ? checklistTitle = this.props.card.checklistTitle : checklistTitle = '')
+        this.setState({ checkList: this.props.card.checkList, onAdd: false, checklistTitle },
             () => this.progressBarUpdate());
     }
 
@@ -68,6 +72,7 @@ class _CardCheckList extends Component {
         const updatedCards = currPhase.cards.map(card => {
             if (card.id === this.props.card.id) {
                 card.checkList = this.state.checkList;
+                card.checklistTitle = this.state.checklistTitle;
             }
             return card;
         })
@@ -82,9 +87,9 @@ class _CardCheckList extends Component {
 
 
     toggleAdd = () => {
-        if (this.state.todoText)
-            this.addTodo()
-        this.setState(prevState => ({ onAdd: !prevState.onAdd }))
+        console.log('this.state before', this.state)
+        if (this.state.todoText) this.addTodo();
+        this.setState(prevState => ({ onAdd: !prevState.onAdd }));
     }
 
 
@@ -109,23 +114,43 @@ class _CardCheckList extends Component {
 
         else {
             if (idx === -1)
-                this.setState({ todoText: value })
+                (this.state.onAdd ? this.setState({ todoText: value }) : this.setState({ checklistTitle: value }))
+
             else {
+
                 cloneChkList[idx].txt = value;
             }
         }
         this.setState({ checkList: cloneChkList });
+
+    }
+
+    handleFocus = (event) => event.target.select();
+
+    handleKeyPress(e) {
+        if (e.keyCode === 13) {
+            e.target.blur();
+        }
     }
 
 
 
     render() {
-        const { todoText, onAdd } = this.state;
+        const { todoText, onAdd, checklistTitle } = this.state;
         if (!this.state.checkList || !this.state.checkList.length) return null;
+        const progressBgc = this.state.progress === 100 ? '#61bd4f' : '#2196f3';
         return (
             <div className="card-check-list">
+                <div className="checklist-title-container flex align-center">
+                    <PlaylistAddCheck className="checklist-icon" />
+                    <input className="checklist-title" type="text" name="txt" placeholder="Checklist name..."
+                        onChange={this.handleChange}
+                        onKeyDown={this.handleKeyPress} spellCheck="false"
+                        onFocus={this.handleFocus} onBlur={this.handleSaveBoard}
+                        value={checklistTitle} /></div>
                 <div className="progress-bar-container">
-                    <div className="progress-bar" style={{ width: `${this.state.progress}%` }} ></div>
+                    <div className="progress-bar"
+                        style={{ width: `${this.state.progress}%`, backgroundColor: progressBgc }}></div>
                 </div>
                 {this.state.checkList.map((todo, idx) =>
                     <div className="checklist-item" key={idx} >
@@ -137,8 +162,11 @@ class _CardCheckList extends Component {
                         <button onClick={() => this.onDelete(idx)}><Clear className="icon" /></button>
                     </div>)}
                 {!onAdd && <button className="add-btn" onClick={this.toggleAdd}>Add Todo</button>}
-                {onAdd && <input type="text" onChange={this.handleChange}
-                    autoFocus onBlur={this.toggleAdd} value={todoText} />}
+                {onAdd && <div className="add-item flex align-center">
+                    <input type="text" onChange={this.handleChange}
+                        onKeyDown={this.handleKeyPress} autoFocus onBlur={this.toggleAdd} value={todoText} />
+                    <button className="save-checklist-item-btn">Save</button>
+                </div>}
             </div>
         )
     }

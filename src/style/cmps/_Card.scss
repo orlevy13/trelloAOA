@@ -11,6 +11,9 @@
 
 .card-container {
     color: #42526e;
+    padding: 0 0 16px 16px;
+    border-radius: 2px;
+    width: 768px;
 
     .card-header {
         .card-header-container {
@@ -21,85 +24,84 @@
             .icon {
                 color: #42526e;
                 font-size: 22px;
-                align-self: flex-start;
+                position: relative;
+                bottom: 13px;
             }
-        }
 
-        .card-title {
-            font-family: roboto-normal;
-            font-weight: lighter;
-            color: #172b4d;
-            border-radius: 3px;
-            font-size: 20px;
-            margin: 0px 8px 4px;
-            resize: none;
-        }
+            .card-title {
+                color: #172b4d;
+                height: 28px;
+                margin: 0 4px 16px 4px;
+                font-weight: normal;
+            }
 
-        .card-title-input {
-            border: none;
-            background-color: $cardGrey;
+            .card-title-input {
+                resize: none;
+                width: 80%;
+                color: #172b4d;
+                border: none;
+                background-color: inherit;
+                font-family: roboto-normal;
+                margin: 0 0 4px 4px;
+                padding: 4px;
+                font-size: 20px;
+                height: max-content;
+                max-height: 300px;
 
-            width: 700px;
-            margin-left: 15px;
-            font-size: 24px;
-            max-height: content;
-            overflow: hidden;
-
-            min-height: 50px;
-            max-height: 300px;
-            top: 0;
-            left: 0;
-            white-space: normal;
-            word-wrap: break-word;
-            resize: none;
-        }
-
-        .card-title-input:focus {
-            background-color: white;
+                &:focus {
+                    @include trelloInput;
+                    width: 80%;
+                    background-color: #fff;
+                    outline: none;
+                    margin: 0 0 4px 4px;
+                    padding: 4px;
+                }
+            }
         }
 
         .card-link {
             margin: 8px 0 16px 32px;
             z-index: 3;
+            font-size: 14px;
         }
-
     }
 
     .card-sidebar {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         flex-direction: column;
+        margin-right: 16px;
 
         .card-sidebar-btn {
             background-color: rgba(9, 30, 66, 0.04);
-            box-shadow: none;
             @include transRoundBorder;
-            box-sizing: border-box;
-            cursor: pointer;
-            display: block;
             height: 32px;
-            margin-top: 8px;
-            min-width: 150px;
+            font-size: 14px;
+            color: #42526e;
+            margin-bottom: 8px;
+            min-width: 168px;
             overflow: hidden;
             padding: 6px 12px;
-            position: relative;
-            text-decoration: none;
-            text-overflow: ellipsis;
-            -webkit-user-select: none;
             user-select: none;
-            white-space: nowrap;
             transition-property: background-color, border-color, box-shadow;
             transition-duration: 85ms;
             transition-timing-function: ease;
-            display: flexl;
-        }
-
-        .card-sidebar-btn {
             display: flex;
-        }
+            align-items: center;
 
-        .card-sidebar-btn span {
-            margin-right: 10px;
+            &:hover {
+                background-color: rgba(9, 30, 66, .08);
+            }
+
+            span {
+                margin-right: 10px;
+
+                .icon {
+                    font-size: 18px;
+                    position: relative;
+                    top: 2px;
+                }
+            }
         }
     }
 }

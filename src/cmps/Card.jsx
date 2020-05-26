@@ -4,10 +4,14 @@ import { loadBoard, setCard } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
 import { CardCheckList } from './CardCheckList';
+// import MaterialUIPickers from './CardDueDate'
+// import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import {
-    PermIdentity, Label, PlaylistAddCheck,
+    PermIdentity, LabelOutlined, PlaylistAddCheck,
     Schedule, Attachment, CropOriginal
 } from '@material-ui/icons';
+
+
 import { LabelsEdit } from './LabelsEdit';
 
 class _Card extends Component {
@@ -54,8 +58,7 @@ class _Card extends Component {
 
         return (
             <section style={{ width: 0 }}>
-                <button onMouseDown={() => { this.props.setCard(null) }}>
-                    <div className="card-modal" ></div></button>
+                <div onMouseDown={() => { this.props.setCard(null) }} className="card-modal" ></div>
 
                 <div className="card-container" >
                     <div className="card-header">
@@ -65,20 +68,29 @@ class _Card extends Component {
                         < CardDesc card={card} />
                         {(card.checkList.length > 0) && < CardCheckList card={card} />}
                     </div>
+                    {/* <MaterialUIPickers /> */}
                     <div className="card-side-bar">
                         <section>
                             <div className="card-sidebar">
-                                <button className="card-sidebar-btn"><span ><PermIdentity /></span> Member</button>
+                                <button className="card-sidebar-btn"><span >
+                                    <PermIdentity className="icon" /></span>Members</button>
+
                                 <button onClick={this.toggleIsLabelEditShown} className="card-sidebar-btn">
-                                    <span ><Label /></span>Labels</button>
+                                    <span ><LabelOutlined className="icon" /></span>Labels</button>
+
                                 {isLabelEditShown &&
                                     <LabelsEdit card={card} toggleIsLabelEditShown={this.toggleIsLabelEditShown} />}
 
                                 {(card.checkList.length < 1) && <button className="card-sidebar-btn"
-                                    onClick={this.addCheckList}><span ><PlaylistAddCheck /></span>Checklist</button>}
-                                <button className="card-sidebar-btn"><span ><Schedule /></span>Due Date</button>
-                                <button className="card-sidebar-btn"><span ><Attachment /></span>Attachment</button>
-                                <button className="card-sidebar-btn"><span ><CropOriginal /></span>Cover</button>
+                                    onClick={this.addCheckList}><span >
+                                        <PlaylistAddCheck className="icon" /></span>Checklist</button>}
+
+                                <button className="card-sidebar-btn"><span >
+                                    <Schedule className="icon" /></span>Due Date</button>
+                                <button className="card-sidebar-btn"><span >
+                                    <Attachment className="icon" /></span>Attachment</button>
+                                <button className="card-sidebar-btn"><span >
+                                    <CropOriginal className="icon" /></span>Cover</button>
                             </div>
                         </section>
                     </div>
