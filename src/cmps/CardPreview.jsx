@@ -8,6 +8,23 @@ import { DueBadge } from './DueBadge';
 import { MemberInitials } from './MemberInitials';
 import { CardMenu } from './CardMenu';
 
+
+const getDragStyle = (style, snapshot) => {
+    if (!snapshot.isDragging) return;
+    //console.log('snapshot: ', snapshot)
+    //console.log('style: ', style)
+    // move to the right spot
+
+
+    // patching the existing style
+    return {
+        ...style,
+        "backgroundColor": "lightBlue"
+
+    };
+
+}
+
 class _CardPreview extends React.Component {
 
     state = {
@@ -47,10 +64,12 @@ class _CardPreview extends React.Component {
                     toggleIsMenuShown={toggleIsMenuShown} />}
 
                 <Draggable draggableId={this.props.card.id} index={this.props.index}>
-                    {(provided) => (
+                    {(provided, snapshot) => (
                         <section onClick={() => { this.props.setCard(this.props.card) }}
                             style={{ backgroundColor: bgColor }} className="card-preview flex column"
-                            {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                            {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
+                            style={getDragStyle(provided.draggableProps.style, snapshot)}
+                        >
 
                             <button onClick={toggleIsMenuShown}
                                 className="show-menu-btn">

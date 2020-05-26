@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { CloseOutlined } from '@material-ui/icons/';
-import { loadBoard, updateBoard } from '../../store/actions/boardActions'
-import { boardService } from '../../services/boardService'
+import { loadBoard, updateBoard,LOGGED_IN_USER } from '../../store/actions/boardActions'
+import { boardService,OPERETIONS,TYPES } from '../../services/boardService'
 import { connect } from 'react-redux';
 import { ArrowBackIosOutlined } from '@material-ui/icons';
 
@@ -13,8 +13,11 @@ export class _ColorMenu extends Component {
         const clonedBoard = boardService.getBoardCopy(this.props.board);
         clonedBoard.bgColor = color;
         clonedBoard.imgUrl = null;
+        boardService.addActivity(clonedBoard, OPERETIONS.UPDATE, TYPES.Board,
+             { id: clonedBoard._id, title: clonedBoard.name },
+              LOGGED_IN_USER,null,
+              `change background color`);
         this.props.updateBoard(clonedBoard);
-
 
     }
 

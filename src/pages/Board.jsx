@@ -63,7 +63,6 @@ class _Board extends Component {
         const { board } = this.props;
         if (!board) return '';
 
-        console.log('board members: ', board);
         const { mainMenu, backgroundMenu, colorMenu, photoMenu } = this.state.boardMenus.menusState;
         const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
             { "backgroundImage": `url("${board.imgUrl}")`, "backgroundSize": "cover" }
@@ -81,8 +80,8 @@ class _Board extends Component {
                         </div>
                         <span className="nav-btn">Invite</span>
                     </div>
-                    <div className="nav-btn">
-                        <MenuOutlined onClick={() => this.toggleMenu("mainMenu")} />
+                    <div className="nav-btn" onClick={() => this.toggleMenu("mainMenu")}>
+                        <MenuOutlined />
                     </div>
                     <BoardMenu isMenuShown={mainMenu} board={board} onToggleMenu={this.toggleMenu} />
                     <BackgroundMenu isMenuShown={backgroundMenu} board={board} onToggleMenu={this.toggleMenu} />

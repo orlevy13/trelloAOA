@@ -8,7 +8,26 @@ import { connect } from 'react-redux';
 import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 
+
+const getDragStyle = (style, snapshot) => {
+    if (!snapshot.isDragging) return;
+    //console.log('snapshot: ', snapshot)
+    //console.log('style: ', style)
+    // move to the right spot
+
+
+    // patching the existing style
+    return {
+        ...style,
+        "backgroundColor": "lightBlue"
+
+    };
+
+}
+
+
 export class _PhasePreview extends Component {
+
     state = {
         isInputShown: false,
         isMenuShown: false,
@@ -92,13 +111,24 @@ export class _PhasePreview extends Component {
         this.props.updateBoard(boardCopy);
     }
 
+
+
+
+
     render() {
         const { name, id, cards } = this.props.phase;
         const { newPhaseName, isInputShown, isMenuShown, isSortShown, isAddCardShown } = this.state;
+
+
         return (
             <Draggable draggableId={id} index={this.props.index}>
-                {(provided) => (
-                    <article className="phase flex column" {...provided.draggableProps} ref={provided.innerRef}>
+                {(provided, snapshot) => (
+                    <article className="phase flex column"
+                        {...provided.draggableProps}
+                        ref={provided.innerRef}
+                        {...snapshot.isDropAnimating = true}   {...snapshot.isDropAnimating = true}
+                        style={getDragStyle(provided.draggableProps.style, snapshot)}
+                    >
                         <div {...provided.dragHandleProps} className="phase-header flex space-between">
 
                             {!isInputShown && <h5 className="phase-title grow"
