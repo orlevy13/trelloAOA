@@ -14,7 +14,6 @@ export class BackgroundMenu extends Component {
                         <h3 className="menu-header-title">Colors</h3>
                         <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
                     </div>
-                    <span className="board-menu-header-divider"></span>
                     <div className="board-menu-content">
                         <div className="flex space-between">
                             <div className="bg-btn flex column align-center" onClick={() => this.props.onToggleMenu("photoMenu")}>

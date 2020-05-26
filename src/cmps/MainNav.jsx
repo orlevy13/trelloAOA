@@ -16,9 +16,14 @@ class _MainNav extends Component {
 
     state = {
         isCreateBoardMenuShown: false,
-        newBoardName: ''
+        newBoardName: '',
+        newBoardColor: '#eee'
     }
 
+    handleChangeColor = async (event) => {
+        const boardColor = window.getComputedStyle(event.target, null).getPropertyValue("background-color");
+        await this.setState({ newBoardColor: boardColor }, () => console.log(this.state));
+    }
 
     handleChange = ({ target }) => {
         var value = target.value
@@ -30,10 +35,8 @@ class _MainNav extends Component {
     }
 
     createNewBoard = async () => {
-        const newBoard = boardService.createNewBoard(this.state.newBoardName, 'rgb(0, 124, 184)', LOGGED_IN_USER);
-
+        const newBoard = boardService.createNewBoard(this.state.newBoardName, this.state.newBoardColor, LOGGED_IN_USER);
         await this.props.addBoard(newBoard);
-        console.log('on create', this.props.board);
         history.push(`/board/${this.props.board._id}`)
         this.setState({ isCreateBoardMenuShown: false, newBoardName: '' })
     }
@@ -76,14 +79,24 @@ class _MainNav extends Component {
                     <div className="btn-main-nav" onClick={this.toggleAddBoard}>
                         <Add className="btn-icon" />
                     </div>
-                    {isCreateBoardMenuShown && <div className="create-board-menu flex column">
-                        <div className="board-menu-header flex align-center">
-                            <h5 className="grow">Enter Board Name</h5>
-                            <Close className="pointer" onClick={this.toggleAddBoard} />
+                    {isCreateBoardMenuShown && <div className="create-board-menu  flex column">
+                        <div className="create-board-header flex align-center">
+                            <h5 className="grow">New Board</h5>
+                            <Close className="close-create-board-menu" onClick={this.toggleAddBoard} />
                         </div>
-                        <div className="menu-btns flex column">
-                            <input type="text" onChange={this.handleChange} value={newBoardName} />
-                            <button onClick={this.createNewBoard} >Create a new Board</button>
+                        <div className="create-board-btns flex column">
+                            <div className="color-container">
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-green">&nbsp;</div>
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-orange">&nbsp;</div>
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-blue">&nbsp;</div>
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-red">&nbsp;</div>
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-purple">&nbsp;</div>
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-pink">&nbsp;</div>
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-light-green">&nbsp;</div>
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-turquise">&nbsp;</div>
+                            </div>
+                            <input className="board-name-input" type="text" onChange={this.handleChange} placeholder="Your Board's name..." value={newBoardName} />
+                            <button className="create-board-btn" onClick={this.createNewBoard} >Create a new Board</button>
                         </div>
                     </div>}
                     {

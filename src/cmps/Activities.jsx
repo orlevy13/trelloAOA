@@ -21,8 +21,8 @@ export function Activities(props) {
             return (
                 <div className="activity flex" key={index}>
                     <MemberInitials fullName={user.fullName} />
-                    <div className="flex column">
-                        <span>&nbsp;{userElmemnt}&nbsp;{desc}</span>
+                    <div className="activity-content flex column">
+                        <span>{userElmemnt} {` ${desc}`}</span>
                         <div className="activity-time">{moment(at).fromNow()}</div>
                     </div>
                 </div>
@@ -39,8 +39,8 @@ export function Activities(props) {
 
                 < div className="activity flex" key={index} >
                     <MemberInitials fullName={user.fullName} />
-                    <div className="flex column">
-                        <span>&nbsp;{userElmemnt}&nbsp;{operation}&nbsp;{type}&nbsp;{elmentType}</span>
+                    <div className="activity-content flex column">
+                        <span>{userElmemnt} {` ${operation} ${type} ${elmentType}`}</span>
                         <div className="activity-time">{moment(at).fromNow()}</div>
                     </div>
                 </div>

@@ -58,7 +58,6 @@ export class _PhotoMenu extends Component {
                         <h3 className="menu-header-title">Photos by<a className="unsplash" href="https://unsplash.com/?utm_source=Flowz&utm_medium=referral&utm_campaign=api-credit" >Unsplash</a></h3>
                         <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
                     </div>
-                    <span className="board-menu-header-divider"></span>
                     <div className="board-menu-content">
                         <div className="flex space-between wrap">
                             {imgs && imgs.map((img, index) =>

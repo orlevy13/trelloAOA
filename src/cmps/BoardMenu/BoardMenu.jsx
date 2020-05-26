@@ -18,7 +18,6 @@ export class BoardMenu extends Component {
                         <h3 className="menu-header-title">Menu</h3>
                         <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
                     </div>
-                    <span className="board-menu-header-divider"></span>
                     <div className="board-menu-content flex column">
                         <div className="board-menu-item flex align-center" onClick={() => this.props.onToggleMenu('backgroundMenu')}>
                             <div className="board-menu-icon" style={boardBg}></div>

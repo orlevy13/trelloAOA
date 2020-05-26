@@ -30,7 +30,7 @@ export class _ColorMenu extends Component {
                         <h3 className="menu-header-title">Change Background</h3>
                         <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
                     </div>
-                    <span className="board-menu-header-divider"></span>
+                  
                     <div className="board-menu-content">
                         <div className="flex space-between wrap">
                             <div className='btn-color'
