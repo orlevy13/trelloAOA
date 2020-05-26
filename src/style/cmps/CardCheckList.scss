@@ -1,18 +1,84 @@
 .card-check-list {
     grid-area: main;
+
+    .add-btn {
+        @include transRoundBorder;
+        font-size: 14px;
+        background-color: rgba(9, 30, 66, .04);
+        font-family: roboto-normal;
+        color: #172b4d;
+        padding: 6px 12px;
+        margin-left: 32px;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .08);
+        }
+    }
 }
 
 .progress-bar-container {
-    font-size: 15px;
-    line-height: 1.5;
-    max-width: 300px;
-    border-radius: 8px;
+    height: 8px;
+    margin-bottom: 12px;
+    border-radius: 20px;
     color: #000;
     background-color: #ccc;
+    margin-left: 26px;
+
+    .progress-bar {
+        transition: width 0.4s;
+        height: 8px;
+        color: #fff;
+        background-color: #2196f3;
+        border-radius: 20px;
+    }
 }
 
-.progress-bar {
-    color: #fff;
-    background-color: #2196f3;
-    border-radius: 8px;
+.checklist-item {
+
+
+    .checkbox {
+        margin-right: 9px;
+        cursor: pointer;
+    }
+
+    &-txt {
+        color: #42526e;
+        font-family: roboto-normal;
+        @include trelloInput;
+        display: unset;
+        width: unset;
+        box-shadow: none;
+        background-color: inherit;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .04);
+        }
+
+        &:focus {
+            box-shadow: inset 0 0 0 2px #0079bf;
+            background-color: #fff;
+        }
+    }
+
+    button {
+        @include transRoundBorder;
+        background-color: inherit;
+        padding: 0px 4px 5px 4px;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .04);
+        }
+
+        &:hover .icon {
+            color: #172b4d;
+        }
+
+        .icon {
+            color: #42526e;
+            font-size: 18px;
+            position: relative;
+            top: 5px;
+        }
+    }
 }

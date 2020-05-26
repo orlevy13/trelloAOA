@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { loadBoard, updateBoard } from '../store/actions/boardActions';
+import { Clear } from '@material-ui/icons';
 
 class _CardCheckList extends Component {
     state = {
@@ -59,7 +60,7 @@ class _CardCheckList extends Component {
         return curPhase;
     }
 
-    handleupdateBoard = () => {
+    handleSaveBoard = () => {
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
         let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId))[0];
@@ -73,7 +74,7 @@ class _CardCheckList extends Component {
         const phaseIndex = boardClone.phaseLists.findIndex(phase => phase.id === currPhase.id)
         currPhase.cards = updatedCards;
         boardClone.phaseLists[phaseIndex] = currPhase;
-        this.props.saveBoard(boardClone)
+        this.props.updateBoard(boardClone)
             .then(() => {
                 this.progressBarUpdate();
             })
@@ -102,7 +103,7 @@ class _CardCheckList extends Component {
         if (field === 'isDone') {
             cloneChkList[idx].isDone = value;
             this.setState({ checkList: cloneChkList }, () => {
-                this.handleupdateBoard();
+                this.handleSaveBoard();
             });
         }
 
@@ -123,20 +124,21 @@ class _CardCheckList extends Component {
         if (!this.state.checkList || !this.state.checkList.length) return null;
         return (
             <div className="card-check-list">
-                <div className="check-list-header-container">
-                    <div className="progress-bar-container">
-                        <div className="progress-bar" style={{ width: `${this.state.progress}%` }} >{this.state.progress}</div>
-                    </div>
-                    {this.state.checkList.map((todo, idx) =>
-                        <div key={idx} >
-                            <input type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} checked={todo.isDone} />
-                            <input type="text" name="txt" onChange={(e) => this.handleChange(e, idx)} onBlur={this.handleSaveBoard} value={todo.txt} />
-                            <button onClick={() => this.onDelete(idx)}>X</button>
-                        </div>)}
-                    {!onAdd && <button onClick={this.toggleAdd}>Add Todo</button>}
-                    {onAdd && <input type="text" onChange={this.handleChange}
-                        autoFocus onBlur={this.toggleAdd} value={todoText} />}
+                <div className="progress-bar-container">
+                    <div className="progress-bar" style={{ width: `${this.state.progress}%` }} ></div>
                 </div>
+                {this.state.checkList.map((todo, idx) =>
+                    <div className="checklist-item" key={idx} >
+                        <input className="checkbox" type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)}
+                            onBlur={this.handleSaveBoard} checked={todo.isDone} />
+                        <input className="checklist-item-txt" type="text" name="txt"
+                            onChange={(e) => this.handleChange(e, idx)} spellCheck="false"
+                            onBlur={this.handleSaveBoard} value={todo.txt} />
+                        <button onClick={() => this.onDelete(idx)}><Clear className="icon" /></button>
+                    </div>)}
+                {!onAdd && <button className="add-btn" onClick={this.toggleAdd}>Add Todo</button>}
+                {onAdd && <input type="text" onChange={this.handleChange}
+                    autoFocus onBlur={this.toggleAdd} value={todoText} />}
             </div>
         )
     }

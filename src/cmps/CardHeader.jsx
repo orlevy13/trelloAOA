@@ -68,7 +68,7 @@ class _CardHeader extends Component {
 
             return (<div>
                 <div className="card-header-container">
-                    <NoteOutlinedIcon />
+                    <NoteOutlinedIcon className="icon" />
                     {!isTitleOnEdit && <span><h2 className="card-title" onClick={this.toggleInput} >{txt}</h2></span>}
                     {(isTitleOnEdit) && <span><textarea ref={el => this.elTextarea = el}
                         onFocus={(ev) => { this.autoGrow(ev.target) }} className="card-title-input"
