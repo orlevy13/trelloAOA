@@ -29,7 +29,7 @@ class _CardDesc extends Component {
                 card.desc = this.state.txt;
             }
         })
-        this.props.saveBoard(boardClone);
+        this.props.updateBoard(boardClone);
     }
 
     autoGrow = (el) => {

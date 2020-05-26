@@ -63,7 +63,7 @@ class _CardCheckList extends Component {
         return curPhase;
     }
 
-    handleupdateBoard = () => {
+    handleSaveBoard = () => {
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
         let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId))[0];
@@ -78,7 +78,7 @@ class _CardCheckList extends Component {
         const phaseIndex = boardClone.phaseLists.findIndex(phase => phase.id === currPhase.id)
         currPhase.cards = updatedCards;
         boardClone.phaseLists[phaseIndex] = currPhase;
-        this.props.saveBoard(boardClone)
+        this.props.updateBoard(boardClone)
             .then(() => {
                 this.progressBarUpdate();
             })
@@ -107,7 +107,7 @@ class _CardCheckList extends Component {
         if (field === 'isDone') {
             cloneChkList[idx].isDone = value;
             this.setState({ checkList: cloneChkList }, () => {
-                this.handleupdateBoard();
+                this.handleSaveBoard();
             });
         }
 

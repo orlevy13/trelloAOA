@@ -3,11 +3,19 @@ export const LOAD_BOARD = 'LOAD_BOARD';
 export const UPDATE_BOARD = 'UPDATE_BOARD';
 export const ADD_BOARD = 'ADD_BOARD';
 export const REMOVE_BOARD = 'REMOVE_BOARD';
-export const QUERY_BOARDS = 'QUERY_BOARDS'
+export const QUERY_BOARDS = 'QUERY_BOARDS';
+export const CREATE_BOARD = 'CREATE_BOARD';
+
+export const LOGGED_IN_USER = {
+    "_id": "5eccd4e1cb39d7f54947fd7e",
+    "fullName": "Guest",
+    "email": "noemail@no.com",
+    "password": "123456",
+    "img": "https://img.icons8.com/plasticine/2x/user.png"
+}
 
 
-
-export function queryBoard(filter) {
+export function queryBoards(filter) {
     return dispatch => {
         boardService.query(filter)
             .then(boards => dispatch({ type: QUERY_BOARDS, boards }));
@@ -23,7 +31,7 @@ export function loadBoard(id) {
 
 export function addBoard(addedBoard) {
     return async dispatch => {
-        const board=await boardService.add(addedBoard);
+        const board = await boardService.add(addedBoard);
         dispatch({ type: ADD_BOARD, board })
     }
 }
@@ -32,7 +40,7 @@ export function updateBoard(updatedBoard) {
 
     return async dispatch => {
         //const board = boardService.getBoardCopy(updatedBoard);
-        dispatch({ type: UPDATE_BOARD,board: updatedBoard });
+        dispatch({ type: UPDATE_BOARD, board: updatedBoard });
         await boardService.update(updatedBoard);
 
     }
