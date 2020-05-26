@@ -11,6 +11,7 @@ import { BackgroundMenu } from '../cmps/BoardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
 
 
+
 class _Board extends Component {
 
     state = {
@@ -72,7 +73,7 @@ class _Board extends Component {
                 <section className="board-nav flex space-between">
                     <div className="flex">
                         <div className="board-title" href="#">
-                            <span dir="auto">Final Project</span>
+                            <span dir="auto">{board.name}</span>
                         </div>
                         <span className="board-nav-divider"></span>
                         <div className="board-members">

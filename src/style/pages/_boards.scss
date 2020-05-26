@@ -1,0 +1,47 @@
+.boards-page {
+    background-color: rgb(250, 251, 252);
+    overflow-y: auto;
+
+    .boards {
+        background-color: rgb(250, 251, 252);
+        width: 1000px;
+        color: #314361;
+        margin-left: auto;
+        margin-right: auto;
+
+        .boards-title {
+            position: relative;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            margin-left: 40px;
+        }
+
+        .boards-container {
+            margin: 0 auto 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            width: 1000px;
+        }
+
+        .board-item {
+            color: white;
+            font-size: 14px;
+            border: 3px none #bbb;
+            border-radius: 6px;
+            width: 180px;
+            height: 90px;
+            margin-bottom: 100px;
+            margin-left: 40px;
+            transition: 0.3s;
+            h3 {
+                margin-top: 6px;
+                margin-left: 10px;
+            }
+        }
+        .board-item:hover {
+            filter: brightness(85%);
+            cursor: pointer;
+        }
+    }
+}
