@@ -26,7 +26,7 @@ class _Boards extends Component {
 
     handleLoadBoard = (id) => {
         this.props.loadBoard(id)
-        // history.push(`/board/${id}`)
+        history.push(`/board/${id}`)
     }
 
     render() {
@@ -35,12 +35,20 @@ class _Boards extends Component {
         const { boards } = this.props
         return (
             <section>
-
-                <h1>My Boards</h1>
-                {boards && boards.map((board, idx) =>
-                    <div key={idx} style={{ backgroundColor: board.bgColor }} onClick={() => this.handleLoadBoard(board._id)}>
-                        <h3>{board.name}</h3>
-                    </div>)}
+                <div className="boards-page">
+                    <div className='boards flex column' >
+                        <h1 className="boards-title flex">Boards</h1>
+                        <div className="boards-container">
+                            {boards && boards.map((board, idx) =>
+                                <div className={`board-item board-item${idx}`} key={idx}
+                                    onClick={() => this.handleLoadBoard(board._id)}
+                                    style={board.imgUrl ?
+                                        { backgroundImage: `url(${board.imgUrl})`, backgroundSize: 'cover' } : { backgroundColor: board.bgColor }} >
+                                    {<h3>{board.name}</h3>}
+                                </div>)}
+                        </div>
+                    </div>
+                </div>
             </section>
         )
     }

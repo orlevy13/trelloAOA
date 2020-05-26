@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SearchOutlined, LabelOutlined, ListOutlined, CloseOutlined } from '@material-ui/icons';
+import { Activities } from '../Activities'
 
 export class BoardMenu extends Component {
 
@@ -17,8 +18,7 @@ export class BoardMenu extends Component {
                         <h3 className="menu-header-title">Menu</h3>
                         <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
                     </div>
-                    <span className="board-menu-header-divider"></span>
-                    <div className="board-menu-content">
+                    <div className="board-menu-content flex column">
                         <div className="board-menu-item flex align-center" onClick={() => this.props.onToggleMenu('backgroundMenu')}>
                             <div className="board-menu-icon" style={boardBg}></div>
                             <span className="board-menu-text">Change Background</span>
@@ -36,6 +36,7 @@ export class BoardMenu extends Component {
                             <ListOutlined className="board-menu-icon" />
                             <span className="board-menu-text">Activity</span>
                         </div>
+                        <Activities activities={board.activities} />
                     </div>
                 </div>
             </div>

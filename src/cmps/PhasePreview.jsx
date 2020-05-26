@@ -9,15 +9,15 @@ import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 
 
-const getDragStyle = (style, snapshot) => {
-    if (!snapshot.isDragging) return;   
-    return {
-        ...style,
-        "backgroundColor": "lightBlue"
+// const getDragStyle = (style, snapshot) => {
+//     if (!snapshot.isDragging) return;   
+//     return {
+//         ...style,
+//         "backgroundColor": "lightBlue"
 
-    };
+//     };
 
-}
+// }
 
 
 export class _PhasePreview extends Component {
@@ -121,7 +121,7 @@ export class _PhasePreview extends Component {
                         {...provided.draggableProps}
                         ref={provided.innerRef}
                         {...snapshot.isDropAnimating = true}   {...snapshot.isDropAnimating = true}
-                        style={getDragStyle(provided.draggableProps.style, snapshot)}
+                        // style={getDragStyle(provided.draggableProps.style, snapshot)}
                     >
                         <div {...provided.dragHandleProps} className="phase-header flex space-between">
 

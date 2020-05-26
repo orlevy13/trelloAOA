@@ -1,9 +1,11 @@
 .member-avatar {
     border-radius: 50%;
     display: inline-block;
-    width: 28px;
-    height: 28px;
     text-align: center;
+    min-width: 28px;
+    min-height: 28px;
+    max-width: 28px;
+    max-height: 28px;
     background-color: #dfe1e6;
     text-size-adjust: 100%;
     cursor: pointer;

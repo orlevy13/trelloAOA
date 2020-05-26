@@ -37,10 +37,14 @@ export function addBoard(addedBoard) {
 
 export function updateBoard(updatedBoard) {
 
-    return async dispatch => {
-        //const board = boardService.getBoardCopy(updatedBoard);
+    return async (dispatch, state) => {
+        //const keepBoard = boardService.getBoardCopy(state.board); not working right now the state.board is undifined; wierd!!!
         dispatch({ type: UPDATE_BOARD, board: updatedBoard });
-        await boardService.update(updatedBoard);
+        try {
+            await boardService.update(updatedBoard);
+        } catch (err) {
+            // dispatch({ type: UPDATE_BOARD, board: keepBoard });
+        }
 
     }
 }

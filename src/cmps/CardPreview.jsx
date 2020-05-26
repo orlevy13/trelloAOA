@@ -9,16 +9,16 @@ import { MemberInitials } from './MemberInitials';
 import { CardMenu } from './CardMenu';
 
 
-const getDragStyle = (style, snapshot) => {
-    if (!snapshot.isDragging) return;
+// const getDragStyle = (style, snapshot) => {
+//     if (!snapshot.isDragging) return;
    
-    return {
-        ...style,
-        "backgroundColor": "lightBlue"
+//     return {
+//         ...style,
+//         "backgroundColor": "lightBlue"
 
-    };
+//     };
 
-}
+// }
 
 class _CardPreview extends React.Component {
 
@@ -57,7 +57,7 @@ class _CardPreview extends React.Component {
                         <section onClick={() => { this.props.setCard(this.props.card) }}
                             style={{ backgroundColor: bgColor }} className="card-preview flex column"
                             {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
-                            style={getDragStyle(provided.draggableProps.style, snapshot)}
+                            // style={getDragStyle(provided.draggableProps.style, snapshot)}
                         >
 
                             <button onClick={toggleIsMenuShown}

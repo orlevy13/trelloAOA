@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { CloseOutlined } from '@material-ui/icons/';
-import { loadBoard, updateBoard } from '../../store/actions/boardActions'
-import { boardService } from '../../services/boardService';
+import { loadBoard, updateBoard, LOGGED_IN_USER } from '../../store/actions/boardActions'
+import { boardService, OPERETIONS, TYPES } from '../../services/boardService';
 import { unsplashService } from '../../services/unsplashService'
 import { connect } from 'react-redux';
 import { ArrowBackIosOutlined } from '@material-ui/icons';
@@ -39,6 +39,10 @@ export class _PhotoMenu extends Component {
         const clonedBoard = boardService.getBoardCopy(this.props.board);
         clonedBoard.imgUrl = img;
         clonedBoard.bgColor = null;
+        boardService.addActivity(clonedBoard, LOGGED_IN_USER, OPERETIONS.UPDATE, TYPES.Board,
+            { id: clonedBoard._id, title: clonedBoard.name },
+            `change board background image`);
+        this.props.updateBoard(clonedBoard);
         this.props.updateBoard(clonedBoard);
     }
 
@@ -54,7 +58,6 @@ export class _PhotoMenu extends Component {
                         <h3 className="menu-header-title">Photos by<a className="unsplash" href="https://unsplash.com/?utm_source=Flowz&utm_medium=referral&utm_campaign=api-credit" >Unsplash</a></h3>
                         <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
                     </div>
-                    <span className="board-menu-header-divider"></span>
                     <div className="board-menu-content">
                         <div className="flex space-between wrap">
                             {imgs && imgs.map((img, index) =>

@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { PlaylistAddCheck } from '@material-ui/icons';
-import { loadBoard, updateBoard } from '../store/actions/boardActions';
 import { ChecklistItem } from './ChecklistItem';
-
+import { loadBoard, updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
+import { boardService, OPERETIONS, TYPES } from '../services/boardService'
 
 class _CardChecklist extends Component {
     state = {
         checkList: null,
         todoText: '',
         onAdd: false,
-        progress: null,
+        progress: 0,
         checklistTitle: ''
     }
 
@@ -55,6 +55,10 @@ class _CardChecklist extends Component {
         const phaseIndex = boardClone.phaseLists.findIndex(phase => phase.id === currPhase.id)
         currPhase.cards = updatedCards;
         boardClone.phaseLists[phaseIndex] = currPhase;
+        boardService.addActivity(boardClone, LOGGED_IN_USER, OPERETIONS.UPDATE, TYPES.CARD,
+            { id: this.props.card.id, title: this.props.card.title },
+            `update checklist on card ${this.props.card.title}`);
+
         this.props.updateBoard(boardClone)
             .then(() => {
                 this.progressBarUpdate();

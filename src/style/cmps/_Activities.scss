@@ -1,0 +1,44 @@
+.activity {
+    a:link {
+        color: inherit;
+    }
+
+    /* visited link */
+    a:visited {
+        color: inherit;
+    }
+
+    /* mouse over link */
+    a:hover {
+        color: inherit;
+    }
+
+    /* selected link */
+    a:active {
+        color: inherit;
+    }
+    margin-bottom: 15px;
+    color: #172b4d;
+    line-height: 20px;
+    font-size: rem(14px);
+    .activity-content {
+        margin-left: 10px;
+    }
+
+    .activity-user {
+        font-weight: 700;
+    }
+    .activity-object {
+        color: #172b4d;
+        background-color: transparent;
+        text-decoration: underline;
+        font-weight: 400;
+    }
+    .activity-time {
+        color: #5e6c84;
+        background-color: transparent;
+        text-decoration: none;
+        font-size: rem(12px);
+        font-weight: 400;
+    }
+}

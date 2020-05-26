@@ -9,7 +9,7 @@
 @import "basics/layout";
 
 // Pages
-
+@import "pages/boards";
 @import "pages/Board";
 @import "cmps/MemberInitials";
 @import "pages/Home";
@@ -22,11 +22,12 @@
 @import "cmps/PhasePreview";
 @import "cmps/AddCard";
 @import "cmps/CardPreview";
-@import "cmps/CardChecklist.scss";
+@import "cmps/CardCheckList";
 @import "cmps/Labels";
 @import "cmps/LabelsEdit";
 @import "cmps/CardMenu";
-@import "cmps/BoardMenu";
+@import "cmps/boardMenu";
 @import "cmps/BackgroundMenu";
 @import "cmps/ColorMenu";
 @import "cmps/CardMembers.scss";
+@import "cmps/Activities";
