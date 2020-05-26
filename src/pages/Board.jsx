@@ -3,11 +3,11 @@ import { loadBoard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { PhaseList } from '../cmps/PhaseList';
 import { MemberInitials } from '../cmps/MemberInitials';
-import { BoardMenu } from '../cmps/BoardMenu/BoardMenu';
-import { ColorMenu } from '../cmps/BoardMenu/ColorMenu';
-import { PhotoMenu } from '../cmps/BoardMenu/PhotoMenu';
+import { BoardMenu } from '../cmps/boardMenu/BoardMenu';
+import { ColorMenu } from '../cmps/boardMenu/ColorMenu';
+import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
 import { MenuOutlined } from '@material-ui/icons';
-import { BackgroundMenu } from '../cmps/BoardMenu/BackgroundMenu';
+import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
 
 

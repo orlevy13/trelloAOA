@@ -1,5 +1,5 @@
 .board {
-    height: 95vh;
+    height: 94vh;
     user-select: none;
 
     .board-content {
@@ -11,13 +11,13 @@
             height: 12px;
 
             &-track {
-                background: rgba(0, 0, 0, .15);
+                background: rgba(0, 0, 0, 0.15);
                 border: solid 4px transparent;
                 border-radius: 25px;
             }
 
             &-thumb {
-                box-shadow: inset 0 0 10px 10px hsla(0, 0%, 100%, .38);
+                box-shadow: inset 0 0 10px 10px hsla(0, 0%, 100%, 0.38);
                 border-radius: 25px;
             }
         }

@@ -83,16 +83,18 @@ function getNewPhase(name) {
     }
 }
 
-function addActivity(board, operration, type, object, user, property = null, desc = null) {
-    board.activities.unshift({
+function addActivity(board, user, operation, type, object, desc = null) {
+    debugger;
+    const activity = {
         at: Date.now(),
-        operration,
+        operation,
         user,
         type,
         object,
-        property,
         desc
-    });
+    }
+    console.log(activity);
+    board.activities.unshift(activity);
 }
 
 function getSortedPhase(sortBy, phase) {

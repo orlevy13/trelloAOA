@@ -9,7 +9,8 @@
     right: 0;
     top: 0;
     background-color: #f4f5f7;
-    height: 95vh;
+    min-height: 94vh;
+    max-height: 94vh;
     color: #172b4d;
     z-index: 999;
     padding: 10px;
@@ -19,8 +20,6 @@
         text-align: center;
         flex-grow: 1;
     }
-
-    
 
     .menu-header-title {
         width: 100%;
@@ -46,6 +45,7 @@
             line-height: 20px;
             font-size: rem(14px);
             padding-left: 4px;
+            margin-bottom: 15px;
             cursor: pointer;
 
             &:hover {

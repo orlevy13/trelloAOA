@@ -2,6 +2,7 @@ import React from 'react';
 
 export function MemberInitials(props) {
 
+   
     var firstLastName;
     if (props.member) {
         firstLastName = props.member.fullName.toUpperCase().split(' ');

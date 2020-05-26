@@ -98,10 +98,14 @@ export class _PhaseList extends Component {
                 const movingCard = srcCards.splice(source.index, 1)[0];
                 const dstCards = dstPhase.cards;
                 dstCards.splice(destination.index, 0, movingCard);
-                boardService.addActivity(boardCopy, OPERETIONS.UPDATE, TYPES.CARD,
-                    { id: movingCard.id, title: movingCard.title },
-                    LOGGED_IN_USER, null,
-                    `{user} moved {src.card} from ${srcPhase.name} to ${dstPhase.name}`)
+                boardService.addActivity(boardCopy,
+                    LOGGED_IN_USER,
+                    OPERETIONS.UPDATE,
+                    TYPES.CARD, {
+                    id: movingCard.id,
+                    title: movingCard.title
+                },
+                    `moved card ${movingCard.title} from ${srcPhase.name} to ${dstPhase.name}`);
             }
         }
 
