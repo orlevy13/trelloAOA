@@ -25,7 +25,6 @@ export class _AddCard extends Component {
     onAddCard = async (ev) => {
         ev.preventDefault();
         if (!this.state.card.title.trim()) return;
-        debugger;
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phaseId);
         const newCard = boardService.getNewCard(this.state.card);

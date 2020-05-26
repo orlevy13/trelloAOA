@@ -84,7 +84,6 @@ function getNewPhase(name) {
 }
 
 function addActivity(board, user, operation, type, object, desc = null) {
-    debugger;
     const activity = {
         at: Date.now(),
         operation,

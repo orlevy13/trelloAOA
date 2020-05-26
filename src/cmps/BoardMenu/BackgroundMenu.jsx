@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { CloseOutlined } from '@material-ui/icons/';
 import { ArrowBackIosOutlined } from '@material-ui/icons';
 

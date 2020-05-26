@@ -13,11 +13,13 @@ export class BoardMenu extends Component {
             { "backgroundImage": `url("${board.imgUrl}")`, "backgroundSize": "cover" }
         return (
             <div className={menuClass}>
-                <div className="flex column">
-                    <div className="board-menu-header flex justify-center">
+                <div className="board-menu-header flex">
+                    <div className="board-menu-header-content flex align-center grow">
                         <h3 className="menu-header-title">Menu</h3>
                         <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
                     </div>
+                </div>
+                <div className="flex column">
                     <div className="board-menu-content flex column">
                         <div className="board-menu-item flex align-center" onClick={() => this.props.onToggleMenu('backgroundMenu')}>
                             <div className="board-menu-icon" style={boardBg}></div>
