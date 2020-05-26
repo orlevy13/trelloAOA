@@ -33,7 +33,6 @@ class _MainNav extends Component {
         const newBoard = boardService.createNewBoard(this.state.newBoardName, 'rgb(0, 124, 184)', LOGGED_IN_USER);
 
         this.props.addBoard(newBoard);
-        this.props.loadBoard(newBoard.id);
         console.log('on create', this.props.board);
         history.push(`/board/${this.props.board._id}`)
         this.setState({ isCreateBoardMenuShown: false, newBoardName: '' })
