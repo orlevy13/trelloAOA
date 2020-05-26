@@ -15,34 +15,26 @@ class _CardHeader extends Component {
         const cardId = this.props.card.id;
         let currPhase = this.props.board.phaseLists.filter(phase =>
             phase.cards.find(card => card.id === cardId));
-
-
         this.setState({ txt: this.props.card.title, onPhase: currPhase[0].name })
     }
 
     toggleInput = () => {
-
         this.setState(prevState => ({ isTitleOnEdit: !prevState.isTitleOnEdit }))
     }
 
-
     handleSaveBoard = () => {
-
+        if (!this.state.txt.trim()) return this.toggleInput();
         if (this.state.isTitleOnEdit) {
             let boardClone = JSON.parse(JSON.stringify(this.props.board));
             const cardId = this.props.card.id;
             let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId));
-
             currPhase[0].cards.forEach(card => {
                 if (card.id === this.props.card.id) {
                     card.title = this.state.txt;
                 }
             })
             this.props.updateBoard(boardClone)
-                .then(() => {
-
-                    this.toggleInput();
-                })
+            this.toggleInput();
         }
     }
 
@@ -55,12 +47,8 @@ class _CardHeader extends Component {
     handleKeyPress(e) {
         if (e.keyCode === 13) {
             e.target.blur();
-            //Write you validation logic here
         }
     }
-
-
-
 
     autoGrow = (el) => {
         el.style.height = (el.scrollHeight) + "px";
@@ -71,23 +59,23 @@ class _CardHeader extends Component {
     }
 
     render() {
+        if (!this.state) return 'loading';
         const { txt, isTitleOnEdit, onPhase } = this.state;
-        if (this.state) {
 
-            return (<div>
-                <div className="card-header-container">
-                    <NoteOutlinedIcon className="checklist-header-icon" />
-                    {!isTitleOnEdit && <span><h2 className="card-title" onClick={this.toggleInput} >{txt}</h2></span>}
-                    {(isTitleOnEdit) && <span><textarea ref={el => this.elTextarea = el} spellCheck="false"
-                        onFocus={(ev) => { this.autoGrow(ev.target) }} onKeyDown={(e) => this.handleKeyPress(e)} className="card-title-input"
-                        autoFocus onBlur={this.handleSaveBoard} placeholder="Title..." autoCorrect="false"
-                        onChange={this.handleChange} value={txt} ></textarea></span>}
-                </div>
-                <p className="card-link">in list <span onClick={this.backToboard}>{onPhase}</span></p>
+        return (<div>
+            <div className="card-header-container flex">
+                <NoteOutlinedIcon className="icon" />
+                {!isTitleOnEdit && <h3 onClick={this.toggleInput} className="card-title grow">{txt}</h3>}
+                {isTitleOnEdit && <textarea ref={el => this.elTextarea = el} spellCheck="false"
+                    onFocus={(ev) => { this.autoGrow(ev.target) }} onKeyDown={(e) => this.handleKeyPress(e)}
+                    className="card-title-input" autoFocus
+                    onBlur={this.handleSaveBoard} placeholder="Title..." autoCorrect="false"
+                    onChange={this.handleChange} value={txt} />}
+
             </div>
-            )
-        }
-        else return 'loading'
+            <p className="card-link">in list <span onClick={this.backToboard}>{onPhase}</span></p>
+        </div>
+        )
     }
 }
 

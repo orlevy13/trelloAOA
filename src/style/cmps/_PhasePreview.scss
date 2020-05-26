@@ -14,7 +14,6 @@
         padding: 4px;
         margin: 0 4px;
 
-
         .phase-title {
             font-family: open-sans, roboto-normal;
             font-size: rem(14px);
@@ -31,6 +30,7 @@
                 height: rem(28px);
             }
         }
+       
     }
 
     .phase-menu {
@@ -46,7 +46,7 @@
             position: relative;
             height: 40px;
             color: #5e6c84;
-            border-bottom: 1px solid rgba(9, 30, 66, .13);
+            border-bottom: 1px solid rgba(9, 30, 66, 0.13);
             margin-bottom: 8px;
 
             h5 {
@@ -69,7 +69,7 @@
                 text-align: start;
 
                 &:hover {
-                    background-color: rgba(9, 30, 66, .04);
+                    background-color: rgba(9, 30, 66, 0.04);
                 }
             }
 
@@ -82,7 +82,6 @@
                     background-color: #d1d1d1;
                 }
             }
-
         }
     }
 

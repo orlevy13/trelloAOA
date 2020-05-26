@@ -3,7 +3,7 @@ export const LOAD_BOARD = 'LOAD_BOARD';
 export const UPDATE_BOARD = 'UPDATE_BOARD';
 export const ADD_BOARD = 'ADD_BOARD';
 export const REMOVE_BOARD = 'REMOVE_BOARD';
-export const QUERY_BOARDS = 'QUERY_BOARDS';
+export const QUERY_BOARDS = 'QUERY_BOARDS'
 export const CREATE_BOARD = 'CREATE_BOARD';
 
 export const LOGGED_IN_USER = {
@@ -13,7 +13,6 @@ export const LOGGED_IN_USER = {
     "password": "123456",
     "img": "https://img.icons8.com/plasticine/2x/user.png"
 }
-
 
 export function queryBoards(filter) {
     return dispatch => {

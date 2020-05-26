@@ -1,5 +1,15 @@
 import { httpService } from './httpService'
 const CLOUD_NAME = 'dcubdqpfg'
+export const OPERETIONS = {
+    ADD: 'Add',
+    UPDATE: 'Updated',
+    DELETE: 'Delete'
+}
+export const TYPES = {
+    CARD: 'Card',
+    PHASE: 'Phase',
+    Board: 'Board'
+}
 
 async function doUploadiMG(elForm) {
 
@@ -73,6 +83,18 @@ function getNewPhase(name) {
     }
 }
 
+function addActivity(board, operration, type, object, user, property = null, desc = null) {
+    board.activities.unshift({
+        at: Date.now(),
+        operration,
+        user,
+        type,
+        object,
+        property,
+        desc
+    });
+}
+
 function getSortedPhase(sortBy, phase) {
     if (sortBy === 'title') {
         return phase.cards.sort((card1, card2) => card1.title.localeCompare(card2.title))
@@ -122,5 +144,6 @@ export const boardService = {
     getNewCard,
     getNewPhase,
     getSortedPhase,
+    addActivity,
     createNewBoard
 }

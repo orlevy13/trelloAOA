@@ -3,8 +3,8 @@ import { PhasePreview } from './PhasePreview';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { Add, Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import { updateBoard } from '../store/actions/boardActions';
-import { boardService } from '../services/boardService';
+import { updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
+import { boardService, OPERETIONS, TYPES } from '../services/boardService';
 
 export class _PhaseList extends Component {
     state = {
@@ -71,8 +71,6 @@ export class _PhaseList extends Component {
 
     onDragEnd = result => {
 
-        console.log('in drag drop end')
-
         const { destination, source, type } = result;
         if (!destination) return;
         if (destination.droppableId === source.droppableId && destination.index === source.index) return;
@@ -83,19 +81,27 @@ export class _PhaseList extends Component {
             const newPhasesOrder = boardCopy.phaseLists;
             const movingPhase = newPhasesOrder.splice(source.index, 1)[0];
             newPhasesOrder.splice(destination.index, 0, movingPhase);
+
         } else {
             const { phaseLists } = boardCopy;
             const srcPhase = phaseLists.find(phase => phase.id === source.droppableId);
             const dstPhase = phaseLists.find(phase => phase.id === destination.droppableId);
 
+
             if (srcPhase.id === dstPhase.id) {
                 const movingCard = srcPhase.cards.splice(source.index, 1)[0];
                 srcPhase.cards.splice(destination.index, 0, movingCard);
+
+
             } else {
                 const srcCards = srcPhase.cards;
                 const movingCard = srcCards.splice(source.index, 1)[0];
                 const dstCards = dstPhase.cards;
                 dstCards.splice(destination.index, 0, movingCard);
+                boardService.addActivity(boardCopy, OPERETIONS.UPDATE, TYPES.CARD,
+                    { id: movingCard.id, title: movingCard.title },
+                    LOGGED_IN_USER, null,
+                    `{user} moved {src.card} from ${srcPhase.name} to ${dstPhase.name}`)
             }
         }
 
