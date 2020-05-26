@@ -15,7 +15,6 @@ class _CardDesc extends Component {
     handleChange = ({ target }) => {
         var value = target.value
         this.setState({ txt: value })
-        this.autoGrow(this.elTextarea)
     }
 
 
@@ -29,26 +28,20 @@ class _CardDesc extends Component {
                 card.desc = this.state.txt;
             }
         })
-        this.props.saveBoard(boardClone);
+        this.props.updateBoard(boardClone);
     }
-
-    autoGrow = (el) => {
-        el.style.height = (el.scrollHeight) + "px";
-    }
-
 
     render() {
         return (
             <section>
-                <div className="desc-header-container">
-                    <DescriptionIcon className="card-desc-icon" /><span className="desc-header">Description</span>
+                <div className="desc-header-container flex">
+                    <DescriptionIcon className="icon" />
+                    <span className="desc-header">Description</span>
                 </div>
-                <div className="card-desc-container">
-                    <textarea className="card-desc-input" ref={el => this.elTextarea = el}
-                        placeholder="Add a more detailed description..." onChange={this.handleChange}
-                        onFocus={(ev) => { this.autoGrow(ev.target) }} autoCorrect="false"
-                        onBlur={this.handleSaveBoard} value={this.state.txt}></textarea>
-                </div>
+                <textarea className="card-desc-input"
+                    placeholder="Add a more detailed description..." onChange={this.handleChange}
+                    spellCheck="false"
+                    onBlur={this.handleSaveBoard} value={this.state.txt}></textarea>
             </section>
         )
     }

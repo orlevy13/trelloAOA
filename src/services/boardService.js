@@ -101,8 +101,27 @@ function getSortedPhase(sortBy, phase) {
     } else if (sortBy === 'firstCreated') {
         return phase.cards.sort((card1, card2) => card1.createdAt - card2.createdAt);
     } else return phase.cards.sort((card1, card2) => card2.createdAt - card1.createdAt);
-
 }
+
+function createNewBoard(name, bgColor, loggedInUser) {
+    const _board = {
+
+        name: name,
+        bgColor: bgColor,
+        createdAt: Date.now(),
+        creator: loggedInUser,
+        members: [loggedInUser],
+        desc: null,
+        activities: [],
+        phaseLists: [],
+        labels: [],
+        isLabelTxtShown: false,
+        imgUrl: null
+    }
+    return _board;
+}
+
+
 
 function makeId(length = 5) {
     var txt = '';
@@ -125,5 +144,6 @@ export const boardService = {
     getNewCard,
     getNewPhase,
     getSortedPhase,
-    addActivity
+    addActivity,
+    createNewBoard
 }

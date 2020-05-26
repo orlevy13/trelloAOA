@@ -1,6 +1,78 @@
 .card-check-list {
     grid-area: main;
+
+    .add-btn {
+        @include transRoundBorder;
+        font-size: 14px;
+        background-color: rgba(9, 30, 66, .04);
+        font-family: roboto-normal;
+        color: #172b4d;
+        padding: 6px 12px;
+        margin-left: 32px;
+
+        &:hover {
+            background-color: rgba(9, 30, 66, .08);
+        }
+    }
+
+    .checklist-title-container {
+        margin-bottom: 12px;
+
+        .checklist-icon {
+            margin-right: 3px;
+            position: relative;
+            bottom: 4px;
+        }
+
+        .checklist-title {
+            @include transRoundBorder;
+            color: #172b4d;
+            background-color: inherit;
+            font-family: roboto-normal;
+            margin: 0 0 4px 4px;
+            padding: 4px;
+            font-size: 18px;
+
+            &:focus {
+                background-color: #fff;
+                outline: none;
+                @include trelloInput;
+                margin: 0 0 4px 4px;
+                padding: 4px;
+            }
+
+        }
+    }
+
+    .add-item {
+        margin-left: 35px;
+
+        input {
+            @include trelloInput;
+            width: unset;
+            font-family: roboto-normal;
+            font-size: 14px;
+            color: #42526e;
+        }
+
+        button {
+            @include transRoundBorder;
+            font-size: 14px;
+            background-color: #5aac44;
+            color: #fff;
+            padding: 6px 12px;
+            transition: background-color 0.2s;
+            margin-left: 6px;
+            position: relative;
+            bottom: 3px;
+
+            &:hover {
+                background-color: #61bd4f;
+            }
+        }
+    }
 }
+
 .check-list-header-container {
     margin-left: 36px;
 }
@@ -13,115 +85,70 @@
     margin-bottom: 10px;
     margin-left: 8px;
 }
-.progress-bar-container {
-    font-size: 8px;
-    margin-left: 5px;
-    line-height: 0.7;
-    width: 300px;
 
-    border-radius: 8px;
+.progress-bar-container {
+    height: 8px;
+    margin-bottom: 12px;
+    border-radius: 20px;
     color: #000;
     background-color: #ccc;
+    margin-left: 26px;
+
+    .progress-bar {
+        transition: width 0.4s;
+        height: 8px;
+        color: #fff;
+        background-color: #2196f3;
+        border-radius: 20px;
+    }
 }
 
-.progress-bar {
-    color: #fff;
-    background-color: #2196f3;
-    border-radius: 8px;
-}
+.checklist-item {
 
-// checklist input
 
-.checklist-title-container {
-    display: flex;
-    align-items: center;
-}
+    .checkbox {
+        margin-right: 9px;
+        cursor: pointer;
+    }
 
-.checklist-input-container {
-    display: flex;
-    align-items: center;
-    width: 350px;
-}
+    &-txt {
+        color: #42526e;
+        font-family: roboto-normal;
+        @include trelloInput;
+        display: unset;
+        width: unset;
+        box-shadow: none;
+        background-color: inherit;
+        cursor: pointer;
 
-.checklist-input-container > .checklist-input:hover {
-    background-color: rgb(222, 224, 228);
-}
+        &:hover {
+            background-color: rgba(9, 30, 66, .04);
+        }
 
-.checklist-checkbox {
-    margin: 0;
-    padding: 0;
-}
+        &:focus {
+            box-shadow: inset 0 0 0 2px #0079bf;
+            background-color: #fff;
+        }
+    }
 
-.checklist-input,
-.checklist-title {
-    @include trelloInput;
-    width: 300px;
-    height: 25px;
-    margin: 0;
+    button {
+        @include transRoundBorder;
+        background-color: inherit;
+        padding: 0px 4px 5px 4px;
 
-    margin-top: 2px;
-    margin-left: 16px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 400;
-    background-color: $cardGrey;
-    box-shadow: none;
-    border: none;
-    resize: none;
-    overflow: hidden;
-    padding-left: 0;
-    padding-bottom: 5px;
-}
-.checklist-input {
-    padding: 0;
-    margin-bottom: 0;
-}
-.checklist-title {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-}
+        &:hover {
+            background-color: rgba(9, 30, 66, .04);
+        }
 
-.checklist-icon {
-    margin-left: 8px;
-}
+        &:hover .icon {
+            color: #172b4d;
+        }
 
-.checklist-input:focus {
-    background-color: rgb(234, 236, 240);
-}
-
-.checklist-item-delete-btn {
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    border-radius: 3px;
-    border: none;
-    display: inline-block;
-    margin-left: 5px;
-}
-
-.check-list-btn,
-.save-checklist-item-btn {
-    background-color: rgb(234, 236, 240);
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    border-radius: 3px;
-    border: none;
-    display: inline-block;
-    line-height: 20px;
-    margin-top: 7px;
-    margin-bottom: 8px;
-    padding: 6px 12px;
-}
-
-.check-list-btn:hover {
-    background-color: rgb(222, 224, 228);
-}
-
-.save-checklist-item-btn {
-    color: white;
-    background-color: #5aac44;
-}
-
-.save-checklist-item-btn:hover {
-    background-color: #84bd74;
+        .icon {
+            color: #42526e;
+            font-size: 18px;
+            position: relative;
+            top: 5px;
+        }
+    }
 }

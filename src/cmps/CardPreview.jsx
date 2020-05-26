@@ -11,12 +11,7 @@ import { CardMenu } from './CardMenu';
 
 const getDragStyle = (style, snapshot) => {
     if (!snapshot.isDragging) return;
-    //console.log('snapshot: ', snapshot)
-    //console.log('style: ', style)
-    // move to the right spot
-
-
-    // patching the existing style
+   
     return {
         ...style,
         "backgroundColor": "lightBlue"
@@ -32,13 +27,7 @@ class _CardPreview extends React.Component {
         clientX: '',
         clientY: '',
     }
-    // componentDidUpdate(prevProps, prevState) {
-    //     console.log('cardPreview did update')
-    //     if(JSON.stringify(prevProps.card)!==JSON.stringify(this.props.card)) {
-    //         console.log('ITS DIFFERENT! Here\'s the labels:', this.props.card.labels);
-    //     }
-    // }
-
+    
     toggleIsMenuShown = (ev) => {
         if (ev) {
             ev.stopPropagation();

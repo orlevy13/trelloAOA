@@ -10,13 +10,7 @@ import { boardService } from '../services/boardService';
 
 
 const getDragStyle = (style, snapshot) => {
-    if (!snapshot.isDragging) return;
-    //console.log('snapshot: ', snapshot)
-    //console.log('style: ', style)
-    // move to the right spot
-
-
-    // patching the existing style
+    if (!snapshot.isDragging) return;   
     return {
         ...style,
         "backgroundColor": "lightBlue"

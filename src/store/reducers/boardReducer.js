@@ -11,7 +11,7 @@ export function boardReducer(state = initialState, action) {
         case QUERY_BOARDS:
             return {
                 ...state,
-                board: action.boards
+                boards: action.boards
             }
         case LOAD_BOARD:
             return {
@@ -21,9 +21,11 @@ export function boardReducer(state = initialState, action) {
         case ADD_BOARD:
             return {
                 ...state,
-                boards: [...state.boards, action.board]
-
+                // boards: [...state.boards, action.board],
+                board: action.board
             };
+
+
         case UPDATE_BOARD:
             return {
                 ...state,

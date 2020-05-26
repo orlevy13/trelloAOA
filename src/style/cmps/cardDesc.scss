@@ -1,55 +1,49 @@
-.card-desc-container {
-    margin: 0 16px 25px 32px;
-    padding: 0 0 0 8px;
-    color: rgb(155, 164, 179);
-    font-weight: 600;
-    min-height: 16px;
-    display: flex;
-    align-items: baseline;
+.card-desc-input {
+    @include trelloInput;
+    padding: 8px;
+    background-color: $cardGrey;
+    box-shadow: none;
+    border: none;
+    resize: none;
+    overflow-y: auto;
+    width: 95%;
+    margin: 0 8px 28px 28px;
+    font-family: roboto-normal;
+    font-size: 14px;
+    color: #42526e;
+    transition: padding 0.4s, margin 0.4s;
+    min-height: 100px;
+    background-color: rgba(9, 30, 66, .04);
 
-    .card-desc-input {
-        @include trelloInput;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 400;
-        background-color: rgb(234, 236, 240);
-        box-shadow: none;
-        border: none;
-        resize: none;
-        overflow: hidden;
-
-        textarea {
-            padding-left: 5px;
-        }
+    &:hover {
+        background-color: rgba(9, 30, 66, .08);
     }
 
-    .card-desc-input::-webkit-input-placeholder {
-        min-height: 20px;
-        padding-left: 5px;
+    &::-webkit-scrollbar {
+        display: none;
     }
 
-    .card-desc-input:focus::-webkit-input-placeholder {
-        background-color: white;
-        padding-left: 5px;
+    &:focus {
+        box-shadow: inset 0 0 0 2px #0079bf;
+        background-color: #fff;
+        min-height: 40px;
+        outline: none;
+        padding: 8px 8px 8px 4px;
+        margin-left: 24px;
+        min-height: 100px;
     }
-
-    .card-desc-input:focus {
-        background-color: white;
-        min-height: 20px;
-    }
-}
-
-.desc-header {
-    margin-left: 15px;
 }
 
 .desc-header-container {
     display: flex;
     align-items: center;
-}
 
-.card-desc-icon {
-    display: flex;
-    padding-bottom: 0;
-    margin-left: 8px;
+    .icon {
+        font-size: 22px;
+    }
+
+    .desc-header {
+        margin-left: 5px;
+        color: #172b4d;
+    }
 }

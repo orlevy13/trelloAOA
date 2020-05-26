@@ -9,40 +9,99 @@
     opacity: 70%;
 }
 
-.card-sidebar {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.card-container {
+    color: #42526e;
+    padding: 0 0 16px 16px;
+    border-radius: 2px;
+    width: 768px;
 
-    .card-sidebar-btn {
-        background-color: rgb(234, 236, 240);
-        box-shadow: none;
-        @include transRoundBorder;
-        box-sizing: border-box;
-        cursor: pointer;
-        display: block;
-        height: 32px;
-        margin-top: 8px;
-        min-width: 150px;
-        overflow: hidden;
-        padding: 6px 12px;
-        position: relative;
-        text-decoration: none;
-        text-overflow: ellipsis;
-        -webkit-user-select: none;
-        user-select: none;
-        white-space: nowrap;
-        transition-property: background-color, border-color, box-shadow;
-        transition-duration: 85ms;
-        transition-timing-function: ease;
-        display: flex;
+    .card-header {
+        .card-header-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+
+            .icon {
+                color: #42526e;
+                font-size: 22px;
+                position: relative;
+                bottom: 13px;
+            }
+
+            .card-title {
+                color: #172b4d;
+                height: 28px;
+                margin: 0 4px 16px 4px;
+                font-weight: normal;
+            }
+
+            .card-title-input {
+                resize: none;
+                width: 80%;
+                color: #172b4d;
+                border: none;
+                background-color: inherit;
+                font-family: roboto-normal;
+                margin: 0 0 4px 4px;
+                padding: 4px;
+                font-size: 20px;
+                height: max-content;
+                max-height: 300px;
+
+                &:focus {
+                    @include trelloInput;
+                    width: 80%;
+                    background-color: #fff;
+                    outline: none;
+                    margin: 0 0 4px 4px;
+                    padding: 4px;
+                }
+            }
+        }
+
+        .card-link {
+            margin: 8px 0 16px 32px;
+            z-index: 3;
+            font-size: 14px;
+        }
     }
 
-    .card-sidebar-btn {
+    .card-sidebar {
         display: flex;
-    }
+        align-items: flex-end;
+        flex-direction: column;
+        margin-right: 16px;
 
-    .card-sidebar-btn span {
-        margin-right: 10px;
+        .card-sidebar-btn {
+            background-color: rgba(9, 30, 66, 0.04);
+            @include transRoundBorder;
+            height: 32px;
+            font-size: 14px;
+            color: #42526e;
+            margin-bottom: 8px;
+            min-width: 168px;
+            overflow: hidden;
+            padding: 6px 12px;
+            user-select: none;
+            transition-property: background-color, border-color, box-shadow;
+            transition-duration: 85ms;
+            transition-timing-function: ease;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                background-color: rgba(9, 30, 66, .08);
+            }
+
+            span {
+                margin-right: 10px;
+
+                .icon {
+                    font-size: 18px;
+                    position: relative;
+                    top: 2px;
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
 import { Card } from './cmps/Card';
 import { MainNav } from './cmps/MainNav';
+import { Boards } from './pages/Boards';
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
           <Route path="/login" component={Login} exact />
           <Route path="/signup" component={Signup} exact />
           <Route path="/board/:boardId/card/:cardId" component={Card} exact />
+          <Route path="/boards" component={Boards} exact />
         </Switch>
       </Router>
     </React.Fragment>
