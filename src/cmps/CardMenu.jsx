@@ -7,6 +7,7 @@ import {
     PersonOutlineOutlined, LabelOutlined
 } from '@material-ui/icons';
 import { LabelsEdit } from './LabelsEdit';
+import { MembersEdit } from './MembersEdit';
 
 export class _CardMenu extends Component {
 
@@ -17,7 +18,8 @@ export class _CardMenu extends Component {
             labels: [],
             assignedTo: []
         },
-        isLabelEditShown: false
+        isLabelEditShown: false,
+        isMembersEditShown: false
     }
 
     componentDidMount() {
@@ -86,10 +88,14 @@ export class _CardMenu extends Component {
         this.setState(prevState => ({ isLabelEditShown: !prevState.isLabelEditShown }))
     }
 
+    toggleIsMembersEditShown = () => {
+        this.setState(prevState => ({ isMembersEditShown: !prevState.isMembersEditShown }));
+    }
+
     render() {
         const { onDelete, handleChange, onChangeTitle, toggleIsLabelEditShown } = this;
         const { clientX, clientY } = this.props;
-        const { isLabelEditShown, card } = this.state;
+        const { isLabelEditShown, card, isMembersEditShown } = this.state;
         const { title } = card;
         return (
             <section>
@@ -107,9 +113,14 @@ export class _CardMenu extends Component {
                         <button onClick={toggleIsLabelEditShown} className="flex align-center">
                             <LabelOutlined className="icon" />Edit Labels</button>
                         {isLabelEditShown &&
-                            <LabelsEdit card={this.props.card} toggleIsLabelEditShown={toggleIsLabelEditShown} />}
-                        <button className="flex align-center">
+                            <LabelsEdit card={card} toggleIsLabelEditShown={toggleIsLabelEditShown} />}
+
+                        <button onClick={this.toggleIsMembersEditShown} className="flex align-center">
                             <PersonOutlineOutlined className="icon" />Change Members</button>
+                        {isMembersEditShown && <MembersEdit card={this.props.card}
+                            members={this.props.board.members}
+                            toggleIsMembersEditShown={this.toggleIsMembersEditShown} />}
+
                         <button className="flex align-center">
                             <ArrowForwardOutlined className="icon" />Move</button>
                         <button className="flex align-center">

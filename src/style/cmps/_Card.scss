@@ -31,8 +31,9 @@
             .card-title {
                 color: #172b4d;
                 height: 28px;
-                margin: 0 4px 16px 4px;
+                margin: 0 4px 24px 4px;
                 font-weight: normal;
+                cursor: pointer;
             }
 
             .card-title-input {
@@ -60,7 +61,7 @@
         }
 
         .card-link {
-            margin: 8px 0 16px 32px;
+            margin: 0 0 16px 32px;
             z-index: 3;
             font-size: 14px;
         }

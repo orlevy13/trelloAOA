@@ -3,21 +3,21 @@ import { connect } from 'react-redux';
 import { loadBoard, setCard } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
-import { CardCheckList } from './CardCheckList';
+import { CardChecklist } from './CardChecklist';
 // import MaterialUIPickers from './CardDueDate'
 // import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import {
     PermIdentity, LabelOutlined, PlaylistAddCheck,
     Schedule, Attachment, CropOriginal
 } from '@material-ui/icons';
-
-
 import { LabelsEdit } from './LabelsEdit';
+import { MembersEdit } from './MembersEdit';
 
 class _Card extends Component {
     state = {
         card: null,
-        isLabelEditShown: false
+        isLabelEditShown: false,
+        isMembersEditShown: false
     }
 
     componentDidMount() {
@@ -49,12 +49,16 @@ class _Card extends Component {
     }
 
     toggleIsLabelEditShown = () => {
-        this.setState(prevState => ({ isLabelEditShown: !prevState.isLabelEditShown }))
+        this.setState(prevState => ({ isLabelEditShown: !prevState.isLabelEditShown }));
+    }
+
+    toggleIsMembersEditShown = () => {
+        this.setState(prevState => ({ isMembersEditShown: !prevState.isMembersEditShown }));
     }
 
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
-        const { card, isLabelEditShown } = this.state;
+        const { card, isLabelEditShown, isMembersEditShown } = this.state;
 
         return (
             <section style={{ width: 0 }}>
@@ -66,14 +70,18 @@ class _Card extends Component {
                     </div>
                     <div className="main-col">
                         < CardDesc card={card} />
-                        {(card.checkList.length > 0) && < CardCheckList card={card} />}
+                        {(card.checkList.length > 0) && < CardChecklist card={card} />}
                     </div>
                     {/* <MaterialUIPickers /> */}
                     <div className="card-side-bar">
                         <section>
                             <div className="card-sidebar">
-                                <button className="card-sidebar-btn"><span >
-                                    <PermIdentity className="icon" /></span>Members</button>
+                                <button onClick={this.toggleIsMembersEditShown}
+                                    className="card-sidebar-btn"><span>
+                                        <PermIdentity className="icon" /></span>Members</button>
+                                {isMembersEditShown &&
+                                    <MembersEdit members={this.props.board.members} card={card}
+                                        toggleIsMembersEditShown={this.toggleIsMembersEditShown} />}
 
                                 <button onClick={this.toggleIsLabelEditShown} className="card-sidebar-btn">
                                     <span ><LabelOutlined className="icon" /></span>Labels</button>
@@ -82,14 +90,14 @@ class _Card extends Component {
                                     <LabelsEdit card={card} toggleIsLabelEditShown={this.toggleIsLabelEditShown} />}
 
                                 {(card.checkList.length < 1) && <button className="card-sidebar-btn"
-                                    onClick={this.addCheckList}><span >
+                                    onClick={this.addCheckList}><span>
                                         <PlaylistAddCheck className="icon" /></span>Checklist</button>}
 
-                                <button className="card-sidebar-btn"><span >
+                                <button className="card-sidebar-btn"><span>
                                     <Schedule className="icon" /></span>Due Date</button>
-                                <button className="card-sidebar-btn"><span >
+                                <button className="card-sidebar-btn"><span>
                                     <Attachment className="icon" /></span>Attachment</button>
-                                <button className="card-sidebar-btn"><span >
+                                <button className="card-sidebar-btn"><span>
                                     <CropOriginal className="icon" /></span>Cover</button>
                             </div>
                         </section>

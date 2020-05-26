@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { PlaylistAddCheck } from '@material-ui/icons';
 import { loadBoard, updateBoard } from '../store/actions/boardActions';
-import { Clear } from '@material-ui/icons';
+import { ChecklistItem } from './ChecklistItem';
 
-class _CardCheckList extends Component {
+
+class _CardChecklist extends Component {
     state = {
         checkList: null,
         todoText: '',
@@ -20,29 +21,9 @@ class _CardCheckList extends Component {
             () => this.progressBarUpdate());
     }
 
-    getCardById = (cardId = null) => {
-        if (!this.props.board)
-            return;
-        let boardClone = JSON.parse(JSON.stringify(this.props.board));
-
-        var card;
-        for (let i = 0; i < boardClone.phaseLists.length; i++) {
-            const phase = boardClone.phaseLists[i];
-            phase.cards.forEach(currCard => {
-                if (currCard.id === cardId) {
-                    card = currCard;
-                }
-            });
-        }
-        return card;
-
-    }
-
     progressBarUpdate = () => {
         const doneTodos = this.state.checkList.reduce((acc, currVal) => {
-            if (currVal.isDone) {
-                acc++
-            }
+            if (currVal.isDone) acc++
             return acc
         }, 0)
         this.setState({ progress: Math.floor((doneTodos / this.state.checkList.length) * 100) });
@@ -59,15 +40,10 @@ class _CardCheckList extends Component {
         });
     }
 
-    getPhaseByCardId = (id) => {
-        const curPhase = this.props.board.phaseLists.filter(phase => phase.cards.find(card => card.id === id));
-        return curPhase;
-    }
-
     handleSaveBoard = () => {
-        let boardClone = JSON.parse(JSON.stringify(this.props.board));
+        const boardClone = JSON.parse(JSON.stringify(this.props.board));
         const cardId = this.props.card.id;
-        let currPhase = boardClone.phaseLists.filter(phase => phase.cards.find(card => card.id === cardId))[0];
+        const currPhase = boardClone.phaseLists.find(phase => phase.cards.some(card => card.id === cardId));
 
         const updatedCards = currPhase.cards.map(card => {
             if (card.id === this.props.card.id) {
@@ -87,7 +63,6 @@ class _CardCheckList extends Component {
 
 
     toggleAdd = () => {
-        console.log('this.state before', this.state)
         if (this.state.todoText) this.addTodo();
         this.setState(prevState => ({ onAdd: !prevState.onAdd }));
     }
@@ -96,14 +71,15 @@ class _CardCheckList extends Component {
     onDelete = (idx) => {
         let clone = this.state.checkList.slice();
         clone.splice(idx, 1);
-        this.setState({ checkList: clone }, () => {
+        const checklistTitle = this.state.checkList.length === 1 ? '' : this.state.checklistTitle;
+        this.setState({ checkList: clone, checklistTitle }, () => {
             this.handleSaveBoard();
         })
     }
 
     handleChange = ({ target }, idx = -1) => {
         const field = target.name;
-        const value = (field === 'isDone') ? target.checked : target.value
+        const value = (field === 'isDone') ? target.checked : target.value;
         let cloneChkList = this.state.checkList.slice();
         if (field === 'isDone') {
             cloneChkList[idx].isDone = value;
@@ -111,7 +87,6 @@ class _CardCheckList extends Component {
                 this.handleSaveBoard();
             });
         }
-
         else {
             if (idx === -1)
                 (this.state.onAdd ? this.setState({ todoText: value }) : this.setState({ checklistTitle: value }))
@@ -122,10 +97,9 @@ class _CardCheckList extends Component {
             }
         }
         this.setState({ checkList: cloneChkList });
-
     }
 
-    handleFocus = (event) => event.target.select();
+    handleFocus = (ev) => ev.target.select();
 
     handleKeyPress(e) {
         if (e.keyCode === 13) {
@@ -136,9 +110,10 @@ class _CardCheckList extends Component {
 
 
     render() {
-        const { todoText, onAdd, checklistTitle } = this.state;
+        const { todoText, onAdd, checklistTitle, progress } = this.state;
         if (!this.state.checkList || !this.state.checkList.length) return null;
         const progressBgc = this.state.progress === 100 ? '#61bd4f' : '#2196f3';
+
         return (
             <div className="card-check-list">
                 <div className="checklist-title-container flex align-center">
@@ -150,17 +125,13 @@ class _CardCheckList extends Component {
                         value={checklistTitle} /></div>
                 <div className="progress-bar-container">
                     <div className="progress-bar"
-                        style={{ width: `${this.state.progress}%`, backgroundColor: progressBgc }}></div>
+                        style={{ width: `${progress}%`, backgroundColor: progressBgc }}></div>
                 </div>
-                {this.state.checkList.map((todo, idx) =>
-                    <div className="checklist-item" key={idx} >
-                        <input className="checkbox" type="checkbox" name="isDone" onChange={(e) => this.handleChange(e, idx)}
-                            onBlur={this.handleSaveBoard} checked={todo.isDone} />
-                        <input className="checklist-item-txt" type="text" name="txt"
-                            onChange={(e) => this.handleChange(e, idx)} spellCheck="false"
-                            onBlur={this.handleSaveBoard} value={todo.txt} />
-                        <button onClick={() => this.onDelete(idx)}><Clear className="icon" /></button>
-                    </div>)}
+                {this.state.checkList.map((todo, idx) => <ChecklistItem todo={todo} key={idx}
+                    onDelete={this.onDelete} handleChange={this.handleChange}
+                    handleSaveBoard={this.handleSaveBoard} idx={idx}
+                    handleKeyPress={this.handleKeyPress} />)}
+
                 {!onAdd && <button className="add-btn" onClick={this.toggleAdd}>Add Todo</button>}
                 {onAdd && <div className="add-item flex align-center">
                     <input type="text" onChange={this.handleChange}
@@ -184,7 +155,7 @@ const mapDispatchToProps = {
     updateBoard
 }
 
-export const CardCheckList = connect(mapStateToProps, mapDispatchToProps)(_CardCheckList)
+export const CardChecklist = connect(mapStateToProps, mapDispatchToProps)(_CardChecklist)
 
 
 

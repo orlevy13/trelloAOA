@@ -18,5 +18,10 @@
         color: #172b4d;
         position: relative;
         top: 3px;
+
+        &-img {
+            background-size: cover;
+            background-position: center;
+        }
     }
 }
