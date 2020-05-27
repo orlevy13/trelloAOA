@@ -84,16 +84,12 @@ export class _CardMenu extends Component {
         this.props.toggleIsMenuShown();//Closing the menu
     }
 
-    toggleIsLabelEditShown = () => {
-        this.setState(prevState => ({ isLabelEditShown: !prevState.isLabelEditShown }))
-    }
-
-    toggleIsMembersEditShown = () => {
-        this.setState(prevState => ({ isMembersEditShown: !prevState.isMembersEditShown }));
+    toggleProperty = property => {
+        this.setState(prevState => ({ [property]: !prevState[property] }));
     }
 
     render() {
-        const { onDelete, handleChange, onChangeTitle, toggleIsLabelEditShown } = this;
+        const { onDelete, handleChange, onChangeTitle, toggleProperty } = this;
         const { clientX, clientY } = this.props;
         const { isLabelEditShown, card, isMembersEditShown } = this.state;
         const { title } = card;
@@ -110,16 +106,16 @@ export class _CardMenu extends Component {
                     </form>
 
                     <div className="card-menu flex column">
-                        <button onClick={toggleIsLabelEditShown} className="flex align-center">
+                        <button onClick={() => { toggleProperty('isLabelEditShown') }} className="flex align-center">
                             <LabelOutlined className="icon" />Edit Labels</button>
                         {isLabelEditShown &&
-                            <LabelsEdit card={this.props.card} toggleIsLabelEditShown={toggleIsLabelEditShown} />}
+                            <LabelsEdit card={this.props.card} toggleProperty={toggleProperty} />}
 
-                        <button onClick={this.toggleIsMembersEditShown} className="flex align-center">
+                        <button onClick={() => { toggleProperty('isMembersEditShown') }} className="flex align-center">
                             <PersonOutlineOutlined className="icon" />Change Members</button>
                         {isMembersEditShown && <MembersEdit card={this.props.card}
                             members={this.props.board.members}
-                            toggleIsMembersEditShown={this.toggleIsMembersEditShown} />}
+                            toggleProperty={toggleProperty} />}
 
                         {/* <button className="flex align-center">
                             <ArrowForwardOutlined className="icon" />Move</button> */}

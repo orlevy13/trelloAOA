@@ -13,14 +13,15 @@ import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
 import { MemberInitials } from './MemberInitials';
 import { boardService } from '../services/boardService';
-import { socketService } from '../services/socketService';
+import { DueDateEdit } from './DueDateEdit';
 
 class _Card extends Component {
     state = {
         card: null,
         isLabelEditShown: false,
         isMembersEditShown: false,
-        cardActivities: []
+        cardActivities: [],
+        isDueDateEditShown: false
     }
 
     componentDidMount() {
@@ -33,6 +34,7 @@ class _Card extends Component {
         const cardActivities = this.getActivities(card.id);
         this.setState({ card, cardActivities });
     }
+
     componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
             var card;
@@ -43,6 +45,10 @@ class _Card extends Component {
             const cardActivities = this.getActivities(card.id);
             this.setState({ card, cardActivities });
         }
+    }
+
+    toggleProperty = property => {
+        this.setState(prevState => ({ [property]: !prevState[property] }));
     }
 
     getActivities = (cardId, limit = 10) => {
@@ -61,12 +67,9 @@ class _Card extends Component {
         }
     }
 
-    toggleIsLabelEditShown = () => {
-        this.setState(prevState => ({ isLabelEditShown: !prevState.isLabelEditShown }));
-    }
-
-    toggleIsMembersEditShown = () => {
-        this.setState(prevState => ({ isMembersEditShown: !prevState.isMembersEditShown }));
+    getPhaseIdxByCardId = (cardId) => {
+        return this.props.board.phaseLists.findIndex(phase =>
+            phase.cards.some(card => card.id === cardId))
     }
 
 
@@ -87,10 +90,22 @@ class _Card extends Component {
         this.props.updateBoard(boardCopy);
     }
 
+    changeDueDate = newDate => {
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const cardId = this.props.card.id;
+        const phaseIdx = this.getPhaseIdxByCardId(cardId);
+        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+        //Getting access to the card inside the board
+
+        boardCopy.phaseLists[phaseIdx].cards[cardIdx].dueDate = newDate;
+        this.props.updateBoard(boardCopy);
+    }
+
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
-        const { card, isLabelEditShown, isMembersEditShown, cardActivities } = this.state;
+        const { card, isLabelEditShown, isMembersEditShown, cardActivities, isDueDateEditShown } = this.state;
         const { assignedTo, labels } = card;
+        const { toggleProperty, changeDueDate } = this;
 
         return (
             <section>
@@ -113,7 +128,7 @@ class _Card extends Component {
                                     <h3>Labels</h3>
                                     <div className="labels-gallery flex wrap align-center">
                                         {labels.map(label => <span title={label.txt} className="label"
-                                            onClick={this.toggleIsLabelEditShown}
+                                            onClick={() => { toggleProperty('isLabelEditShown') }}
                                             style={{ backgroundColor: label.color }}
                                             key={label.id}> <span className="label-txt">{label.txt}</span>
                                         </span>)}
@@ -125,25 +140,29 @@ class _Card extends Component {
                                 <Activities card={card} showCommentBox={true} activities={cardActivities} />
                             </div>
                             <div className="card-sidebar">
-                                <button onClick={this.toggleIsMembersEditShown}
+                                <button onClick={() => { toggleProperty('isMembersEditShown') }}
                                     className="card-sidebar-btn"><span>
                                         <PermIdentity className="icon" /></span>Members</button>
                                 {isMembersEditShown &&
                                     <MembersEdit members={this.props.board.members} card={card}
-                                        toggleIsMembersEditShown={this.toggleIsMembersEditShown} />}
+                                        toggleProperty={toggleProperty} />}
 
-                                <button onClick={this.toggleIsLabelEditShown} className="card-sidebar-btn">
+                                <button onClick={() => { toggleProperty('isLabelEditShown') }} className="card-sidebar-btn">
                                     <span ><LabelOutlined className="icon" /></span>Labels</button>
 
                                 {isLabelEditShown &&
-                                    <LabelsEdit card={card} toggleIsLabelEditShown={this.toggleIsLabelEditShown} />}
+                                    <LabelsEdit card={card} toggleProperty={toggleProperty} />}
 
                                 {(card.checkList.length < 1) && <button className="card-sidebar-btn"
                                     onClick={this.addCheckList}><span>
                                         <PlaylistAddCheck className="icon" /></span>Checklist</button>}
 
-                                <button className="card-sidebar-btn"><span>
-                                    <Schedule className="icon" /></span>Due Date</button>
+                                <button onClick={() => { toggleProperty('isDueDateEditShown') }}
+                                    className="card-sidebar-btn"><span>
+                                        <Schedule className="icon" /></span>Due Date</button>
+                                {isDueDateEditShown && <DueDateEdit changeDueDate={changeDueDate}
+                                    toggleProperty={toggleProperty} />}
+
                                 <button className="card-sidebar-btn"><span>
                                     <Attachment className="icon" /></span>Attachment</button>
                                 <button className="card-sidebar-btn"><span>

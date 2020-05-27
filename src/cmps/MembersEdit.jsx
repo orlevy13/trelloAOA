@@ -25,7 +25,7 @@ export class _MembersEdit extends Component {
         )
         const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
         const card = boardCopy.phaseLists[phaseIdx].cards[cardIdx];
-        
+
         //Checking if the member is assigned or not and flip it
         if (card.assignedTo.some(mmbr => mmbr._id === member._id)) {
             card.assignedTo = card.assignedTo.filter(mmbr => mmbr._id !== member._id);
@@ -36,7 +36,7 @@ export class _MembersEdit extends Component {
     }
 
     render() {
-        const { members, toggleIsMembersEditShown, card } = this.props;
+        const { members, toggleProperty, card } = this.props;
         const { name } = this.state;
         const membersToDisplay = members.filter(mmbr =>
             mmbr.fullName.toLowerCase().includes(name.toLowerCase()));
@@ -44,7 +44,7 @@ export class _MembersEdit extends Component {
             <section className="edit-members">
                 <div className="edit-members-header flex align-center">
                     <p className="grow">Members</p>
-                    <button onClick={toggleIsMembersEditShown}><Clear /></button>
+                    <button onClick={() => { toggleProperty('isMembersEditShown') }}><Clear /></button>
                 </div>
                 <input className="search-name" onChange={this.handleChange} autoComplete="off"
                     type="search" name="name" value={name} placeholder="Search members" />
