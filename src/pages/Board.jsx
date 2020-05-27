@@ -9,7 +9,7 @@ import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
 import { MenuOutlined } from '@material-ui/icons';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
-import socketService from '../services/SocketService'
+import { socketService } from '../services/socketService'
 
 
 class _Board extends Component {

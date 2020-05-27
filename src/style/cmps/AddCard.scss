@@ -10,6 +10,7 @@
         overflow-y: auto;
         color: rgb(23, 43, 77);
         box-shadow: 0 1px 0 rgba(9, 30, 66, .25);
+        margin-bottom: 12px;
 
         &::-webkit-scrollbar {
             display: none;
@@ -18,11 +19,6 @@
         &:focus {
             outline: none;
         }
-    }
-
-    .form-btns {
-        position: relative;
-        top: 8px;
     }
 
     .submit-btn {

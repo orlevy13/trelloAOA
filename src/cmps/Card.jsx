@@ -13,8 +13,7 @@ import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
 import { MemberInitials } from './MemberInitials';
 import { boardService } from '../services/boardService';
-import socketService from '../services/SocketService'
-
+import { socketService } from '../services/socketService';
 
 class _Card extends Component {
     state = {
@@ -95,63 +94,63 @@ class _Card extends Component {
 
         return (
             <section>
-                <div onMouseDown={() => { this.props.setCard(null) }} className="card-modal" ></div>
-                <div className="card-container" >
-                    < CardHeader card={card} />
-                    <div className="card-content flex">
-                        <div className="card-details flex column grow">
-                            {assignedTo.length > 0 && <div className="card-details-members">
-                                <h3>Members</h3>
-                                <div className="flex align-center">
-                                    {assignedTo.map((member) => <span key={member._id}
-                                        onClick={() => { this.removeMemberFromCard(member) }}>
-                                        <MemberInitials member={member} />
-                                    </span>)}
-                                </div>
-                            </div>}
+                <div onClick={() => { this.props.setCard(null) }} className="card-modal" >
+                    <div onClick={(ev) => ev.stopPropagation()} className="card-container" >
+                        < CardHeader card={card} />
+                        <div className="card-content flex">
+                            <div className="card-details flex column grow">
+                                {assignedTo.length > 0 && <div className="card-details-members">
+                                    <h3>Members</h3>
+                                    <div className="flex align-center">
+                                        {assignedTo.map((member) => <span key={member._id}
+                                            onClick={() => { this.removeMemberFromCard(member) }}>
+                                            <MemberInitials member={member} />
+                                        </span>)}
+                                    </div>
+                                </div>}
 
-                            {labels.length > 0 && <div className="card-details-labels">
-                                <h3>Labels</h3>
-                                <div className="labels-gallery flex wrap align-center">
-                                    {labels.map(label => <span title={label.txt} className="label"
-                                        onClick={this.toggleIsLabelEditShown}
-                                        style={{ backgroundColor: label.color }}
-                                        key={label.id}> <span className="label-txt">{label.txt}</span>
-                                    </span>)}
-                                </div>
-                            </div>}
+                                {labels.length > 0 && <div className="card-details-labels">
+                                    <h3>Labels</h3>
+                                    <div className="labels-gallery flex wrap align-center">
+                                        {labels.map(label => <span title={label.txt} className="label"
+                                            onClick={this.toggleIsLabelEditShown}
+                                            style={{ backgroundColor: label.color }}
+                                            key={label.id}> <span className="label-txt">{label.txt}</span>
+                                        </span>)}
+                                    </div>
+                                </div>}
 
-                            < CardDesc card={card} />
-                            {(card.checkList.length > 0) && < CardChecklist card={card} />}
-                            <Activities card={card} showCommentBox={true} activities={cardActivities} />
+                                < CardDesc card={card} />
+                                {(card.checkList.length > 0) && < CardChecklist card={card} />}
+                                <Activities card={card} showCommentBox={true} activities={cardActivities} />
+                            </div>
+                            <div className="card-sidebar">
+                                <button onClick={this.toggleIsMembersEditShown}
+                                    className="card-sidebar-btn"><span>
+                                        <PermIdentity className="icon" /></span>Members</button>
+                                {isMembersEditShown &&
+                                    <MembersEdit members={this.props.board.members} card={card}
+                                        toggleIsMembersEditShown={this.toggleIsMembersEditShown} />}
+
+                                <button onClick={this.toggleIsLabelEditShown} className="card-sidebar-btn">
+                                    <span ><LabelOutlined className="icon" /></span>Labels</button>
+
+                                {isLabelEditShown &&
+                                    <LabelsEdit card={card} toggleIsLabelEditShown={this.toggleIsLabelEditShown} />}
+
+                                {(card.checkList.length < 1) && <button className="card-sidebar-btn"
+                                    onClick={this.addCheckList}><span>
+                                        <PlaylistAddCheck className="icon" /></span>Checklist</button>}
+
+                                <button className="card-sidebar-btn"><span>
+                                    <Schedule className="icon" /></span>Due Date</button>
+                                <button className="card-sidebar-btn"><span>
+                                    <Attachment className="icon" /></span>Attachment</button>
+                                <button className="card-sidebar-btn"><span>
+                                    <CropOriginal className="icon" /></span>Cover</button>
+                            </div>
                         </div>
-                        <div className="card-sidebar">
-                            <button onClick={this.toggleIsMembersEditShown}
-                                className="card-sidebar-btn"><span>
-                                    <PermIdentity className="icon" /></span>Members</button>
-                            {isMembersEditShown &&
-                                <MembersEdit members={this.props.board.members} card={card}
-                                    toggleIsMembersEditShown={this.toggleIsMembersEditShown} />}
-
-                            <button onClick={this.toggleIsLabelEditShown} className="card-sidebar-btn">
-                                <span ><LabelOutlined className="icon" /></span>Labels</button>
-
-                            {isLabelEditShown &&
-                                <LabelsEdit card={card} toggleIsLabelEditShown={this.toggleIsLabelEditShown} />}
-
-                            {(card.checkList.length < 1) && <button className="card-sidebar-btn"
-                                onClick={this.addCheckList}><span>
-                                    <PlaylistAddCheck className="icon" /></span>Checklist</button>}
-
-                            <button className="card-sidebar-btn"><span>
-                                <Schedule className="icon" /></span>Due Date</button>
-                            <button className="card-sidebar-btn"><span>
-                                <Attachment className="icon" /></span>Attachment</button>
-                            <button className="card-sidebar-btn"><span>
-                                <CropOriginal className="icon" /></span>Cover</button>
-                        </div>
-                    </div>
-                </div>
+                    </div></div>
             </section >
         )
     }
