@@ -24,7 +24,7 @@
 }
 
 .board-nav {
-    padding: 8px 4px 4px 8px;
+    padding: 8px 4px 4px 14px;
     transition: padding 0.1s ease-in;
     position: relative;
 
@@ -49,6 +49,10 @@
         margin-left: 4px;
         padding: 2px;
         height: 32px;
+
+        .member-avatar {
+            margin-right: 4px;
+        }
     }
 
     .nav-btn {
@@ -60,7 +64,7 @@
         padding: 6px 9px;
         background-color: $boardBtn;
         cursor: pointer;
-        
+
 
         &:hover {
             background-color: $boardBtnHov;

@@ -89,12 +89,12 @@ class _Board extends Component {
                             <span dir="auto">{board.name}</span>
                         </div>
                         <span className="board-nav-divider"></span>
-                        <div className="board-members">
+                        <div className="board-members flex align-center">
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
                         <span className="nav-btn flex align-center">Invite</span>
                     </div>
-                    <div className="nav-btn" onClick={() => this.toggleMenu("mainMenu")}>
+                    <div className="nav-btn flex align-center" onClick={() => this.toggleMenu("mainMenu")}>
                         <MenuOutlined />
                     </div>
                     <BoardMenu isMenuShown={mainMenu} board={board} onToggleMenu={this.toggleMenu} />

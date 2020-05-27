@@ -11,7 +11,7 @@ import { CardMenu } from './CardMenu';
 
 // const getDragStyle = (style, snapshot) => {
 //     if (!snapshot.isDragging) return;
-   
+
 //     return {
 //         ...style,
 //         "backgroundColor": "lightBlue"
@@ -27,7 +27,7 @@ class _CardPreview extends React.Component {
         clientX: '',
         clientY: '',
     }
-    
+
     toggleIsMenuShown = (ev) => {
         if (ev) {
             ev.stopPropagation();
@@ -57,7 +57,7 @@ class _CardPreview extends React.Component {
                         <section onClick={() => { this.props.setCard(this.props.card) }}
                             style={{ backgroundColor: bgColor }} className="card-preview flex column"
                             {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
-                            // style={getDragStyle(provided.draggableProps.style, snapshot)}
+                        // style={getDragStyle(provided.draggableProps.style, snapshot)}
                         >
 
                             <button onClick={toggleIsMenuShown}
@@ -87,7 +87,7 @@ class _CardPreview extends React.Component {
                                         <span>{checklistDoneCount}/{checkList.length}</span>
                                     </div>}
                             </div>
-                            <div className="members-badge">
+                            <div className="members-badge flex align-center">
                                 {assignedTo.length > 0 &&
                                     assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
                             </div>

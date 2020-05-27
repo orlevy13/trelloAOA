@@ -102,10 +102,12 @@ class _Card extends Component {
                         <div className="card-details flex column grow">
                             {assignedTo.length > 0 && <div className="card-details-members">
                                 <h3>Members</h3>
-                                {assignedTo.map((member) => <span key={member._id}
-                                    onClick={() => { this.removeMemberFromCard(member) }}>
-                                    <MemberInitials member={member} />
-                                </span>)}
+                                <div className="flex align-center">
+                                    {assignedTo.map((member) => <span key={member._id}
+                                        onClick={() => { this.removeMemberFromCard(member) }}>
+                                        <MemberInitials member={member} />
+                                    </span>)}
+                                </div>
                             </div>}
 
                             {labels.length > 0 && <div className="card-details-labels">
