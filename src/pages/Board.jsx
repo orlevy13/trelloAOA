@@ -9,7 +9,7 @@ import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
 import { MenuOutlined } from '@material-ui/icons';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
-
+import socketService from '../services/SocketService'
 
 
 class _Board extends Component {
@@ -28,20 +28,19 @@ class _Board extends Component {
 
     componentDidMount() {
         this.getBoardById();
-    }
 
+    }
 
     getBoardById = () => {
-
         const id = this.props.match.params.id;
         this.props.loadBoard(id);
+        // socketService.emit('boardId', this.props.board._id);
     }
 
-    toggleMenu = (menuName) => {
 
+    toggleMenu = (menuName) => {
         const { boardMenus } = this.state;
         const clonedMenus = JSON.parse(JSON.stringify(boardMenus));
-
         //close open menu if their is
         if (!menuName) { //menuName===null mean no menu should be open
             clonedMenus.menusState[clonedMenus.currentOpend] = false;
