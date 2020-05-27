@@ -4,6 +4,7 @@ import { loadBoard, setCard } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
 import { CardChecklist } from './CardChecklist';
+import { Activities } from '../cmps/Activities'
 // import MaterialUIPickers from './CardDueDate'
 // import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import {
@@ -17,16 +18,22 @@ class _Card extends Component {
     state = {
         card: null,
         isLabelEditShown: false,
-        isMembersEditShown: false
+        isMembersEditShown: false,
+        cardActivities: []
     }
 
     componentDidMount() {
+
         var card;
         this.props.board.phaseLists.forEach(phase => {
             const res = phase.cards.find(card => card.id === this.props.cardId);
             if (res) card = res;
         });
-        this.setState({ card });
+        const cardActivities = this.getActivities(card.id);
+
+
+        this.setState({ card, cardActivities });
+
     }
 
     componentDidUpdate(prevProps) {
@@ -36,8 +43,17 @@ class _Card extends Component {
                 const res = phase.cards.find(card => card.id === this.props.cardId);
                 if (res) card = res;
             });
-            this.setState({ card });
+            const cardActivities = this.getActivities(card.id);
+            this.setState({ card, cardActivities });
         }
+    }
+
+    getActivities = (cardId, limit = 10) => {
+        const cardActivities = this.props.board.activities.filter(activity => activity.object.id === cardId);
+        if (cardActivities.length > 10) return cardActivities.slice(0, limit);
+        return cardActivities
+
+
     }
 
     addCheckList = () => {
@@ -58,7 +74,7 @@ class _Card extends Component {
 
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
-        const { card, isLabelEditShown, isMembersEditShown } = this.state;
+        const { card, isLabelEditShown, isMembersEditShown, cardActivities } = this.state;
 
         return (
             <section style={{ width: 0 }}>
@@ -71,6 +87,7 @@ class _Card extends Component {
                     <div className="main-col">
                         < CardDesc card={card} />
                         {(card.checkList.length > 0) && < CardChecklist card={card} />}
+                        <Activities card={card} showCommentBox={true} activities={cardActivities} />
                     </div>
                     {/* <MaterialUIPickers /> */}
                     <div className="card-side-bar">

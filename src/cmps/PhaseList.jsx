@@ -105,7 +105,7 @@ export class _PhaseList extends Component {
                     id: movingCard.id,
                     title: movingCard.title
                 },
-                    `moved card ${movingCard.title} from ${srcPhase.name} to ${dstPhase.name}`);
+                    `moved card from ${srcPhase.name} to ${dstPhase.name} -Card:`);
             }
         }
 
