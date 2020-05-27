@@ -17,7 +17,7 @@ class _MainNav extends Component {
     state = {
         isCreateBoardMenuShown: false,
         newBoardName: '',
-        newBoardColor: '#eee'
+        newBoardColor: '#61acca'
     }
 
     handleChangeColor = async (event) => {
@@ -35,7 +35,11 @@ class _MainNav extends Component {
     }
 
     createNewBoard = async () => {
-        const newBoard = boardService.createNewBoard(this.state.newBoardName, this.state.newBoardColor, LOGGED_IN_USER);
+        let boardName;
+        if (this.state.newBoardName === '')
+            boardName = 'new board';
+        else boardName = this.state.newBoardName;
+        const newBoard = boardService.createNewBoard(boardName, this.state.newBoardColor, LOGGED_IN_USER);
         await this.props.addBoard(newBoard);
         history.push(`/board/${this.props.board._id}`)
         this.setState({ isCreateBoardMenuShown: false, newBoardName: '' })
