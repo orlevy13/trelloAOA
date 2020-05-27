@@ -1,4 +1,5 @@
 import { boardService } from '../../services/boardService'
+import socketService from '../../services/socketService'
 export const LOAD_BOARD = 'LOAD_BOARD';
 export const UPDATE_BOARD = 'UPDATE_BOARD';
 export const ADD_BOARD = 'ADD_BOARD';
@@ -40,12 +41,14 @@ export function updateBoard(updatedBoard) {
     return async (dispatch, state) => {
         //const keepBoard = boardService.getBoardCopy(state.board); not working right now the state.board is undifined; wierd!!!
         dispatch({ type: UPDATE_BOARD, board: updatedBoard });
+
         try {
             await boardService.update(updatedBoard);
         } catch (err) {
             // dispatch({ type: UPDATE_BOARD, board: keepBoard });
         }
 
+        socketService.emit('board updated', updatedBoard._id);
     }
 }
 
