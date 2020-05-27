@@ -100,7 +100,7 @@ export class _CardMenu extends Component {
         return (
             <section>
                 <div onMouseDown={this.props.toggleIsMenuShown} className="screen"></div>
-                <section style={{ top: clientY - 105, left: clientX - 220 }}
+                <section style={{ top: clientY - 10, left: clientX - 220 }}
                     className="menu-container flex">
 
                     <form onSubmit={onChangeTitle} className="edit-card-form flex column">
@@ -130,7 +130,7 @@ export class _CardMenu extends Component {
                     </div>
 
                 </section>
-            </section>
+            </section >
         );
     }
 }

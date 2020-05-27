@@ -3,14 +3,15 @@
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #026aa7;
     min-height: 6vh;
+
     .logo {
-        text-align: center;
-        margin-top: 8px;
+
         .btn-icon {
             color: white;
             width: 20px;
             height: 20px;
         }
+
         .logo-text {
             margin-left: 2px;
             color: white;
@@ -18,11 +19,12 @@
             font-family: berkshireswash-regular;
         }
     }
+
     .btn-icon {
         color: white;
-        width: 20px;
-        height: 20px;
+        font-size: 25px;
     }
+
     .search-input {
         background-color: $boardBtn;
         border-radius: 3px;
@@ -36,6 +38,7 @@
         &:hover {
             background-color: $boardBtnHov;
         }
+
         &:focus {
             background-color: white;
             width: 300px;
@@ -57,6 +60,7 @@
         border-radius: 3px;
         text-align: center;
         margin-left: 5px;
+
         &:hover {
             background-color: $boardBtnHov;
         }
@@ -69,8 +73,10 @@
             margin-right: 4px;
         }
     }
+
     .right-nav {
         padding-right: 4px;
+
         .loged-in {
             margin-left: 4px;
         }
@@ -78,7 +84,6 @@
 
     .create-board-menu {
         z-index: 1000;
-        opacity: 80%;
         top: 50px;
         right: 55px;
         position: absolute;
@@ -108,11 +113,7 @@
         }
 
         .create-board-btns {
-            // button {
-            //     background-color: inherit;
-            //     color: rgb(66, 82, 110);
 
-            // }
             .create-board-btn {
                 border: none;
 
@@ -123,6 +124,7 @@
                 margin-top: 8px;
                 background-color: #d3dfdc;
                 transition: 0.3s;
+
                 &:hover {
                     filter: brightness(85%);
                 }
@@ -135,6 +137,7 @@
             align-items: center;
             justify-items: center;
         }
+
         .color-preview {
             width: 40px;
             height: 30px;
@@ -142,6 +145,7 @@
             border-radius: 3px;
             transition: 0.3s;
         }
+
         .color-preview:hover {
             cursor: pointer;
             filter: brightness(85%);
@@ -150,24 +154,31 @@
         .color-preview-orange {
             background-color: #d29034;
         }
+
         .color-preview-blue {
             background-color: rgb(0, 121, 191);
         }
+
         .color-preview-green {
             background-color: rgb(81, 152, 57);
         }
+
         .color-preview-red {
             background-color: rgb(176, 70, 50);
         }
+
         .color-preview-purple {
             background-color: rgb(137, 96, 158);
         }
+
         .color-preview-pink {
             background-color: rgb(205, 90, 145);
         }
+
         .color-preview-light-green {
             background-color: rgb(75, 191, 107);
         }
+
         .color-preview-turquise {
             background-color: rgb(73, 169, 215);
         }
@@ -180,13 +191,11 @@
 
         .close-create-board-menu {
             cursor: pointer;
+
             &:hover {
                 filter: brightness(45%);
             }
         }
-        // <div className="color-preview-orange"></div>
-        // <div className="color-preview-blue"></div>
-        // <div className="color-preview-dark"></div>
     }
 
     .cards-list {

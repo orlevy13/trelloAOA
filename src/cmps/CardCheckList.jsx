@@ -57,7 +57,7 @@ class _CardChecklist extends Component {
         boardClone.phaseLists[phaseIndex] = currPhase;
         boardService.addActivity(boardClone, LOGGED_IN_USER, OPERETIONS.UPDATE, TYPES.CARD,
             { id: this.props.card.id, title: this.props.card.title },
-            `update checklist on card ${this.props.card.title}`);
+            'update checklist on card');
 
         this.props.updateBoard(boardClone)
             .then(() => {

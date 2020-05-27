@@ -29,7 +29,7 @@ export class _AddCard extends Component {
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phaseId);
         const newCard = boardService.getNewCard(this.state.card);
         boardCopy.phaseLists[phaseIdx].cards.push(newCard);
-        boardService.addActivity(boardCopy,LOGGED_IN_USER, OPERETIONS.ADD, TYPES.CARD, { id: newCard.id, title: newCard.title });
+        boardService.addActivity(boardCopy, LOGGED_IN_USER, OPERETIONS.ADD, TYPES.CARD, { id: newCard.id, title: newCard.title });
 
         await this.props.updateBoard(boardCopy);//async await is for the scroll
         this.setState({ card: { title: '' } });
@@ -55,7 +55,8 @@ export class _AddCard extends Component {
                     <textarea className="card-name-input" required autoFocus type="text"
                         name="title" autoComplete="off" onChange={handleChange} spellCheck="false"
                         ref={el => this.cardNameInput = el} value={state.card.title}
-                        placeholder="Enter a title for this card.." />
+                        placeholder="Enter a title for this card.."  />
+                        {/* placeholder="Enter a title for this card.." onBlur={toggleAddCardShown} /> */}
                     <div className="form-btns flex align-end">
                         <button className="submit-btn" type="submit">Add Card</button>
                         <button className="close-btn" onClick={toggleAddCardShown}><Close /></button>

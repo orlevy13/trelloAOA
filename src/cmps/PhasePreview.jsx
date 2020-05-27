@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { MoreHoriz, Close, Add } from '@material-ui/icons';
 import { AddCard } from './AddCard';
-import { CardList } from './CardList';
 import { CardPreview } from './CardPreview';
 import { connect } from 'react-redux';
 import { updateBoard } from '../store/actions/boardActions';
@@ -121,7 +120,7 @@ export class _PhasePreview extends Component {
                         {...provided.draggableProps}
                         ref={provided.innerRef}
                         {...snapshot.isDropAnimating = true}   {...snapshot.isDropAnimating = true}
-                        // style={getDragStyle(provided.draggableProps.style, snapshot)}
+                    // style={getDragStyle(provided.draggableProps.style, snapshot)}
                     >
                         <div {...provided.dragHandleProps} className="phase-header flex space-between">
 
@@ -161,15 +160,13 @@ export class _PhasePreview extends Component {
                         </div>
                         <Droppable droppableId={id}>
                             {(provided) => (
-                                <CardList>
-                                    <div className="cards-list" ref={provided.innerRef} {...provided.droppableProps}>
-                                        {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
-                                        {provided.placeholder}
-                                        <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
-                                        <AddCard isAddCardShown={isAddCardShown} bottomCard={this.bottomCard}
-                                            toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
-                                    </div>
-                                </CardList>
+                                <div className="cards-list" ref={provided.innerRef} {...provided.droppableProps}>
+                                    {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
+                                    {provided.placeholder}
+                                    <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
+                                    <AddCard isAddCardShown={isAddCardShown} bottomCard={this.bottomCard}
+                                        toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
+                                </div>
                             )}
                         </Droppable>
                         {!isAddCardShown && <button onClick={this.toggleAddCardShown}
