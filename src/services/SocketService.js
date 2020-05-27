@@ -30,5 +30,7 @@ function off(eventName, cb) {
 }
 
 function emit(eventName, data) {
+  console.log('in socket service', eventName, data);
+
   socket.emit(eventName, data);
 }

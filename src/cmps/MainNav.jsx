@@ -23,6 +23,7 @@ class _MainNav extends Component {
     handleChangeColor = async (event) => {
         const boardColor = window.getComputedStyle(event.target, null).getPropertyValue("background-color");
         await this.setState({ newBoardColor: boardColor });
+
     }
 
     handleChange = ({ target }) => {
