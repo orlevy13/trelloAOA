@@ -60,8 +60,7 @@
 
             .card-title {
                 color: #172b4d;
-                height: 28px;
-                margin: 0 4px 24px 4px;
+                margin: 0 36px 24px 8px;
                 font-weight: normal;
                 cursor: pointer;
             }
@@ -118,6 +117,10 @@
 
             &-members {
                 margin: 0 0 28px 28px;
+
+                .member-avatar {
+                    margin-right: 6px;
+                }
             }
 
             &-labels {

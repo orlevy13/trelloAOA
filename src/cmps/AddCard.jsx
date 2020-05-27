@@ -50,19 +50,19 @@ export class _AddCard extends Component {
         const { toggleAddCardShown, isAddCardShown } = this.props;
 
         return (
-            <div className="add-card">
-                {isAddCardShown && <form onSubmit={onAddCard}>
+            <React.Fragment>
+                {isAddCardShown && <form className="add-card" onSubmit={onAddCard}>
                     <textarea className="card-name-input" required autoFocus type="text"
                         name="title" autoComplete="off" onChange={handleChange} spellCheck="false"
                         ref={el => this.cardNameInput = el} value={state.card.title}
-                        placeholder="Enter a title for this card.."  />
-                        {/* placeholder="Enter a title for this card.." onBlur={toggleAddCardShown} /> */}
+                        placeholder="Enter a title for this card.." />
+                    {/* placeholder="Enter a title for this card.." onBlur={toggleAddCardShown} /> */}
                     <div className="form-btns flex align-end">
                         <button className="submit-btn" type="submit">Add Card</button>
                         <button className="close-btn" onClick={toggleAddCardShown}><Close /></button>
                     </div>
                 </form>}
-            </div>
+            </React.Fragment>
         )
     }
 }

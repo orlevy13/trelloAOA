@@ -11,11 +11,14 @@ export function MemberInitials(props) {
     }
 
     const initials = firstLastName.map(str => str.charAt(0)).join('').slice(0, 2);
-
+    const { member } = props;
     return (
         <div title={firstLastName.join(' ')} className="member-avatar">
-            <span className='member-initial'>{initials.toUpperCase()}</span>
+            {(!member || !member.img) && <span className='member-initial'>{initials.toUpperCase()}</span>}
+            {member && member.img && <span style={{ backgroundImage: "url(" + member.img + ")" }}
+                className="member-initial-img" ></span>}
         </div>
 
     )
 }
+// className="member-img"

@@ -113,7 +113,7 @@ export class _CardMenu extends Component {
                         <button onClick={toggleIsLabelEditShown} className="flex align-center">
                             <LabelOutlined className="icon" />Edit Labels</button>
                         {isLabelEditShown &&
-                            <LabelsEdit card={card} toggleIsLabelEditShown={toggleIsLabelEditShown} />}
+                            <LabelsEdit card={this.props.card} toggleIsLabelEditShown={toggleIsLabelEditShown} />}
 
                         <button onClick={this.toggleIsMembersEditShown} className="flex align-center">
                             <PersonOutlineOutlined className="icon" />Change Members</button>
@@ -121,8 +121,8 @@ export class _CardMenu extends Component {
                             members={this.props.board.members}
                             toggleIsMembersEditShown={this.toggleIsMembersEditShown} />}
 
-                        <button className="flex align-center">
-                            <ArrowForwardOutlined className="icon" />Move</button>
+                        {/* <button className="flex align-center">
+                            <ArrowForwardOutlined className="icon" />Move</button> */}
                         <button className="flex align-center">
                             <AccessTime className="icon" />Change Due Date</button>
                         <button onClick={onDelete} className="flex align-center">

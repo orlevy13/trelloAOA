@@ -104,14 +104,9 @@ export class _PhasePreview extends Component {
         this.props.updateBoard(boardCopy);
     }
 
-
-
-
-
     render() {
         const { name, id, cards } = this.props.phase;
-        const { newPhaseName, isInputShown, isMenuShown, isSortShown, isAddCardShown } = this.state;
-
+        const { newPhaseName, isInputShown, isMenuShown, isSortShown, isAddCardShown, isDragging } = this.state;
 
         return (
             <Draggable draggableId={id} index={this.props.index}>
@@ -119,7 +114,7 @@ export class _PhasePreview extends Component {
                     <article className="phase flex column"
                         {...provided.draggableProps}
                         ref={provided.innerRef}
-                        {...snapshot.isDropAnimating = true}   {...snapshot.isDropAnimating = true}
+                        {...snapshot.isDropAnimating = true}
                     // style={getDragStyle(provided.draggableProps.style, snapshot)}
                     >
                         <div {...provided.dragHandleProps} className="phase-header flex space-between">
@@ -163,9 +158,9 @@ export class _PhasePreview extends Component {
                                 <div className="cards-list" ref={provided.innerRef} {...provided.droppableProps}>
                                     {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
                                     {provided.placeholder}
-                                    <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
                                     <AddCard isAddCardShown={isAddCardShown} bottomCard={this.bottomCard}
                                         toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
+                                    <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
                                 </div>
                             )}
                         </Droppable>

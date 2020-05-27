@@ -1,4 +1,7 @@
 .phase {
+    &:first-child {
+        margin-left: 8px;
+    }
     background-color: $trelloGrey;
     color: #172b4d;
     border-radius: 3px;
