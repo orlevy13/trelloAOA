@@ -1,5 +1,5 @@
 import { boardService } from '../../services/boardService'
-import socketService from '../../services/socketService'
+import { socketService } from '../../services/socketService'
 export const LOAD_BOARD = 'LOAD_BOARD';
 export const UPDATE_BOARD = 'UPDATE_BOARD';
 export const ADD_BOARD = 'ADD_BOARD';
