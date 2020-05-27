@@ -69,7 +69,7 @@ class _Board extends Component {
             { "backgroundImage": `url("${board.imgUrl}")`, "backgroundSize": "cover" }
 
         return (
-            (!board) ? 'loading' : <main style={boardBg} className="board">
+            (!board) ? 'loading' : <main style={boardBg} className="board flex column grow">
                 <section className="board-nav flex space-between">
                     <div className="flex">
                         <div className="board-title" href="#">
@@ -89,7 +89,7 @@ class _Board extends Component {
                     <ColorMenu isMenuShown={colorMenu} board={board} onToggleMenu={this.toggleMenu} />
                     <PhotoMenu isMenuShown={photoMenu} board={board} onToggleMenu={this.toggleMenu} />
                 </section>
-                <section className="board-content">
+                <section className="board-content flex grow">
                     <PhaseList />
                 </section>
                 {this.props.card && <Card cardId={this.props.card.id} />}

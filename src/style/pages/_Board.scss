@@ -1,10 +1,9 @@
 .board {
-    height: 94vh;
     user-select: none;
+    flex: 1;
 
-    .board-content {
+    &-content {
         overflow-x: auto;
-        height: 87vh;
         padding-left: 4px;
 
         &::-webkit-scrollbar {

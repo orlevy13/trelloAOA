@@ -1,32 +1,5 @@
-//**************************************** card details *************************************************
-.card-container {
-    border: 1px solid #eeeeee;
-    background-color: $cardGrey;
-    width: 700px;
-    position: absolute;
-    top: 50px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    color: $trelloFontColor;
-    z-index: 2;
-    display: grid;
-    grid-gap: 5px;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-        "header header header header header header"
-        "main main main main main side-bar";
-}
-
-.card-header {
-    grid-area: header;
-}
-
-.card-sidebar {
-    grid-area: side-bar;
-}
-
-.main-col {
-    grid-area: main;
-    margin-bottom: 150px;
+.root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

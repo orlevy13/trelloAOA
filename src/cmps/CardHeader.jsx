@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import { history } from '../history'
 import { connect } from 'react-redux';
-import { loadBoard, updateBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard, setCard } from '../store/actions/boardActions';
+import { Clear } from '@material-ui/icons';
 
 class _CardHeader extends Component {
     state = {
@@ -62,8 +63,8 @@ class _CardHeader extends Component {
         if (!this.state) return 'loading';
         const { txt, isTitleOnEdit, onPhase } = this.state;
 
-        return (<div>
-            <div className="card-header-container flex">
+        return (<div className="card-header">
+            <div className="card-header-container flex align-center">
                 <NoteOutlinedIcon className="icon" />
                 {!isTitleOnEdit && <h3 onClick={this.toggleInput} className="card-title grow">{txt}</h3>}
                 {isTitleOnEdit && <textarea ref={el => this.elTextarea = el} spellCheck="false"
@@ -71,9 +72,11 @@ class _CardHeader extends Component {
                     className="card-title-input" autoFocus
                     onBlur={this.handleSaveBoard} placeholder="Title..." autoCorrect="false"
                     onChange={this.handleChange} value={txt} />}
-
             </div>
-            <p className="card-link">in list <span onClick={this.backToboard}>{onPhase}</span></p>
+            <button className="close-btn" onClick={() => { this.props.setCard(null) }}>
+                <Clear className="close-icon" /></button>
+            <p className="card-link">in list <span
+                onClick={() => { this.props.setCard(null) }}>{onPhase}</span></p>
         </div>
         )
     }
@@ -91,7 +94,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     loadBoard,
-    updateBoard
+    updateBoard,
+    setCard
 }
 
 
