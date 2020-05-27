@@ -98,7 +98,7 @@ export default class Dashboard extends Component {
         return (
             <section className="chart-cont">
 
-                <article className="chart-1-1 flex column align-center">
+                <article className="chart-1-1 flex column align-centery">
                     <h2>Task Per Devloper</h2>
                     <Doughnut data={tPerDevloper} />
                 </article>

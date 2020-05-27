@@ -1,4 +1,8 @@
 import { UPDATE_BOARD, QUERY_BOARDS, REMOVE_BOARD, ADD_BOARD, LOAD_BOARD } from '../actions/boardActions';
+import SocketService from '../../services/socketService';
+
+
+
 
 const initialState = {
     boards: [],
@@ -14,6 +18,7 @@ export function boardReducer(state = initialState, action) {
                 boards: action.boards
             }
         case LOAD_BOARD:
+
             return {
                 ...state,
                 board: { ...action.board }

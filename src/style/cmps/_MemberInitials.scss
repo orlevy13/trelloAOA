@@ -21,6 +21,10 @@
         line-height: 28px;
 
         &-img {
+            display: inline-block;
+            border-radius: 50%;
+            min-width: 28px;
+            min-height: 28px;
             background-size: cover;
             background-position: center;
         }

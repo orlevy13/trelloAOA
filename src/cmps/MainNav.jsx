@@ -23,6 +23,7 @@ class _MainNav extends Component {
     handleChangeColor = async (event) => {
         const boardColor = window.getComputedStyle(event.target, null).getPropertyValue("background-color");
         await this.setState({ newBoardColor: boardColor });
+
     }
 
     handleChange = ({ target }) => {
@@ -36,8 +37,7 @@ class _MainNav extends Component {
 
     createNewBoard = async () => {
         let boardName;
-        if (this.state.newBoardName === '')
-            boardName = 'new board';
+        if (!this.state.newBoardName.trim()) boardName = 'New Board';
         else boardName = this.state.newBoardName;
         const newBoard = boardService.createNewBoard(boardName, this.state.newBoardColor, LOGGED_IN_USER);
         await this.props.addBoard(newBoard);
@@ -64,10 +64,6 @@ class _MainNav extends Component {
                             <span className="btn-text">Boards</span>
                         </div>
                     </Link>
-                    {/* <div className="flex align-center">
-                        <input className="search-input" type="text"></input>
-                        <SearchOutlined className="search-icon" />
-                    </div> */}
                 </nav>
 
                 <div className="nav-center flex align-center justify-center">
@@ -104,7 +100,7 @@ class _MainNav extends Component {
                         </div>
                     </div>}
                     {
-                        isLogin ? <span className="loged-in"><MemberInitials fullName="Or Levi" /></span> :
+                        isLogin ? <span className="logged-in flex align-center"><MemberInitials fullName="Or Levy" /></span> :
                             <div className="btn-main-nav">
                                 <span className="btn-text">Login</span>
                             </div>

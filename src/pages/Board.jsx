@@ -9,7 +9,7 @@ import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
 import { MenuOutlined } from '@material-ui/icons';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
-import socketService from '../services/SocketService'
+import socketService from '../services/socketService'
 
 
 class _Board extends Component {
@@ -28,15 +28,29 @@ class _Board extends Component {
 
     componentDidMount() {
         this.getBoardById();
-
+        this.openSocket();
     }
 
-    getBoardById = () => {
+    componentWillUnmount() {
+        socketService.off('open board socket');
+        socketService.terminate();
+    }
+
+    openSocket = () => {
+        socketService.setup();
         const id = this.props.match.params.id;
-        this.props.loadBoard(id);
-        // socketService.emit('boardId', this.props.board._id);
+        socketService.emit('open board socket', id);
+        socketService.on('board updated', () => {
+            this.getBoardById();
+        });
     }
 
+
+    getBoardById = async () => {
+        const id = this.props.match.params.id;
+        await this.props.loadBoard(id);
+        console.log('on load', this.props.board._id);
+    }
 
     toggleMenu = (menuName) => {
         const { boardMenus } = this.state;
@@ -75,12 +89,12 @@ class _Board extends Component {
                             <span dir="auto">{board.name}</span>
                         </div>
                         <span className="board-nav-divider"></span>
-                        <div className="board-members">
+                        <div className="board-members flex align-center">
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
                         <span className="nav-btn flex align-center">Invite</span>
                     </div>
-                    <div className="nav-btn" onClick={() => this.toggleMenu("mainMenu")}>
+                    <div className="nav-btn flex align-center" onClick={() => this.toggleMenu("mainMenu")}>
                         <MenuOutlined />
                     </div>
                     <BoardMenu isMenuShown={mainMenu} board={board} onToggleMenu={this.toggleMenu} />
