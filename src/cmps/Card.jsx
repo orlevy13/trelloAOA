@@ -15,6 +15,8 @@ import { MemberInitials } from './MemberInitials';
 import { boardService } from '../services/boardService';
 import { DueDateEdit } from './DueDateEdit';
 
+
+
 class _Card extends Component {
     state = {
         card: null,

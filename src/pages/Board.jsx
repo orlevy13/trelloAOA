@@ -9,7 +9,7 @@ import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
 import { MenuOutlined } from '@material-ui/icons';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
-import { socketService } from '../services/socketService'
+import { socketService } from '../services/socketService';
 
 
 class _Board extends Component {
@@ -26,28 +26,31 @@ class _Board extends Component {
         }
     }
 
-    componentDidUpdate() {
-        socketService.on('board updated', (boardId) => {
-            console.log('socket is working', boardId);
+    componentDidMount() {
+        this.getBoardById();
+        this.openSocket();
+    }
+
+    componentWillUnmount() {
+        socketService.off('open board socket');
+        socketService.terminate();
+    }
+
+    openSocket = () => {
+        socketService.setup();
+        const id = this.props.match.params.id;
+        socketService.emit('open board socket', id);
+        socketService.on('board updated', () => {
             this.getBoardById();
         });
     }
 
-    componentDidMount() {
-        socketService.setup();
-        this.getBoardById();
-
-    }
 
     getBoardById = async () => {
         const id = this.props.match.params.id;
-
         await this.props.loadBoard(id);
         console.log('on load', this.props.board._id);
-
-        socketService.emit('boardLoad', this.props.board._id);
     }
-
 
     toggleMenu = (menuName) => {
         const { boardMenus } = this.state;
