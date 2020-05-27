@@ -79,7 +79,7 @@ class _Board extends Component {
                         <div className="board-members">
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
-                        <span className="nav-btn">Invite</span>
+                        <span className="nav-btn flex align-center">Invite</span>
                     </div>
                     <div className="nav-btn" onClick={() => this.toggleMenu("mainMenu")}>
                         <MenuOutlined />

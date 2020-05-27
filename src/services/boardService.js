@@ -13,7 +13,6 @@ export const TYPES = {
 
 async function doUploadiMG(elForm) {
 
-    console.log(CLOUD_NAME);
     const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
     const UPLOAD_PRESET = 'muxmg14s';
     var formData = new FormData();
@@ -92,7 +91,6 @@ function addActivity(board, user, operation, type, object, desc = null) {
         object,
         desc
     }
-    console.log(activity);
     board.activities.unshift(activity);
 }
 

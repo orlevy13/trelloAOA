@@ -84,7 +84,6 @@
 
     .create-board-menu {
         z-index: 1000;
-        opacity: 80%;
         top: 50px;
         right: 55px;
         position: absolute;
@@ -114,11 +113,7 @@
         }
 
         .create-board-btns {
-            // button {
-            //     background-color: inherit;
-            //     color: rgb(66, 82, 110);
 
-            // }
             .create-board-btn {
                 border: none;
 
@@ -201,10 +196,6 @@
                 filter: brightness(45%);
             }
         }
-
-        // <div className="color-preview-orange"></div>
-        // <div className="color-preview-blue"></div>
-        // <div className="color-preview-dark"></div>
     }
 
     .cards-list {

@@ -56,11 +56,11 @@
         height: 32px;
         font-size: rem(14px);
         border-radius: 3px;
-        float: left;
         margin: 0 5px;
         padding: 6px 9px;
         background-color: $boardBtn;
         cursor: pointer;
+        
 
         &:hover {
             background-color: $boardBtnHov;

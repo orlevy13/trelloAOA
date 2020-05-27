@@ -4,6 +4,7 @@ import { loadBoard, setCard, updateBoard } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
 import { CardChecklist } from './CardChecklist';
+import { Activities } from '../cmps/Activities'
 import {
     PermIdentity, LabelOutlined, PlaylistAddCheck,
     Schedule, Attachment, CropOriginal
@@ -17,16 +18,22 @@ class _Card extends Component {
     state = {
         card: null,
         isLabelEditShown: false,
-        isMembersEditShown: false
+        isMembersEditShown: false,
+        cardActivities: []
     }
 
     componentDidMount() {
+
         var card;
         this.props.board.phaseLists.forEach(phase => {
             const res = phase.cards.find(card => card.id === this.props.cardId);
             if (res) card = res;
         });
-        this.setState({ card });
+        const cardActivities = this.getActivities(card.id);
+
+
+        this.setState({ card, cardActivities });
+
     }
 
     componentDidUpdate(prevProps) {
@@ -36,8 +43,17 @@ class _Card extends Component {
                 const res = phase.cards.find(card => card.id === this.props.cardId);
                 if (res) card = res;
             });
-            this.setState({ card });
+            const cardActivities = this.getActivities(card.id);
+            this.setState({ card, cardActivities });
         }
+    }
+
+    getActivities = (cardId, limit = 10) => {
+        const cardActivities = this.props.board.activities.filter(activity => activity.object.id === cardId);
+        if (cardActivities.length > 10) return cardActivities.slice(0, limit);
+        return cardActivities
+
+
     }
 
     addCheckList = () => {
@@ -76,22 +92,21 @@ class _Card extends Component {
 
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
-        const { card, isLabelEditShown, isMembersEditShown } = this.state;
+        const { card, isLabelEditShown, isMembersEditShown, cardActivities } = this.state;
         const { assignedTo, labels } = card;
 
         return (
             <section>
                 <div onMouseDown={() => { this.props.setCard(null) }} className="card-modal" ></div>
-
                 <div className="card-container" >
                     < CardHeader card={card} />
                     <div className="card-content flex">
                         <div className="card-details flex column grow">
                             {assignedTo.length > 0 && <div className="card-details-members">
                                 <h3>Members</h3>
-                                {assignedTo.map((member) => <span
+                                {assignedTo.map((member) => <span key={member._id}
                                     onClick={() => { this.removeMemberFromCard(member) }}>
-                                    <MemberInitials key={member._id} member={member} />
+                                    <MemberInitials member={member} />
                                 </span>)}
                             </div>}
 
@@ -108,6 +123,7 @@ class _Card extends Component {
 
                             < CardDesc card={card} />
                             {(card.checkList.length > 0) && < CardChecklist card={card} />}
+                            <Activities card={card} showCommentBox={true} activities={cardActivities} />
                         </div>
                         <div className="card-sidebar">
                             <button onClick={this.toggleIsMembersEditShown}
@@ -140,6 +156,7 @@ class _Card extends Component {
         )
     }
 }
+
 
 
 

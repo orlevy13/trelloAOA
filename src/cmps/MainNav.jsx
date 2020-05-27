@@ -22,7 +22,7 @@ class _MainNav extends Component {
 
     handleChangeColor = async (event) => {
         const boardColor = window.getComputedStyle(event.target, null).getPropertyValue("background-color");
-        await this.setState({ newBoardColor: boardColor }, () => console.log(this.state));
+        await this.setState({ newBoardColor: boardColor });
     }
 
     handleChange = ({ target }) => {
@@ -60,10 +60,10 @@ class _MainNav extends Component {
                             <span className="btn-text">Boards</span>
                         </div>
                     </Link>
-                    <div className="flex align-center">
+                    {/* <div className="flex align-center">
                         <input className="search-input" type="text"></input>
                         <SearchOutlined className="search-icon" />
-                    </div>
+                    </div> */}
                 </nav>
 
                 <div className="nav-center flex align-center justify-center">
