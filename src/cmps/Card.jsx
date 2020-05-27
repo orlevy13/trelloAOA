@@ -13,6 +13,8 @@ import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
 import { MemberInitials } from './MemberInitials';
 import { boardService } from '../services/boardService';
+import socketService from '../services/SocketService'
+
 
 class _Card extends Component {
     state = {
@@ -30,12 +32,8 @@ class _Card extends Component {
             if (res) card = res;
         });
         const cardActivities = this.getActivities(card.id);
-
-
         this.setState({ card, cardActivities });
-
     }
-
     componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
             var card;

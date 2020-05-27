@@ -26,15 +26,26 @@ class _Board extends Component {
         }
     }
 
+    componentDidUpdate() {
+        socketService.on('board updated', (boardId) => {
+            console.log('socket is working', boardId);
+            this.getBoardById();
+        });
+    }
+
     componentDidMount() {
+        socketService.setup();
         this.getBoardById();
 
     }
 
-    getBoardById = () => {
+    getBoardById = async () => {
         const id = this.props.match.params.id;
-        this.props.loadBoard(id);
-        // socketService.emit('boardId', this.props.board._id);
+
+        await this.props.loadBoard(id);
+        console.log('on load', this.props.board._id);
+
+        socketService.emit('boardLoad', this.props.board._id);
     }
 
 
