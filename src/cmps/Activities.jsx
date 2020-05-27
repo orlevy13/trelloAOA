@@ -26,10 +26,12 @@ class _Activities extends React.Component {
     }
 
     handleSaveBoard = () => {
+
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const card = this.props.card;
+        if (!this.state.txt.trim()) return;
         boardService.addActivity(boardClone, LOGGED_IN_USER, OPERETIONS.ADD, TYPES.CARD, { id: card.id, title: card.title },
-            `Add comment: "${this.state.txt}"`);
+            `commented "${this.state.txt}"`);
         this.setState({ txt: '' });
         this.props.updateBoard(boardClone);
     }
