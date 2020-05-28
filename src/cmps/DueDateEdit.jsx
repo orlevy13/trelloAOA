@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Clear } from '@material-ui/icons';
-import { DateTimePicker, DatePicker } from '@material-ui/pickers';
+import { DateTimePicker } from '@material-ui/pickers';
 
 export class DueDateEdit extends Component {
 

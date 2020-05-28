@@ -6,18 +6,7 @@ import { CardPreview } from './CardPreview';
 import { connect } from 'react-redux';
 import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
-
-
-// const getDragStyle = (style, snapshot) => {
-//     if (!snapshot.isDragging) return;   
-//     return {
-//         ...style,
-//         "backgroundColor": "lightBlue"
-
-//     };
-
-// }
-
+import NaturalDragAnimation from 'natural-drag-animation-rbdnd';
 
 export class _PhasePreview extends Component {
 
@@ -111,64 +100,71 @@ export class _PhasePreview extends Component {
         return (
             <Draggable draggableId={id} index={this.props.index}>
                 {(provided, snapshot) => (
-                    <article className="phase flex column"
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                        {...snapshot.isDropAnimating = true}
-                    // style={getDragStyle(provided.draggableProps.style, snapshot)}
+                    <NaturalDragAnimation
+                        style={provided.draggableProps.style}
+                        snapshot={snapshot}
                     >
-                        <div {...provided.dragHandleProps} className="phase-header flex space-between">
+                        {style => (
+                            <article className="phase flex column"
+                                {...provided.draggableProps}
+                                ref={provided.innerRef}
+                                {...snapshot.isDropAnimating = true} style={style}
+                            >
+                                <div {...provided.dragHandleProps} className="phase-header flex space-between">
 
-                            {!isInputShown && <h5 className="phase-title grow"
-                                onClick={this.toggleInputShown}>{name}</h5>}
-                            {isInputShown && <form className="flex grow" onSubmit={this.handleSubmit}>
-                                <input className="phase-name-input grow" type="text" name="newPhaseName"
-                                    value={newPhaseName} autoFocus autoComplete="off" spellCheck="false"
-                                    onBlur={this.toggleInputShown} onChange={this.handleChange} />
-                            </form>}
+                                    {!isInputShown && <h5 className="phase-title grow"
+                                        onClick={this.toggleInputShown}>{name}</h5>}
+                                    {isInputShown && <form className="flex grow" onSubmit={this.handleSubmit}>
+                                        <input className="phase-name-input grow" type="text" name="newPhaseName"
+                                            value={newPhaseName} autoFocus autoComplete="off" spellCheck="false"
+                                            onBlur={this.toggleInputShown} onChange={this.handleChange} />
+                                    </form>}
 
-                            <MoreHoriz className="pointer" onClick={this.toggleMenuShown} />
-                            {isMenuShown && <div className="phase-menu flex column">
-                                <div className="menu-header flex align-center">
+                                    <MoreHoriz className="pointer" onClick={this.toggleMenuShown} />
+                                    {isMenuShown && <div className="phase-menu flex column">
+                                        <div className="menu-header flex align-center">
 
-                                    <h5 className="grow">List Actions</h5>
-                                    <Close className="pointer" onClick={this.toggleMenuShown} />
-                                </div>
-                                <div className="menu-btns flex column">
-                                    <button onClick={this.showAddCard} >Add A Card</button>
-                                    <button onClick={this.toggleIsSortShown}>Sort By..</button>
-                                    {isSortShown && <div className="sort-options flex column">
-                                        <button onClick={() => {
-                                            this.sortListBy('title')
-                                        }}>Title</button>
-                                        <button onClick={() => {
-                                            this.sortListBy('firstCreated')
-                                        }}>First Created</button>
-                                        <button onClick={() => {
-                                            this.sortListBy('lastCreated')
-                                        }}>Last Created</button>
+                                            <h5 className="grow">List Actions</h5>
+                                            <Close className="pointer" onClick={this.toggleMenuShown} />
+                                        </div>
+                                        <div className="menu-btns flex column">
+                                            <button onClick={this.showAddCard} >Add A Card</button>
+                                            <button onClick={this.toggleIsSortShown}>Sort By..</button>
+                                            {isSortShown && <div className="sort-options flex column">
+                                                <button onClick={() => {
+                                                    this.sortListBy('title')
+                                                }}>Title</button>
+                                                <button onClick={() => {
+                                                    this.sortListBy('firstCreated')
+                                                }}>First Created</button>
+                                                <button onClick={() => {
+                                                    this.sortListBy('lastCreated')
+                                                }}>Last Created</button>
+                                            </div>}
+                                            <button onClick={this.onDeletePhase}>Delete List</button>
+
+                                        </div>
                                     </div>}
-                                    <button onClick={this.onDeletePhase}>Delete List</button>
-
                                 </div>
-                            </div>}
-                        </div>
-                        <Droppable droppableId={id}>
-                            {(provided) => (
-                                <div className="cards-list" ref={provided.innerRef} {...provided.droppableProps}>
-                                    {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
-                                    {provided.placeholder}
-                                    <AddCard isAddCardShown={isAddCardShown} bottomCard={this.bottomCard}
-                                        toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
-                                    <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
-                                </div>
-                            )}
-                        </Droppable>
-                        {!isAddCardShown && <button onClick={this.toggleAddCardShown}
-                            className="add-card-btn flex align-center">
-                            <Add className="add-icon" fontSize="large" />Add a card</button>}
-                    </article>
+                                <Droppable droppableId={id}>
+                                    {(provided) => (
+                                        <div className="cards-list" ref={provided.innerRef} {...provided.droppableProps}>
+                                            {cards.map((card, index) => <CardPreview key={card.id} card={card} index={index} />)}
+                                            {provided.placeholder}
+                                            <AddCard isAddCardShown={isAddCardShown} bottomCard={this.bottomCard}
+                                                toggleAddCardShown={this.toggleAddCardShown} phaseId={this.props.phase.id} />
+                                            <div style={{ opacity: 0 }} ref={el => this.bottomCard = el}></div>
+                                        </div>
+                                    )}
+                                </Droppable>
+                                {!isAddCardShown && <button onClick={this.toggleAddCardShown}
+                                    className="add-card-btn flex align-center">
+                                    <Add className="add-icon" fontSize="large" />Add a card</button>}
+                            </article>
+                        )}
+                    </NaturalDragAnimation>
                 )}
+
             </Draggable>
         );
     }

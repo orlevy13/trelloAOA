@@ -68,8 +68,6 @@ class _Board extends Component {
             clonedMenus.menusState[menuName] = !clonedMenus.menusState[menuName];
             //set currentOpend 
             clonedMenus.currentOpend = menuName;
-
-
         }
         this.setState({ boardMenus: clonedMenus });
     }

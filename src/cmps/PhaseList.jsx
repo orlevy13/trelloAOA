@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
 import { boardService, OPERETIONS, TYPES } from '../services/boardService';
 
+
 export class _PhaseList extends Component {
     state = {
         board: null,
@@ -25,14 +26,13 @@ export class _PhaseList extends Component {
     componentDidUpdate(prevProps, prevState) {
 
         if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
-            this.setState({ board: this.props.board });
+            const phaseListToShow = this.getFilteredPhaseLists(this.props.filteredByUser);
+            this.setState({ board: this.props.board, phaseListToShow });
         }
         if (JSON.stringify(prevProps.filteredByUser) !== JSON.stringify(this.props.filteredByUser)) {
-            { }
             const phaseListToShow = this.getFilteredPhaseLists(this.props.filteredByUser);
             this.setState({ phaseListToShow })
         }
-
     }
 
     componentWillUnmount() {
@@ -151,8 +151,9 @@ export class _PhaseList extends Component {
 
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
-                    {provided => (
-                        <section className="phase-list flex grow"  {...provided.droppableProps} ref={provided.innerRef} >
+                    {(provided, snapshot) => (
+                        // <section className="phase-list flex grow"  {...provided.droppableProps} ref={provided.innerRef} >
+                        <section className="phase-list flex"  {...provided.droppableProps} ref={provided.innerRef} >
                             {phaseListToShow && phaseListToShow.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
 
@@ -172,6 +173,7 @@ export class _PhaseList extends Component {
                             </form>}
                             {provided.placeholder}
                         </section>
+
                     )}
                 </Droppable>
             </DragDropContext>

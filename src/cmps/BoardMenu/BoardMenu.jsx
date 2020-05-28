@@ -7,12 +7,12 @@ export class BoardMenu extends Component {
 
     render() {
 
-        const menuClass = !this.props.isMenuShown ? 'board-menu display-none' : 'board-menu'
+        const shownClass = !this.props.isMenuShown ? '' : 'shown';
         const board = this.props.board;
         const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
             { "backgroundImage": `url("${board.imgUrl}")`, "backgroundSize": "cover" }
         return (
-            <div className={menuClass}>
+            <div className={`board-menu ${shownClass}`}>
                 <div className="board-menu-header flex">
                     <div className="board-menu-header-content flex align-center grow">
                         <h3 className="menu-header-title">Menu</h3>
