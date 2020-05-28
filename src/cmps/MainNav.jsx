@@ -1,8 +1,7 @@
-
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { boardService } from '../services/boardService'
-import { HomeOutlined, DashboardOutlined, SearchOutlined, AccountTreeOutlined, Add, Close } from '@material-ui/icons';
+import { HomeOutlined, DashboardOutlined,  AccountTreeOutlined, Add, Close } from '@material-ui/icons';
 import { MemberInitials } from './MemberInitials';
 import { history } from '../history'
 import { connect } from 'react-redux';
@@ -26,8 +25,7 @@ class _MainNav extends Component {
 
     handleChangeColor = async ({ target }) => {
 
-        const boardColor = target.value;
-        console.log('handle change color', boardColor);
+        const boardColor = target.value;        
         await this.setState({ newBoardColor: boardColor });
     }
 

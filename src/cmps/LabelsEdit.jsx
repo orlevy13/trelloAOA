@@ -11,6 +11,18 @@ class _LabelsEdit extends Component {
         editLabel: null
     }
 
+    componentDidMount() {
+        window.addEventListener('keydown', this.hideLabelsEdit);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.hideLabelsEdit);
+    }
+
+    hideLabelsEdit = (ev) => {
+        if (ev.code === 'Escape') this.props.toggleProperty('isLabelEditShown');
+    }
+
     toggleEditMode = (editLabel) => {
         this.setState({ editLabel });
     }

@@ -53,11 +53,6 @@ class _Boards extends Component {
         )
     }
 }
-
-
-
-
-
 const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board,
@@ -70,7 +65,6 @@ const mapDispatchToProps = {
     updateBoard,
     queryBoards
 }
-
 
 export const Boards = connect(mapStateToProps, mapDispatchToProps)(_Boards)
 

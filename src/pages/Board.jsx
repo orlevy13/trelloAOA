@@ -6,7 +6,8 @@ import { MemberInitials } from '../cmps/MemberInitials';
 import { BoardMenu } from '../cmps/boardMenu/BoardMenu';
 import { ColorMenu } from '../cmps/boardMenu/ColorMenu';
 import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
-import { MenuOutlined } from '@material-ui/icons';
+import { MenuOutlined, PieChartOutlined } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
 import { BoardUserFilter } from '../cmps/BoardUserFilter'
@@ -50,7 +51,6 @@ class _Board extends Component {
     getBoardById = async () => {
         const id = this.props.match.params.id;
         await this.props.loadBoard(id);
-        console.log('on load', this.props.board._id);
     }
 
     toggleMenu = (menuName) => {
@@ -94,6 +94,12 @@ class _Board extends Component {
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
                         <BoardUserFilter />
+                        <Link to={`/board/${board._id}/dashboard`}>
+                            <div className="nav-btn  flex align-center">
+                                <PieChartOutlined className="nav-icon" />
+                                <span className="btn-text">Statistics</span>
+                            </div>
+                        </Link>
                     </div>
                     <div className="nav-btn flex align-center" onClick={() => this.toggleMenu("mainMenu")}>
                         <MenuOutlined />

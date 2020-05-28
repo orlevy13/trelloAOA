@@ -14,7 +14,7 @@ import { MembersEdit } from './MembersEdit';
 import { MemberInitials } from './MemberInitials';
 import { boardService } from '../services/boardService';
 import { DueDateEdit } from './DueDateEdit';
-
+import moment from 'moment';
 
 
 class _Card extends Component {
@@ -27,7 +27,7 @@ class _Card extends Component {
     }
 
     componentDidMount() {
-
+        window.addEventListener('keydown', this.hideCard);
         var card;
         this.props.board.phaseLists.forEach(phase => {
             const res = phase.cards.find(card => card.id === this.props.cardId);
@@ -35,6 +35,10 @@ class _Card extends Component {
         });
         const cardActivities = this.getActivities(card.id);
         this.setState({ card, cardActivities });
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.hideCard);
     }
 
     componentDidUpdate(prevProps) {
@@ -48,6 +52,14 @@ class _Card extends Component {
             this.setState({ card, cardActivities });
         }
     }
+
+    hideCard = (ev) => {
+        const { isLabelEditShown, isMembersEditShown, isDueDateEditShown } = this.state;
+        if (ev.code === 'Escape' && !isLabelEditShown
+            && !isMembersEditShown && !isDueDateEditShown
+        ) this.props.setCard(null);
+    }
+
 
     toggleProperty = property => {
         this.setState(prevState => ({ [property]: !prevState[property] }));
@@ -80,9 +92,7 @@ class _Card extends Component {
         const cardId = this.props.card.id;
 
         // Getting the access to the card members inside the board
-        const phaseIdx = boardCopy.phaseLists.findIndex(phase =>
-            phase.cards.some(card => card.id === cardId)
-        )
+        const phaseIdx = this.getPhaseIdxByCardId(cardId);
         const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
         const card = boardCopy.phaseLists[phaseIdx].cards[cardIdx];
 
@@ -106,7 +116,7 @@ class _Card extends Component {
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
         const { card, isLabelEditShown, isMembersEditShown, cardActivities, isDueDateEditShown } = this.state;
-        const { assignedTo, labels } = card;
+        const { assignedTo, labels, dueDate } = card;
         const { toggleProperty, changeDueDate } = this;
 
         return (
@@ -137,6 +147,14 @@ class _Card extends Component {
                                     </div>
                                 </div>}
 
+                                {dueDate && <div className="card-details-date">
+                                    <h3>Due Date</h3>
+                                    <div className="date flex align-center">
+                                        <span onClick={() => { toggleProperty('isDueDateEditShown') }}
+                                            className="date-str">{`${moment(dueDate).format("MMM Do")}
+                                     at ${moment(dueDate).format("HH:mm")}`}</span>
+                                    </div>
+                                </div>}
                                 < CardDesc card={card} />
                                 {(card.checkList.length > 0) && < CardChecklist card={card} />}
                                 <Activities card={card} showCommentBox={true} activities={cardActivities} />

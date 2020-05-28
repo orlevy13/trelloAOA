@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { updateBoard } from '../store/actions/boardActions';
 import { boardService } from '../services/boardService';
 import {
-    DeleteForeverOutlined, AccessTime, ArrowForwardOutlined,
+    DeleteForeverOutlined, AccessTime,
     PersonOutlineOutlined, LabelOutlined
 } from '@material-ui/icons';
 import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
+import { DueDateEdit } from './DueDateEdit';
 
 export class _CardMenu extends Component {
 
@@ -19,7 +20,8 @@ export class _CardMenu extends Component {
             assignedTo: []
         },
         isLabelEditShown: false,
-        isMembersEditShown: false
+        isMembersEditShown: false,
+        isDueDateEditShown: false
     }
 
     componentDidMount() {
@@ -47,16 +49,23 @@ export class _CardMenu extends Component {
     }
 
     hideMenu = (ev) => {
-        if (ev.code === 'Escape') this.props.toggleIsMenuShown();
+        const { isLabelEditShown, isMembersEditShown, isDueDateEditShown } = this.state;
+        if (ev.code === 'Escape' && !isLabelEditShown
+            && !isMembersEditShown && !isDueDateEditShown
+        ) this.props.toggleIsMenuShown();
+    }
+
+    getPhaseIdxByCardId = (cardId) => {
+        return this.props.board.phaseLists.findIndex(phase =>
+            phase.cards.some(card => card.id === cardId))
     }
 
     onDelete = () => {
         const { id } = this.props.card;//getting the id and boardCopy
         const boardCopy = boardService.getBoardCopy(this.props.board);
+        const phaseIdx = this.getPhaseIdxByCardId(id);
+        //getting the phaseIdx to edit his cards
 
-        const phaseIdx = boardCopy.phaseLists.findIndex(phase =>
-            phase.cards.some(card => card.id === id)
-        )//getting the phaseIdx to edit his cards
         boardCopy.phaseLists[phaseIdx].cards =
             boardCopy.phaseLists[phaseIdx].cards.filter(card => card.id !== id);
         //filtering out the deleted card
@@ -66,12 +75,10 @@ export class _CardMenu extends Component {
 
     onChangeTitle = () => {
         if (!this.state.card.title.trim()) return;
-        const { id } = this.props.card;//getting the id and boardCopy
+        const { id } = this.props.card;
         const boardCopy = boardService.getBoardCopy(this.props.board);
-
-        const phaseIdx = boardCopy.phaseLists.findIndex(phase =>
-            phase.cards.some(card => card.id === id)
-        )//getting the phaseIdx to edit his cards
+        const phaseIdx = this.getPhaseIdxByCardId(id);
+        //Getting access to the card inside the board
 
         boardCopy.phaseLists[phaseIdx].cards.filter(card => {
             if (card.id !== id) return card;
@@ -84,14 +91,25 @@ export class _CardMenu extends Component {
         this.props.toggleIsMenuShown();//Closing the menu
     }
 
+    changeDueDate = newDate => {
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const cardId = this.props.card.id;
+        const phaseIdx = this.getPhaseIdxByCardId(cardId);
+        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+        //Getting access to the card inside the board
+
+        boardCopy.phaseLists[phaseIdx].cards[cardIdx].dueDate = newDate;
+        this.props.updateBoard(boardCopy);
+    }
+
     toggleProperty = property => {
         this.setState(prevState => ({ [property]: !prevState[property] }));
     }
 
     render() {
-        const { onDelete, handleChange, onChangeTitle, toggleProperty } = this;
+        const { onDelete, handleChange, onChangeTitle, toggleProperty, changeDueDate } = this;
         const { clientX, clientY } = this.props;
-        const { isLabelEditShown, card, isMembersEditShown } = this.state;
+        const { isLabelEditShown, card, isMembersEditShown, isDueDateEditShown } = this.state;
         const { title } = card;
         return (
             <section>
@@ -117,10 +135,12 @@ export class _CardMenu extends Component {
                             members={this.props.board.members}
                             toggleProperty={toggleProperty} />}
 
-                        {/* <button className="flex align-center">
-                            <ArrowForwardOutlined className="icon" />Move</button> */}
-                        <button className="flex align-center">
+                        <button onClick={() => { toggleProperty('isDueDateEditShown') }}
+                            className="flex align-center">
                             <AccessTime className="icon" />Change Due Date</button>
+                        {isDueDateEditShown && <DueDateEdit changeDueDate={changeDueDate}
+                            toggleProperty={toggleProperty} />}
+
                         <button onClick={onDelete} className="flex align-center">
                             <DeleteForeverOutlined className="icon" />Delete</button>
                     </div>

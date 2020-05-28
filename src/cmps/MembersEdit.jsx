@@ -11,6 +11,18 @@ export class _MembersEdit extends Component {
         name: ''
     }
 
+    componentDidMount() {
+        window.addEventListener('keydown', this.hideMembersEdit);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.hideMembersEdit);
+    }
+
+    hideMembersEdit = (ev) => {
+        if (ev.code === 'Escape') this.props.toggleProperty('isMembersEditShown');
+    }
+
     handleChange = ({ target }) => {
         this.setState({ name: target.value });
     }
