@@ -134,7 +134,8 @@ export class _PhaseList extends Component {
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
                     {(provided, snapshot) => (
-                        <section className="phase-list flex grow"  {...provided.droppableProps} ref={provided.innerRef} >
+                        // <section className="phase-list flex grow"  {...provided.droppableProps} ref={provided.innerRef} >
+                        <section className="phase-list flex"  {...provided.droppableProps} ref={provided.innerRef} >
                             {phaseLists && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
 

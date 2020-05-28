@@ -43,7 +43,7 @@ class _CardPreview extends React.Component {
     render() {
         const { toggleIsMenuShown, state } = this;
         const { isMenuShown, clientX, clientY } = state;
-        const { title, bgColor, imgUrl, dueDate, labels, checkList, assignedTo, attachments } = this.props.card;
+        const { title, imgUrl, dueDate, labels, checkList, assignedTo, attachments } = this.props.card;
         const checklistDoneCount = checkList.filter(item => item.isDone).length;
         const checklistBgc = checklistDoneCount === checkList.length ? '#61bd4f' : '';
         const checklistColor = checklistBgc ? '#fff' : '';
@@ -59,9 +59,8 @@ class _CardPreview extends React.Component {
                             {style => (
                                 <section onClick={() => { this.props.setCard(this.props.card) }}
                                     className="card-preview flex column"
-                                    {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} style={{ ...style, backgroundColor: bgColor }}
-
-                                >
+                                    {...provided.draggableProps} {...provided.dragHandleProps}
+                                    ref={provided.innerRef} style={style}>
 
                                     <button onClick={toggleIsMenuShown}
                                         className="show-menu-btn">
