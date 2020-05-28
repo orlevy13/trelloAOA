@@ -54,7 +54,8 @@ export class _PhotoMenu extends Component {
                     <div className="board-menu-header">
                         <div className="board-menu-header-content  flex justify-center">
                             <ArrowBackIosOutlined onClick={() => this.props.onToggleMenu("backgroundMenu")} className="btn-header-menu" />
-                            <h3 className="menu-header-title">Photos by<a className="unsplash" href="https://unsplash.com/?utm_source=Flowz&utm_medium=referral&utm_campaign=api-credit" >Unsplash</a></h3>
+                            <h3 className="menu-header-title">Photos by<a className="unsplash"
+                                href="https://unsplash.com/?utm_source=Flowz&utm_medium=referral&utm_campaign=api-credit" >Unsplash</a></h3>
                             <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
                         </div>
                     </div>
@@ -62,8 +63,9 @@ export class _PhotoMenu extends Component {
                         <div className="flex space-between wrap">
                             {imgs && imgs.map((img, index) =>
 
-                                <div className='btn-photo flex column align-center flex-end ' style={{ "backgroundImage": `url("${img.thumbUrl}")` }} key={index} onClick={() => this.changeBoardImg(img.regularUrl)} >
-                                    <a className="credit" title={img.userName} target="_blank" rel="noopener noreferrer" href={img.credit} >{img.userName}</a>
+                                <div className='btn-photo flex column align-center flex-end '
+                                    style={{ "backgroundImage": `url("${img.thumbUrl}")` }} key={index}
+                                    onClick={() => this.changeBoardImg(img.regularUrl)} >
                                 </div>)}
                         </div>
                     </div>

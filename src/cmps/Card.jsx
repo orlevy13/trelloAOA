@@ -7,7 +7,7 @@ import { CardChecklist } from './CardChecklist';
 import { Activities } from '../cmps/Activities'
 import {
     PermIdentity, LabelOutlined, PlaylistAddCheck,
-    Schedule, Attachment, CropOriginal
+    Schedule, Attachment, CropOriginal, Clear, DeleteForeverOutlined
 } from '@material-ui/icons';
 import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
@@ -51,6 +51,17 @@ class _Card extends Component {
             const cardActivities = this.getActivities(card.id);
             this.setState({ card, cardActivities });
         }
+    }
+
+    getUpdatedLabels = () => {
+        const { labels } = this.state.card;
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const updatedLabels = labels.map(label => {
+            //get the correct labels from board
+            const foundLabel = boardCopy.labels.find(boardLabel => boardLabel.id === label.id);
+            if (foundLabel) return foundLabel;
+        })
+        return updatedLabels;
     }
 
     hideCard = (ev) => {
@@ -113,16 +124,34 @@ class _Card extends Component {
         this.props.updateBoard(boardCopy);
     }
 
+    removeImgUrl = () => {
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const cardId = this.props.card.id;
+        const phaseIdx = this.getPhaseIdxByCardId(cardId);
+        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+        //Getting access to the card inside the board
+
+        boardCopy.phaseLists[phaseIdx].cards[cardIdx].imgUrl = null;
+        this.props.updateBoard(boardCopy);
+    }
+
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
         const { card, isLabelEditShown, isMembersEditShown, cardActivities, isDueDateEditShown } = this.state;
-        const { assignedTo, labels, dueDate } = card;
-        const { toggleProperty, changeDueDate } = this;
+        const { assignedTo, dueDate, imgUrl, title } = card;
+        const { toggleProperty, changeDueDate, removeImgUrl } = this;
+        const labels = this.getUpdatedLabels();
 
         return (
             <section>
                 <div onClick={() => { this.props.setCard(null) }} className="card-modal" >
                     <div onClick={(ev) => ev.stopPropagation()} className="card-container" >
+                        {imgUrl && <div className="card-img-container flex justify-center">
+                            <img className="card-img" src={imgUrl} alt={title} />
+                            <button className="remove-btn flex align-center"
+                                title="Remove cover image" onClick={removeImgUrl}>
+                                <DeleteForeverOutlined className="icon" /></button>
+                        </div>}
                         < CardHeader card={card} />
                         <div className="card-content flex">
                             <div className="card-details flex column grow">
@@ -149,9 +178,9 @@ class _Card extends Component {
 
                                 {dueDate && <div className="card-details-date">
                                     <h3>Due Date</h3>
-                                    <div className="date flex align-center">
-                                        <span onClick={() => { toggleProperty('isDueDateEditShown') }}
-                                            className="date-str">{`${moment(dueDate).format("MMM Do")}
+                                    <div onClick={() => { toggleProperty('isDueDateEditShown') }}
+                                        className="date flex align-center">
+                                        <span className="date-str">{`${moment(dueDate).format("MMM Do")}
                                      at ${moment(dueDate).format("HH:mm")}`}</span>
                                     </div>
                                 </div>}
@@ -185,8 +214,9 @@ class _Card extends Component {
 
                                 <button className="card-sidebar-btn"><span>
                                     <Attachment className="icon" /></span>Attachment</button>
-                                <button className="card-sidebar-btn"><span>
-                                    <CropOriginal className="icon" /></span>Cover</button>
+
+                                {!imgUrl && <button className="card-sidebar-btn"><span>
+                                    <CropOriginal className="icon" /></span>Cover</button>}
                             </div>
                         </div>
                     </div></div>

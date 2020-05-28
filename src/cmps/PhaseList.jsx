@@ -19,7 +19,7 @@ export class _PhaseList extends Component {
         this.setState({ board: this.props.board })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
             this.setState({ board: this.props.board })
         }
@@ -155,7 +155,7 @@ export class _PhaseList extends Component {
                             </form>}
                             {provided.placeholder}
                         </section>
-                        
+
                     )}
                 </Droppable>
             </DragDropContext>

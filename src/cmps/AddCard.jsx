@@ -14,9 +14,12 @@ export class _AddCard extends Component {
     componentDidUpdate() {
         if (this.props.isAddCardShown) {
             this.cardNameInput.addEventListener("keypress", this.submitOnEnter);
+            window.addEventListener("mouseup", this.handleClick);
             this.props.bottomCard.scrollIntoView({ behavior: 'smooth' });
         }
+        else window.removeEventListener("mouseup", this.handleClick);
     }
+
 
     handleChange = ({ target }) => {
         this.setState({ card: { title: target.value } })
@@ -44,6 +47,16 @@ export class _AddCard extends Component {
         }
     }
 
+    handleClick = (ev) => {
+        if (ev.target !== this.addCardBtn &&//If user clicked add button or the input
+            ev.target !== this.cardNameInput) {
+            if (this.state.card.title) {//If there's input- add the card
+                this.addCardBtn.form.dispatchEvent(new Event("submit", { cancelable: true }));
+            }
+            this.props.toggleAddCardShown();
+        }//This rather than onBlur because it gives the user
+        // the experience of clicking the button himself
+    }
 
     render() {
         const { handleChange, onAddCard, state } = this;
@@ -55,9 +68,10 @@ export class _AddCard extends Component {
                     <textarea className="card-name-input" required autoFocus type="text"
                         name="title" autoComplete="off" onChange={handleChange} spellCheck="false"
                         ref={el => this.cardNameInput = el} value={state.card.title}
-                        placeholder="Enter a title for this card.." onBlur={toggleAddCardShown} />
+                        placeholder="Enter a title for this card.." />
                     <div className="form-btns flex align-end">
-                        <button className="submit-btn" type="submit">Add Card</button>
+                        <button ref={(el) => this.addCardBtn = el} className="submit-btn"
+                            type="submit">Add Card</button>
                         <button className="close-btn" onClick={toggleAddCardShown}><Close /></button>
                     </div>
                 </form>}
