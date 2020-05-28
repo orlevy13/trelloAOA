@@ -47,16 +47,17 @@ export class _PhotoMenu extends Component {
     }
 
     render() {
-
-        const menuClass = !this.props.isMenuShown ? 'board-menu display-none' : 'board-menu';
+        const shownClass = !this.props.isMenuShown ? 'display-none' : 'shown';
         const { imgs } = this.state;
         return (
-            <div className={menuClass}>
+            <div className={`board-menu ${shownClass}`}>
                 <div className="flex column">
-                    <div className="board-menu-header flex justify-center">
-                        <ArrowBackIosOutlined onClick={() => this.props.onToggleMenu("backgroundMenu")} className="btn-header-menu" />
-                        <h3 className="menu-header-title">Photos by<a className="unsplash" href="https://unsplash.com/?utm_source=Flowz&utm_medium=referral&utm_campaign=api-credit" >Unsplash</a></h3>
-                        <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
+                    <div className="board-menu-header">
+                        <div className="board-menu-header-content  flex justify-center">
+                            <ArrowBackIosOutlined onClick={() => this.props.onToggleMenu("backgroundMenu")} className="btn-header-menu" />
+                            <h3 className="menu-header-title">Photos by<a className="unsplash" href="https://unsplash.com/?utm_source=Flowz&utm_medium=referral&utm_campaign=api-credit" >Unsplash</a></h3>
+                            <CloseOutlined onClick={() => this.props.onToggleMenu(null)} className="btn-header-menu" />
+                        </div>
                     </div>
                     <div className="board-menu-content">
                         <div className="flex space-between wrap">
@@ -68,7 +69,7 @@ export class _PhotoMenu extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 }
