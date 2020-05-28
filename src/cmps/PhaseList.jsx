@@ -154,6 +154,7 @@ export class _PhaseList extends Component {
                             </form>}
                             {provided.placeholder}
                         </section>
+                        
                     )}
                 </Droppable>
             </DragDropContext>
