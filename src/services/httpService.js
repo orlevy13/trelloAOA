@@ -31,7 +31,6 @@ async function ajax(endpoint, method = 'get', data = null) {
         })
         return res.data;
     } catch (err) {
-        console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`);
         console.dir(err);
         if (err.response && err.response.status === 401) {
             history.push('/');

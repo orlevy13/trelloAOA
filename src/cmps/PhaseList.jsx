@@ -15,23 +15,40 @@ export class _PhaseList extends Component {
     }
 
     componentDidMount() {
-        this.setState({ board: this.props.board })
+        this.setState({ board: this.props.board }, () => {
+
+            const phaseListToShow = this.getFilteredPhaseLists(this.props.filteredByUser);
+            this.setState({ phaseListToShow })
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
+
         if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
-            this.setState({ board: this.props.board })
+            this.setState({ board: this.props.board });
         }
+        if (JSON.stringify(prevProps.filteredByUser) !== JSON.stringify(this.props.filteredByUser)) {
+            { }
+            const phaseListToShow = this.getFilteredPhaseLists(this.props.filteredByUser);
+            this.setState({ phaseListToShow })
+        }
+
     }
 
     componentWillUnmount() {
         this.removeEventListeners();
     }
 
-    filterPhase(userId) {
-        const phaselistsToShow = this.props.board.phaseLists.map(phaseList =>
-            phaseList.cards.filter(card => card.assignedTo._id === userId));
-        return phaselistsToShow;
+    getFilteredPhaseLists(searchedName) {
+        if (!searchedName) return this.props.board.phaseLists;
+        const cloneBoard = boardService.getBoardCopy(this.props.board);
+
+        cloneBoard.phaseLists.map(phase => {
+            return phase.cards = phase.cards.filter(card => {
+                return card.assignedTo.find(user => user.fullName.toLowerCase().includes(searchedName.trim().toLowerCase()))
+            })
+        })
+        return cloneBoard.phaseLists;
     }
 
     toggleInputShown = () => {
@@ -123,9 +140,11 @@ export class _PhaseList extends Component {
 
 
     render() {
-        if (!this.state.board) return 'loading..'
+        if (!this.state.board || !this.state.phaseListToShow) return 'loading..'
+
+
         const { toggleInputShown, onAddPhase, handleChange, hideInput } = this;
-        const { isInputShown, newListName } = this.state;
+        const { isInputShown, newListName, phaseListToShow } = this.state;
         const { phaseLists } = this.state.board;
 
         return (
@@ -134,7 +153,7 @@ export class _PhaseList extends Component {
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
                     {provided => (
                         <section className="phase-list flex grow"  {...provided.droppableProps} ref={provided.innerRef} >
-                            {phaseLists && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
+                            {phaseListToShow && phaseListToShow.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
 
                             {!isInputShown && <button className="add-list-btn flex align-center"
