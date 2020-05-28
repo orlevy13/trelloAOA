@@ -5,7 +5,6 @@
     min-height: 6vh;
 
     .logo {
-
         .btn-icon {
             color: white;
             width: 20px;
@@ -113,7 +112,6 @@
         }
 
         .create-board-btns {
-
             .create-board-btn {
                 border: none;
 
@@ -137,6 +135,9 @@
             align-items: center;
             justify-items: center;
         }
+        .color-preview-input {
+            display: none;
+        }
 
         .color-preview {
             width: 40px;
@@ -144,43 +145,43 @@
             margin-top: 10px;
             border-radius: 3px;
             transition: 0.3s;
+            display: inline-block;
+
+            &.selected {
+                border: 2px solid rgb(41, 40, 36);
+            }
+
+            &.green {
+                background-color: rgb(81, 152, 57);
+            }
+            &.orange {
+                background-color: #d29034;
+            }
+
+            &.blue {
+                background-color: rgb(0, 121, 191);
+            }
+            &.red {
+                background-color: rgb(176, 70, 50);
+            }
+
+            &.purple {
+                background-color: rgb(137, 96, 158);
+            }
+            &.pink {
+                background-color: rgb(205, 90, 145);
+            }
+            &.light-green {
+                background-color: rgb(75, 191, 107);
+            }
+            &.turquise {
+                background-color: rgb(73, 169, 215);
+            }
         }
 
         .color-preview:hover {
             cursor: pointer;
             filter: brightness(85%);
-        }
-
-        .color-preview-orange {
-            background-color: #d29034;
-        }
-
-        .color-preview-blue {
-            background-color: rgb(0, 121, 191);
-        }
-
-        .color-preview-green {
-            background-color: rgb(81, 152, 57);
-        }
-
-        .color-preview-red {
-            background-color: rgb(176, 70, 50);
-        }
-
-        .color-preview-purple {
-            background-color: rgb(137, 96, 158);
-        }
-
-        .color-preview-pink {
-            background-color: rgb(205, 90, 145);
-        }
-
-        .color-preview-light-green {
-            background-color: rgb(75, 191, 107);
-        }
-
-        .color-preview-turquise {
-            background-color: rgb(73, 169, 215);
         }
 
         .board-name-input {
