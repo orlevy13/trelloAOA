@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Doughnut } from 'react-chartjs-2';
-import { boardService } from '../services/boardService';
+import { Doughnut, Bar, Pie } from 'react-chartjs-2';
+import { connect } from 'react-redux';
+import { loadBoard, } from '../store/actions/boardActions';
+
 const bgColors =
     [
         '#003f5c',
@@ -39,35 +41,107 @@ const hovColors =
     ];
 
 
-export default class Dashboard extends Component {
+class _Dashboard extends Component {
 
-    state = {
-        board: null
-    }
 
     componentDidMount() {
-        this.getBoard('5ece91a4b3788928d0e4a47b');
+        this.getBoardById();
 
 
     }
-
-    getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+    getBoardById = async () => {
+        const id = this.props.match.params.id;
+        await this.props.loadBoard(id);
     }
 
+    getSprintProgress = () => {
 
-    getBoard = async (id) => {
+        const { board } = this.props;
+        var getSprintProgressMap = {};
+        board.phaseLists.forEach(phase => {
+            phase.cards.forEach(card => {
+                card.checkList.forEach(checkListItem => {
+                    if (checkListItem.isDone) {
+                        (!getSprintProgressMap["Completd"]) ? getSprintProgressMap["Completd"] = 1 : getSprintProgressMap["Completd"] += 1;
+                    } else {
+                        (!getSprintProgressMap["In Progress"]) ? getSprintProgressMap["In Progress"] = 1 : getSprintProgressMap["In Progress"] += 1;
+                    }
+                })
+            })
+        });
 
-        const board = await boardService.getById('5ece91a4b3788928d0e4a47b');
-        this.setState({ board });
-        console.log(board);
+        return {
 
+            labels: [
+                //the labels are the keys of the object map,E.g 'Educational, Funny..'
+                ...Object.keys(getSprintProgressMap)
+            ],
+            datasets: [{
+                label: "Sprint Progress",
+                data: [...Object.values(getSprintProgressMap)],
+                backgroundColor: bgColors,
+                hoverBackgroundColor: hovColors
+
+            }]
+        };
     }
+
+    getTaskPerPhaseDistribution = () => {
+        const { board } = this.props;
+        var phaseTaskMap = {};
+        board.phaseLists.forEach(phase => {
+            phase.cards.forEach(card => {
+
+                (!phaseTaskMap[phase]) ? phaseTaskMap[phase.name] = 1 : phaseTaskMap[phase.name] += 1;
+
+            })
+        });
+
+        return {
+
+            labels: [
+
+                ...Object.keys(phaseTaskMap)
+            ],
+            datasets: [{
+                label: "Task Per Phase Distribution",
+                data: [...Object.values(phaseTaskMap)],
+                backgroundColor: bgColors,
+                hoverBackgroundColor: hovColors
+
+            }]
+        };
+    }
+    getTaskByLables = () => {
+        const { board } = this.props;
+        var devTaskMap = {};
+        board.phaseLists.forEach(phase => {
+            phase.cards.forEach(card => {
+                card.labels.forEach(label => {
+                    (!devTaskMap[label.txt]) ? devTaskMap[label.txt] = 1 : devTaskMap[label.txt] += 1;
+                })
+            })
+        });
+
+        return {
+
+            labels: [
+                //the labels are the keys of the object map,E.g 'Educational, Funny..'
+                ...Object.keys(devTaskMap)
+            ],
+            datasets: [{
+                label: "Tasks by Labels",
+                data: [...Object.values(devTaskMap)],
+                backgroundColor: bgColors,
+                hoverBackgroundColor: hovColors
+
+            }]
+        };
+    }
+
     getTasksPerDevloperData() {
 
-        const { board } = this.state;
+        const { board } = this.props;
         var devTaskMap = {};
         board.phaseLists.forEach(phase => {
             phase.cards.forEach(card => {
@@ -78,11 +152,13 @@ export default class Dashboard extends Component {
         });
 
         return {
+
             labels: [
                 //the labels are the keys of the object map,E.g 'Educational, Funny..'
                 ...Object.keys(devTaskMap)
             ],
             datasets: [{
+                label: "Task Per Devloper",
                 data: [...Object.values(devTaskMap)],
                 backgroundColor: bgColors,
                 hoverBackgroundColor: hovColors
@@ -93,16 +169,55 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        if (!this.state.board) return 'loading';
-        const tPerDevloper = this.getTasksPerDevloperData()
+        if (!this.props.board) return 'loading';
+        const tPerDevloper = this.getTasksPerDevloperData();
+        const taskPerPhaseDistribution = this.getTaskPerPhaseDistribution();
+        const tasksByLabels = this.getTaskByLables()
+        const sprintProgress = this.getSprintProgress();
         return (
             <section className="chart-cont">
 
-                <article className="chart-1-1 flex column align-centery">
-                    <h2>Task Per Devloper</h2>
-                    <Doughnut data={tPerDevloper} />
+                <article className="flex column align-centery">
+                    <Bar data={tPerDevloper} options={{
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }} />
+                </article>
+                <article className="flex column align-centery">
+                    <Doughnut data={taskPerPhaseDistribution} />
+                </article>
+                <article className="flex column align-centery">
+                    <Bar data={tasksByLabels} options={{
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }} />
+                </article>
+                <article className="flex column align-centery">
+                    <h2>Sprint Progress by cheklist Items</h2>
+                    <Pie data={sprintProgress} />
                 </article>
             </section>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        board: state.trelloApp.board
+    }
+}
+
+const mapDispatchToProps = {
+    loadBoard
+}
+
+export const Dashboard = connect(mapStateToProps, mapDispatchToProps)(_Dashboard)

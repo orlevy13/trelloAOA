@@ -8,7 +8,7 @@ import { Signup } from './pages/Signup';
 import { Card } from './cmps/Card';
 import { MainNav } from './cmps/MainNav';
 import { Boards } from './pages/Boards';
-import Dashboard from './pages/Dashboard';
+import { Dashboard } from './pages/Dashboard';
 
 export function App() {
   return (
@@ -21,7 +21,7 @@ export function App() {
           <Route path="/login" component={Login} exact />
           <Route path="/signup" component={Signup} exact />
           <Route path="/board/:boardId/card/:cardId" component={Card} exact />
-          <Route path="/dash/" component={Dashboard} />
+          <Route path="/board/:id/dashboard" component={Dashboard} />
           <Route path="/boards" component={Boards} exact />
 
         </Switch>

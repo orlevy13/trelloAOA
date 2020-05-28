@@ -19,10 +19,14 @@ class _MainNav extends Component {
         newBoardColor: '#61acca'
     }
 
-    handleChangeColor = async (event) => {
-        const boardColor = window.getComputedStyle(event.target, null).getPropertyValue("background-color");
-        await this.setState({ newBoardColor: boardColor });
+    isPreviewSelected = ({ target }) => {
+        console.log('color is ');
+    }
 
+    handleChangeColor = async ({ target }) => {
+
+        const boardColor = target.value;        
+        await this.setState({ newBoardColor: boardColor });
     }
 
     handleChange = ({ target }) => {
@@ -47,7 +51,7 @@ class _MainNav extends Component {
 
 
     render() {
-        const { isCreateBoardMenuShown, newBoardName } = this.state
+        const { isCreateBoardMenuShown, newBoardName, newBoardColor } = this.state
         if (!this.state) return ''
         return (
             <header className="main-header flex space-between">
@@ -85,14 +89,52 @@ class _MainNav extends Component {
                         </div>
                         <div className="create-board-btns flex column">
                             <div className="color-container">
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-green">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-orange">&nbsp;</div>
+                                {/* style="width:20px; height:20px; background-color:red;display:inline-block" */}
+                                {/* style="display:none" */}
+
+                                <label className={"rgb(81, 152, 57)" === newBoardColor ? "color-preview green selected" : "color-preview green"}  >
+                                    <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
+                                        name="green" value="rgb(81, 152, 57)" /></label>
+
+                                <label className={"#d29034" === newBoardColor ? "color-preview orange selected" : "color-preview orange"} >
+                                    <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
+                                        name="orange" value="#d29034" /></label>
+
+                                <label className={"rgb(0, 121, 191)" === newBoardColor ? "color-preview blue selected" : "color-preview blue"} >
+                                    <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
+                                        name="blue" value="rgb(0, 121, 191)" /></label>
+
+                                <label className={"rgb(176, 70, 50)" === newBoardColor ? "color-preview red selected" : "color-preview red"} >
+                                    <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
+                                        name="red" value="rgb(176, 70, 50)" /></label>
+
+                                <label className={"rgb(137, 96, 158)" === newBoardColor ? "color-preview purple selected" : "color-preview purple"} >
+                                    <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
+                                        name="purple" value="rgb(137, 96, 158)" /></label>
+
+                                <label className={"rgb(205, 90, 145)" === newBoardColor ? "color-preview pink selected" : "color-preview pink"} >
+                                    <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
+                                        name="pink" value="rgb(205, 90, 145)" /></label>
+
+                                <label className={"rgb(75, 191, 107)" === newBoardColor ? "color-preview light-green selected" : "color-preview light-green"} >
+                                    <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
+                                        name="light-green" value="rgb(75, 191, 107)" /></label>
+
+                                <label className={"rgb(73, 169, 215)" === newBoardColor ? "color-preview turquise selected" : "color-preview turquise"} >
+                                    <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
+                                        name="turquise" value="rgb(73, 169, 215)" /></label>
+
+
+                                {/* <div onClick={this.handleChangeColor} className="color-preview color-preview-green">&nbsp;</div> */}
+
+
+                                {/* <div onClick={this.handleChangeColor} className="color-preview color-preview-orange">&nbsp;</div>
                                 <div onClick={this.handleChangeColor} className="color-preview color-preview-blue">&nbsp;</div>
                                 <div onClick={this.handleChangeColor} className="color-preview color-preview-red">&nbsp;</div>
                                 <div onClick={this.handleChangeColor} className="color-preview color-preview-purple">&nbsp;</div>
                                 <div onClick={this.handleChangeColor} className="color-preview color-preview-pink">&nbsp;</div>
                                 <div onClick={this.handleChangeColor} className="color-preview color-preview-light-green">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-turquise">&nbsp;</div>
+                                <div onClick={this.handleChangeColor} className="color-preview color-preview-turquise">&nbsp;</div> */}
                             </div>
                             <input className="board-name-input" type="text" onChange={this.handleChange} placeholder="Your Board's name..." value={newBoardName} />
                             <button className="create-board-btn" onClick={this.createNewBoard} >Create a new Board</button>
