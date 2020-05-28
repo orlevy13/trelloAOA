@@ -6,7 +6,8 @@ import { MemberInitials } from '../cmps/MemberInitials';
 import { BoardMenu } from '../cmps/boardMenu/BoardMenu';
 import { ColorMenu } from '../cmps/boardMenu/ColorMenu';
 import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
-import { MenuOutlined } from '@material-ui/icons';
+import { MenuOutlined, PieChartOutlined } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
 import { socketService } from '../services/socketService';
@@ -92,6 +93,12 @@ class _Board extends Component {
                         <div className="board-members flex align-center">
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
+                        <Link to={`/board/${board._id}/dashboard`}>
+                            <div className="nav-btn  flex align-center">
+                                <PieChartOutlined className="nav-icon" />
+                                <span className="btn-text">Statistics</span>
+                            </div>
+                        </Link>
                     </div>
                     <div className="nav-btn flex align-center" onClick={() => this.toggleMenu("mainMenu")}>
                         <MenuOutlined />
