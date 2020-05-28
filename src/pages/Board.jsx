@@ -25,7 +25,8 @@ class _Board extends Component {
                 colorMenu: false,
                 photoMenu: false
             }
-        }
+        },
+        filteredByUser: null
     }
 
     componentDidMount() {
@@ -77,11 +78,14 @@ class _Board extends Component {
     handleKeyDown = (ev) => {
         if (ev.code === 'Escape') this.toggleMenu(null);
     }
+    onInputChanged = async (name) => {
+        await this.setState({ filteredByUser: name })
+    }
 
     render() {
-
+        const { filteredByUser } = this.state;
         const { board } = this.props;
-        if (!board) return '';
+        if ((!board) || (!this.state)) return '';
 
         const { mainMenu, backgroundMenu, colorMenu, photoMenu } = this.state.boardMenus.menusState;
         const boardBg = board.bgColor ? { "backgroundColor": board.bgColor } :
@@ -98,7 +102,7 @@ class _Board extends Component {
                         <div className="board-members flex align-center">
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
-                        <BoardUserFilter />
+                        <BoardUserFilter users={board.members} onInputChanged={this.onInputChanged} />
                         <Link to={`/board/${board._id}/dashboard`}>
                             <div className="nav-btn  flex align-center">
                                 <PieChartOutlined className="nav-icon" />
@@ -115,7 +119,7 @@ class _Board extends Component {
                     <PhotoMenu isMenuShown={photoMenu} board={board} onToggleMenu={this.toggleMenu} />
                 </section>
                 <section className="board-content flex grow">
-                    <PhaseList />
+                    <PhaseList filteredByUser={filteredByUser} />
                 </section>
                 {this.props.card && <Card cardId={this.props.card.id} />}
             </main>
