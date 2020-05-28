@@ -9,7 +9,7 @@ import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
 import { MenuOutlined } from '@material-ui/icons';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
-import socketService from '../services/socketService'
+import { socketService } from '../services/socketService';
 
 
 class _Board extends Component {
@@ -92,7 +92,6 @@ class _Board extends Component {
                         <div className="board-members flex align-center">
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
-                        <span className="nav-btn flex align-center">Invite</span>
                     </div>
                     <div className="nav-btn flex align-center" onClick={() => this.toggleMenu("mainMenu")}>
                         <MenuOutlined />

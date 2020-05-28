@@ -67,7 +67,8 @@ class _LabelsEdit extends Component {
             <section className="edit-labels">
                 <div className="edit-labels-header flex align-center">
                     <p className="grow">Labels</p>
-                    <button onClick={this.props.toggleIsLabelEditShown}><Clear /></button>
+                    <button onClick={() => { this.props.toggleProperty('isLabelEditShown') }}>
+                        <Clear /></button>
                 </div>
                 <div className="labels-gallery">
                     {!editLabel && labels.map(label => <LabelEdit toggleLabelOnCard={toggleLabelOnCard}

@@ -13,6 +13,7 @@
 @import "pages/Board";
 @import "cmps/MemberInitials";
 @import "pages/Home";
+@import "pages/Dashboard";
 
 //Components
 @import "cmps/MainNav";
@@ -29,5 +30,6 @@
 @import "cmps/boardMenu";
 @import "cmps/BackgroundMenu";
 @import "cmps/ColorMenu";
-@import "cmps/CardMembers.scss";
+@import "cmps/CardMembers";
 @import "cmps/Activities";
+@import "cmps/DueDateEdit";
