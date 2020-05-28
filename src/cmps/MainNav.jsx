@@ -26,8 +26,7 @@ class _MainNav extends Component {
 
     handleChangeColor = async ({ target }) => {
 
-        const boardColor = target.value;
-        console.log('handle change color', boardColor);
+        const boardColor = target.value;        
         await this.setState({ newBoardColor: boardColor });
     }
 
