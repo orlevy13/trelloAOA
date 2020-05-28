@@ -2,6 +2,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CardLabels } from './CardLabels';
 import { AttachmentOutlined, CheckBoxOutlined, CreateOutlined } from '@material-ui/icons';
+import NaturalDragAnimation from 'natural-drag-animation-rbdnd';
 import { loadBoard, setCard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { DueBadge } from './DueBadge';
@@ -54,44 +55,48 @@ class _CardPreview extends React.Component {
 
                 <Draggable draggableId={this.props.card.id} index={this.props.index}>
                     {(provided, snapshot) => (
-                        <section onClick={() => { this.props.setCard(this.props.card) }}
-                            style={{ backgroundColor: bgColor }} className="card-preview flex column"
-                            {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
-                        // style={getDragStyle(provided.draggableProps.style, snapshot)}
-                        >
+                        <NaturalDragAnimation style={provided.draggableProps.style} snapshot={snapshot}>
+                            {style => (
+                                <section onClick={() => { this.props.setCard(this.props.card) }}
+                                    className="card-preview flex column"
+                                    {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} style={{ ...style, backgroundColor: bgColor }}
 
-                            <button onClick={toggleIsMenuShown}
-                                className="show-menu-btn">
-                                <CreateOutlined className="show-menu-icon" />
-                            </button>
+                                >
 
-                            {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
-                            {labels && <CardLabels labels={labels} />}
+                                    <button onClick={toggleIsMenuShown}
+                                        className="show-menu-btn">
+                                        <CreateOutlined className="show-menu-icon" />
+                                    </button>
 
-                            <p>{title}</p>
+                                    {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
+                                    {labels && <CardLabels labels={labels} />}
 
-                            <div className="card-badges flex wrap">
-                                {dueDate && <DueBadge dueDate={dueDate} />}
+                                    <p>{title}</p>
 
-                                {attachments.length > 0 &&
-                                    <div className="attach-badge flex align-center">
-                                        <AttachmentOutlined className="attach-icon" />
-                                        <span>{attachments.length}</span>
-                                    </div>}
+                                    <div className="card-badges flex wrap">
+                                        {dueDate && <DueBadge dueDate={dueDate} />}
 
-                                {checkList.length > 0 &&
-                                    <div style={{ backgroundColor: checklistBgc, color: checklistColor }}
-                                        className="checklist-badge flex align-center">
-                                        <span><CheckBoxOutlined className="checklist-icon" />
-                                        </span>
-                                        <span>{checklistDoneCount}/{checkList.length}</span>
-                                    </div>}
-                            </div>
-                            <div className="members-badge flex align-center">
-                                {assignedTo.length > 0 &&
-                                    assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
-                            </div>
-                        </section>
+                                        {attachments.length > 0 &&
+                                            <div className="attach-badge flex align-center">
+                                                <AttachmentOutlined className="attach-icon" />
+                                                <span>{attachments.length}</span>
+                                            </div>}
+
+                                        {checkList.length > 0 &&
+                                            <div style={{ backgroundColor: checklistBgc, color: checklistColor }}
+                                                className="checklist-badge flex align-center">
+                                                <span><CheckBoxOutlined className="checklist-icon" />
+                                                </span>
+                                                <span>{checklistDoneCount}/{checkList.length}</span>
+                                            </div>}
+                                    </div>
+                                    <div className="members-badge flex align-center">
+                                        {assignedTo.length > 0 &&
+                                            assignedTo.map((member) => <MemberInitials key={member._id} member={member} />)}
+                                    </div>
+                                </section>
+                            )}
+                        </NaturalDragAnimation>
                     )}
                 </Draggable>
             </React.Fragment>

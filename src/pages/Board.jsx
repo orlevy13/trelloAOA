@@ -10,6 +10,7 @@ import { MenuOutlined, PieChartOutlined } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
+import { BoardUserFilter } from '../cmps/BoardUserFilter'
 import { socketService } from '../services/socketService';
 
 
@@ -90,6 +91,7 @@ class _Board extends Component {
                         <div className="board-members flex align-center">
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
                         </div>
+                        <BoardUserFilter />
                         <Link to={`/board/${board._id}/dashboard`}>
                             <div className="nav-btn  flex align-center">
                                 <PieChartOutlined className="nav-icon" />
