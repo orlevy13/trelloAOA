@@ -49,7 +49,6 @@ class _Board extends Component {
     getBoardById = async () => {
         const id = this.props.match.params.id;
         await this.props.loadBoard(id);
-        console.log('on load', this.props.board._id);
     }
 
     toggleMenu = (menuName) => {
