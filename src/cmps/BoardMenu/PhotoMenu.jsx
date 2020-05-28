@@ -43,7 +43,6 @@ export class _PhotoMenu extends Component {
             { id: clonedBoard._id, title: clonedBoard.name },
             `change board background image`);
         this.props.updateBoard(clonedBoard);
-        this.props.updateBoard(clonedBoard);
     }
 
     render() {
@@ -62,7 +61,7 @@ export class _PhotoMenu extends Component {
                         <div className="flex space-between wrap">
                             {imgs && imgs.map((img, index) =>
 
-                                <div className='btn-photo flex column align-center flex-end ' style={{ "backgroundImage": `url("${img.thumbUrl}")` }} key={index} onClick={() => this.changeBoardImg(img.fullUrl)} >
+                                <div className='btn-photo flex column align-center flex-end ' style={{ "backgroundImage": `url("${img.thumbUrl}")` }} key={index} onClick={() => this.changeBoardImg(img.regularUrl)} >
                                     <a className="credit" title={img.userName} target="_blank" rel="noopener noreferrer" href={img.credit} >{img.userName}</a>
                                 </div>)}
                         </div>

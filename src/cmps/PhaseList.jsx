@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
 import { boardService, OPERETIONS, TYPES } from '../services/boardService';
 
+
 export class _PhaseList extends Component {
     state = {
         board: null,
@@ -132,7 +133,7 @@ export class _PhaseList extends Component {
 
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
-                    {provided => (
+                    {(provided, snapshot) => (
                         <section className="phase-list flex grow"  {...provided.droppableProps} ref={provided.innerRef} >
                             {phaseLists && phaseLists.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
