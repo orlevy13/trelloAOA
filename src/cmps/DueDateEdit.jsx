@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Clear } from '@material-ui/icons';
-import { DateTimePicker } from '@material-ui/pickers';
+import { DateTimePicker, DatePicker } from '@material-ui/pickers';
 
 export class DueDateEdit extends Component {
 
@@ -8,16 +8,30 @@ export class DueDateEdit extends Component {
         dueDate: 0
     }
 
+    componentDidMount() {
+        window.addEventListener('keydown', this.hideDueDateEdit);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.hideDueDateEdit);
+    }
+
+    hideDueDateEdit = (ev) => {
+        if (ev.code === 'Escape') this.props.toggleProperty('isDueDateEditShown');
+    }
+
     handleDateChange = date => {
-        console.log('date', date)
-        //._i Is the timestamp- do not change!
-        this.setState({ dueDate: date._i }, () => {
-            console.log('this.state', this.state)
-        })
+        this.setState({ dueDate: date._d.getTime() })
     }
 
     handleSave = () => {
         this.props.changeDueDate(this.state.dueDate);
+        this.props.toggleProperty('isDueDateEditShown');
+    }
+
+    removeDueDate = () => {
+        this.props.changeDueDate(null);
+        this.props.toggleProperty('isDueDateEditShown');
     }
 
     render() {
@@ -31,19 +45,18 @@ export class DueDateEdit extends Component {
                         <Clear className="icon" /></button>
                 </div>
                 <div className="date-picker-content flex column justify-center">
-                    <DateTimePicker
+                    <DateTimePicker className="picker-input"
                         disablePast="true"
                         views={["date", "month", "hours", "minutes"]}
-                        variant="inline"
+                        minDateMessage=""
                         value={dueDate} onChange={this.handleDateChange} />
                     <div className="flex space-between">
-                        <button onClick={() => { toggleProperty('isDueDateEditShown') }}
-                            className="cancel-btn">Cancel</button>
-                        <button className="save-btn">Save</button>
+                        <button onClick={this.removeDueDate}
+                            className="remove-btn">Remove</button>
+                        <button onClick={this.handleSave} className="save-btn">Save</button>
                     </div>
                 </div>
             </div>
         );
     }
 }
-// disableToolbar="true"

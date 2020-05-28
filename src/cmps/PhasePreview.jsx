@@ -106,7 +106,7 @@ export class _PhasePreview extends Component {
 
     render() {
         const { name, id, cards } = this.props.phase;
-        const { newPhaseName, isInputShown, isMenuShown, isSortShown, isAddCardShown, isDragging } = this.state;
+        const { newPhaseName, isInputShown, isMenuShown, isSortShown, isAddCardShown } = this.state;
 
         return (
             <Draggable draggableId={id} index={this.props.index}>

@@ -7,7 +7,7 @@
     left: 0;
     z-index: 1;
     background-color: rgba($color: #000000, $alpha: 0.7);
-    
+
     &::-webkit-scrollbar {
         background-color: #d6d7e0;
         width: 12px;
@@ -151,6 +151,32 @@
                     &:hover {
                         filter: brightness(85%);
                         cursor: pointer;
+                    }
+                }
+            }
+
+            &-date {
+                margin: 0 0 28px 28px;
+                font-family: roboto-normal;
+                font-size: 14px;
+                color: #172b4d;
+
+                .date {
+                    align-self: flex-start;
+                    background-color: rgba(9, 30, 66, .04);
+                    @include transRoundBorder;
+                    font-family: segoe-ui;
+                    font-size: 14px;
+                    cursor: pointer;
+                    height: 32px;
+                    max-width: max-content;
+                    padding: 6px 12px;
+                    transition-property: background-color, border-color, box-shadow;
+                    transition-duration: 85ms;
+                    transition-timing-function: ease;
+
+                    &:hover {
+                        background-color: rgba(9, 30, 66, .08);
                     }
                 }
             }

@@ -1,8 +1,7 @@
-
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { boardService } from '../services/boardService'
-import { HomeOutlined, DashboardOutlined, SearchOutlined, AccountTreeOutlined, Add, Close } from '@material-ui/icons';
+import { HomeOutlined, DashboardOutlined,  AccountTreeOutlined, Add, Close } from '@material-ui/icons';
 import { MemberInitials } from './MemberInitials';
 import { history } from '../history'
 import { connect } from 'react-redux';
