@@ -10,7 +10,8 @@ export class _PhaseList extends Component {
     state = {
         board: null,
         isInputShown: false,
-        newListName: ''
+        newListName: '',
+        phaseListToShow: null
     }
 
     componentDidMount() {
@@ -25,6 +26,12 @@ export class _PhaseList extends Component {
 
     componentWillUnmount() {
         this.removeEventListeners();
+    }
+
+    filterPhase(userId) {
+        const phaselistsToShow = this.props.board.phaseLists.map(phaseList =>
+            phaseList.cards.filter(card => card.assignedTo._id === userId));
+        return phaselistsToShow;
     }
 
     toggleInputShown = () => {
