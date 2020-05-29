@@ -1,6 +1,6 @@
 .dashboard {
     background-image: linear-gradient(to right top, #273d5d, #006c95, #009da2, #00ca78, #a8eb12);
-    height: 94vh;
+    padding-top: 6vh;//this is super important!
     .btn-back {
         position: fixed;
         background-color: #0d5d83;

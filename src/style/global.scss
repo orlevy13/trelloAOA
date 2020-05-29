@@ -9,14 +9,14 @@
 @import "basics/layout";
 
 // Pages
-@import "pages/SignUp";
 @import "pages/boards";
 @import "pages/Board";
 @import "cmps/MemberInitials";
 @import "pages/Home";
 @import "pages/Dashboard";
+@import "pages/SignUp";
 
-//Components
+// Components
 @import "cmps/MainNav";
 @import "cmps/Card";
 @import "cmps/cardDesc";

@@ -91,7 +91,7 @@ class _Card extends Component {
     addCheckList = () => {
         const cloneCard = JSON.parse(JSON.stringify(this.state.card));
         if (!cloneCard.checkList.length) {
-            cloneCard.checkList.push({ txt: '', isDone: false });
+            cloneCard.checkList.push({ txt: 'todo..', isDone: false });
             this.setState({ card: cloneCard })
         }
     }

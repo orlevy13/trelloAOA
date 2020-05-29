@@ -2,6 +2,7 @@
     flex: 1;
     @include background("../img/dont-waste-paper.jpg");
     background-size: cover;
+    padding-top: 6vh;//this is super important!
 
     .text-area {
         padding: 100px;

@@ -1,8 +1,13 @@
 .main-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    background-color: #026aa7;
-    min-height: 6vh;
+    background: rgba(0, 0, 0, .32);
+    min-height: 6vh; //this is super important!
 
     .logo {
         .btn-icon {

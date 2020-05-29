@@ -1,6 +1,5 @@
 .card-check-list {
-    grid-area: main;
-
+    margin-bottom: 24px;
     .add-btn {
         @include transRoundBorder;
         font-size: 14px;
@@ -8,8 +7,7 @@
         font-family: roboto-normal;
         color: #172b4d;
         padding: 6px 12px;
-        margin-left: 32px;
-        margin-bottom: 20px;
+        margin: 8px 0 20px 32px;
 
         &:hover {
             background-color: rgba(9, 30, 66, 0.08);

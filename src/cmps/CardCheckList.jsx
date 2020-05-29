@@ -15,8 +15,8 @@ class _CardChecklist extends Component {
     }
 
     componentDidMount() {
-        let checklistTitle;
-        (this.props.card.checklistTitle ? checklistTitle = this.props.card.checklistTitle : checklistTitle = '')
+        let checklistTitle = this.props.card.checklistTitle
+            ? this.props.card.checklistTitle : 'My Checklist';
         this.setState({ checkList: this.props.card.checkList, onAdd: false, checklistTitle },
             () => this.progressBarUpdate());
     }
@@ -114,8 +114,8 @@ class _CardChecklist extends Component {
 
 
     render() {
-        const { todoText, onAdd, checklistTitle, progress } = this.state;
-        if (!this.state.checkList || !this.state.checkList.length) return null;
+        const { todoText, onAdd, checklistTitle, progress, checkList } = this.state;
+        if (!checkList || !checkList.length) return null;
         const progressBgc = this.state.progress === 100 ? '#61bd4f' : '#2196f3';
 
         return (
@@ -127,22 +127,26 @@ class _CardChecklist extends Component {
                         onKeyDown={this.handleKeyPress} spellCheck="false"
                         onFocus={this.handleFocus} onBlur={this.handleSaveBoard}
                         value={checklistTitle} /></div>
-                <div className="progress-bar-container">
+                {checkList && checkList.length > 0 && < div className="progress-bar-container">
                     <div className="progress-bar"
                         style={{ width: `${progress}%`, backgroundColor: progressBgc }}></div>
-                </div>
-                {this.state.checkList.map((todo, idx) => <ChecklistItem todo={todo} key={idx}
-                    onDelete={this.onDelete} handleChange={this.handleChange}
-                    handleSaveBoard={this.handleSaveBoard} idx={idx}
-                    handleKeyPress={this.handleKeyPress} />)}
+                </div>}
+                {
+                    checkList && checkList.length > 0 && this.state.checkList.map((todo, idx) => <ChecklistItem todo={todo} key={idx}
+                        onDelete={this.onDelete} handleChange={this.handleChange}
+                        handleSaveBoard={this.handleSaveBoard} idx={idx}
+                        handleKeyPress={this.handleKeyPress} />)
+                }
 
                 {!onAdd && <button className="add-btn" onClick={this.toggleAdd}>Add Todo</button>}
-                {onAdd && <div className="add-item flex align-center">
-                    <input type="text" onChange={this.handleChange}
-                        onKeyDown={this.handleKeyPress} autoFocus onBlur={this.toggleAdd} value={todoText} />
-                    <button className="save-checklist-item-btn">Save</button>
-                </div>}
-            </div>
+                {
+                    onAdd && <div className="add-item flex align-center">
+                        <input type="text" onChange={this.handleChange}
+                            onKeyDown={this.handleKeyPress} autoFocus onBlur={this.toggleAdd} value={todoText} />
+                        <button className="save-checklist-item-btn">Save</button>
+                    </div>
+                }
+            </div >
         )
     }
 }

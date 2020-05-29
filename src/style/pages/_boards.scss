@@ -1,6 +1,7 @@
 .boards-page {
     background-color: rgb(250, 251, 252);
     overflow-y: auto;
+    padding-top: 6vh;//this is super important!
 
     .boards {
         background-color: rgb(250, 251, 252);
@@ -34,11 +35,13 @@
             margin-bottom: 100px;
             margin-left: 40px;
             transition: 0.3s;
+
             h3 {
                 margin-top: 6px;
                 margin-left: 10px;
             }
         }
+
         .board-item:hover {
             filter: brightness(85%);
             cursor: pointer;
