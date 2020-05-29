@@ -7,7 +7,7 @@ import { CardChecklist } from './CardChecklist';
 import { Activities } from '../cmps/Activities'
 import {
     PermIdentity, LabelOutlined, PlaylistAddCheck,
-    Schedule, Attachment, CropOriginal, Clear, DeleteForeverOutlined
+    Schedule, Attachment, CropOriginal,
 } from '@material-ui/icons';
 import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
@@ -15,6 +15,8 @@ import { MemberInitials } from './MemberInitials';
 import { boardService } from '../services/boardService';
 import { DueDateEdit } from './DueDateEdit';
 import moment from 'moment';
+import { cloudinaryService } from '../services/cloudinaryService';
+import { CardImage } from './CardImage';
 
 
 class _Card extends Component {
@@ -23,7 +25,8 @@ class _Card extends Component {
         isLabelEditShown: false,
         isMembersEditShown: false,
         cardActivities: [],
-        isDueDateEditShown: false
+        isDueDateEditShown: false,
+        isImgLoading: false
     }
 
     componentDidMount() {
@@ -54,13 +57,14 @@ class _Card extends Component {
     }
 
     getUpdatedLabels = () => {
+        if (!this.props.board.labels.length) return [];
         const { labels } = this.state.card;
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const updatedLabels = labels.map(label => {
-            //get the correct labels from board
+        const updatedLabels = labels.reduce((acc, label) => {
             const foundLabel = boardCopy.labels.find(boardLabel => boardLabel.id === label.id);
-            if (foundLabel) return foundLabel;
-        })
+            if (foundLabel) acc.push(foundLabel);
+            return acc;
+        }, [])
         return updatedLabels;
     }
 
@@ -135,9 +139,23 @@ class _Card extends Component {
         this.props.updateBoard(boardCopy);
     }
 
+    onUploadImg = async (ev) => {
+        this.setState({ isImgLoading: true });
+        const imgUrl = await cloudinaryService.uploadImg(ev);
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const cardId = this.props.card.id;
+        const phaseIdx = this.getPhaseIdxByCardId(cardId);
+        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+        //Getting access to the card inside the board
+
+        boardCopy.phaseLists[phaseIdx].cards[cardIdx].imgUrl = imgUrl;
+        this.props.updateBoard(boardCopy);
+        this.setState({ isImgLoading: false });
+    }
+
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
-        const { card, isLabelEditShown, isMembersEditShown, cardActivities, isDueDateEditShown } = this.state;
+        const { card, isLabelEditShown, isMembersEditShown, cardActivities, isDueDateEditShown, isImgLoading } = this.state;
         const { assignedTo, dueDate, imgUrl, title } = card;
         const { toggleProperty, changeDueDate, removeImgUrl } = this;
         const labels = this.getUpdatedLabels();
@@ -146,12 +164,10 @@ class _Card extends Component {
             <section>
                 <div onClick={() => { this.props.setCard(null) }} className="card-modal" >
                     <div onClick={(ev) => ev.stopPropagation()} className="card-container" >
-                        {imgUrl && <div className="card-img-container flex justify-center">
-                            <img className="card-img" src={imgUrl} alt={title} />
-                            <button className="remove-btn flex align-center"
-                                title="Remove cover image" onClick={removeImgUrl}>
-                                <DeleteForeverOutlined className="icon" /></button>
-                        </div>}
+                        <div className="card-img-container flex justify-center">
+                            <CardImage isImgLoading={isImgLoading} imgUrl={imgUrl}
+                                title={title} removeImgUrl={removeImgUrl} />
+                        </div>
                         < CardHeader card={card} />
                         <div className="card-content flex">
                             <div className="card-details flex column grow">
@@ -215,8 +231,12 @@ class _Card extends Component {
                                 <button className="card-sidebar-btn"><span>
                                     <Attachment className="icon" /></span>Attachment</button>
 
-                                {!imgUrl && <button className="card-sidebar-btn"><span>
-                                    <CropOriginal className="icon" /></span>Cover</button>}
+                                {!imgUrl && <React.Fragment>
+                                    <label htmlFor="imgUrl" className="card-sidebar-btn pointer"><span>
+                                        <CropOriginal className="icon" /></span>Cover</label>
+                                    <input className="display-none" type="file" id="imgUrl"
+                                        onChange={this.onUploadImg} />
+                                </React.Fragment>}
                             </div>
                         </div>
                     </div></div>

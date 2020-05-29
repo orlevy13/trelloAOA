@@ -1,5 +1,4 @@
-import { httpService } from './httpService'
-const CLOUD_NAME = 'dcubdqpfg'
+import { httpService } from './httpService';
 export const OPERETIONS = {
     ADD: 'Add',
     UPDATE: 'Updated',
@@ -9,17 +8,6 @@ export const TYPES = {
     CARD: 'Card',
     PHASE: 'Phase',
     Board: 'Board'
-}
-
-async function doUploadiMG(elForm) {
-
-    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-    const UPLOAD_PRESET = 'muxmg14s';
-    var formData = new FormData();
-    formData.append('file', elForm.files[0]);
-    formData.append('upload_preset', UPLOAD_PRESET);
-
-    await httpService.post(UPLOAD_URL, formData);
 }
 
 
@@ -120,6 +108,13 @@ function createNewBoard(name, bgColor, loggedInUser) {
     return _board;
 }
 
+function getNewLabel({ txt, color }) {
+    return {
+        txt,
+        color,
+        id: makeId(),
+    }
+}
 
 
 function makeId(length = 5) {
@@ -137,12 +132,12 @@ export const boardService = {
     remove,
     add,
     update,
-    doUploadiMG,
     makeId,
     getBoardCopy,
     getNewCard,
     getNewPhase,
     getSortedPhase,
     addActivity,
-    createNewBoard
+    createNewBoard,
+    getNewLabel
 }

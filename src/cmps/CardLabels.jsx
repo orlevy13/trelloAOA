@@ -13,13 +13,14 @@ export class _CardLabels extends Component {
     }
 
     getUpdatedLabels = () => {
+        if (!this.props.board.labels.length) return [];
         const { labels } = this.props;
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const updatedLabels = labels.map(label => {
-            //get the correct labels from board
+        const updatedLabels = labels.reduce((acc, label) => {
             const foundLabel = boardCopy.labels.find(boardLabel => boardLabel.id === label.id);
-            if (foundLabel) return foundLabel;
-        })
+            if (foundLabel) acc.push(foundLabel);
+            return acc;
+        }, [])
         return updatedLabels;
     }
 

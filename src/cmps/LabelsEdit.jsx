@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateBoard } from '../store/actions/boardActions';
-import { Clear } from '@material-ui/icons';
+import { Clear, Add } from '@material-ui/icons';
 import { boardService } from '../services/boardService';
 import { LabelEdit } from './LabelEdit';
+import { AddLabel } from './AddLabel';
 
 class _LabelsEdit extends Component {
 
     state = {
-        editLabel: null
+        editLabel: null,
+        isAddLabelShown: false
     }
 
     componentDidMount() {
@@ -71,35 +73,63 @@ class _LabelsEdit extends Component {
         this.props.updateBoard(boardCopy);
     }
 
+    toggleIsAddLabelShown = () => {
+        this.setState(prevState => ({ isAddLabelShown: !prevState.isAddLabelShown }));
+    }
+
+    addLabel = (partialLabel) => {
+        const labelToSave = boardService.getNewLabel(partialLabel);
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        boardCopy.labels.push(labelToSave);
+        this.props.updateBoard(boardCopy);
+        this.toggleIsAddLabelShown();
+    }
+
+    removeLabel = (id) => {
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const updatedLabels = boardCopy.labels.filter(label => label.id !== id);
+        boardCopy.labels = updatedLabels;
+        this.props.updateBoard(boardCopy);
+        this.toggleEditMode(null);
+    }
+
     render() {
-        const { toggleEditMode, saveLabel, toggleLabelOnCard } = this;
-        const { editLabel } = this.state;
+        const { toggleEditMode, saveLabel, toggleLabelOnCard, removeLabel } = this;
+        const { editLabel, isAddLabelShown } = this.state;
         const { labels } = this.props.board;
         return (
-            <section className="edit-labels">
-                <div className="edit-labels-header flex align-center">
-                    <p className="grow">Labels</p>
-                    <button onClick={() => { this.props.toggleProperty('isLabelEditShown') }}>
-                        <Clear /></button>
-                </div>
-                <div className="labels-gallery">
-                    {!editLabel && labels.map(label => <LabelEdit toggleLabelOnCard={toggleLabelOnCard}
-                        card={this.props.card} saveLabel={saveLabel} key={label.id} label={label}
-                        toggleEditMode={toggleEditMode} />)}
+            <React.Fragment>
+                {!isAddLabelShown && <section className="edit-labels flex column">
+                    <div className="edit-labels-header flex align-center">
+                        <p className="grow">Labels</p>
+                        <button onClick={() => { this.props.toggleProperty('isLabelEditShown') }}>
+                            <Clear /></button>
+                    </div>
+                    <div className="labels-gallery grow">
+                        {!editLabel && labels.map(label => <LabelEdit toggleLabelOnCard={toggleLabelOnCard}
+                            card={this.props.card} saveLabel={saveLabel} key={label.id} label={label}
+                            toggleEditMode={toggleEditMode} />)}
 
-                    {editLabel && <div>
-                        <form onSubmit={saveLabel}>
-                            <input type="text" name="txt" value={editLabel.txt} autoFocus
-                                autoComplete="off" spellCheck="false" onChange={this.handleChange} />
-                            <button className="save-btn">Save</button>
-                        </form>
-                        <button className="cancel-btn" onClick={() => { toggleEditMode(null) }}>
-                            Cancel</button>
-                    </div>}
+                        {editLabel && <div>
+                            <form onSubmit={saveLabel}>
+                                <input type="text" name="txt" value={editLabel.txt} autoFocus
+                                    autoComplete="off" spellCheck="false" onChange={this.handleChange} />
+                                <button className="save-btn">Save</button>
+                            </form>
+                            <button className="cancel-btn" onClick={() => { removeLabel(editLabel.id) }}>
+                                Delete</button>
+                        </div>}
 
-                </div>
+                    </div>
+                    <button className="add-label-btn flex align-center justify-center"
+                        onClick={this.toggleIsAddLabelShown}
+                    ><Add className="add-icon" />Add Label</button>
+                </section>}
 
-            </section>
+                {isAddLabelShown &&
+                    <AddLabel addLabel={this.addLabel}
+                        toggleIsAddLabelShown={this.toggleIsAddLabelShown} />}
+            </React.Fragment>
         )
     }
 }

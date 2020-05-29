@@ -145,14 +145,12 @@ export class _PhaseList extends Component {
 
         const { toggleInputShown, onAddPhase, handleChange, hideInput } = this;
         const { isInputShown, newListName, phaseListToShow } = this.state;
-        const { phaseLists } = this.state.board;
 
         return (
 
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="all-columns" direction="horizontal" type="PhasePreview">
                     {(provided, snapshot) => (
-                        // <section className="phase-list flex grow"  {...provided.droppableProps} ref={provided.innerRef} >
                         <section className="phase-list flex"  {...provided.droppableProps} ref={provided.innerRef} >
                             {phaseListToShow && phaseListToShow.map((phase, index) => <PhasePreview key={phase.id} index={index}
                                 phase={phase} />)}
