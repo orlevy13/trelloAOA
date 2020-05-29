@@ -32,9 +32,26 @@
         margin: 0px 4px 4px 0px;
         line-height: 32px;
         font-size: rem(18px);
-        color: #fff;
+        @include trelloInput;
+        display: unset;
+        width: unset;
+        box-shadow: none;
+        background-color: inherit;
+        cursor: pointer;
         font-family: roboto-bold;
+        color: #fff;
         max-width: calc(100%-24px);
+
+        &:hover {
+            background-color: rgba(9, 30, 66, 0.04);
+        }
+
+        &:focus {
+            box-shadow: inset 0 0 0 2px #0079bf;
+            color: #42526e;
+            background-color: white;
+        }
+        
     }
 
     .board-nav-divider {

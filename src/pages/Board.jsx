@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { loadBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { PhaseList } from '../cmps/PhaseList';
 import { MemberInitials } from '../cmps/MemberInitials';
@@ -12,6 +12,7 @@ import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
 import { BoardUserFilter } from '../cmps/BoardUserFilter'
 import { socketService } from '../services/socketService';
+import { boardService, OPERETIONS, TYPES } from '../services/boardService.js';
 
 
 class _Board extends Component {
@@ -26,7 +27,9 @@ class _Board extends Component {
                 photoMenu: false
             }
         },
-        filteredByUser: null
+        filteredByUser: null,
+        boardName: '',
+        isTitleOnEdit: false
     }
 
     componentDidMount() {
@@ -52,6 +55,7 @@ class _Board extends Component {
     getBoardById = async () => {
         const id = this.props.match.params.id;
         await this.props.loadBoard(id);
+        this.setState({ boardName: this.props.board.name })
     }
 
     toggleMenu = (menuName) => {
@@ -75,6 +79,28 @@ class _Board extends Component {
         });
     }
 
+    handleNameChange = ({ target }) => {
+        const value = target.value;
+        this.setState({ boardName: value });
+    }
+
+
+    handleChangeBoardName = () => {
+
+        let boardClone = JSON.parse(JSON.stringify(this.props.board));
+        const nameBeforeChange = this.state.boardName;
+        if (!this.state.boardName.trim()) return;
+        boardService.addActivity(boardClone, LOGGED_IN_USER, OPERETIONS.UPDATE, TYPES.BOARD, { id: this.props.board._id, title: this.props.board.name },
+            `the name of the board from ${nameBeforeChange} to ${this.state.boardName}`);
+        boardClone.name = this.state.boardName;
+        this.props.updateBoard(boardClone);
+    }
+    handleKeyPress(e) {
+        if (e.keyCode === 13) {
+            e.target.blur();
+        }
+    }
+
     handleKeyDown = (ev) => {
         if (ev.code === 'Escape') this.toggleMenu(null);
     }
@@ -95,9 +121,9 @@ class _Board extends Component {
             (!board) ? 'loading' : <main style={boardBg} className="board flex column grow">
                 <section className="board-nav flex space-between">
                     <div className="flex">
-                        <div className="board-title" href="#">
-                            <span dir="auto">{board.name}</span>
-                        </div>
+                        <input className="board-title grow" type="text" name="txt"
+                            onChange={(e) => this.handleNameChange(e)} spellCheck="false"
+                            onBlur={this.handleChangeBoardName} value={this.state.boardName} onKeyDown={this.handleKeyPress} />
                         <span className="board-nav-divider"></span>
                         <div className="board-members flex align-center">
                             {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
@@ -135,7 +161,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    loadBoard
+    loadBoard,
+    updateBoard
 }
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board)
