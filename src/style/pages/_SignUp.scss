@@ -1,0 +1,43 @@
+.sign-up-form {
+    margin: 100px auto 0 auto;
+    display: grid;
+    width: 1000px;
+    gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        ". first-name first-name ."
+        ". last-name last-name ."
+        ". email email ."
+        ". password password ."
+        ". submit-btn submit-btn .";
+}
+
+.signup-first-name {
+    grid-area: first-name;
+}
+
+.signup-last-name {
+    grid-area: last-name;
+}
+
+.signup-email {
+    grid-area: email;
+}
+
+.signup-password {
+    grid-area: password;
+}
+
+.sign-up-submit-btn {
+    grid-area: submit-btn;
+}
+
+// .signup-marketing-checkbox {
+//     grid-area: checkbox;
+// }
+
+.sign-in-link {
+    display: block;
+    width: 300px;
+    margin: 50px auto 20px auto;
+}
