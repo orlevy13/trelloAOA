@@ -108,14 +108,12 @@ export class _CardMenu extends Component {
 
     render() {
         const { onDelete, handleChange, onChangeTitle, toggleProperty, changeDueDate } = this;
-        const { clientX, clientY } = this.props;
         const { isLabelEditShown, card, isMembersEditShown, isDueDateEditShown } = this.state;
         const { title } = card;
         return (
             <section>
                 <div onMouseDown={this.props.toggleIsMenuShown} className="screen"></div>
-                <section style={{ top: clientY - 10, left: clientX - 220 }}
-                    className="menu-container flex">
+                <section className="menu-container flex">
 
                     <form onSubmit={onChangeTitle} className="edit-card-form flex column">
                         <textarea onChange={handleChange} name="title" value={title} cols="30" rows="5"

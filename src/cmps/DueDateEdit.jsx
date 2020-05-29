@@ -10,6 +10,7 @@ export class DueDateEdit extends Component {
 
     componentDidMount() {
         window.addEventListener('keydown', this.hideDueDateEdit);
+        this.setState({ dueDate: Date.now() })
     }
 
     componentWillUnmount() {

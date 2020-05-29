@@ -8,56 +8,53 @@ import { connect } from 'react-redux';
 import { DueBadge } from './DueBadge';
 import { MemberInitials } from './MemberInitials';
 import { CardMenu } from './CardMenu';
+import { boardService } from '../services/boardService';
 
-
-// const getDragStyle = (style, snapshot) => {
-//     if (!snapshot.isDragging) return;
-
-//     return {
-//         ...style,
-//         "backgroundColor": "lightBlue"
-
-//     };
-
-// }
 
 class _CardPreview extends React.Component {
 
     state = {
-        isMenuShown: false,
-        clientX: '',
-        clientY: '',
+        isMenuShown: false
+    }
+
+    getUpdatedLabels = () => {
+        const { labels } = this.props.card;
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const updatedLabels = labels.map(label => {
+            //get the correct labels from board
+            const foundLabel = boardCopy.labels.find(boardLabel => boardLabel.id === label.id);
+            if (foundLabel) return foundLabel;
+        })
+        return updatedLabels;
     }
 
     toggleIsMenuShown = (ev) => {
         if (ev) {
-            ev.stopPropagation();
-            ev.persist();
-            const { clientX, clientY } = ev;
-            this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown, clientX, clientY }));
-        } else {
-            this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
+            ev.preventDefault();//This prevents context menu
+            ev.stopPropagation();//This prevents card from opening
         }
+        this.setState(prevState => ({ isMenuShown: !prevState.isMenuShown }));
     }
 
     render() {
         const { toggleIsMenuShown, state } = this;
-        const { isMenuShown, clientX, clientY } = state;
-        const { title, imgUrl, dueDate, labels, checkList, assignedTo, attachments } = this.props.card;
+        const { isMenuShown } = state;
+        const { title, imgUrl, dueDate, checkList, assignedTo, attachments } = this.props.card;
         const checklistDoneCount = checkList.filter(item => item.isDone).length;
         const checklistBgc = checklistDoneCount === checkList.length ? '#61bd4f' : '';
         const checklistColor = checklistBgc ? '#fff' : '';
+        const labels = this.getUpdatedLabels();
         return (
             <React.Fragment>
 
-                {isMenuShown && <CardMenu card={this.props.card} clientY={clientY} clientX={clientX}
-                    toggleIsMenuShown={toggleIsMenuShown} />}
+                {isMenuShown && <CardMenu card={this.props.card} toggleIsMenuShown={toggleIsMenuShown} />}
 
                 <Draggable draggableId={this.props.card.id} index={this.props.index}>
                     {(provided, snapshot) => (
                         <NaturalDragAnimation style={provided.draggableProps.style} snapshot={snapshot}>
                             {style => (
-                                <section onClick={() => { this.props.setCard(this.props.card) }}
+                                <section onContextMenu={toggleIsMenuShown}
+                                    onClick={() => { this.props.setCard(this.props.card) }}
                                     className="card-preview flex column"
                                     {...provided.draggableProps} {...provided.dragHandleProps}
                                     ref={provided.innerRef} style={style}>

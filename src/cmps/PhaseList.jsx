@@ -23,7 +23,7 @@ export class _PhaseList extends Component {
         })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
 
         if (JSON.stringify(prevProps.board) !== JSON.stringify(this.props.board)) {
             const phaseListToShow = this.getFilteredPhaseLists(this.props.filteredByUser);

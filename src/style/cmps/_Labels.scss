@@ -27,5 +27,9 @@
             padding: 1px 3px;
             color: #fff;
         }
+
+        &:hover {
+            filter: brightness(85%);
+        }
     }
 }

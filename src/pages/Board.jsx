@@ -69,7 +69,14 @@ class _Board extends Component {
             //set currentOpend 
             clonedMenus.currentOpend = menuName;
         }
-        this.setState({ boardMenus: clonedMenus });
+        this.setState({ boardMenus: clonedMenus }, () => {
+            if (this.state.boardMenus.currentOpend) window.addEventListener('keydown', this.handleKeyDown);
+            else window.removeEventListener('keydown', this.handleKeyDown)
+        });
+    }
+
+    handleKeyDown = (ev) => {
+        if (ev.code === 'Escape') this.toggleMenu(null);
     }
     onInputChanged = async (name) => {
         await this.setState({ filteredByUser: name })
