@@ -201,7 +201,7 @@ class _Dashboard extends Component {
                     </article>
 
                     <article className="chart tasks-per-devloper flex column justify-center align-center">
-                        <h2>Task Per Devloper</h2>
+                        <h2>Tasks Per Developer</h2>
                         <Bar data={tPerDevloper} options={{
                             scales: {
                                 yAxes: [{
@@ -213,7 +213,7 @@ class _Dashboard extends Component {
                         }} />
                     </article>
                     <article className="chart tasks-per-phase flex column justify-center align-center">
-                        <h2>Task Per Phase</h2>
+                        <h2>Tasks Per Phase</h2>
                         <Doughnut data={taskPerPhaseDistribution} options={{
                             scales: {
                                 yAxes: [{

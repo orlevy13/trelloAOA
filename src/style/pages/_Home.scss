@@ -6,6 +6,11 @@
 
     .text-area {
         padding: 100px;
+        .logo {
+            font-size: rem(20px);
+            font-family: berkshireswash-regular;
+            margin-right: 3px;
+        }
 
         h1 {
             font-size: rem(50px);
