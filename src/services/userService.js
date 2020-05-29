@@ -1,5 +1,4 @@
 import { httpService } from './httpService'
-const CLOUD_NAME = 'dcubdqpfg'
 export const OPERETIONS = {
     ADD: 'Add',
     UPDATE: 'Updated',

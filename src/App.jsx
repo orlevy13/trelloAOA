@@ -23,7 +23,6 @@ export function App() {
           <Route path="/board/:boardId/card/:cardId" component={Card} exact />
           <Route path="/board/:id/dashboard" component={Dashboard} />
           <Route path="/boards" component={Boards} exact />
-
         </Switch>
       </Router>
     </React.Fragment>

@@ -1,13 +1,8 @@
-import Avatar from '@material-ui/core/Avatar';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../store/actions/userActions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 
 
 
@@ -104,9 +99,9 @@ class _SignUp extends Component {
                 </form>
 
 
-                <a href="#" className="sign-in-link">
+                {/* <a  className="sign-in-link">
                     Already have an account? Sign in
-                    </a>
+                    </a> */}
             </main >
         )
     }
