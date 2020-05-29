@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
 import { Doughnut, Bar, Pie } from 'react-chartjs-2';
 import { connect } from 'react-redux';
+import { history } from '../history'
 import { loadBoard, } from '../store/actions/boardActions';
+import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 
 const bgColors =
     [
+        '#273d5d',
+        '#006c95',
+        '#009da2',
+        '#00ca78',
+        '#a8eb12',
         '#003f5c',
-        '#2f4b7c',
-        '#665191',
-        '#a05195',
-        '#d45087',
-        '#f95d6a',
-        '#ff7c43',
-        '#ffa600',
-        '#0b1f5c',
-        '#57236d',
-        '#92226f',
-        '#c42b65',
-        '#e94a50',
-        '#fe7634',
-        '#ffa600',
+        '#2d4f73',
+        '#4f608a',
+        '#72709e',
+        '#9580b0',
+        '#b991bf',
+        '#dda2cc',
+        '#ffb5d7',
     ];
 const hovColors =
     [
@@ -62,7 +62,7 @@ class _Dashboard extends Component {
             phase.cards.forEach(card => {
                 card.checkList.forEach(checkListItem => {
                     if (checkListItem.isDone) {
-                        (!getSprintProgressMap["Completd"]) ? getSprintProgressMap["Completd"] = 1 : getSprintProgressMap["Completd"] += 1;
+                        (!getSprintProgressMap["Completed"]) ? getSprintProgressMap["Completed"] = 1 : getSprintProgressMap["Completed"] += 1;
                     } else {
                         (!getSprintProgressMap["In Progress"]) ? getSprintProgressMap["In Progress"] = 1 : getSprintProgressMap["In Progress"] += 1;
                     }
@@ -92,7 +92,7 @@ class _Dashboard extends Component {
         board.phaseLists.forEach(phase => {
             phase.cards.forEach(card => {
 
-                (!phaseTaskMap[phase]) ? phaseTaskMap[phase.name] = 1 : phaseTaskMap[phase.name] += 1;
+                (!phaseTaskMap[phase.name]) ? phaseTaskMap[phase.name] = 1 : phaseTaskMap[phase.name] += 1;
 
             })
         });
@@ -168,6 +168,11 @@ class _Dashboard extends Component {
 
     }
 
+    goBack = () => {
+        history.push(`/board/${this.props.match.params.id}`);
+
+    }
+
     render() {
         if (!this.props.board) return 'loading';
         const tPerDevloper = this.getTasksPerDevloperData();
@@ -175,38 +180,68 @@ class _Dashboard extends Component {
         const tasksByLabels = this.getTaskByLables()
         const sprintProgress = this.getSprintProgress();
         return (
-            <section className="chart-cont">
 
-                <article className="flex column align-centery">
-                    <Bar data={tPerDevloper} options={{
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }} />
-                </article>
-                <article className="flex column align-centery">
-                    <Doughnut data={taskPerPhaseDistribution} />
-                </article>
-                <article className="flex column align-centery">
-                    <Bar data={tasksByLabels} options={{
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }} />
-                </article>
-                <article className="flex column align-centery">
-                    <h2>Sprint Progress by cheklist Items</h2>
-                    <Pie data={sprintProgress} />
-                </article>
-            </section>
+            <div className="dashboard flex column align-center  justify-center ">
+                <div className="btn-back flex space-between align-center" onClick={this.goBack} >
+                    <ArrowBackIosOutlinedIcon />
+                    <span>Back</span>
+                </div>
+                <section className="chart-cont flex column justify-center align-center">
+                    <article className="chart sprint-progress flex justify-center column align-center">
+                        <h2>Sprint Progress</h2>
+                        <Pie data={sprintProgress} options={{
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }} />
+                    </article>
+
+                    <article className="chart tasks-per-devloper flex column justify-center align-center">
+                        <h2>Task Per Devloper</h2>
+                        <Bar data={tPerDevloper} options={{
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }} />
+                    </article>
+                    <article className="chart tasks-per-phase flex column justify-center align-center">
+                        <h2>Task Per Phase</h2>
+                        <Doughnut data={taskPerPhaseDistribution} options={{
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }} />
+                    </article>
+
+                    <article className="chart tasks-by-lables flex column justify-center align-center">
+                        <h2>Task By Labels</h2>
+                        <Bar data={tasksByLabels} options={{
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }} />
+                    </article>
+                </section>
+            </div>
+
+
+
         )
     }
 }
