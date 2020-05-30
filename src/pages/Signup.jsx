@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 
-class _Signup extends Component {
+class _SignUp extends Component {
     state = {
         msg: '',
         signupCred: {
@@ -79,13 +79,7 @@ class _Signup extends Component {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                    />
-
-                    {/* <FormControlLabel
-                        className="signup-marketing-checkbox"
-                        control={<Checkbox value="allowExtraEmails" color="primary" />}
-                        label="I want to receive inspiration, marketing promotions and updates via email."
-                    /> */}
+                    />                   
 
                     <Button
 
@@ -117,4 +111,4 @@ const mapDispatchToProps = {
     signup
 }
 
-export const Signup = connect(mapStateToProps, mapDispatchToProps)(_Signup);
+export const SignUp = connect(mapStateToProps, mapDispatchToProps)(_SignUp);
