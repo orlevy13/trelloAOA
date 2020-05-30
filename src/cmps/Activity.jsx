@@ -48,6 +48,7 @@ class _Activity extends React.Component {
     }
     OpenByObjectType = () => {
         const { type, object, } = this.props.activity;
+        if (!type || !object) return;
         // parent is menu and not card and type is card
         if (type.toLowerCase() === 'card' && this.props.allowOpenCard) {
             const boardClone = JSON.parse(JSON.stringify(this.props.board));

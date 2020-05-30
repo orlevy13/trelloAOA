@@ -89,11 +89,12 @@ class _Board extends Component {
 
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const nameBeforeChange = this.state.boardName;
-        if (!this.state.boardName.trim()) return;
+        if (!this.state.boardName.trim()) return this.toggleTitleEdit();
         boardService.addActivity(boardClone, LOGGED_IN_USER, OPERETIONS.UPDATE, TYPES.BOARD, { id: this.props.board._id, title: this.props.board.name },
             `the name of the board from ${nameBeforeChange} to ${this.state.boardName}`);
         boardClone.name = this.state.boardName;
         this.props.updateBoard(boardClone);
+        this.toggleTitleEdit();
     }
     handleKeyPress(e) {
         if (e.keyCode === 13) {
@@ -108,8 +109,12 @@ class _Board extends Component {
         await this.setState({ filteredByUser: name })
     }
 
+    toggleTitleEdit = () => {
+        this.setState(prevState => ({ isTitleOnEdit: !prevState.isTitleOnEdit }))
+    }
+
     render() {
-        const { filteredByUser } = this.state;
+        const { filteredByUser, isTitleOnEdit } = this.state;
         const { board } = this.props;
         if ((!board) || (!this.state)) return '';
 
@@ -119,14 +124,18 @@ class _Board extends Component {
 
         return (
             (!board) ? 'loading' : <main style={boardBg} className="board flex column grow">
-                <section className="board-nav flex space-between">
-                    <div className="flex">
-                        <input className="board-title grow" type="text" name="txt"
-                            onChange={(e) => this.handleNameChange(e)} spellCheck="false"
-                            onBlur={this.handleChangeBoardName} value={this.state.boardName} onKeyDown={this.handleKeyPress} />
+                <section className="board-nav flex space-between align-center">
+                    <div className="board-nav-controls flex align-center wrap">
+                        {!isTitleOnEdit && <h4 onClick={this.toggleTitleEdit}
+                            className="board-title">{board.name}</h4>}
+                        {isTitleOnEdit && <input className="board-title grow" type="text" name="txt"
+                            onChange={(e) => this.handleNameChange(e)} spellCheck="false" autoFocus
+                            onBlur={this.handleChangeBoardName} value={this.state.boardName}
+                            onKeyDown={this.handleKeyPress} />}
                         <span className="board-nav-divider"></span>
                         <div className="board-members flex align-center">
-                            {board.members && board.members.map((member) => <MemberInitials key={member._id} member={member} />)}
+                            {board.members && board.members.map((member) =>
+                                <MemberInitials key={member._id} member={member} />)}
                         </div>
                         <BoardUserFilter users={board.members} onInputChanged={this.onInputChanged} />
                         <Link to={`/board/${board._id}/dashboard`}>

@@ -1,14 +1,13 @@
 .boards-page {
     background-color: rgb(250, 251, 252);
     overflow-y: auto;
-    padding-top: 6vh;//this is super important!
+    padding-top: 6vh; //this is super important!
 
     .boards {
         background-color: rgb(250, 251, 252);
-        width: 1000px;
         color: #314361;
-        margin-left: auto;
-        margin-right: auto;
+
+
 
         .boards-title {
             position: relative;
@@ -19,32 +18,60 @@
         }
 
         .boards-container {
-            margin: 0 auto 20px auto;
-            display: flex;
-            flex-wrap: wrap;
-            width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            grid-gap: 12px;
+            padding: 0 120px;
+            @include for-mobile-layout  {
+                padding: 0 15px;
+            }
+
+            @include for-narrow-layout {
+                padding: 0 32px;
+            }
+
+            @include for-normal-layout {
+                padding: 0 70px;
+            }
+
+            @include for-wide-layout {
+                padding: 0 90px;
+            }
         }
 
         .board-item {
-            color: white;
-            font-size: 14px;
+            position: relative;
+            color: #fff;
+            font-size: 18px;
             border: 3px none #bbb;
             border-radius: 6px;
-            width: 180px;
-            height: 90px;
-            margin-bottom: 100px;
-            margin-left: 40px;
+            min-height: 180px;
             transition: 0.3s;
+            cursor: pointer;
+
+            &::before {
+                content: "";
+                transition: opacity 0.2s;
+                position: absolute;
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 90px;
+                background: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.493) 100%);
+                opacity: 0;
+            }
 
             h3 {
                 margin-top: 6px;
                 margin-left: 10px;
+                position: absolute;
             }
         }
 
-        .board-item:hover {
-            filter: brightness(85%);
-            cursor: pointer;
+        .board-item:hover::before {
+            opacity: 1;
         }
     }
 }

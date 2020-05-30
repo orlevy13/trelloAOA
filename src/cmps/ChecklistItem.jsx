@@ -11,6 +11,7 @@ export function ChecklistItem(props) {
                 
             <input className="checklist-item-txt grow" type="text" name="txt"
                 onChange={(e) => handleChange(e, idx)} spellCheck="false"
+                placeholder="Add a todo..."
                 onBlur={handleSaveBoard} value={todo.txt} onKeyDown={handleKeyPress} />
             <button onClick={() => { onDelete(idx) }}><Clear className="icon" /></button>
         </div>

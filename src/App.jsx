@@ -4,7 +4,7 @@ import { history } from './history';
 import { Board } from './pages/Board';
 import { Home } from './pages/Home';
 import { SignIn } from './pages/SignIn';
-import { SignUp } from './pages/Signup';
+import { SignUp } from './pages/SignUp';
 import { Card } from './cmps/Card';
 import { MainNav } from './cmps/MainNav';
 import { Boards } from './pages/Boards';

@@ -86,8 +86,6 @@ class _MainNav extends Component {
                         </div>
                         <div className="create-board-btns flex column">
                             <div className="color-container">
-                                {/* style="width:20px; height:20px; background-color:red;display:inline-block" */}
-                                {/* style="display:none" */}
 
                                 <label className={"rgb(81, 152, 57)" === newBoardColor ? "color-preview green selected" : "color-preview green"}  >
                                     <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
@@ -120,18 +118,6 @@ class _MainNav extends Component {
                                 <label className={"rgb(73, 169, 215)" === newBoardColor ? "color-preview turquise selected" : "color-preview turquise"} >
                                     <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
                                         name="turquise" value="rgb(73, 169, 215)" /></label>
-
-
-                                {/* <div onClick={this.handleChangeColor} className="color-preview color-preview-green">&nbsp;</div> */}
-
-
-                                {/* <div onClick={this.handleChangeColor} className="color-preview color-preview-orange">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-blue">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-red">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-purple">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-pink">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-light-green">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-turquise">&nbsp;</div> */}
                             </div>
                             <input className="board-name-input" type="text" onChange={this.handleChange} placeholder="Your Board's name..." value={newBoardName} />
                             <button className="create-board-btn" onClick={this.createNewBoard} >Create a new Board</button>
