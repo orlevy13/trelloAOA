@@ -15,7 +15,7 @@ export function MemberInitials(props) {
     return (
         <div title={firstLastName.join(' ')} className="member-avatar">
             {(!member || !member.img) && <span className='member-initial'>{initials.toUpperCase()}</span>}
-            {member && member.img && <span style={{ backgroundImage: "url(" + member.img + ")" }}
+            {member && member.img && <span style={{ "backgroundImage": "url(" + member.img + ")" }}
                 className="member-initial-img" ></span>}
         </div>
 

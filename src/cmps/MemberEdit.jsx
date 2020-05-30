@@ -11,7 +11,7 @@ export function MemberEdit(props) {
         <div onClick={() => { toggleMemberOnCard(member) }}
             className="member-item flex align-center">
             {!member.img && <div className="initials"><span>{initials}</span></div>}
-            {member.img && <span style={{ backgroundImage: "url(" + member.img + ")" }}
+            {member.img && <span style={{ "backgroundImage": "url(" + member.img + ")" }}
                 className="member-img"></span>}
             {member.fullName}{isMemberOnCard && <Check className="icon" />}
         </div>

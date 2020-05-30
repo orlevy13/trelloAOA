@@ -1,13 +1,13 @@
 import { httpService } from './httpService';
 export const OPERETIONS = {
-    ADD: 'Add',
-    UPDATE: 'Updated',
-    DELETE: 'Delete'
+    ADD: 'added',
+    UPDATE: 'updated',
+    DELETE: 'deleted'
 }
 export const TYPES = {
-    CARD: 'Card',
-    PHASE: 'Phase',
-    Board: 'Board'
+    CARD: 'a card',
+    PHASE: 'a phase',
+    Board: 'a board'
 }
 
 

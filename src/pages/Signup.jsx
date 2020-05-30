@@ -4,7 +4,8 @@ import { addUser, signup } from '../store/actions/userActions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-class _SignUp extends Component {
+
+class _Signup extends Component {
     state = {
         msg: '',
         signupCred: {
@@ -100,9 +101,9 @@ class _SignUp extends Component {
                 </form>
 
 
-                <a href="#" className="sign-in-link">
+                {/* <a  className="sign-in-link">
                     Already have an account? Sign in
-                    </a>
+                    </a> */}
             </main >
         )
     }
@@ -117,4 +118,4 @@ const mapDispatchToProps = {
     signup
 }
 
-export const SignUp = connect(mapStateToProps, mapDispatchToProps)(_SignUp);
+export const Signup = connect(mapStateToProps, mapDispatchToProps)(_Signup);

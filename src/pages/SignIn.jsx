@@ -4,7 +4,7 @@ import { login } from '../store/actions/userActions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-class _SignIn extends Component {
+class _Signin extends Component {
     state = {
 
         loginCred: {
@@ -107,4 +107,4 @@ const mapDispatchToProps = {
     login
 }
 
-export const SignIn = connect(mapStateToProps, mapDispatchToProps)(_SignIn);
+export const Signin = connect(mapStateToProps, mapDispatchToProps)(_Signin);
