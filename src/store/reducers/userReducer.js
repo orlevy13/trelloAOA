@@ -1,4 +1,4 @@
-// import { UPDATE_USER, QUERY_USERS, SET_USER, USER_REMOVE, ADD_USER, LOAD_USER } from '../actions/userActions';
+//import { UPDATE_USER, QUERY_USERS, SET_USER, USER_REMOVE, ADD_USER, LOAD_USER } from '../actions/userActions';
 let localLoggedinUser = null;
 const GUEST_USER = {
     "_id": "5eccd4e1cb39d7f54947fd7e",
@@ -35,13 +35,12 @@ export function userReducer(state = initialState, action) {
                 ...state,
                 users: [...state.users, action.user]
             };
-
-
-        case 'SET_CARD':
+        case 'QUERY_USERS': {
             return {
                 ...state,
-                card: action.card
+                users: action.users
             }
+        }
         default:
             return state;
     };

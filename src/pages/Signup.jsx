@@ -34,7 +34,7 @@ class _SignUp extends Component {
         const signupCreds = { email, password, fullName };
         this.props.signup(signupCreds);
         this.setState({ signupCred: { email: '', password: '', fullName: '' } });
-        this.props.history.push('/signin');
+        this.props.history.push('/login');
     };
 
 
@@ -79,7 +79,7 @@ class _SignUp extends Component {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                    />                   
+                    />
 
                     <Button
 

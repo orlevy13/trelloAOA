@@ -37,7 +37,7 @@ class _MainNav extends Component {
         let boardName;
         if (!this.state.newBoardName.trim()) boardName = 'New Board';
         else boardName = this.state.newBoardName;
-        const newBoard = boardService.createNewBoard(boardName, this.state.newBoardColor, this.user.props.user);
+        const newBoard = boardService.createNewBoard(boardName, this.state.newBoardColor, this.props.user);
         await this.props.addBoard(newBoard);
         history.push(`/board/${this.props.board._id}`)
         this.setState({ isCreateBoardMenuShown: false, newBoardName: '' })
@@ -121,11 +121,14 @@ class _MainNav extends Component {
                             <button className="create-board-btn" onClick={this.createNewBoard} >Create a new Board</button>
                         </div>
                     </div>}
-                    {(user && user.fullName !== "Guest") && <span className="btn-text" onClick={this.props.logout}>Logout</span>}
+                    {(user && user.fullName !== "Guest") &&
+                        <div className="btn-main-nav flex align-center">
+                            <span className="btn-text" onClick={this.props.logout}>Logout</span>
+                        </div>}
                     {(user) && <span className="logged-in flex align-center"><MemberInitials member={user} /></span>}
 
                     {user && user.fullName === "Guest" && <div className="btn-main-nav flex align-center">
-                        <Link to="/signin"> <span className="btn-text">Login</span></Link>
+                        <Link to="/login"> <span className="btn-text">Login</span></Link>
                     </div>}
                 </nav>
             </header >
