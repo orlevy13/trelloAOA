@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { loadBoard, updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
+import { loadBoard, updateBoard} from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { PhaseList } from '../cmps/PhaseList';
 import { MemberInitials } from '../cmps/MemberInitials';
@@ -90,7 +90,7 @@ class _Board extends Component {
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const nameBeforeChange = this.state.boardName;
         if (!this.state.boardName.trim()) return this.toggleTitleEdit();
-        boardService.addActivity(boardClone, LOGGED_IN_USER, OPERETIONS.UPDATE, TYPES.BOARD, { id: this.props.board._id, title: this.props.board.name },
+        boardService.addActivity(boardClone, this.props.user, OPERETIONS.UPDATE, TYPES.BOARD, { id: this.props.board._id, title: this.props.board.name },
             `the name of the board from ${nameBeforeChange} to ${this.state.boardName}`);
         boardClone.name = this.state.boardName;
         this.props.updateBoard(boardClone);
@@ -165,7 +165,8 @@ class _Board extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board,
-        card: state.trelloApp.card
+        card: state.trelloApp.card,
+        user:  state.trelloUser.user
     }
 }
 

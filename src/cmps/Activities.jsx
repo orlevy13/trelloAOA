@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { LOGGED_IN_USER, updateBoard } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService, OPERETIONS, TYPES } from '../services/boardService';
 import { MemberInitials } from '../cmps/MemberInitials';
 import { Activity } from './Activity';
@@ -30,7 +30,7 @@ class _Activities extends React.Component {
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const card = this.props.card;
         if (!this.state.txt.trim()) return;
-        boardService.addActivity(boardClone, LOGGED_IN_USER, OPERETIONS.ADD, TYPES.CARD, { id: card.id, title: card.title },
+        boardService.addActivity(boardClone, this.props.user, OPERETIONS.ADD, TYPES.CARD, { id: card.id, title: card.title },
             `commented "${this.state.txt}"`);
         this.setState({ txt: '' });
         this.props.updateBoard(boardClone);
@@ -50,7 +50,7 @@ class _Activities extends React.Component {
                 {showCommentBox &&
                     <div className="flex column">
                         <div className="flex">
-                            <MemberInitials fullName={LOGGED_IN_USER.fullName} />
+                            <MemberInitials fullName={this.props.user.fullName} />
                             <input type="text" className="comment-input" ref={el => this.cardNameInput = el}
                                 placeholder="Write a comment..." onChange={this.handleChange}
                                 spellCheck="false"
@@ -73,7 +73,8 @@ class _Activities extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        user:  state.trelloUser.user
     }
 }
 

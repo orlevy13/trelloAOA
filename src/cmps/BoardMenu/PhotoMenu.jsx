@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { CloseOutlined } from '@material-ui/icons/';
-import { loadBoard, updateBoard, LOGGED_IN_USER } from '../../store/actions/boardActions'
+import { loadBoard, updateBoard } from '../../store/actions/boardActions'
 import { boardService, OPERETIONS, TYPES } from '../../services/boardService';
 import { unsplashService } from '../../services/unsplashService'
 import { connect } from 'react-redux';
@@ -39,7 +39,7 @@ export class _PhotoMenu extends Component {
         const clonedBoard = boardService.getBoardCopy(this.props.board);
         clonedBoard.imgUrl = img;
         clonedBoard.bgColor = null;
-        boardService.addActivity(clonedBoard, LOGGED_IN_USER, OPERETIONS.UPDATE, TYPES.Board,
+        boardService.addActivity(clonedBoard, this.props.user, OPERETIONS.UPDATE, TYPES.Board,
             { id: clonedBoard._id, title: clonedBoard.name },
             `change board background image`);
         this.props.updateBoard(clonedBoard);
@@ -76,7 +76,8 @@ export class _PhotoMenu extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        user: state.trelloUser.user
     }
 }
 
