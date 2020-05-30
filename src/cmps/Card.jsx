@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadBoard, setCard, updateBoard } from '../store/actions/boardActions';
+import { loadBoard, setCard, updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
 import { CardChecklist } from './CardChecklist';
@@ -12,11 +12,12 @@ import {
 import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
 import { MemberInitials } from './MemberInitials';
-import { boardService } from '../services/boardService';
+import { boardService, OPERETIONS, TYPES, } from '../services/boardService';
 import { DueDateEdit } from './DueDateEdit';
 import moment from 'moment';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { CardImage } from './CardImage';
+import { CardAttachments } from './CardAttachments';
 
 
 class _Card extends Component {
@@ -26,7 +27,8 @@ class _Card extends Component {
         isMembersEditShown: false,
         cardActivities: [],
         isDueDateEditShown: false,
-        isImgLoading: false
+        isImgLoading: false,
+        loadingMsg: null
     }
 
     componentDidMount() {
@@ -38,6 +40,7 @@ class _Card extends Component {
         });
         const cardActivities = this.getActivities(card.id);
         this.setState({ card, cardActivities });
+
     }
 
     componentWillUnmount() {
@@ -153,6 +156,27 @@ class _Card extends Component {
         this.setState({ isImgLoading: false });
     }
 
+    handleFileUpload = async (ev) => {
+        debugger;
+        const fileName = ev.target.files[0].name;
+        const ext = fileName.split('.').pop();
+        this.setState({ isImgLoading: true, loadingMsg: "Uploading your attachment.." });
+        const attachmentUrl = await cloudinaryService.uploadImg(ev);
+        console.log(attachmentUrl);
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const card = this.props.card;
+        const cardId = card.id;
+        const phaseIdx = this.getPhaseIdxByCardId(cardId);
+        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+        boardCopy.phaseLists[phaseIdx].cards[cardIdx].attachments.push({ at: Date.now(), name: fileName, ext, url: attachmentUrl })
+        console.log('url', attachmentUrl);
+        boardService.addActivity(boardCopy, LOGGED_IN_USER, OPERETIONS.ADD, TYPES.CARD, { id: cardId, title: card.title },
+            `attachment ${fileName} to card`);
+        this.props.updateBoard(boardCopy);
+        this.setState({ isImgLoading: false, loadingMsg: null });
+    }
+
+
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
         const { card, isLabelEditShown, isMembersEditShown, cardActivities, isDueDateEditShown, isImgLoading } = this.state;
@@ -165,7 +189,7 @@ class _Card extends Component {
                 <div onClick={() => { this.props.setCard(null) }} className="card-modal" >
                     <div onClick={(ev) => ev.stopPropagation()} className="card-container" >
                         <div className="card-img-container flex justify-center">
-                            <CardImage isImgLoading={isImgLoading} imgUrl={imgUrl}
+                            <CardImage isImgLoading={isImgLoading} loadingMsg={this.state.loadingMsg} imgUrl={imgUrl}
                                 title={title} removeImgUrl={removeImgUrl} />
                         </div>
                         < CardHeader card={card} />
@@ -201,6 +225,7 @@ class _Card extends Component {
                                     </div>
                                 </div>}
                                 < CardDesc card={card} />
+                                <CardAttachments card={card} />
                                 {(card.checkList.length > 0) && < CardChecklist card={card} />}
                                 <Activities card={card} showCommentBox={true} activities={cardActivities} />
                             </div>
@@ -228,8 +253,9 @@ class _Card extends Component {
                                 {isDueDateEditShown && <DueDateEdit changeDueDate={changeDueDate}
                                     toggleProperty={toggleProperty} />}
 
-                                <button className="card-sidebar-btn"><span>
-                                    <Attachment className="icon" /></span>Attachment</button>
+                                <label htmlFor="attachmentUrl" className="card-sidebar-btn pointer"><span>
+                                    <Attachment className="icon" /></span>Attachment</label>
+                                <input type="file" className="get-file display-none" name="file" id="attachmentUrl" onChange={this.handleFileUpload} ></input>
 
                                 {!imgUrl && <React.Fragment>
                                     <label htmlFor="imgUrl" className="card-sidebar-btn pointer"><span>
