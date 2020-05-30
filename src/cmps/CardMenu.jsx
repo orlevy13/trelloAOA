@@ -29,6 +29,7 @@ export class _CardMenu extends Component {
         this.titleInput.addEventListener("keypress", this.submitOnEnter);
         const { title, dueDate, labels, assignedTo } = this.props.card;
         this.setState({ card: { title, dueDate, labels, assignedTo } });
+        this.cardMenu.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'end' })
     }
 
     componentWillUnmount() {
@@ -121,7 +122,7 @@ export class _CardMenu extends Component {
                         <button onClick={onChangeTitle} className="save-btn">Save</button>
                     </form>
 
-                    <div className="card-menu flex column">
+                    <div ref={(el) => this.cardMenu = el} className="card-menu flex column">
                         <button onClick={() => { toggleProperty('isLabelEditShown') }} className="flex align-center">
                             <LabelOutlined className="icon" />Edit Labels</button>
                         {isLabelEditShown &&
