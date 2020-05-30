@@ -40,7 +40,7 @@ class _SignUp extends Component {
 
     render() {
         return (
-            <main className="sign-up-container">
+            <main className="sign-up">
 
                 <p>{this.state.msg}</p>
 

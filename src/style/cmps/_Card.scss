@@ -34,10 +34,6 @@
     color: $trelloFontColor;
     z-index: 2;
 
-    @include for-normal-layout {
-        max-width: 95%;
-    }
-
     @include for-mobile-layout {
         max-width: 100%;
     }
@@ -45,6 +41,11 @@
     @include for-narrow-layout {
         max-width: 95%;
     }
+
+    @include for-normal-layout {
+        max-width: 95%;
+    }
+
 
     .card-img-container {
         background-color: rgba(9, 30, 66, 0.04);
@@ -89,6 +90,7 @@
             @include for-mobile-layout {
                 opacity: 0.8;
                 color: #FFF;
+                padding: rem(3px) rem(3px);
             }
 
             &:hover {
@@ -177,9 +179,16 @@
         margin-bottom: rem(150px);
         padding-left: rem(16px);
 
+        @include for-mobile-layout {
+            flex-direction: column;
+        }
+
         .card-details {
             margin-right: rem(16px);
 
+            @include for-mobile-layout {
+                order: 1;
+            }
 
             h3 {
                 color: #5e6c84;
@@ -257,6 +266,11 @@
                 margin-right: rem(12px);
             }
 
+            @include for-mobile-layout {
+                margin-left: rem(28px);
+                order: 0;
+            }
+
             .card-sidebar-btn {
                 background-color: rgba(9, 30, 66, 0.04);
                 @include transRoundBorder;
@@ -282,12 +296,6 @@
                     min-width: rem(142px);
                 }
 
-                @include for-mobile-layout {
-                    min-width: rem(116px);
-                    font-size: rem(12px);
-                }
-
-
                 &:hover {
                     background-color: rgba(9, 30, 66, .08);
                 }
@@ -302,10 +310,6 @@
 
                         @include for-narrow-layout {
                             font-size: rem(16px);
-                        }
-
-                        @include for-mobile-layout {
-                            font-size: rem(15px);
                         }
                     }
                 }

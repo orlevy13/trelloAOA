@@ -49,7 +49,7 @@ class _SignIn extends Component {
 
     render() {
         return (
-            <main className="sign-in-container">
+            <main className="sign-in">
                 <p>{this.state.msg}</p>
                 <form className="sign-in-form" onSubmit={this.doLogin} noValidate>
 
