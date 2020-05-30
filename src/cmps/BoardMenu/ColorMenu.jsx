@@ -15,7 +15,7 @@ export class _ColorMenu extends Component {
         clonedBoard.imgUrl = null;
         boardService.addActivity(clonedBoard, this.props.user, OPERETIONS.UPDATE, TYPES.Board,
             { id: clonedBoard._id, title: clonedBoard.name },
-            `change board background color`);
+            `changed board background color`);
         this.props.updateBoard(clonedBoard);
 
     }

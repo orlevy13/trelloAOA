@@ -5,45 +5,61 @@
     height: 100vh;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     background-color: rgba($color: #000000, $alpha: 0.7);
 
     &::-webkit-scrollbar {
         background-color: #d6d7e0;
-        width: 12px;
-        border-radius: 25px;
+        width: rem(12px);
+        border-radius: rem(25px);
 
         &-thumb {
             background-color: #a4a6a8;
-            border-radius: 25px;
+            border-radius: rem(25px);
         }
     }
 }
 
 .card-container {
     color: #42526e;
-    border-radius: 2px;
-    width: 768px;
-    border: 1px solid #eeeeee;
+    border-radius: rem(2px);
+    max-width: rem(768px);
+    border: rem(1px) solid #eeeeee;
     background-color: $cardGrey;
     position: absolute;
-    top: 50px;
+    top: rem(50px);
     left: 0;
     right: 0;
     margin: 0 auto;
     color: $trelloFontColor;
     z-index: 2;
 
+    @include for-mobile-layout {
+        max-width: 100%;
+    }
+
+    @include for-narrow-layout {
+        max-width: 95%;
+    }
+
+    @include for-normal-layout {
+        max-width: 95%;
+    }
+
+
     .card-img-container {
         background-color: rgba(9, 30, 66, 0.04);
         position: relative;
+
         .loading-field {
-            padding-top: 20px;
+            padding-top: rem(20px);
+
             .loader {
-                margin-bottom: 20px;
+                margin-bottom: rem(20px);
             }
+
             p {
-                margin-bottom: 15px;
+                margin-bottom: rem(15px);
             }
         }
 
@@ -57,7 +73,6 @@
 
         &:hover .remove-btn {
             opacity: 1;
-
         }
 
         .remove-btn {
@@ -65,13 +80,18 @@
             border-radius: 50%;
             border: none;
             position: absolute;
-            margin: 9px 0 0 105px;
+            margin: rem(9px) 0 0 rem(105px);
             color: rgba(255, 255, 255, 0.678);
-            font-size: 14px;
+            font-size: rem(14px);
             transition: background-color 0.2s, opacity 0.2s;
-            padding: 6px 8px;
+            padding: rem(6px) rem(8px);
             background-color: rgba(230, 0, 0, 0.726);
 
+            @include for-mobile-layout {
+                opacity: 0.8;
+                color: #FFF;
+                padding: rem(3px) rem(3px);
+            }
 
             &:hover {
                 background-color: rgb(235, 0, 0);
@@ -81,22 +101,22 @@
     }
 
     .card-header {
-        padding-left: 16px;
+        padding-left: rem(16px);
 
         .close-btn {
             position: absolute;
-            right: 10px;
-            top: 5px;
+            right: rem(10px);
+            top: rem(5px);
             background-color: inherit;
             color: #42526e;
-            height: 32px;
-            width: 32px;
+            height: rem(32px);
+            width: rem(32px);
             border: none;
             border-radius: 50%;
 
             .close-icon {
                 position: relative;
-                top: 2px;
+                top: rem(2px);
             }
 
             &:hover {
@@ -106,18 +126,18 @@
         }
 
         .card-header-container {
-            margin-top: 20px;
+            margin-top: rem(20px);
 
             .icon {
                 color: #42526e;
-                font-size: 22px;
+                font-size: rem(22px);
                 position: relative;
-                bottom: 13px;
+                bottom: rem(13px);
             }
 
             .card-title {
                 color: #172b4d;
-                margin: 0 36px 24px 8px;
+                margin: 0 rem(36px) rem(24px) rem(8px);
                 font-weight: normal;
                 cursor: pointer;
             }
@@ -129,70 +149,77 @@
                 border: none;
                 background-color: inherit;
                 font-family: roboto-normal;
-                margin: 0 0 4px 4px;
-                padding: 4px;
-                font-size: 20px;
+                margin: 0 0 rem(4px) rem(4px);
+                padding: rem(4px);
+                font-size: rem(20px);
                 height: max-content;
-                max-height: 300px;
+                max-height: rem(300px);
 
                 &:focus {
                     @include trelloInput;
                     width: 80%;
                     background-color: #fff;
                     outline: none;
-                    margin: 0 0 4px 4px;
-                    padding: 4px;
+                    margin: 0 0 rem(4px) rem(4px);
+                    padding: rem(4px);
                 }
             }
         }
 
         .card-link {
-            margin: 0 0 24px 32px;
+            margin: 0 0 rem(24px) rem(32px);
             z-index: 3;
-            font-size: 14px;
+            font-size: rem(14px);
         }
     }
 
 
 
     .card-content {
-        margin-bottom: 150px;
-        padding-left: 16px;
+        margin-bottom: rem(150px);
+        padding-left: rem(16px);
+
+        @include for-mobile-layout {
+            flex-direction: column;
+        }
 
         .card-details {
-            margin-right: 16px;
+            margin-right: rem(16px);
 
+            @include for-mobile-layout {
+                order: 1;
+            }
 
             h3 {
                 color: #5e6c84;
                 letter-spacing: .04em;
                 font-weight: normal;
                 text-transform: uppercase;
-                font-size: 12px;
+                font-size: rem(12px);
                 font-weight: 500;
-                margin-bottom: 8px;
+                margin-bottom: rem(8px);
             }
 
             &-members {
-                margin: 0 0 28px 28px;
+                margin: 0 0 rem(28px) rem(28px);
 
                 .member-avatar {
-                    margin-right: 6px;
+                    margin-right: rem(6px);
                 }
             }
 
             &-labels {
-                margin: 0 0 28px 28px;
+                margin: 0 0 rem(28px) rem(28px);
 
                 .label {
                     @include transRoundBorder;
-                    font-size: 14px;
+                    font-size: rem(14px);
                     display: inline-block;
                     color: #fff;
-                    min-width: 40px;
-                    min-height: 32px;
-                    padding: 6px 12px;
-                    margin: 0 4px 4px 0;
+                    min-width: rem(40px);
+                    min-height: rem(32px);
+                    padding: rem(6px) rem(12px);
+                    margin: 0 rem(4px) rem(4px) 0;
 
                     &:hover {
                         filter: brightness(85%);
@@ -202,9 +229,9 @@
             }
 
             &-date {
-                margin: 0 0 28px 28px;
+                margin: 0 0 rem(28px) rem(28px);
                 font-family: roboto-normal;
-                font-size: 14px;
+                font-size: rem(14px);
                 color: #172b4d;
 
                 .date {
@@ -212,11 +239,11 @@
                     background-color: rgba(9, 30, 66, .04);
                     @include transRoundBorder;
                     font-family: segoe-ui;
-                    font-size: 14px;
+                    font-size: rem(14px);
                     cursor: pointer;
-                    height: 32px;
+                    height: rem(32px);
                     max-width: max-content;
-                    padding: 6px 12px;
+                    padding: rem(6px) rem(12px);
                     transition-property: background-color, border-color, box-shadow;
                     transition-duration: 85ms;
                     transition-timing-function: ease;
@@ -231,19 +258,29 @@
         .card-sidebar {
             display: flex;
             align-items: flex-end;
+            align-self: flex-start;
             flex-direction: column;
-            margin-right: 16px;
+            margin-right: rem(16px);
+
+            @include for-narrow-layout {
+                margin-right: rem(12px);
+            }
+
+            @include for-mobile-layout {
+                margin-left: rem(28px);
+                order: 0;
+            }
 
             .card-sidebar-btn {
                 background-color: rgba(9, 30, 66, 0.04);
                 @include transRoundBorder;
-                height: 32px;
-                font-size: 14px;
+                height: rem(32px);
+                font-size: rem(14px);
                 color: #42526e;
-                margin-bottom: 8px;
-                min-width: 168px;
+                margin-bottom: rem(8px);
+                min-width: rem(168px);
                 overflow: hidden;
-                padding: 6px 12px;
+                padding: rem(6px) rem(12px);
                 user-select: none;
                 transition-property: background-color, border-color, box-shadow;
                 transition-duration: 85ms;
@@ -251,17 +288,29 @@
                 display: flex;
                 align-items: center;
 
+                @include for-normal-layout {
+                    min-width: rem(168px);
+                }
+
+                @include for-narrow-layout {
+                    min-width: rem(142px);
+                }
+
                 &:hover {
                     background-color: rgba(9, 30, 66, .08);
                 }
 
                 span {
-                    margin-right: 10px;
+                    margin-right: rem(10px);
 
                     .icon {
-                        font-size: 18px;
+                        font-size: rem(18px);
                         position: relative;
-                        top: 2px;
+                        top: rem(2px);
+
+                        @include for-narrow-layout {
+                            font-size: rem(16px);
+                        }
                     }
                 }
             }

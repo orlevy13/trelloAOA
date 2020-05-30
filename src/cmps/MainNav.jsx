@@ -52,7 +52,7 @@ class _MainNav extends Component {
             <header className="main-header flex space-between">
                 <nav className="flex align-center">
                     <Link to="/">
-                        <div className="btn-main-nav">
+                        <div className="btn-main-nav flex align-center">
                             <HomeOutlined className="btn-icon" />
                         </div>
                     </Link>
@@ -74,7 +74,7 @@ class _MainNav extends Component {
                 </div>
 
                 <nav className="right-nav flex flex-end align-center">
-                    <div className="btn-main-nav" onClick={this.toggleAddBoard}>
+                    <div className="btn-main-nav flex align-center" onClick={this.toggleAddBoard}>
                         <Add className="btn-icon" />
                     </div>
                     {isCreateBoardMenuShown && <div className="create-board-menu  flex column">
