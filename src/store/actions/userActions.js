@@ -15,8 +15,9 @@ export function login(userCreds) {
 
 export function signup(userCreds) {
     return async dispatch => {
-        await userService.signup(userCreds);
-        dispatch(setUser(null));
+        const user = await userService.signup(userCreds);
+        dispatch(setUser(null)); // since login is not a part of sihnup we put null user redirect to login page
+        dispatch(addUser(user));
     };
 }
 
@@ -33,9 +34,23 @@ export function setUser(user) {
     };
 }
 
+export function addUser(user) {
+    return {
+        type: 'ADD_USER',
+        user
+    };
+}
+
 export function removeUser(userId) {
     return dispatch => {
         userService.remove(userId)
             .then(() => dispatch({ type: REMOVE_USER, userId }));
+    }
+}
+
+export function queryUsers() {
+    return async dispatch => {
+        userService.query()
+            .then(users => dispatch({ type: QUERY_USERS, users }));
     }
 }

@@ -13,6 +13,7 @@ export class _MembersEdit extends Component {
 
     componentDidMount() {
         window.addEventListener('keydown', this.hideMembersEdit);
+
     }
 
     componentWillUnmount() {
@@ -49,11 +50,19 @@ export class _MembersEdit extends Component {
 
     render() {
         const { members, toggleProperty, card } = this.props;
+        // const { users, board } = this.props; members  //TODO LATER WHEN ADD USER TO BOARD
+        // if (!members && !users) return 'loading!!!!';
         const { name } = this.state;
+        // var membersToDisplay;
+        // if (!users) {
+        //     membersToDisplay = members.filter(mmbr =>
+        //         mmbr.fullName.toLowerCase().includes(name.toLowerCase()));  //TODO LATER WHEN ADD USER TO BOARD
+        // }
         const membersToDisplay = members.filter(mmbr =>
             mmbr.fullName.toLowerCase().includes(name.toLowerCase()));
+
         return (
-            <section className="edit-members">
+            <section className="edit-members" >
                 <div className="edit-members-header flex align-center">
                     <p className="grow">Members</p>
                     <button onClick={() => { toggleProperty('isMembersEditShown') }}><Clear /></button>
@@ -64,6 +73,9 @@ export class _MembersEdit extends Component {
                     {members && membersToDisplay.map(member =>
                         <MemberEdit toggleMemberOnCard={this.toggleMemberOnCard} card={card}
                             key={member._id} member={member} />)}
+                    {/* {users && membersToDisplay.map(member =>
+                        <MemberEdit toggleMemberOnCard={this.toggleMemberOnCard} card={card} //board={board} //TODO LATER WHEN ADD USER TO BOARD
+                            key={member._id} member={member} />)} */}
                 </div>
 
             </section>

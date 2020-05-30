@@ -36,7 +36,7 @@ async function ajax(endpoint, method = 'get', data = null) {
         console.dir(err);
         // if (err.response && err.response.status === 401) {
         if (err.response) {
-            history.push('/signin');
+            history.push('/login');
         }
         throw err;
     }
