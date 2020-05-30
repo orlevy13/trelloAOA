@@ -122,10 +122,23 @@
                 }
             }
         }
-    }
 
-    .login-btn {
-        margin: 0 rem(6px) 0 0;
+        .login-btn {
+            margin: 0 rem(12px) 0 0;
+            padding: rem(7px);
+
+            @include for-mobile-layout {
+                padding: rem(3px);
+            }
+        }
+
+        .logout-btn {
+            padding: rem(7px);
+
+            @include for-mobile-layout {
+                padding: rem(4.5px);
+            }
+        }
     }
 
     .create-board-menu {

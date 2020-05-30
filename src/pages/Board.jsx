@@ -7,9 +7,10 @@ import { MemberInitials } from '../cmps/MemberInitials';
 import { BoardMenu } from '../cmps/boardMenu/BoardMenu';
 import { ColorMenu } from '../cmps/boardMenu/ColorMenu';
 import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
-import { MenuOutlined, PieChartOutlined, 
+import {
+    MenuOutlined, PieChartOutlined,
     // PersonAddOutlined  //TODO LATER WHEN ADD USER TO BOARD
-} 
+}
     from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
@@ -126,10 +127,7 @@ class _Board extends Component {
     }
 
     toggleProperty = property => {
-        console.log(property);
-        this.setState(prevState => ({ [property]: !prevState[property] }), () => {
-            console.log("isMembersEditShown: ", this.state.isMembersEditShown);
-        });
+        this.setState(prevState => ({ [property]: !prevState[property] }));
     }
 
     render() {
