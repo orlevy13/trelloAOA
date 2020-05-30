@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import { updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService, OPERETIONS, TYPES } from '../services/boardService';
 
 export class _AddCard extends Component {
@@ -32,7 +32,7 @@ export class _AddCard extends Component {
         const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phaseId);
         const newCard = boardService.getNewCard(this.state.card);
         boardCopy.phaseLists[phaseIdx].cards.push(newCard);
-        boardService.addActivity(boardCopy, LOGGED_IN_USER, OPERETIONS.ADD, TYPES.CARD, { id: newCard.id, title: newCard.title });
+        boardService.addActivity(boardCopy, this.props.user, OPERETIONS.ADD, TYPES.CARD, { id: newCard.id, title: newCard.title });
 
         await this.props.updateBoard(boardCopy);//async await is for the scroll
         this.setState({ card: { title: '' } });
@@ -82,7 +82,8 @@ export class _AddCard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        user:  state.trelloUser.user
     }
 }
 

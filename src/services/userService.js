@@ -33,11 +33,9 @@ function _handleLogin(user) {
     return user;
 }
 async function logout() {
-    debugger;
     await httpService.post('auth/logout');
     sessionStorage.clear();
 }
-
 
 async function signup(userCred) {
     const user = await httpService.post('auth/signup', userCred)

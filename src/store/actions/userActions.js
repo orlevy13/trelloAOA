@@ -6,15 +6,6 @@ export const REMOVE_USER = 'REMOVE_USER';
 export const QUERY_USERS = 'QUERY_USERS'
 export const CREATE_USER = 'CREATE_USER';
 
-export const LOGGED_IN_USER = {
-    "_id": "5eccd4e1cb39d7f54947fd7e",
-    "fullName": "Guest",
-    "email": "noemail@no.com",
-    "img": "https://img.icons8.com/plasticine/2x/user.png"
-}
-
-
-
 export function login(userCreds) {
     return async dispatch => {
         const user = await userService.login(userCreds);

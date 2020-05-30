@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AttachFileOutlinedIcon from '@material-ui/icons/AttachFileOutlined';
 import { connect } from 'react-redux';
-import { loadBoard, updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 import { boardService, OPERETIONS, TYPES } from '../services/boardService'
 import moment from 'moment';
 
@@ -17,7 +17,7 @@ class _CardAttachments extends Component {
         const phaseIdx = this.getPhaseIdxByCardId(cardId);
         const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
         boardCopy.phaseLists[phaseIdx].cards[cardIdx].attachments.splice(idx, 1);
-        boardService.addActivity(boardCopy, LOGGED_IN_USER, OPERETIONS.DELETE, TYPES.CARD, { id: cardId, title: card.title },
+        boardService.addActivity(boardCopy, this.props.user, OPERETIONS.DELETE, TYPES.CARD, { id: cardId, title: card.title },
             `attachment to card`);
         this.props.updateBoard(boardCopy);
     }
@@ -61,7 +61,8 @@ class _CardAttachments extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        user:  state.trelloUser.user
     }
 }
 
