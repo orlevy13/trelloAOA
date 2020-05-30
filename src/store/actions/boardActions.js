@@ -7,14 +7,6 @@ export const REMOVE_BOARD = 'REMOVE_BOARD';
 export const QUERY_BOARDS = 'QUERY_BOARDS'
 export const CREATE_BOARD = 'CREATE_BOARD';
 
-export const LOGGED_IN_USER = {
-    "_id": "5eccd4e1cb39d7f54947fd7e",
-    "fullName": "Guest",
-    "email": "noemail@no.com",
-    "password": "123456",
-    "img": "https://img.icons8.com/plasticine/2x/user.png"
-}
-
 export function queryBoards(filter) {
     return dispatch => {
         boardService.query(filter)

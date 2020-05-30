@@ -3,7 +3,7 @@ import { PhasePreview } from './PhasePreview';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { Add, Close } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import { updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
+import { updateBoard } from '../store/actions/boardActions';
 import { boardService, OPERETIONS, TYPES } from '../services/boardService';
 
 
@@ -123,7 +123,7 @@ export class _PhaseList extends Component {
                 const dstCards = dstPhase.cards;
                 dstCards.splice(destination.index, 0, movingCard);
                 boardService.addActivity(boardCopy,
-                    LOGGED_IN_USER,
+                    this.props.user,
                     OPERETIONS.UPDATE,
                     TYPES.CARD, {
                     id: movingCard.id,
@@ -181,7 +181,8 @@ export class _PhaseList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        user:  state.trelloUser.user
     }
 }
 

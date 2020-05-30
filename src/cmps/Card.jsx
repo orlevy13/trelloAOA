@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadBoard, setCard, updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
+import { loadBoard, setCard, updateBoard } from '../store/actions/boardActions';
 import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
 import { CardChecklist } from './CardChecklist';
 import { Activities } from '../cmps/Activities'
 import {
     PermIdentity, LabelOutlined, PlaylistAddCheck,
-    Schedule, Attachment, CropOriginal, DeleteForeverOutlined,
+    Schedule, CropOriginal, DeleteForeverOutlined,
+    // Attachment
 } from '@material-ui/icons';
 import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
 import { MemberInitials } from './MemberInitials';
-import { boardService, OPERETIONS, TYPES, } from '../services/boardService';
+import { boardService } from '../services/boardService';
 import { DueDateEdit } from './DueDateEdit';
 import moment from 'moment';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { CardImage } from './CardImage';
-import { CardAttachments } from './CardAttachments';
+// import { CardAttachments } from './CardAttachments';
 
 
 class _Card extends Component {
@@ -156,22 +157,22 @@ class _Card extends Component {
         this.setState({ isImgLoading: false });
     }
 
-    handleFileUpload = async (ev) => {        
-        const fileName = ev.target.files[0].name;
-        const ext = fileName.split('.').pop();
-        this.setState({ isImgLoading: true, loadingMsg: "Uploading your attachment.." });
-        const attachmentUrl = await cloudinaryService.uploadImg(ev);
-        const boardCopy = boardService.getBoardCopy(this.props.board);
-        const card = this.props.card;
-        const cardId = card.id;
-        const phaseIdx = this.getPhaseIdxByCardId(cardId);
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx].attachments.push({ at: Date.now(), name: fileName, ext, url: attachmentUrl })
-        boardService.addActivity(boardCopy, LOGGED_IN_USER, OPERETIONS.ADD, TYPES.CARD, { id: cardId, title: card.title },
-            `attachment ${fileName} to card`);
-        this.props.updateBoard(boardCopy);
-        this.setState({ isImgLoading: false, loadingMsg: null });
-    }
+    // handleFileUpload = async (ev) => { //no support for attachments clodinary!!!
+    //     const fileName = ev.target.files[0].name;
+    //     const ext = fileName.split('.').pop();
+    //     this.setState({ isImgLoading: true, loadingMsg: "Uploading your attachment.." });
+    //     const attachmentUrl = await cloudinaryService.uploadRawAttachment(ev, fileName);
+    //     const boardCopy = boardService.getBoardCopy(this.props.board);
+    //     const card = this.props.card;
+    //     const cardId = card.id;
+    //     const phaseIdx = this.getPhaseIdxByCardId(cardId);
+    //     const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+    //     boardCopy.phaseLists[phaseIdx].cards[cardIdx].attachments.push({ at: Date.now(), name: fileName, ext, url: attachmentUrl })
+    //     boardService.addActivity(boardCopy, this.props.user, OPERETIONS.ADD, TYPES.CARD, { id: cardId, title: card.title },
+    //         `attachment ${fileName} to card`);
+    //     this.props.updateBoard(boardCopy);
+    //     this.setState({ isImgLoading: false, loadingMsg: null });
+    // }
 
 
     removeCard = () => {
@@ -234,7 +235,7 @@ class _Card extends Component {
                                     </div>
                                 </div>}
                                 < CardDesc card={card} />
-                                <CardAttachments card={card} />
+                                {/* <CardAttachments card={card} /> //coudinary do not suppot pdf right now */}
                                 {(card.checkList.length > 0) && < CardChecklist card={card} />}
                                 <Activities card={card} showCommentBox={true} activities={cardActivities} />
                             </div>
@@ -262,9 +263,9 @@ class _Card extends Component {
                                 {isDueDateEditShown && <DueDateEdit changeDueDate={changeDueDate}
                                     toggleProperty={toggleProperty} />}
 
-                                <label htmlFor="attachmentUrl" className="card-sidebar-btn pointer"><span>
+                                {/* <label htmlFor="attachmentUrl" className="card-sidebar-btn pointer"><span> no support from cloudinary attchemnts other then media
                                     <Attachment className="icon" /></span>Attachment</label>
-                                <input type="file" className="get-file display-none" name="file" id="attachmentUrl" onChange={this.handleFileUpload} ></input>
+                                <input type="file" className="get-file display-none" name="file" id="attachmentUrl" onChange={this.handleFileUpload} ></input> */}
 
                                 {!imgUrl && <React.Fragment>
                                     <label htmlFor="imgUrl" className="card-sidebar-btn pointer"><span>
@@ -291,7 +292,8 @@ class _Card extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board,
-        card: state.trelloApp.card
+        card: state.trelloApp.card,
+        user:  state.trelloUser.user
     }
 }
 

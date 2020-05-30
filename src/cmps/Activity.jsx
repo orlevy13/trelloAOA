@@ -54,7 +54,9 @@ class _Activity extends React.Component {
             const boardClone = JSON.parse(JSON.stringify(this.props.board));
             const cardId = object.id;
             const currPhase = boardClone.phaseLists.find(phase => phase.cards.some(card => card.id === cardId));
+            if (!currPhase) return;
             const card = currPhase.cards.find(card => card.id === cardId);
+            if (!card) return;
             this.props.onCloseMenu(null);
             this.props.setCard(card);
         }

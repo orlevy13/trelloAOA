@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { PlaylistAddCheck } from '@material-ui/icons';
 import { ChecklistItem } from './ChecklistItem';
-import { loadBoard, updateBoard, LOGGED_IN_USER } from '../store/actions/boardActions';
+import { loadBoard, updateBoard } from '../store/actions/boardActions';
 import { boardService, OPERETIONS, TYPES } from '../services/boardService'
 
 class _CardChecklist extends Component {
@@ -55,7 +55,7 @@ class _CardChecklist extends Component {
         const phaseIndex = boardClone.phaseLists.findIndex(phase => phase.id === currPhase.id)
         currPhase.cards = updatedCards;
         boardClone.phaseLists[phaseIndex] = currPhase;
-        boardService.addActivity(boardClone, LOGGED_IN_USER, OPERETIONS.UPDATE, TYPES.CARD,
+        boardService.addActivity(boardClone, this.props.user, OPERETIONS.UPDATE, TYPES.CARD,
             { id: this.props.card.id, title: this.props.card.title },
             'update checklist on card');
 
@@ -153,7 +153,8 @@ class _CardChecklist extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        user:  state.trelloUser.user
     }
 }
 
