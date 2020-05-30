@@ -8,36 +8,56 @@ import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 const bgColors =
     [
         '#273d5d',
-        '#006c95',
-        '#009da2',
+        '#C492B1',
         '#00ca78',
         '#a8eb12',
-        '#003f5c',
-        '#2d4f73',
-        '#4f608a',
+
+        '#ee6352',
+        '#DA4167',
+        '#ffb5d7',
         '#72709e',
+
+        '#F6AE2D',
+        '#C9E3AC',
         '#9580b0',
         '#b991bf',
         '#dda2cc',
-        '#ffb5d7',
+
+
     ];
 const hovColors =
     [
-        '#FF6384A0',
-        '#36A2EBA0',
-        '#FFCE56A0',
-        '#e53935',
-        '#e57373',
-        '#6633FF',
-        '#FF00CC',
-        '#9900FF',
-        '#DAF7A6',
-        '#82b1ff',
-        '#1976d2',
-        '#e53935',
-        '#e57373',
-        '#6633FF',
-        '#FF00CC',
+
+        '#273d5dc2',
+        '#C492B1c2',
+        '#00ca78c2',
+        '#a8eb12c2',
+
+        '#ee6352c2',
+        '#DA4167c2',
+        '#ffb5d7c2',
+        '#72709ec2',
+
+        '#F6AE2Dc2',
+        '#C9E3ACc2',
+        '#9580b0c2',
+        '#b991bfc2',
+        '#dda2ccc2',
+        // '#FF6384A0',
+        // '#36A2EBA0',
+        // '#FFCE56A0',
+        // '#e53935',
+        // '#e57373',
+        // '#6633FF',
+        // '#FF00CC',
+        // '#9900FF',
+        // '#DAF7A6',
+        // '#82b1ff',
+        // '#1976d2',
+        // '#e53935',
+        // '#e57373',
+        // '#6633FF',
+        // '#FF00CC',
     ];
 
 
@@ -104,7 +124,7 @@ class _Dashboard extends Component {
                 ...Object.keys(phaseTaskMap)
             ],
             datasets: [{
-                label: "Task Per Phase Distribution",
+                label: "Tasks Per Phase Distribution",
                 data: [...Object.values(phaseTaskMap)],
                 backgroundColor: bgColors,
                 hoverBackgroundColor: hovColors
@@ -130,7 +150,7 @@ class _Dashboard extends Component {
                 ...Object.keys(devTaskMap)
             ],
             datasets: [{
-                label: "Tasks by Labels",
+                label: "Tasks by Label",
                 data: [...Object.values(devTaskMap)],
                 backgroundColor: bgColors,
                 hoverBackgroundColor: hovColors
@@ -158,7 +178,7 @@ class _Dashboard extends Component {
                 ...Object.keys(devTaskMap)
             ],
             datasets: [{
-                label: "Task Per Devloper",
+                label: "Tasks Per Developer",
                 data: [...Object.values(devTaskMap)],
                 backgroundColor: bgColors,
                 hoverBackgroundColor: hovColors
@@ -214,7 +234,7 @@ class _Dashboard extends Component {
                     </article>
                     <article className="chart tasks-per-phase flex column justify-center align-center">
                         <h2>Tasks Per Phase</h2>
-                        <Doughnut data={taskPerPhaseDistribution} options={{
+                        <Doughnut className="Doughnut" data={taskPerPhaseDistribution} options={{
                             scales: {
                                 yAxes: [{
                                     ticks: {
@@ -226,7 +246,7 @@ class _Dashboard extends Component {
                     </article>
 
                     <article className="chart tasks-by-lables flex column justify-center align-center">
-                        <h2>Task By Labels</h2>
+                        <h2>Tasks By Label</h2>
                         <Bar data={tasksByLabels} options={{
                             scales: {
                                 yAxes: [{

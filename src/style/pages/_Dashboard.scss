@@ -1,6 +1,13 @@
 .dashboard {
-    background-image: linear-gradient(to right top, #273d5d, #006c95, #009da2, #00ca78, #a8eb12);
-    padding-top: 6vh;//this is super important!
+    // background-image: linear-gradient(to right top, #273d5d, #006c95, #009da2, #00ca78, #a8eb12);
+    background-image: linear-gradient(to right top, #b16a61, #273d5d);
+    padding-top: 6vh; //this is super important!
+    transition: 0.3s;
+
+    h2 {
+        padding-top: 10px;
+    }
+
     .btn-back {
         position: fixed;
         background-color: #0d5d83;
@@ -21,7 +28,7 @@
         column-gap: 15px;
 
         .chart {
-            background-color: white;
+            background-color: rgb(243, 243, 243);
             border-radius: 5px;
             min-width: 780px;
             min-height: 390px;
