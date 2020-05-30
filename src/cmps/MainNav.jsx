@@ -52,7 +52,7 @@ class _MainNav extends Component {
             <header className="main-header flex space-between">
                 <nav className="flex align-center">
                     <Link to="/">
-                        <div className="btn-main-nav">
+                        <div className="btn-main-nav flex align-center">
                             <HomeOutlined className="btn-icon" />
                         </div>
                     </Link>
@@ -74,7 +74,7 @@ class _MainNav extends Component {
                 </div>
 
                 <nav className="right-nav flex flex-end align-center">
-                    <div className="btn-main-nav" onClick={this.toggleAddBoard}>
+                    <div className="btn-main-nav flex align-center" onClick={this.toggleAddBoard}>
                         <Add className="btn-icon" />
                     </div>
                     {isCreateBoardMenuShown && <div className="create-board-menu  flex column">
@@ -124,7 +124,7 @@ class _MainNav extends Component {
                     {(user && user.fullName !== "Guest") && <span className="btn-text" onClick={this.props.logout}>Logout</span>}
                     {(user) && <span className="logged-in flex align-center"><MemberInitials member={user} /></span>}
 
-                    {user && user.fullName === "Guest" && <div className="btn-main-nav flex align-center">
+                    {user && user.fullName === "Guest" && <div className="login-btn btn-main-nav flex align-center">
                         <Link to="/signin"> <span className="btn-text">Login</span></Link>
                     </div>}
                 </nav>
