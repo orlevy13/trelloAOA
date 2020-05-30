@@ -9,15 +9,8 @@ export const TYPES = {
     User: 'User'
 }
 
-
-async function query(filter) {
-    var queryString = '';
-    // if (filter) {
-    //     if (filter.inStock !== '') queryString = `?inStock=${filter.inStock}`;
-    //     if (filter.type !== '') (queryString === '') ? queryString = `?type=${filter.type}` : queryString += `&type=${filter.type}`;
-    //     if (filter.name !== '') (queryString === '') ? queryString = `?q=${filter.name}` : queryString += `&q=${filter.name}`;
-    // }
-    const users = await httpService.get(`user/${queryString}`);
+async function query() {
+    const users = await httpService.get(`user`);
     return users;
 }
 
@@ -26,16 +19,30 @@ async function getById(id) {
     return user
 }
 
-async function add(addeduser) {
+async function getByEmail(email) {
+    const user = await httpService.get(`user/${email}`);
+    return user
+}
 
-    const newUser = {
-        fullName: this.createfullName(addeduser.fName, addeduser.lName),
-        password: addeduser.password,
-        email: addeduser.email,
-        createdAt: Date.now()
-    }
-    const user = await httpService.post(`user`, newUser);
+async function login(userCred) {
+    const user = await httpService.post('auth/login', userCred)
+    console.log('user service after axios answer', user);
+    return _handleLogin(user)
+}
+
+function _handleLogin(user) {
+    sessionStorage.setItem('user', JSON.stringify(user))
     return user;
+}
+async function logout() {
+    await httpService.post('auth/logout');
+    sessionStorage.clear();
+}
+
+
+async function signup(userCred) {
+    const user = await httpService.post('auth/signup', userCred)
+    return _handleLogin(user)
 }
 
 async function update(updateuser) {
@@ -51,14 +58,6 @@ function getUserCopy(user) {
     return JSON.parse(JSON.stringify(user));
 }
 
-
-function createfullName(fName, lName) {
-
-    return (fName + ' ' + lName);
-}
-
-
-
 function makeId(length = 5) {
     var txt = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -72,9 +71,11 @@ export const userService = {
     query,
     getById,
     remove,
-    add,
+    signup,
     update,
     makeId,
     getUserCopy,
-    createfullName
+    getByEmail,
+    login,
+    logout
 }
