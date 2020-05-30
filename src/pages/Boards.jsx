@@ -5,6 +5,7 @@ import { loadBoard, queryBoards } from '../store/actions/boardActions';
 
 class _Boards extends Component {
     componentDidMount() {
+
         this.props.queryBoards();
     }
 
@@ -38,7 +39,8 @@ class _Boards extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board,
-        boards: state.trelloApp.boards
+        boards: state.trelloApp.boards,
+        user: state.trelloApp.user
     }
 }
 

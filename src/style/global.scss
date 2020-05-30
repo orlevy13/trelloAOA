@@ -9,14 +9,16 @@
 @import "basics/layout";
 
 // Pages
+
 @import "pages/boards";
 @import "pages/Board";
 @import "cmps/MemberInitials";
 @import "pages/Home";
 @import "pages/Dashboard";
-@import "pages/SignUp";
+@import "pages/Signin";
+@import "pages/Signup";
 
-// Components
+//Components
 @import "cmps/MainNav";
 @import "cmps/Card";
 @import "cmps/cardDesc";
@@ -35,3 +37,4 @@
 @import "cmps/Activities";
 @import "cmps/DueDateEdit";
 @import "cmps/AddLabel";
+@import "cmps/CardAttachments";
