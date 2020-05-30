@@ -43,21 +43,7 @@ const hovColors =
         '#9580b0c2',
         '#b991bfc2',
         '#dda2ccc2',
-        // '#FF6384A0',
-        // '#36A2EBA0',
-        // '#FFCE56A0',
-        // '#e53935',
-        // '#e57373',
-        // '#6633FF',
-        // '#FF00CC',
-        // '#9900FF',
-        // '#DAF7A6',
-        // '#82b1ff',
-        // '#1976d2',
-        // '#e53935',
-        // '#e57373',
-        // '#6633FF',
-        // '#FF00CC',
+
     ];
 
 
@@ -209,7 +195,7 @@ class _Dashboard extends Component {
                 <section className="chart-cont flex column justify-center align-center">
                     <article className="chart sprint-progress flex justify-center column align-center">
                         <h2>Sprint Progress</h2>
-                        <Pie data={sprintProgress} options={{
+                        <Pie className="chart-stats" data={sprintProgress} options={{
                             scales: {
                                 yAxes: [{
                                     ticks: {
@@ -222,7 +208,7 @@ class _Dashboard extends Component {
 
                     <article className="chart tasks-per-devloper flex column justify-center align-center">
                         <h2>Tasks Per Developer</h2>
-                        <Bar data={tPerDevloper} options={{
+                        <Bar className="chart-stats" data={tPerDevloper} options={{
                             scales: {
                                 yAxes: [{
                                     ticks: {
@@ -234,7 +220,7 @@ class _Dashboard extends Component {
                     </article>
                     <article className="chart tasks-per-phase flex column justify-center align-center">
                         <h2>Tasks Per Phase</h2>
-                        <Doughnut className="Doughnut" data={taskPerPhaseDistribution} options={{
+                        <Doughnut className="chart-stats" data={taskPerPhaseDistribution} options={{
                             scales: {
                                 yAxes: [{
                                     ticks: {
@@ -247,7 +233,7 @@ class _Dashboard extends Component {
 
                     <article className="chart tasks-by-lables flex column justify-center align-center">
                         <h2>Tasks By Label</h2>
-                        <Bar data={tasksByLabels} options={{
+                        <Bar className="chart-stats" data={tasksByLabels} options={{
                             scales: {
                                 yAxes: [{
                                     ticks: {
