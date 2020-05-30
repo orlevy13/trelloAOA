@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addUser, signup } from '../store/actions/userActions'
+import { signup } from '../store/actions/userActions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 
-class _Signup extends Component {
+class _SignUp extends Component {
     state = {
         msg: '',
         signupCred: {
@@ -32,7 +32,6 @@ class _Signup extends Component {
             return this.setState({ msg: 'All inputs are required!' });
         }
         const signupCreds = { email, password, fullName };
-        console.log('on submit', signupCreds);
         this.props.signup(signupCreds);
         this.setState({ signupCred: { email: '', password: '', fullName: '' } });
         this.props.history.push('/signin');
@@ -80,13 +79,7 @@ class _Signup extends Component {
                         type="password"
                         id="password"
                         autoComplete="current-password"
-                    />
-
-                    {/* <FormControlLabel
-                        className="signup-marketing-checkbox"
-                        control={<Checkbox value="allowExtraEmails" color="primary" />}
-                        label="I want to receive inspiration, marketing promotions and updates via email."
-                    /> */}
+                    />                   
 
                     <Button
 
@@ -118,4 +111,4 @@ const mapDispatchToProps = {
     signup
 }
 
-export const Signup = connect(mapStateToProps, mapDispatchToProps)(_Signup);
+export const SignUp = connect(mapStateToProps, mapDispatchToProps)(_SignUp);

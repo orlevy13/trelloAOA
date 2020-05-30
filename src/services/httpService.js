@@ -24,7 +24,6 @@ export const httpService = {
 
 
 async function ajax(endpoint, method = 'get', data = null) {
-    console.log('before axios', endpoint, method, data);
 
     try {
         const res = await axios({
@@ -32,7 +31,6 @@ async function ajax(endpoint, method = 'get', data = null) {
             method,
             data
         })
-        console.log('axios return', res);
         return res.data;
     } catch (err) {
         console.dir(err);

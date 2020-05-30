@@ -25,7 +25,6 @@ async function getByEmail(email) {
 
 async function login(userCred) {
     const user = await httpService.post('auth/login', userCred)
-    console.log('user service after axios answer', user);
     return _handleLogin(user)
 }
 
@@ -34,6 +33,7 @@ function _handleLogin(user) {
     return user;
 }
 async function logout() {
+    debugger;
     await httpService.post('auth/logout');
     sessionStorage.clear();
 }

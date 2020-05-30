@@ -1,5 +1,4 @@
 // import { UPDATE_USER, QUERY_USERS, SET_USER, USER_REMOVE, ADD_USER, LOAD_USER } from '../actions/userActions';
-import { socketService } from '../../services/socketService';
 let localLoggedinUser = null;
 const GUEST_USER = {
     "_id": "5eccd4e1cb39d7f54947fd7e",
@@ -18,9 +17,10 @@ const initialState = {
 
 export function userReducer(state = initialState, action) {
     switch (action.type) {
-        case 'SET_USER':
-            return { ...state, user: action.user };
-
+        case 'SET_USER': {
+            const logedInUser = (!action.user) ? localLoggedinUser : action.user
+            return { ...state, user: logedInUser };
+        }
         case 'USER_REMOVE':
             return {
                 ...state,

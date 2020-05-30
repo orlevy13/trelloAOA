@@ -7,9 +7,6 @@ import { history } from '../history'
 import { connect } from 'react-redux';
 import { loadBoard, updateBoard, addBoard } from '../store/actions/boardActions';
 import { logout, login } from '../store/actions/userActions'
-import { LOGGED_IN_USER } from '../store/actions/boardActions'
-
-
 
 class _MainNav extends Component {
 
@@ -40,15 +37,16 @@ class _MainNav extends Component {
         let boardName;
         if (!this.state.newBoardName.trim()) boardName = 'New Board';
         else boardName = this.state.newBoardName;
-        const newBoard = boardService.createNewBoard(boardName, this.state.newBoardColor, LOGGED_IN_USER);
+        const newBoard = boardService.createNewBoard(boardName, this.state.newBoardColor, this.user.props.user);
         await this.props.addBoard(newBoard);
         history.push(`/board/${this.props.board._id}`)
         this.setState({ isCreateBoardMenuShown: false, newBoardName: '' })
     }
 
     render() {
+
         const { isCreateBoardMenuShown, newBoardName, newBoardColor } = this.state
-        const isLogin = this.props.user ? true : false;
+        const { user } = this.props;
         if (!this.state) return ''
         return (
             <header className="main-header flex space-between">
@@ -118,21 +116,17 @@ class _MainNav extends Component {
                                 <label className={"rgb(73, 169, 215)" === newBoardColor ? "color-preview turquise selected" : "color-preview turquise"} >
                                     <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
                                         name="turquise" value="rgb(73, 169, 215)" /></label>
-
                             </div>
                             <input className="board-name-input" type="text" onChange={this.handleChange} placeholder="Your Board's name..." value={newBoardName} />
                             <button className="create-board-btn" onClick={this.createNewBoard} >Create a new Board</button>
                         </div>
                     </div>}
-                    <button onClick={this.props.logout}>Logout </button>
-                    {
-                        isLogin ? <span className="logged-in flex align-center"><MemberInitials member={this.props.user} /></span> :
+                    {(user && user.fullName !== "Guest") && <span className="btn-text" onClick={this.props.logout}>Logout</span>}
+                    {(user) && <span className="logged-in flex align-center"><MemberInitials member={user} /></span>}
 
-                            <div className="btn-main-nav">
-                                <span className="btn-text">Login</span>
-                            </div>
-                    }
-
+                    {user && user.fullName === "Guest" && <div className="btn-main-nav flex align-center">
+                        <Link to="/signin"> <span className="btn-text">Login</span></Link>
+                    </div>}
                 </nav>
             </header >
 

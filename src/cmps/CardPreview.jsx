@@ -14,7 +14,9 @@ import { boardService } from '../services/boardService';
 class _CardPreview extends React.Component {
 
     state = {
-        isMenuShown: false
+        isMenuShown: false,
+        pageX: 0,
+        pageY: 0
     }
 
     getUpdatedLabels = () => {
@@ -65,7 +67,8 @@ class _CardPreview extends React.Component {
                                         <CreateOutlined className="show-menu-icon" />
                                     </button>
 
-                                    {imgUrl && <div className="card-img"><img alt="Card" src={imgUrl} /></div>}
+                                    {imgUrl && <div className="card-img flex justify-center">
+                                        <img alt="Card" src={imgUrl} /></div>}
                                     {labels && <CardLabels labels={labels} />}
 
                                     <p>{title}</p>

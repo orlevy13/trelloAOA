@@ -4,7 +4,7 @@ import { login } from '../store/actions/userActions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-class _Signin extends Component {
+class _SignIn extends Component {
     state = {
 
         loginCred: {
@@ -29,7 +29,6 @@ class _Signin extends Component {
     doLogin = async ev => {
         ev.preventDefault();
         const { email, password } = this.state.loginCred;
-        console.log(email, password);
         if (!email || !password) {
             this.setState({ msg: 'Please enter correct user/password' });
         } else {
@@ -90,8 +89,8 @@ class _Signin extends Component {
 
                 </form>
 
-
-                <a href="#" className="sign-in-link">
+               
+                <a href="/signUp" className="sign-in-link">
                     Dont have an account? Sign Up
                     </a>
             </main >
@@ -107,4 +106,4 @@ const mapDispatchToProps = {
     login
 }
 
-export const Signin = connect(mapStateToProps, mapDispatchToProps)(_Signin);
+export const SignIn = connect(mapStateToProps, mapDispatchToProps)(_SignIn);

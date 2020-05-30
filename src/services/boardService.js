@@ -11,6 +11,7 @@ export const TYPES = {
 }
 
 
+
 async function query(filter) {
     var queryString = '';
     // if (filter) {
@@ -114,8 +115,7 @@ function getNewLabel({ txt, color }) {
         color,
         id: makeId(),
     }
-}
-
+} 
 
 function makeId(length = 5) {
     var txt = '';
@@ -139,5 +139,7 @@ export const boardService = {
     getSortedPhase,
     addActivity,
     createNewBoard,
-    getNewLabel
+    getNewLabel,
+    
+
 }

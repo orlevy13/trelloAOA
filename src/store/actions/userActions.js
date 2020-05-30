@@ -1,5 +1,4 @@
-import { userService } from '../../services/userService'
-import { socketService } from '../../services/socketService'
+import { userService } from '../../services/userService';
 export const LOAD_USER = 'LOAD_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const ADD_USER = 'ADD_USER';
@@ -19,40 +18,29 @@ export const LOGGED_IN_USER = {
 export function login(userCreds) {
     return async dispatch => {
         const user = await userService.login(userCreds);
-        console.log('actions user:', user);
         dispatch(setUser(user));
     };
 }
 
 export function signup(userCreds) {
     return async dispatch => {
-        const user = await userService.signup(userCreds);
-        dispatch(setUser(user));
-    };
-}
-
-export function logout() {
-    return async dispatch => {
-        await userService.logout();
+        await userService.signup(userCreds);
         dispatch(setUser(null));
     };
 }
 
-// export function addUser(addedUser) {
-//     return async dispatch => {
-//         const user = await userService.add(addedUser);
-//         dispatch({ type: ADD_USER, user })
-//     }
-// }
-
+export function logout(userCreds) {
+    return async dispatch => {
+        await userService.logout(userCreds);
+        dispatch(setUser(null));
+    };
+}
 export function setUser(user) {
     return {
         type: 'SET_USER',
         user
     };
 }
-
-
 
 export function removeUser(userId) {
     return dispatch => {
