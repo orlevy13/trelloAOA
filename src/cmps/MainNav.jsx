@@ -6,9 +6,7 @@ import { MemberInitials } from './MemberInitials';
 import { history } from '../history'
 import { connect } from 'react-redux';
 import { loadBoard, updateBoard, addBoard } from '../store/actions/boardActions';
-import { LOGGED_IN_USER } from '../store/actions/boardActions'
-
-const isLogin = true;
+import { logout, login } from '../store/actions/userActions'
 
 class _MainNav extends Component {
 
@@ -39,16 +37,16 @@ class _MainNav extends Component {
         let boardName;
         if (!this.state.newBoardName.trim()) boardName = 'New Board';
         else boardName = this.state.newBoardName;
-        const newBoard = boardService.createNewBoard(boardName, this.state.newBoardColor, LOGGED_IN_USER);
+        const newBoard = boardService.createNewBoard(boardName, this.state.newBoardColor, this.user.props.user);
         await this.props.addBoard(newBoard);
         history.push(`/board/${this.props.board._id}`)
         this.setState({ isCreateBoardMenuShown: false, newBoardName: '' })
     }
 
-
-
     render() {
+
         const { isCreateBoardMenuShown, newBoardName, newBoardColor } = this.state
+        const { user } = this.props;
         if (!this.state) return ''
         return (
             <header className="main-header flex space-between">
@@ -86,8 +84,6 @@ class _MainNav extends Component {
                         </div>
                         <div className="create-board-btns flex column">
                             <div className="color-container">
-                                {/* style="width:20px; height:20px; background-color:red;display:inline-block" */}
-                                {/* style="display:none" */}
 
                                 <label className={"rgb(81, 152, 57)" === newBoardColor ? "color-preview green selected" : "color-preview green"}  >
                                     <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
@@ -121,29 +117,17 @@ class _MainNav extends Component {
                                     <input onClick={this.handleChangeColor} className="color-preview-input" type="radio"
                                         name="turquise" value="rgb(73, 169, 215)" /></label>
 
-
-                                {/* <div onClick={this.handleChangeColor} className="color-preview color-preview-green">&nbsp;</div> */}
-
-
-                                {/* <div onClick={this.handleChangeColor} className="color-preview color-preview-orange">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-blue">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-red">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-purple">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-pink">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-light-green">&nbsp;</div>
-                                <div onClick={this.handleChangeColor} className="color-preview color-preview-turquise">&nbsp;</div> */}
                             </div>
                             <input className="board-name-input" type="text" onChange={this.handleChange} placeholder="Your Board's name..." value={newBoardName} />
                             <button className="create-board-btn" onClick={this.createNewBoard} >Create a new Board</button>
                         </div>
                     </div>}
-                    {
-                        isLogin ? <span className="logged-in flex align-center"><MemberInitials fullName="Or Levy" /></span> :
-                            <div className="btn-main-nav">
-                                <span className="btn-text">Login</span>
-                            </div>
-                    }
+                    {(user && user.fullName !== "Guest") && <span className="btn-text" onClick={this.props.logout}>Logout</span>}
+                    {(user) && <span className="logged-in flex align-center"><MemberInitials member={user} /></span>}
 
+                    {user && user.fullName === "Guest" && <div className="btn-main-nav">
+                        <Link to="/signin"> <span className="btn-text">Signin</span></Link>
+                    </div>}
                 </nav>
             </header >
 
@@ -154,14 +138,17 @@ class _MainNav extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        user: state.trelloUser.user
     }
 }
 
 const mapDispatchToProps = {
     loadBoard,
     updateBoard,
-    addBoard
+    addBoard,
+    logout,
+    login
 }
 
 

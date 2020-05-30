@@ -7,7 +7,7 @@ import { CardChecklist } from './CardChecklist';
 import { Activities } from '../cmps/Activities'
 import {
     PermIdentity, LabelOutlined, PlaylistAddCheck,
-    Schedule, Attachment, CropOriginal,
+    Schedule, Attachment, CropOriginal, DeleteForeverOutlined,
 } from '@material-ui/icons';
 import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
@@ -94,7 +94,7 @@ class _Card extends Component {
     addCheckList = () => {
         const cloneCard = JSON.parse(JSON.stringify(this.state.card));
         if (!cloneCard.checkList.length) {
-            cloneCard.checkList.push({ txt: '', isDone: false });
+            cloneCard.checkList.push({ txt: 'todo..', isDone: false });
             this.setState({ card: cloneCard })
         }
     }
@@ -156,8 +156,7 @@ class _Card extends Component {
         this.setState({ isImgLoading: false });
     }
 
-    handleFileUpload = async (ev) => {
-        debugger;
+    handleFileUpload = async (ev) => {        
         const fileName = ev.target.files[0].name;
         const ext = fileName.split('.').pop();
         this.setState({ isImgLoading: true, loadingMsg: "Uploading your attachment.." });
@@ -176,6 +175,18 @@ class _Card extends Component {
         this.setState({ isImgLoading: false, loadingMsg: null });
     }
 
+
+    removeCard = () => {
+        const boardCopy = boardService.getBoardCopy(this.props.board);
+        const cardId = this.props.card.id;
+        const phaseIdx = this.getPhaseIdxByCardId(cardId);
+        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+        //Getting access to the card inside the board
+
+        boardCopy.phaseLists[phaseIdx].cards.splice(cardIdx, 1);
+        this.props.setCard(null)
+        this.props.updateBoard(boardCopy);
+    }
 
     render() {
         if (!this.props.board || !this.state.card) return 'Loading';
@@ -263,9 +274,14 @@ class _Card extends Component {
                                     <input className="display-none" type="file" id="imgUrl"
                                         onChange={this.onUploadImg} />
                                 </React.Fragment>}
+
+                                <button onClick={this.removeCard} className="card-sidebar-btn"><span>
+                                    <DeleteForeverOutlined className="icon"
+                                    /></span>Delete</button>
                             </div>
                         </div>
-                    </div></div>
+                    </div>
+                </div>
             </section >
         )
     }

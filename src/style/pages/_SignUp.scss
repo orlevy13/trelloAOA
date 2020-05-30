@@ -5,19 +5,14 @@
     gap: 40px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:
-        ". first-name first-name ."
-        ". last-name last-name ."
+        ". user-name user-name ."
         ". email email ."
         ". password password ."
         ". submit-btn submit-btn .";
 }
 
-.signup-first-name {
-    grid-area: first-name;
-}
-
-.signup-last-name {
-    grid-area: last-name;
+.signup-full-name {
+    grid-area: user-name;
 }
 
 .signup-email {

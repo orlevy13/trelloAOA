@@ -9,7 +9,9 @@ class _Boards extends Component {
     }
 
     componentDidMount() {
+
         this.props.queryBoards();
+        console.log('curr user', this.props.user);
     }
 
 
@@ -56,7 +58,8 @@ class _Boards extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board,
-        boards: state.trelloApp.boards
+        boards: state.trelloApp.boards,
+        user: state.trelloApp.user
     }
 }
 

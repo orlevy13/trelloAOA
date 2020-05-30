@@ -11,6 +11,7 @@ export const httpService = {
         return ajax(endpoint, 'GET', data)
     },
     post(endpoint, data) {
+
         return ajax(endpoint, 'POST', data)
     },
     put(endpoint, data) {
@@ -23,17 +24,21 @@ export const httpService = {
 
 
 async function ajax(endpoint, method = 'get', data = null) {
+    console.log('before axios', endpoint, method, data);
+
     try {
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,
             method,
             data
         })
+        console.log('axios return', res);
         return res.data;
     } catch (err) {
         console.dir(err);
-        if (err.response && err.response.status === 401) {
-            history.push('/');
+        // if (err.response && err.response.status === 401) {
+        if (err.response) {
+            history.push('/signin');
         }
         throw err;
     }

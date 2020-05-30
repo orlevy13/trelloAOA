@@ -25,6 +25,7 @@
 
 .board-nav {
     padding: 8px 4px 4px 14px;
+    padding-top: 7vh;//this is super important!
     transition: padding 0.1s ease-in;
     position: relative;
 
@@ -85,10 +86,12 @@
         &:hover {
             background-color: $boardBtnHov;
         }
+
         .nav-icon {
             margin-right: 5px;
         }
     }
+
     .search-input-container {
         display: flex;
     }
@@ -115,10 +118,13 @@
             opacity: 1;
             color: rgb(55, 77, 114);
         }
+
         margin: 0;
+
         &:hover {
             opacity: 0.7;
         }
+
         &:focus {
             opacity: 1;
         }

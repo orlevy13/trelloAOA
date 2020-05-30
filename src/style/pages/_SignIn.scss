@@ -1,0 +1,32 @@
+.sign-in-form {
+    margin: 100px auto 0 auto;
+    display: grid;
+    width: 1000px;
+    gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        ". email email ."
+        ". password password ."
+        ". submit-btn submit-btn .";
+
+    .signin-email {
+        grid-area: email;
+    }
+
+    .signin-password {
+        grid-area: password;
+    }
+}
+.sign-in-submit-btn {
+    grid-area: submit-btn;
+}
+
+// // .signin-marketing-checkbox {
+// //     grid-area: checkbox;
+// // }
+
+// .sign-up-link {
+//     display: block;
+//     width: 300px;
+//     margin: 50px auto 20px auto;
+// }
