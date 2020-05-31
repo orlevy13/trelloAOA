@@ -101,22 +101,17 @@ export class _PhaseList extends Component {
 
         const boardCopy = boardService.getBoardCopy(this.props.board);
         if (type === 'PhasePreview') {
-
             const newPhasesOrder = boardCopy.phaseLists;
             const movingPhase = newPhasesOrder.splice(source.index, 1)[0];
             newPhasesOrder.splice(destination.index, 0, movingPhase);
-
         } else {
             const { phaseLists } = boardCopy;
             const srcPhase = phaseLists.find(phase => phase.id === source.droppableId);
             const dstPhase = phaseLists.find(phase => phase.id === destination.droppableId);
 
-
             if (srcPhase.id === dstPhase.id) {
                 const movingCard = srcPhase.cards.splice(source.index, 1)[0];
                 srcPhase.cards.splice(destination.index, 0, movingCard);
-
-
             } else {
                 const srcCards = srcPhase.cards;
                 const movingCard = srcCards.splice(source.index, 1)[0];
@@ -132,10 +127,7 @@ export class _PhaseList extends Component {
                     `moved card from ${srcPhase.name} to ${dstPhase.name} -Card:`);
             }
         }
-
         this.props.updateBoard(boardCopy);
-
-
     }
 
 
@@ -182,7 +174,7 @@ export class _PhaseList extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board,
-        user:  state.trelloUser.user
+        user: state.trelloUser.user
     }
 }
 
