@@ -65,11 +65,9 @@ class _LabelsEdit extends Component {
         //Checking if the card has the label or not and flip it
         if (card.labels.some(lbl => lbl.id === label.id)) {
             card.labels = card.labels.filter(lbl => lbl.id !== label.id);
-        } else {
-            card.labels.push(label);
-        }
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx] = card;
+        } else card.labels.push(label);
 
+        boardCopy.phaseLists[phaseIdx].cards[cardIdx] = card;
         this.props.updateBoard(boardCopy);
     }
 
