@@ -126,10 +126,7 @@ class _Board extends Component {
     }
 
     toggleProperty = property => {
-        console.log(property);
-        this.setState(prevState => ({ [property]: !prevState[property] }), () => {
-            console.log("isMembersEditShown: ", this.state.isMembersEditShown);
-        });
+        this.setState(prevState => ({ [property]: !prevState[property] }));
     }
 
     render() {

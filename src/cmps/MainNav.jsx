@@ -122,12 +122,12 @@ class _MainNav extends Component {
                         </div>
                     </div>}
                     {(user && user.fullName !== "Guest") &&
-                        <div className="btn-main-nav flex align-center">
+                        <div className="logout-btn btn-main-nav flex align-center">
                             <span className="btn-text" onClick={this.props.logout}>Logout</span>
                         </div>}
                     {(user) && <span className="logged-in flex align-center"><MemberInitials member={user} /></span>}
 
-                    {user && user.fullName === "Guest" && <div className="btn-main-nav flex align-center">
+                    {user && user.fullName === "Guest" && <div className="login-btn btn-main-nav flex align-center">
                         <Link to="/login"> <span className="btn-text">Login</span></Link>
                     </div>}
                 </nav>
