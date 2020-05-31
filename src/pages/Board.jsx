@@ -7,9 +7,10 @@ import { MemberInitials } from '../cmps/MemberInitials';
 import { BoardMenu } from '../cmps/boardMenu/BoardMenu';
 import { ColorMenu } from '../cmps/boardMenu/ColorMenu';
 import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
-import { MenuOutlined, PieChartOutlined, 
+import {
+    MenuOutlined, PieChartOutlined,
     // PersonAddOutlined  //TODO LATER WHEN ADD USER TO BOARD
-} 
+}
     from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
@@ -45,7 +46,7 @@ class _Board extends Component {
     }
 
     componentWillUnmount() {
-        socketService.off('open board socket');
+        socketService.off('board updated', this.getBoardById);
         socketService.terminate();
     }
 
@@ -53,9 +54,8 @@ class _Board extends Component {
         socketService.setup();
         const id = this.props.match.params.id;
         socketService.emit('open board socket', id);
-        socketService.on('board updated', () => {
-            this.getBoardById();
-        });
+        socketService.on('board updated', this.getBoardById)
+
     }
 
 
