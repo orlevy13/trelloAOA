@@ -1,9 +1,13 @@
 import { history } from '../history';
-import axios from 'axios';
+import Axios from 'axios';
 
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/api/'
-    : '//localhost:3030/api/'
+    : '//localhost:3030/api/';
+
+const axios = Axios.create({
+    withCredentials: true
+});
 
 
 export const httpService = {

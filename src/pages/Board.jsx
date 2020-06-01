@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import { loadBoard, updateBoard, setCard } from '../store/actions/boardActions';
-// import { queryUsers } from '../store/actions/userActions'
 import { connect } from 'react-redux';
 import { PhaseList } from '../cmps/PhaseList';
 import { MemberInitials } from '../cmps/MemberInitials';
 import { BoardMenu } from '../cmps/boardMenu/BoardMenu';
 import { ColorMenu } from '../cmps/boardMenu/ColorMenu';
 import { PhotoMenu } from '../cmps/boardMenu/PhotoMenu';
-import {
-    MenuOutlined, PieChartOutlined,
-    // PersonAddOutlined  //TODO LATER WHEN ADD USER TO BOARD
-}
-    from '@material-ui/icons';
+import { MenuOutlined, PieChartOutlined, PersonAddOutlined } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { BackgroundMenu } from '../cmps/boardMenu/BackgroundMenu';
 import { Card } from '../cmps/Card';
 import { BoardUserFilter } from '../cmps/BoardUserFilter'
 import { socketService } from '../services/socketService';
 import { boardService, OPERETIONS, TYPES } from '../services/boardService.js';
-//import { MembersEdit } from '../cmps/MembersEdit' //TODO LATER WHEN ADD USER TO BOARD
-
+import { MembersEdit } from '../cmps/MembersEdit'
 
 
 class _Board extends Component {
@@ -37,7 +31,7 @@ class _Board extends Component {
         filteredByUser: null,
         boardName: '',
         isTitleOnEdit: false,
-        // isMembersEditShown: false //TODO LATER WHEN ADD USER TO BOARD
+        isMembersEditShown: false
     }
 
     async componentDidMount() {
@@ -135,18 +129,16 @@ class _Board extends Component {
         await this.setState({ filteredByUser: name })
     }
 
-    AddUserToBoard = async () => {
-        await this.props.queryUsers();
-        this.toggleProperty('isMembersEditShown');
-    }
+    toggleProperty = (property, ev) => {
 
-    toggleProperty = property => {
+        if (ev) ev.stopPropagation();
+        console.trace('stacktrace');
         this.setState(prevState => ({ [property]: !prevState[property] }));
     }
 
     render() {
         const { filteredByUser, isTitleOnEdit } = this.state;
-        // const {isMembersEditShown}  = this.state; TODO: FOR ADDING USER TO BOARD
+        const { isMembersEditShown } = this.state;
         const { board } = this.props;
         if ((!board) || (!this.state)) return '';
 
@@ -169,12 +161,12 @@ class _Board extends Component {
                             {board.members && board.members.map((member) =>
                                 <MemberInitials key={member._id} member={member} />)}
                         </div>
-                        {/* <div className="add-member" onClick={this.AddUserToBoard}> TODO: ADD USERS TO BOARD!!!
+                        <div className="add-member" onClick={(ev) => this.toggleProperty("isMembersEditShown", ev)}>
                             <PersonAddOutlined />
 
-                            {isMembersEditShown && <MembersEdit users={this.props.users} board={this.props.board}
+                            {isMembersEditShown && <MembersEdit board={this.props.board}
                                 toggleProperty={this.toggleProperty} />}
-                        </div> */}
+                        </div>
 
                         <BoardUserFilter users={board.members} onInputChanged={this.onInputChanged} />
                         <Link to={`/board/${board._id}/dashboard`}>
@@ -206,7 +198,7 @@ const mapStateToProps = (state) => {
         board: state.trelloApp.board,
         card: state.trelloApp.card,
         user: state.trelloUser.user,
-        //users: state.trelloUser.users //TODO LATER WHEN ADD USER TO BOARD
+        users: state.trelloUser.users
     }
 }
 
@@ -214,8 +206,6 @@ const mapDispatchToProps = {
     loadBoard,
     updateBoard,
     setCard
-    //queryUsers //TODO LATER WHEN ADD USER TO BOARD
-
 }
 
 export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board)

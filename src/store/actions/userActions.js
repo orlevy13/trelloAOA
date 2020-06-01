@@ -50,7 +50,7 @@ export function removeUser(userId) {
 
 export function queryUsers() {
     return async dispatch => {
-        userService.query()
-            .then(users => dispatch({ type: QUERY_USERS, users }));
+        const users = await userService.query();
+        dispatch({ type: QUERY_USERS, users });
     }
 }

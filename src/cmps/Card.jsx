@@ -5,11 +5,7 @@ import { CardHeader } from './CardHeader';
 import { CardDesc } from './CardDesc';
 import { CardChecklist } from './CardChecklist';
 import { Activities } from '../cmps/Activities'
-import {
-    PermIdentity, LabelOutlined, PlaylistAddCheck,
-    Schedule, CropOriginal, DeleteForeverOutlined,
-    // Attachment
-} from '@material-ui/icons';
+import {PermIdentity, LabelOutlined, PlaylistAddCheck,Schedule, CropOriginal, DeleteForeverOutlined }  from '@material-ui/icons';
 import { LabelsEdit } from './LabelsEdit';
 import { MembersEdit } from './MembersEdit';
 import { MemberInitials } from './MemberInitials';
@@ -19,8 +15,6 @@ import moment from 'moment';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { CardImage } from './CardImage';
 import { history } from '../history';
-// import { CardAttachments } from './CardAttachments';
-
 
 class _Card extends Component {
     state = {
@@ -146,24 +140,6 @@ class _Card extends Component {
         this.setState({ isImgLoading: false });
     }
 
-    // handleFileUpload = async (ev) => { //no support for attachments clodinary!!!
-    //     const fileName = ev.target.files[0].name;
-    //     const ext = fileName.split('.').pop();
-    //     this.setState({ isImgLoading: true, loadingMsg: "Uploading your attachment.." });
-    //     const attachmentUrl = await cloudinaryService.uploadRawAttachment(ev, fileName);
-    //     const boardCopy = boardService.getBoardCopy(this.props.board);
-    //     const card = this.props.card;
-    //     const cardId = card.id;
-    //     const phaseIdx = this.getPhaseIdxByCardId(cardId);
-    //     const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-    //     boardCopy.phaseLists[phaseIdx].cards[cardIdx].attachments.push({ at: Date.now(), name: fileName, ext, url: attachmentUrl })
-    //     boardService.addActivity(boardCopy, this.props.user, OPERETIONS.ADD, TYPES.CARD, { id: cardId, title: card.title },
-    //         `attachment ${fileName} to card`);
-    //     this.props.updateBoard(boardCopy);
-    //     this.setState({ isImgLoading: false, loadingMsg: null });
-    // }
-
-
     removeCard = () => {
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const phaseIdx = this.getPhaseIdxByCardId(this.props.card.id);
@@ -225,8 +201,7 @@ class _Card extends Component {
                                      at ${moment(dueDate).format("HH:mm")}`}</span>
                                     </div>
                                 </div>}
-                                < CardDesc card={card} />
-                                {/* <CardAttachments card={card} /> //coudinary do not suppot pdf right now */}
+                                < CardDesc card={card} />                               
                                 {(card.checkList.length > 0) && < CardChecklist card={card} />}
                                 <Activities card={card} showCommentBox={true} activities={cardActivities} />
                             </div>
@@ -253,18 +228,12 @@ class _Card extends Component {
                                         <Schedule className="icon" /></span>Due Date</button>
                                 {isDueDateEditShown && <DueDateEdit changeDueDate={changeDueDate}
                                     toggleProperty={toggleProperty} />}
-
-                                {/* <label htmlFor="attachmentUrl" className="card-sidebar-btn pointer"><span> no support from cloudinary attchemnts other then media
-                                    <Attachment className="icon" /></span>Attachment</label>
-                                <input type="file" className="get-file display-none" name="file" id="attachmentUrl" onChange={this.handleFileUpload} ></input> */}
-
                                 {!imgUrl && <React.Fragment>
                                     <label htmlFor="imgUrl" className="card-sidebar-btn pointer"><span>
                                         <CropOriginal className="icon" /></span>Cover</label>
                                     <input className="display-none" type="file" id="imgUrl"
                                         onChange={this.onUploadImg} />
                                 </React.Fragment>}
-
                                 <button onClick={this.removeCard} className="card-sidebar-btn"><span>
                                     <DeleteForeverOutlined className="icon"
                                     /></span>Delete</button>
@@ -276,9 +245,6 @@ class _Card extends Component {
         )
     }
 }
-
-
-
 
 const mapStateToProps = (state) => {
     return {

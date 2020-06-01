@@ -1,9 +1,9 @@
 //import { UPDATE_USER, QUERY_USERS, SET_USER, USER_REMOVE, ADD_USER, LOAD_USER } from '../actions/userActions';
 let localLoggedinUser = null;
 const GUEST_USER = {
-    "_id": "5eccd4e1cb39d7f54947fd7e",
-    "fullName": "Guest",
-    "email": "noemail@no.com",
+    "_id": "5ed4fd7181471d4e7041dcbe",
+    "email": "guest@guest.co.il",
+    "fullName": "Guest Guest",
     "img": "https://img.icons8.com/plasticine/2x/user.png"
 }
 
