@@ -162,7 +162,6 @@ function getBoardStats(board) {
                     if (acc.addedToday) acc.addedToday++;
                     else acc.addedToday = 1;
                 }
-
             })
         }
         return acc;

@@ -1,5 +1,4 @@
 .dashboard {
-    // background-image: linear-gradient(to right top, #273d5d, #006c95, #009da2, #00ca78, #a8eb12);
     background-image: linear-gradient(to right top, #b16a6180, #273d5da6);
     padding-top: 6vh; //this is super important!
 
@@ -40,7 +39,50 @@
             @include for-mobile-layout {
                 font-size: rem(12px);
                 position: relative;
-                bottom: 1px;
+                bottom: rem(1px);
+            }
+        }
+    }
+
+    &-stats {
+        max-width: rem(1000px);
+        margin: rem(40px) auto 0 auto;
+        padding: 0 rem(40px);
+
+        .data-preview {
+            padding: rem(8px) rem(12px);
+            background-color: #FFF;
+            font-size: rem(24px);
+            border-radius: rem(5px);
+            margin: 0 rem(8px);
+
+            .number {
+                color: #314361;
+                align-self: center;
+                font-weight: bold;
+
+                @media (max-width: 590px) {
+                    font-size: rem(16px);
+                }
+            }
+
+            .data-desc {
+                color: #ababab;
+                font-size: rem(16px);
+                text-transform: uppercase;
+
+                @include for-normal-layout {
+                    font-size: rem(14px);
+                }
+
+                @media (max-width: 590px) {
+                    font-size: rem(12px);
+                }
+            }
+
+            @media (max-width: 590px) {
+                margin-right: rem(12px);
+                padding: rem(6px) rem(9px);
             }
         }
     }

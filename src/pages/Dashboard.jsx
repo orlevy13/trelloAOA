@@ -191,10 +191,18 @@ class _Dashboard extends Component {
                     <ArrowBackIosOutlinedIcon className="icon" />
                     <span>Back</span>
                 </div>
-                <div className="dashboard-stats">
-                    <span>Total Cards: {boardStats.cardsCount ? boardStats.cardsCount : 0}</span>
-                    <span>Unassigned Cards: {boardStats.unassigned ? boardStats.unassigned : 0}</span>
-                    <span>Added Today: {boardStats.addedToday ? boardStats.addedToday : 0}</span>
+                <div className="dashboard-stats flex justify-center">
+                    <div className="data-preview flex column justify-center">
+                        <span className="number">{boardStats.cardsCount ? boardStats.cardsCount : 0}</span>
+                        <span className="data-desc">Total Cards</span></div>
+                    <div className="data-preview flex column justify-center">
+                        <span className="number">{boardStats.unassigned ? boardStats.unassigned : 0}</span>
+                        <span className="data-desc">Unassigned Cards</span>
+                    </div>
+                    <div className="data-preview flex column justify-center">
+                        <span className="number">{boardStats.addedToday ? boardStats.addedToday : 0}</span>
+                        <span className="data-desc">Added Today</span>
+                    </div>
                 </div>
                 <section className="chart-cont flex column justify-center align-center">
                     <article className="chart sprint-progress flex justify-center column align-center">
