@@ -170,7 +170,6 @@ class _Dashboard extends Component {
 
             }]
         };
-
     }
 
     goBack = () => {
@@ -187,7 +186,7 @@ class _Dashboard extends Component {
 
             <div className="dashboard grow">
                 <div className="btn-back flex space-between align-center" onClick={this.goBack} >
-                    <ArrowBackIosOutlinedIcon />
+                    <ArrowBackIosOutlinedIcon className="icon" />
                     <span>Back</span>
                 </div>
                 <section className="chart-cont flex column justify-center align-center">
@@ -213,6 +212,9 @@ class _Dashboard extends Component {
                                         beginAtZero: true
                                     }
                                 }]
+                            },
+                            legend: {
+                                display: false
                             }
                         }} />
                     </article>
@@ -238,6 +240,9 @@ class _Dashboard extends Component {
                                         beginAtZero: true
                                     }
                                 }]
+                            },
+                            legend: {
+                                display: false
                             }
                         }} />
                     </article>
