@@ -184,7 +184,6 @@ class _Card extends Component {
 
         return (
             <section>
-                {/* <div onClick={() => { this.props.setCard(null) }} className="card-modal" > */}
                 <div onClick={() => {
                     history.push(`/board/${this.props.board._id}`);
                     this.props.setCard(null);

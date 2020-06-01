@@ -196,7 +196,6 @@ class _Board extends Component {
                     <PhaseList filteredByUser={filteredByUser} />
                 </section>
                 {this.props.card && <Card cardId={this.props.card.id} />}
-                {/* {this.props.card && <Card cardId={this.props.card.id} />} */}
             </main>
         )
     }
