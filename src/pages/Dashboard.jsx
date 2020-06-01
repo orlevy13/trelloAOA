@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { history } from '../history'
 import { loadBoard, } from '../store/actions/boardActions';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+import { boardService } from '../services/boardService';
 
 const bgColors =
     [
@@ -170,7 +171,6 @@ class _Dashboard extends Component {
 
             }]
         };
-
     }
 
     goBack = () => {
@@ -181,14 +181,28 @@ class _Dashboard extends Component {
         if (!this.props.board) return 'loading';
         const tPerDevloper = this.getTasksPerDevloperData();
         const taskPerPhaseDistribution = this.getTaskPerPhaseDistribution();
-        const tasksByLabels = this.getTaskByLables()
+        const tasksByLabels = this.getTaskByLables();
         const sprintProgress = this.getSprintProgress();
+        const boardStats = boardService.getBoardStats(this.props.board);
         return (
 
             <div className="dashboard grow">
                 <div className="btn-back flex space-between align-center" onClick={this.goBack} >
-                    <ArrowBackIosOutlinedIcon />
+                    <ArrowBackIosOutlinedIcon className="icon" />
                     <span>Back</span>
+                </div>
+                <div className="dashboard-stats flex justify-center">
+                    <div className="data-preview flex column justify-center">
+                        <span className="number">{boardStats.cardsCount ? boardStats.cardsCount : 0}</span>
+                        <span className="data-desc">Total Cards</span></div>
+                    <div className="data-preview flex column justify-center">
+                        <span className="number">{boardStats.unassigned ? boardStats.unassigned : 0}</span>
+                        <span className="data-desc">Unassigned Cards</span>
+                    </div>
+                    <div className="data-preview flex column justify-center">
+                        <span className="number">{boardStats.addedToday ? boardStats.addedToday : 0}</span>
+                        <span className="data-desc">Added Today</span>
+                    </div>
                 </div>
                 <section className="chart-cont flex column justify-center align-center">
                     <article className="chart sprint-progress flex justify-center column align-center">
@@ -213,6 +227,9 @@ class _Dashboard extends Component {
                                         beginAtZero: true
                                     }
                                 }]
+                            },
+                            legend: {
+                                display: false
                             }
                         }} />
                     </article>
@@ -238,6 +255,9 @@ class _Dashboard extends Component {
                                         beginAtZero: true
                                     }
                                 }]
+                            },
+                            legend: {
+                                display: false
                             }
                         }} />
                     </article>
