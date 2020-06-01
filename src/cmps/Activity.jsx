@@ -13,7 +13,7 @@ class _Activity extends React.Component {
         var userElmemnt = null;
         var elmentType = null;
         if (desc) {
-            userElmemnt = <a className="activity-user" href={`/user/${user._id}`} target="_blank" rel="noopener noreferrer">{user.fullName}</a>;
+            userElmemnt = <span className="activity-object">{user.fullName}</span>;
 
             return (
                 <div className="activity flex">
@@ -30,7 +30,7 @@ class _Activity extends React.Component {
 
             if (!user) return <div style={{ "display": "none" }}>stam</div>
 
-            userElmemnt = <a className="activity-user" href={`/user/${user._id}`} target="_blank" rel="noopener noreferrer">{user.fullName}</a>;
+            userElmemnt = <span className="activity-object" >{user.fullName}</span>;
 
             elmentType = <span onClick={this.OpenByObjectType} className="activity-object" >{object.title}</span>;
 
