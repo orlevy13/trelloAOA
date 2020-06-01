@@ -87,10 +87,9 @@ export class _PhaseList extends Component {
         const boardCopy = boardService.getBoardCopy(this.props.board);
         const newPhase = boardService.getNewPhase(this.state.newListName);
         boardCopy.phaseLists.push(newPhase);
+        this.setState({ newListName: '' })
         await this.props.updateBoard(boardCopy);
-        this.setState({ newListName: '' }, () => {
-            this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
-        });
+        this.listForm.scrollIntoView({ inline: 'end', behavior: 'smooth' });
     }
 
     onDragEnd = result => {

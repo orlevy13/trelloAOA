@@ -18,6 +18,7 @@ import { DueDateEdit } from './DueDateEdit';
 import moment from 'moment';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { CardImage } from './CardImage';
+import { history } from '../history';
 // import { CardAttachments } from './CardAttachments';
 
 
@@ -76,7 +77,10 @@ class _Card extends Component {
         const { isLabelEditShown, isMembersEditShown, isDueDateEditShown } = this.state;
         if (ev.code === 'Escape' && !isLabelEditShown
             && !isMembersEditShown && !isDueDateEditShown
-        ) this.props.setCard(null);
+        ) {
+            this.props.setCard(null);
+            history.push(`/board/${this.props.board._id}`);
+        }
     }
 
 
@@ -108,52 +112,37 @@ class _Card extends Component {
 
     removeMemberFromCard = (member) => {
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const cardId = this.props.card.id;
-
-        // Getting the access to the card members inside the board
-        const phaseIdx = this.getPhaseIdxByCardId(cardId);
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        const card = boardCopy.phaseLists[phaseIdx].cards[cardIdx];
-
-        //Removing the member from the card
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
         card.assignedTo = card.assignedTo.filter(mmbr => mmbr._id !== member._id);
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx] = card;
-        this.props.updateBoard(boardCopy);
+        //Changed the card
+        const updatedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(updatedBoard);//Updated the board
     }
 
     changeDueDate = newDate => {
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const cardId = this.props.card.id;
-        const phaseIdx = this.getPhaseIdxByCardId(cardId);
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        //Getting access to the card inside the board
-
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx].dueDate = newDate;
-        this.props.updateBoard(boardCopy);
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
+        card.dueDate = newDate;//Changed the card
+        const updatedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(updatedBoard);
     }
 
     removeImgUrl = () => {
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const cardId = this.props.card.id;
-        const phaseIdx = this.getPhaseIdxByCardId(cardId);
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        //Getting access to the card inside the board
-
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx].imgUrl = null;
-        this.props.updateBoard(boardCopy);
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
+        card.imgUrl = null;
+        const upadtedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(upadtedBoard);
     }
 
     onUploadImg = async (ev) => {
         this.setState({ isImgLoading: true });
         const imgUrl = await cloudinaryService.uploadImg(ev);
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const cardId = this.props.card.id;
-        const phaseIdx = this.getPhaseIdxByCardId(cardId);
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        //Getting access to the card inside the board
-
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx].imgUrl = imgUrl;
-        this.props.updateBoard(boardCopy);
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
+        card.imgUrl = imgUrl;
+        const upadtedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(upadtedBoard);
         this.setState({ isImgLoading: false });
     }
 
@@ -177,13 +166,12 @@ class _Card extends Component {
 
     removeCard = () => {
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const cardId = this.props.card.id;
-        const phaseIdx = this.getPhaseIdxByCardId(cardId);
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+        const phaseIdx = this.getPhaseIdxByCardId(this.props.card.id);
+        const cardIdx = boardService.getCardIdxById(boardCopy, phaseIdx, this.props.card.id);
         //Getting access to the card inside the board
-
         boardCopy.phaseLists[phaseIdx].cards.splice(cardIdx, 1);
-        this.props.setCard(null)
+        this.props.setCard(null);
+        history.push(`/board/${this.props.board._id}`);
         this.props.updateBoard(boardCopy);
     }
 
@@ -196,7 +184,11 @@ class _Card extends Component {
 
         return (
             <section>
-                <div onClick={() => { this.props.setCard(null) }} className="card-modal" >
+                {/* <div onClick={() => { this.props.setCard(null) }} className="card-modal" > */}
+                <div onClick={() => {
+                    history.push(`/board/${this.props.board._id}`);
+                    this.props.setCard(null);
+                }} className="card-modal" >
                     <div onClick={(ev) => ev.stopPropagation()} className="card-container" >
                         <div className="card-img-container flex justify-center">
                             <CardImage isImgLoading={isImgLoading} loadingMsg={this.state.loadingMsg} imgUrl={imgUrl}
@@ -293,7 +285,7 @@ const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board,
         card: state.trelloApp.card,
-        user:  state.trelloUser.user
+        user: state.trelloUser.user
     }
 }
 

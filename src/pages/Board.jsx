@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { loadBoard, updateBoard } from '../store/actions/boardActions';
+import { loadBoard, updateBoard, setCard } from '../store/actions/boardActions';
 // import { queryUsers } from '../store/actions/userActions'
 import { connect } from 'react-redux';
 import { PhaseList } from '../cmps/PhaseList';
@@ -40,14 +40,34 @@ class _Board extends Component {
         // isMembersEditShown: false //TODO LATER WHEN ADD USER TO BOARD
     }
 
-    componentDidMount() {
-        this.getBoardById();
+    async componentDidMount() {
+        await this.getBoardById();
         this.openSocket();
+        if (this.props.match.params.cardId && this.props.board) {
+            const cardId = this.props.match.params.cardId;
+            const card = boardService.getCardById(this.props.board, cardId);
+            this.props.setCard(card);
+        } else this.props.setCard(null);
+    }
+
+    componentDidUpdate(prevProps) {
+        if ((JSON.stringify(prevProps.match.params) !== JSON.stringify(this.props.match.params))
+            && this.props.board) {
+            if (this.props.match.params.cardId) {
+                this.loadCardById(this.props.match.params.cardId);
+            }
+        }
     }
 
     componentWillUnmount() {
         socketService.off('board updated', this.getBoardById);
         socketService.terminate();
+    }
+
+    loadCardById = () => {
+        const cardId = this.props.match.params.cardId;
+        const card = boardService.getCardById(this.props.board, cardId);
+        this.props.setCard(card);
     }
 
     openSocket = () => {
@@ -57,7 +77,6 @@ class _Board extends Component {
         socketService.on('board updated', this.getBoardById)
 
     }
-
 
     getBoardById = async () => {
         const id = this.props.match.params.id;
@@ -96,12 +115,12 @@ class _Board extends Component {
 
         let boardClone = JSON.parse(JSON.stringify(this.props.board));
         const nameBeforeChange = this.state.boardName;
-        if (!this.state.boardName.trim()) return this.toggleTitleEdit();
+        if (!this.state.boardName.trim()) return this.toggleProperty('isTitleOnEdit');
         boardService.addActivity(boardClone, this.props.user, OPERETIONS.UPDATE, TYPES.BOARD, { id: this.props.board._id, title: this.props.board.name },
             `the name of the board from ${nameBeforeChange} to ${this.state.boardName}`);
         boardClone.name = this.state.boardName;
         this.props.updateBoard(boardClone);
-        this.toggleTitleEdit();
+        this.toggleProperty('isTitleOnEdit');
     }
     handleKeyPress(e) {
         if (e.keyCode === 13) {
@@ -116,13 +135,9 @@ class _Board extends Component {
         await this.setState({ filteredByUser: name })
     }
 
-    toggleTitleEdit = () => {
-        this.setState(prevState => ({ isTitleOnEdit: !prevState.isTitleOnEdit }))
-    }
-
     AddUserToBoard = async () => {
         await this.props.queryUsers();
-        this.toggleProperty("isMembersEditShown");
+        this.toggleProperty('isMembersEditShown');
     }
 
     toggleProperty = property => {
@@ -143,7 +158,7 @@ class _Board extends Component {
             (!board) ? 'loading' : <main style={boardBg} className="board flex column grow">
                 <section className="board-nav flex space-between align-center">
                     <div className="board-nav-controls flex align-center wrap">
-                        {!isTitleOnEdit && <h4 onClick={this.toggleTitleEdit}
+                        {!isTitleOnEdit && <h4 onClick={() => { this.toggleProperty('isTitleOnEdit') }}
                             className="board-title">{board.name}</h4>}
                         {isTitleOnEdit && <input className="board-title grow" type="text" name="txt"
                             onChange={(e) => this.handleNameChange(e)} spellCheck="false" autoFocus
@@ -181,6 +196,7 @@ class _Board extends Component {
                     <PhaseList filteredByUser={filteredByUser} />
                 </section>
                 {this.props.card && <Card cardId={this.props.card.id} />}
+                {/* {this.props.card && <Card cardId={this.props.card.id} />} */}
             </main>
         )
     }
@@ -198,6 +214,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     loadBoard,
     updateBoard,
+    setCard
     //queryUsers //TODO LATER WHEN ADD USER TO BOARD
 
 }

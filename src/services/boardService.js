@@ -115,7 +115,7 @@ function getNewLabel({ txt, color }) {
         color,
         id: makeId(),
     }
-} 
+}
 
 function makeId(length = 5) {
     var txt = '';
@@ -124,6 +124,27 @@ function makeId(length = 5) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return txt;
+}
+
+function getPhaseIdxByCardId(board, cardId) {
+    return board.phaseLists.findIndex(phase => phase.cards.some(card => card.id === cardId))
+}
+
+function getCardIdxById(board, phaseIdx, cardId) {
+    return board.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
+}
+
+function getCardById(board, cardId) {
+    const phaseIdx = getPhaseIdxByCardId(board, cardId);
+    const cardIdx = getCardIdxById(board, phaseIdx, cardId);
+    return board.phaseLists[phaseIdx].cards[cardIdx];
+}
+
+function replaceCardInBoard(board, modifiedCard) {
+    const phaseIdx = getPhaseIdxByCardId(board, modifiedCard.id);
+    const cardIdx = getCardIdxById(board, phaseIdx, modifiedCard.id);
+    board.phaseLists[phaseIdx].cards[cardIdx] = modifiedCard;
+    return board;
 }
 
 export const boardService = {
@@ -140,6 +161,9 @@ export const boardService = {
     addActivity,
     createNewBoard,
     getNewLabel,
-    
+    getPhaseIdxByCardId,
+    getCardIdxById,
+    getCardById,
+    replaceCardInBoard
 
 }

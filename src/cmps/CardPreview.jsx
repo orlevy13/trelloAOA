@@ -9,6 +9,7 @@ import { DueBadge } from './DueBadge';
 import { MemberInitials } from './MemberInitials';
 import { CardMenu } from './CardMenu';
 import { boardService } from '../services/boardService';
+import { history } from '../history';
 
 
 class _CardPreview extends React.Component {
@@ -57,7 +58,10 @@ class _CardPreview extends React.Component {
                         <NaturalDragAnimation style={provided.draggableProps.style} snapshot={snapshot}>
                             {style => (
                                 <section onContextMenu={toggleIsMenuShown}
-                                    onClick={() => { this.props.setCard(this.props.card) }}
+                                    onClick={() => {
+                                        history.push(`/board/${this.props.board._id}/${this.props.card.id}`)
+                                    }}
+                                    // onClick={() => { this.props.setCard(this.props.card) }}
                                     className="card-preview flex column"
                                     {...provided.draggableProps} {...provided.dragHandleProps}
                                     ref={provided.innerRef} style={style}>

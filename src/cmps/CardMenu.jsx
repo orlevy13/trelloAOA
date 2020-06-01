@@ -62,45 +62,30 @@ export class _CardMenu extends Component {
     }
 
     onDelete = () => {
-        const { id } = this.props.card;//getting the id and boardCopy
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const phaseIdx = this.getPhaseIdxByCardId(id);
-        //getting the phaseIdx to edit his cards
-
-        boardCopy.phaseLists[phaseIdx].cards =
-            boardCopy.phaseLists[phaseIdx].cards.filter(card => card.id !== id);
-        //filtering out the deleted card
+        const phaseIdx = this.getPhaseIdxByCardId(this.props.card.id);
+        const cardIdx = boardService.getCardIdxById(boardCopy, phaseIdx, this.props.card.id);
+        boardCopy.phaseLists[phaseIdx].cards.splice(cardIdx, 1);
         this.props.updateBoard(boardCopy);
         this.props.toggleIsMenuShown();//Closing the menu
     }
 
     onChangeTitle = () => {
         if (!this.state.card.title.trim()) return;
-        const { id } = this.props.card;
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const phaseIdx = this.getPhaseIdxByCardId(id);
-        //Getting access to the card inside the board
-
-        boardCopy.phaseLists[phaseIdx].cards.filter(card => {
-            if (card.id !== id) return card;
-            else {
-                card.title = this.state.card.title;
-                return card;
-            }
-        });
-        this.props.updateBoard(boardCopy);
-        this.props.toggleIsMenuShown();//Closing the menu
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
+        card.title = this.state.card.title;//Changed the card
+        const upadtedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(upadtedBoard);
+        this.props.toggleIsMenuShown();//Saving card, closing menu
     }
 
     changeDueDate = newDate => {
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const cardId = this.props.card.id;
-        const phaseIdx = this.getPhaseIdxByCardId(cardId);
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        //Getting access to the card inside the board
-
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx].dueDate = newDate;
-        this.props.updateBoard(boardCopy);
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
+        card.dueDate = newDate;//Changed the card
+        const updatedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(updatedBoard);
     }
 
     toggleProperty = property => {

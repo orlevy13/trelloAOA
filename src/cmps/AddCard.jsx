@@ -34,8 +34,8 @@ export class _AddCard extends Component {
         boardCopy.phaseLists[phaseIdx].cards.push(newCard);
         boardService.addActivity(boardCopy, this.props.user, OPERETIONS.ADD, TYPES.CARD, { id: newCard.id, title: newCard.title });
 
-        await this.props.updateBoard(boardCopy);//async await is for the scroll
         this.setState({ card: { title: '' } });
+        await this.props.updateBoard(boardCopy);//async await is for the scroll
         this.props.bottomCard.scrollIntoView({ behavior: 'smooth' });
     }
 

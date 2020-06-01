@@ -52,9 +52,8 @@ class _Dashboard extends Component {
 
     componentDidMount() {
         this.getBoardById();
-
-
     }
+
     getBoardById = async () => {
         const id = this.props.match.params.id;
         await this.props.loadBoard(id);
@@ -176,7 +175,6 @@ class _Dashboard extends Component {
 
     goBack = () => {
         history.push(`/board/${this.props.match.params.id}`);
-
     }
 
     render() {

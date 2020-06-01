@@ -47,8 +47,7 @@ export class _PhasePreview extends Component {
         ev.preventDefault();
         if (!this.state.newPhaseName.trim()) return;
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const { id } = this.props.phase;
-        const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === id);
+        const phaseIdx = boardCopy.phaseLists.findIndex(phase => phase.id === this.props.phase.id);
         boardCopy.phaseLists[phaseIdx].name = this.state.newPhaseName;
         this.props.updateBoard(boardCopy);
         this.toggleInputShown();

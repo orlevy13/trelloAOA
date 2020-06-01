@@ -12,20 +12,14 @@ class _CardAttachments extends Component {
     deleteAttachment = (idx, ev) => {
         ev.preventDefault();
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const card = this.props.card;
-        const cardId = card.id;
-        const phaseIdx = this.getPhaseIdxByCardId(cardId);
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx].attachments.splice(idx, 1);
-        boardService.addActivity(boardCopy, this.props.user, OPERETIONS.DELETE, TYPES.CARD, { id: cardId, title: card.title },
-            `attachment to card`);
-        this.props.updateBoard(boardCopy);
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
+        card.attachments.splice(idx, 1);
+        boardService.addActivity(boardCopy, this.props.user, OPERETIONS.DELETE, TYPES.CARD,
+            { id: cardId, title: card.title }, `attachment to card`);
+        const upadtedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(upadtedBoard);
     }
 
-    getPhaseIdxByCardId = (cardId) => {
-        return this.props.board.phaseLists.findIndex(phase =>
-            phase.cards.some(card => card.id === cardId))
-    }
     render() {
 
         const { attachments } = this.props.card;
@@ -62,7 +56,7 @@ class _CardAttachments extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.trelloApp.board,
-        user:  state.trelloUser.user
+        user: state.trelloUser.user
     }
 }
 

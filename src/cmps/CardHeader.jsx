@@ -56,7 +56,8 @@ class _CardHeader extends Component {
     }
 
     backToboard = () => {
-        history.push(`/board/${this.props.board._id}`)
+        this.props.setCard(null);
+        history.push(`/board/${this.props.board._id}`);
     }
 
     render() {
@@ -73,10 +74,10 @@ class _CardHeader extends Component {
                     onBlur={this.handleSaveBoard} placeholder="Title..." autoCorrect="false"
                     onChange={this.handleChange} value={txt} />}
             </div>
-            <button className="close-btn" onClick={() => { this.props.setCard(null) }}>
+            <button className="close-btn" onClick={this.backToboard}>
                 <Clear className="close-icon" /></button>
             <p className="card-link">in list <span
-                onClick={() => { this.props.setCard(null) }}>{onPhase}</span></p>
+                onClick={this.backToboard}>{onPhase}</span></p>
         </div>
         )
     }

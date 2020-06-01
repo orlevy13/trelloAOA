@@ -30,22 +30,15 @@ export class _MembersEdit extends Component {
 
     toggleMemberOnCard = (member) => {
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const cardId = this.props.card.id;
-
-        // Getting the access to the card members inside the board
-        const phaseIdx = boardCopy.phaseLists.findIndex(phase =>
-            phase.cards.some(card => card.id === cardId)
-        )
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        const card = boardCopy.phaseLists[phaseIdx].cards[cardIdx];
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
 
         //Checking if the member is assigned or not and flip it
         if (card.assignedTo.some(mmbr => mmbr._id === member._id)) {
             card.assignedTo = card.assignedTo.filter(mmbr => mmbr._id !== member._id);
         } else card.assignedTo.push(member);
 
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx] = card;
-        this.props.updateBoard(boardCopy);
+        const updatedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(updatedBoard);
     }
 
     render() {

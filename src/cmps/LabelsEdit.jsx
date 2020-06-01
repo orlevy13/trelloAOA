@@ -38,7 +38,7 @@ class _LabelsEdit extends Component {
         }));
     }
 
-    saveLabel = async (ev) => {
+    saveLabel = (ev) => {
         ev.preventDefault();
         const editedLabel = this.state.editLabel;
         const boardCopy = boardService.getBoardCopy(this.props.board);
@@ -47,28 +47,21 @@ class _LabelsEdit extends Component {
             if (label.id === editedLabel.id) return editedLabel;
             return label;
         })
-        await this.props.updateBoard(boardCopy);// The await might be neccessary when working with DB
         this.toggleEditMode();
+        this.props.updateBoard(boardCopy);
     }
 
     toggleLabelOnCard = (label) => {
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const cardId = this.props.card.id;
-
-        // Getting the access to the card labels inside the board
-        const phaseIdx = boardCopy.phaseLists.findIndex(phase =>
-            phase.cards.some(card => card.id === cardId)
-        )
-        const cardIdx = boardCopy.phaseLists[phaseIdx].cards.findIndex(card => card.id === cardId);
-        const card = boardCopy.phaseLists[phaseIdx].cards[cardIdx];
+        const card = boardService.getCardById(boardCopy, this.props.card.id);
 
         //Checking if the card has the label or not and flip it
         if (card.labels.some(lbl => lbl.id === label.id)) {
             card.labels = card.labels.filter(lbl => lbl.id !== label.id);
         } else card.labels.push(label);
-
-        boardCopy.phaseLists[phaseIdx].cards[cardIdx] = card;
-        this.props.updateBoard(boardCopy);
+        
+        const updatedBoard = boardService.replaceCardInBoard(boardCopy, card);
+        this.props.updateBoard(updatedBoard);//Updated the board
     }
 
     toggleIsAddLabelShown = () => {

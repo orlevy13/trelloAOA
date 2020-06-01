@@ -17,7 +17,7 @@ export function App() {
         <MainNav />
         <Switch>
           <Route path="/" component={Home} exact />
-          <Route path="/board/:id" component={Board} exact />
+          <Route path="/board/:id/:cardId?" component={Board} exact />
           <Route path="/login" component={SignIn} exact />
           <Route path="/signup" component={SignUp} exact />
           <Route path="/board/:boardId/card/:cardId" component={Card} exact />

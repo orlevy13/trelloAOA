@@ -3,6 +3,7 @@ import moment from 'moment';
 import { updateBoard, setCard } from '../store/actions/boardActions';
 import { connect } from 'react-redux';
 import { MemberInitials } from '../cmps/MemberInitials';
+import { history } from '../history';
 class _Activity extends React.Component {
 
     dynamicActivity = (activity) => {
@@ -59,6 +60,7 @@ class _Activity extends React.Component {
             if (!card) return;
             this.props.onCloseMenu(null);
             this.props.setCard(card);
+            history.push(`/board/${this.props.board._id}/${card.id}`);
         }
     }
 
