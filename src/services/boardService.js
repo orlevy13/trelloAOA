@@ -147,6 +147,29 @@ function replaceCardInBoard(board, modifiedCard) {
     return board;
 }
 
+function getBoardStats(board) {
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+    const stats = board.phaseLists.reduce((acc, phase) => {
+        if (phase.cards.length) {
+            phase.cards.forEach(card => {
+                if (acc.cardsCount) acc.cardsCount++;
+                else acc.cardsCount = 1;
+                if (!card.assignedTo.length) {
+                    if (acc.unassigned) acc.unassigned++;
+                    else acc.unassigned = 1;
+                }
+                if ((Date.now() - card.createdAt) < ONE_DAY) {
+                    if (acc.addedToday) acc.addedToday++;
+                    else acc.addedToday = 1;
+                }
+
+            })
+        }
+        return acc;
+    }, {})
+    return stats;
+}
+
 export const boardService = {
     query,
     getById,
@@ -164,6 +187,7 @@ export const boardService = {
     getPhaseIdxByCardId,
     getCardIdxById,
     getCardById,
-    replaceCardInBoard
+    replaceCardInBoard,
+    getBoardStats
 
 }

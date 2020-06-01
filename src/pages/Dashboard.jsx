@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { history } from '../history'
 import { loadBoard, } from '../store/actions/boardActions';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
+import { boardService } from '../services/boardService';
 
 const bgColors =
     [
@@ -180,14 +181,20 @@ class _Dashboard extends Component {
         if (!this.props.board) return 'loading';
         const tPerDevloper = this.getTasksPerDevloperData();
         const taskPerPhaseDistribution = this.getTaskPerPhaseDistribution();
-        const tasksByLabels = this.getTaskByLables()
+        const tasksByLabels = this.getTaskByLables();
         const sprintProgress = this.getSprintProgress();
+        const boardStats = boardService.getBoardStats(this.props.board);
         return (
 
             <div className="dashboard grow">
                 <div className="btn-back flex space-between align-center" onClick={this.goBack} >
                     <ArrowBackIosOutlinedIcon className="icon" />
                     <span>Back</span>
+                </div>
+                <div className="dashboard-stats">
+                    <span>Total Cards: {boardStats.cardsCount ? boardStats.cardsCount : 0}</span>
+                    <span>Unassigned Cards: {boardStats.unassigned ? boardStats.unassigned : 0}</span>
+                    <span>Added Today: {boardStats.addedToday ? boardStats.addedToday : 0}</span>
                 </div>
                 <section className="chart-cont flex column justify-center align-center">
                     <article className="chart sprint-progress flex justify-center column align-center">
