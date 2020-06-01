@@ -15,7 +15,7 @@ export function MemberEdit(props) {
     const initials = firstLastName.map(str => str.charAt(0)).join('').slice(0, 2);
 
     return (
-        <div onClick={(ev) => { toggleMember(ev, member) }}
+        <div onClick={(ev) => toggleMember(member, ev)}
             className="member-item flex align-center">
             {!member.img && <div className="initials"><span>{initials}</span></div>}
             {member.img && <span style={{ "backgroundImage": "url(" + member.img + ")" }}

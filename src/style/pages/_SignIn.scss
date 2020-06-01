@@ -28,8 +28,14 @@
     .signin-password {
         grid-area: password;
     }
+    
 }
 
 .sign-in-submit-btn {
     grid-area: submit-btn;
 }
+.error-login {
+    font-size: rem(12px);
+    color: red;
+}
+

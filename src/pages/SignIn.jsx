@@ -11,7 +11,8 @@ class _SignIn extends Component {
             email: '',
             password: ''
         },
-        msg: ''
+        msg: '',
+        error: ''
     }
 
     loginHandleChange = ev => {
@@ -34,10 +35,12 @@ class _SignIn extends Component {
         } else {
             const userCreds = { email, password };
             try {
+                this.setState({error: ''})
                 this.props.login(userCreds);
             }
-            catch (err) {
-                console.log(err);
+            catch (error) {
+                this.setState({ error });
+
             }
             this.setState({ loginCred: { email: '', password: '' }, msg: '' }, () => { this.props.history.push('/boards') });
 
@@ -88,7 +91,7 @@ class _SignIn extends Component {
 
 
                 </form>
-
+                {this.state.error &&<span className="error-login">{this.state.error}</span>}
 
                 <a href="/signUp" className="sign-in-link">
                     Dont have an account? Sign Up

@@ -38,8 +38,11 @@ async function logout() {
 }
 
 async function signup(userCred) {
-    const user = await httpService.post('auth/signup', userCred)
-    return _handleLogin(user)
+
+    const user = await httpService.post('auth/signup', userCred);
+    return user;
+
+
 }
 
 async function update(updateuser) {

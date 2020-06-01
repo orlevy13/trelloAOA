@@ -130,9 +130,8 @@ class _Board extends Component {
     }
 
     toggleProperty = (property, ev) => {
-
         if (ev) ev.stopPropagation();
-        console.trace('stacktrace');
+        if (ev.target.className === 'search-name') return;
         this.setState(prevState => ({ [property]: !prevState[property] }));
     }
 

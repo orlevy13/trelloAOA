@@ -22,6 +22,7 @@
             "submit-btn";
         margin: rem(40px) rem(30px) 0 rem(30px);
     }
+    
 }
 
 .signup-full-name {
@@ -45,3 +46,8 @@
     width: rem(300px);
     margin: rem(50px) auto rem(20px) auto;
 }
+.error-login {
+    font-size: rem(12px);
+    color: red;
+}
+

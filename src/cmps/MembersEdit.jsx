@@ -32,8 +32,9 @@ export class _MembersEdit extends Component {
         this.setState({ name: target.value });
     }
 
-    toggleMember = (ev, member) => {
-        ev.stopPropagation()
+    toggleMember = (member, ev) => {
+        console.log('here');
+        ev.stopPropagation();
         const boardCopy = boardService.getBoardCopy(this.props.board);
         if (this.props.members) {
             const card = boardService.getCardById(boardCopy, this.props.card.id);
@@ -68,8 +69,10 @@ export class _MembersEdit extends Component {
         else {
             //from borard
             activeObject = board;
-            membersToDisplay = this.props.users;
             activeObjectName = 'board'
+            membersToDisplay = this.props.users.filter(mmbr =>
+                mmbr.fullName.toLowerCase().includes(name.toLowerCase()));
+
 
         }
         if (!membersToDisplay) return ' '
@@ -77,7 +80,7 @@ export class _MembersEdit extends Component {
 
 
         return (
-            <section className="edit-members" >
+            <section className="edit-members"  >
                 <div className="edit-members-header flex align-center">
                     <p className="grow">Members</p>
                     <button onClick={(ev) => { toggleProperty('isMembersEditShown', ev) }}><Clear /></button>
@@ -86,7 +89,7 @@ export class _MembersEdit extends Component {
                     type="search" name="name" value={name} placeholder="Search members" />
                 <div className="members-gallery">
                     {membersToDisplay && membersToDisplay.map(member =>
-                        <MemberEdit toggleMember={(ev) => this.toggleMember(ev, member)} activeObject={activeObject}
+                        <MemberEdit toggleMember={this.toggleMember} activeObject={activeObject}
                             activeObjectName={activeObjectName} key={member._id} member={member} />)}
                 </div>
 

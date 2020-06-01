@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 class _SignUp extends Component {
     state = {
         msg: '',
+        error: '',
         signupCred: {
             email: '',
             password: '',
@@ -32,9 +33,17 @@ class _SignUp extends Component {
             return this.setState({ msg: 'All inputs are required!' });
         }
         const signupCreds = { email, password, fullName };
-        this.props.signup(signupCreds);
-        this.setState({ signupCred: { email: '', password: '', fullName: '' } });
-        this.props.history.push('/login');
+        try {
+            this.setState({ error: '' })
+            await this.props.signup(signupCreds);
+            this.setState({ signupCred: { email: '', password: '', fullName: '' } });
+            this.props.history.push('/login');
+        } catch (error) {
+            console.log('error: ', error);
+            this.setState({ error });
+        }
+
+
     };
 
 
@@ -92,11 +101,10 @@ class _SignUp extends Component {
                         Sign Up
                     </Button>
                 </form>
+                {this.state.error && <span className="error-login">{this.state.error}</span>}
 
 
-                {/* <a  className="sign-in-link">
-                    Already have an account? Sign in
-                    </a> */}
+
             </main >
         )
     }
