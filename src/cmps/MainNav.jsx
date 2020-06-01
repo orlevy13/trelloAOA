@@ -7,6 +7,7 @@ import { history } from '../history'
 import { connect } from 'react-redux';
 import { loadBoard, updateBoard, addBoard } from '../store/actions/boardActions';
 import { logout, login } from '../store/actions/userActions'
+const DEFAULT_USER_ID = "5ed4fd7181471d4e7041dcbe"
 
 class _MainNav extends Component {
 
@@ -121,13 +122,13 @@ class _MainNav extends Component {
                             <button className="create-board-btn" onClick={this.createNewBoard} >Create a new Board</button>
                         </div>
                     </div>}
-                    {(user && user.fullName !== "Guest") &&
+                    {(user && user._id !== DEFAULT_USER_ID) &&
                         <div className="logout-btn btn-main-nav flex align-center">
                             <span className="btn-text" onClick={this.props.logout}>Logout</span>
                         </div>}
                     {(user) && <span className="logged-in flex align-center"><MemberInitials member={user} /></span>}
 
-                    {user && user.fullName === "Guest" && <div className="login-btn btn-main-nav flex align-center">
+                    {user && user._id === DEFAULT_USER_ID && <div className="login-btn btn-main-nav flex align-center">
                         <Link to="/login"> <span className="btn-text">Login</span></Link>
                     </div>}
                 </nav>
