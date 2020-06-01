@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Clear } from '@material-ui/icons';
+import { queryUsers } from '../store/actions/userActions'
 import { MemberEdit } from './MemberEdit';
 import { boardService } from '../services/boardService';
 import { connect } from 'react-redux';
@@ -11,8 +12,11 @@ export class _MembersEdit extends Component {
         name: ''
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         window.addEventListener('keydown', this.hideMembersEdit);
+        if (!this.props.members) {
+            await this.props.queryUsers();
+        }
 
     }
 
@@ -21,54 +25,69 @@ export class _MembersEdit extends Component {
     }
 
     hideMembersEdit = (ev) => {
-        if (ev.code === 'Escape') this.props.toggleProperty('isMembersEditShown');
+        if (ev.code === 'Escape') this.props.toggleProperty('isMembersEditShown', ev);
     }
 
     handleChange = ({ target }) => {
         this.setState({ name: target.value });
     }
 
-    toggleMemberOnCard = (member) => {
+    toggleMember = (ev, member) => {
+        ev.stopPropagation()
         const boardCopy = boardService.getBoardCopy(this.props.board);
-        const card = boardService.getCardById(boardCopy, this.props.card.id);
+        if (this.props.members) {
+            const card = boardService.getCardById(boardCopy, this.props.card.id);
+            if (card.assignedTo.some(mmbr => mmbr._id === member._id)) {
+                card.assignedTo = card.assignedTo.filter(mmbr => mmbr._id !== member._id);
+            } else card.assignedTo.push(member);
+            const updatedBoard = boardService.replaceCardInBoard(boardCopy, card);
+            this.props.updateBoard(updatedBoard);
+        } else {
+            console.log('from board');
+            if (boardCopy.members.some(mmbr => mmbr._id === member._id)) {
+                boardCopy.members = boardCopy.members.filter(mmbr => mmbr._id !== member._id)
+            } else (boardCopy.members.push(member));
+            this.props.updateBoard(boardCopy);
+        }
 
-        //Checking if the member is assigned or not and flip it
-        if (card.assignedTo.some(mmbr => mmbr._id === member._id)) {
-            card.assignedTo = card.assignedTo.filter(mmbr => mmbr._id !== member._id);
-        } else card.assignedTo.push(member);
-
-        const updatedBoard = boardService.replaceCardInBoard(boardCopy, card);
-        this.props.updateBoard(updatedBoard);
     }
 
     render() {
-        const { members, toggleProperty, card } = this.props;
-        // const { users, board } = this.props; members  //TODO LATER WHEN ADD USER TO BOARD
-        // if (!members && !users) return 'loading!!!!';
+        const { members, toggleProperty, card, board } = this.props;
         const { name } = this.state;
-        // var membersToDisplay;
-        // if (!users) {
-        //     membersToDisplay = members.filter(mmbr =>
-        //         mmbr.fullName.toLowerCase().includes(name.toLowerCase()));  //TODO LATER WHEN ADD USER TO BOARD
-        // }
-        const membersToDisplay = members.filter(mmbr =>
-            mmbr.fullName.toLowerCase().includes(name.toLowerCase()));
+        var membersToDisplay;
+        var activeObject, activeObjectName;
+
+        if (members) {
+            //from card and exists in board
+            activeObject = card;
+            activeObjectName = 'card'
+            membersToDisplay = members.filter(mmbr =>
+                mmbr.fullName.toLowerCase().includes(name.toLowerCase()));
+        }
+        else {
+            //from borard
+            activeObject = board;
+            membersToDisplay = this.props.users;
+            activeObjectName = 'board'
+
+        }
+        if (!membersToDisplay) return ' '
+
+
 
         return (
             <section className="edit-members" >
                 <div className="edit-members-header flex align-center">
                     <p className="grow">Members</p>
-                    <button onClick={() => { toggleProperty('isMembersEditShown') }}><Clear /></button>
+                    <button onClick={(ev) => { toggleProperty('isMembersEditShown', ev) }}><Clear /></button>
                 </div>
                 <input className="search-name" onChange={this.handleChange} autoComplete="off"
                     type="search" name="name" value={name} placeholder="Search members" />
                 <div className="members-gallery">
-                    {members && membersToDisplay.map(member =>
-                        <MemberEdit toggleMemberOnCard={this.toggleMemberOnCard} card={card}
-                            key={member._id} member={member} />)}
-                    {/* {users && membersToDisplay.map(member =>
-                        <MemberEdit toggleMemberOnCard={this.toggleMemberOnCard} card={card} //board={board} //TODO LATER WHEN ADD USER TO BOARD
-                            key={member._id} member={member} />)} */}
+                    {membersToDisplay && membersToDisplay.map(member =>
+                        <MemberEdit toggleMember={(ev) => this.toggleMember(ev, member)} activeObject={activeObject}
+                            activeObjectName={activeObjectName} key={member._id} member={member} />)}
                 </div>
 
             </section>
@@ -78,12 +97,15 @@ export class _MembersEdit extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        board: state.trelloApp.board
+        board: state.trelloApp.board,
+        users: state.trelloUser.users
     }
 }
 
 const mapDispatchToProps = {
     updateBoard,
+    queryUsers
+
 }
 
 export const MembersEdit = connect(mapStateToProps, mapDispatchToProps)(_MembersEdit)

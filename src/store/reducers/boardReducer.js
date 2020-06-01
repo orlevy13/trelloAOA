@@ -17,22 +17,21 @@ export function boardReducer(state = initialState, action) {
                 ...state,
                 boards: action.boards
             }
-        case LOAD_BOARD:
-
+        case LOAD_BOARD:            
             return {
                 ...state,
-                board: { ...action.board }
+                board: action.board
             };
         case ADD_BOARD:
             return {
                 ...state,
                 board: action.board
             };
-        case UPDATE_BOARD:
+        case UPDATE_BOARD:            
             socketService.emit('board updated', action.board._id)
             return {
                 ...state,
-                board: { ...action.board }
+                board: action.board
             }
         case REMOVE_BOARD:
             return {
