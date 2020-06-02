@@ -161,7 +161,7 @@ class _Board extends Component {
                                 <MemberInitials key={member._id} member={member} />)}
                         </div>
                         <div className="add-member" onClick={(ev) => this.toggleProperty("isMembersEditShown", ev)}>
-                            <PersonAddOutlined className="icon" />
+                            <PersonAddOutlined className="add-icon" />
 
                             {isMembersEditShown && <MembersEdit board={this.props.board}
                                 toggleProperty={this.toggleProperty} />}
