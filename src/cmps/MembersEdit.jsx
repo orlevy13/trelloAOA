@@ -33,7 +33,6 @@ export class _MembersEdit extends Component {
     }
 
     toggleMember = (member, ev) => {
-        console.log('here');
         ev.stopPropagation();
         const boardCopy = boardService.getBoardCopy(this.props.board);
         if (this.props.members) {
@@ -44,7 +43,6 @@ export class _MembersEdit extends Component {
             const updatedBoard = boardService.replaceCardInBoard(boardCopy, card);
             this.props.updateBoard(updatedBoard);
         } else {
-            console.log('from board');
             if (boardCopy.members.some(mmbr => mmbr._id === member._id)) {
                 boardCopy.members = boardCopy.members.filter(mmbr => mmbr._id !== member._id)
             } else (boardCopy.members.push(member));

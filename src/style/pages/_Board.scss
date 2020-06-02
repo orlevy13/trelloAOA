@@ -116,6 +116,7 @@
             }
         }
     }
+
     .add-member {
         border-radius: 50%;
         display: inline-block;
@@ -133,6 +134,12 @@
 
         &:hover {
             background-color: #c1c7d0;
+        }
+
+        .icon {
+            font-size: 22px;
+            position: relative;
+            top: 2px;
         }
     }
 }
