@@ -2,7 +2,7 @@ let localLoggedinUser = null;
 const GUEST_USER = {
     "_id": "5ed4fd7181471d4e7041dcbe",
     "email": "guest@guest.co.il",
-    "fullName": "Guest Guest",
+    "fullName": "Guest",
     "img": "https://img.icons8.com/plasticine/2x/user.png"
 }
 
